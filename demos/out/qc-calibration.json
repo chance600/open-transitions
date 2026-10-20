@@ -1,0 +1,685 @@
+[
+  {
+    "clip": "link02-v2-reverb-wash",
+    "mode": "sides",
+    "duration_s": 66.33,
+    "window_s": [
+      31.22,
+      46.82
+    ],
+    "checks": [
+      {
+        "name": "beat_phase",
+        "status": "pass",
+        "score": 88.0,
+        "metrics": {
+          "beat_s": 0.4878,
+          "grid_offset_ms": 0.0,
+          "grid_basis": "build record",
+          "tail_grid": {
+            "tail_tempo_bpm": 126.05,
+            "tail_phase_dev_ms": 79.5,
+            "tail_ioi_cv": 0.008,
+            "tail_beats": 24
+          }
+        },
+        "note": "grid offset 0 ms between the sides (build record); B's tail steady on the grid: tempo 126.0 vs 123.0 BPM, beat regularity 0.01"
+      },
+      {
+        "name": "low_clash",
+        "status": "pass",
+        "score": 100.0,
+        "metrics": {
+          "excess_p90_db": -0.18,
+          "excess_mean_pos_db": 0.35,
+          "lows_contract": "free",
+          "deficit_p90_db": 7.06
+        },
+        "note": "low band in overlap runs -0.2 dB (p90) over the louder solo side \u2014 within summing tolerance"
+      },
+      {
+        "name": "loudness",
+        "status": "warn",
+        "score": 54.9,
+        "metrics": {
+          "max_bar_step_db": 3.53,
+          "bar_jitter_db": 1.22,
+          "max_dip_below_trend_db": 2.71,
+          "blend_sag_p75_db": 4.51
+        },
+        "note": "bar-to-bar: worst step 3.5 dB, jitter 1.2 dB, deepest dip 2.7 dB below local trend; sustained blend sag 4.5 dB under the louder side"
+      },
+      {
+        "name": "key_clash",
+        "status": "pass",
+        "score": 80.9,
+        "metrics": {
+          "side_rms_db": [
+            -14.0,
+            -19.2
+          ],
+          "chroma_similarity": {
+            "full": 0.931,
+            "a_melody_vs_b_bass": 0.755,
+            "a_bass_vs_b_melody": 0.855
+          },
+          "worst_pair": "a_melody_vs_b_bass"
+        },
+        "note": "weakest chroma agreement 0.75 (a_melody_vs_b_bass) \u2014 keys sit together"
+      },
+      {
+        "name": "vocal_collision",
+        "status": "pass",
+        "score": 93.3,
+        "metrics": {
+          "mid_presence_a": 0.171,
+          "mid_presence_b": 0.899,
+          "simultaneous_vocal_ratio_raw": 0.262,
+          "mid_overlap_exposure": 0.148,
+          "simultaneous_vocal_ratio": 0.039,
+          "b_onset_s": 35.1,
+          "b_silent_frac_in_window": 0.25
+        },
+        "note": "simultaneous-vocal energy ratio 0.04 (raw 0.26 x mid-overlap exposure 0.15)"
+      },
+      {
+        "name": "tail_hygiene",
+        "status": "pass",
+        "score": 100.0,
+        "metrics": {
+          "first_bar_excess_over_b_db": -0.0,
+          "post_handoff_chroma_sim_a": 0.98,
+          "post_handoff_chroma_sim_b": 0.98
+        },
+        "note": "B's first solo bar runs -0.0 dB over B's own level"
+      }
+    ],
+    "cleanliness_score": 84.3,
+    "verdict": "warn",
+    "summary": [
+      "beat_phase: pass (88) \u2014 grid offset 0 ms between the sides (build record); B's tail steady on the grid: tempo 126.0 vs 123.0 BPM, beat regularity 0.01",
+      "low_clash: pass (100) \u2014 low band in overlap runs -0.2 dB (p90) over the louder solo side \u2014 within summing tolerance",
+      "loudness: warn (55) \u2014 bar-to-bar: worst step 3.5 dB, jitter 1.2 dB, deepest dip 2.7 dB below local trend; sustained blend sag 4.5 dB under the louder side",
+      "key_clash: pass (81) \u2014 weakest chroma agreement 0.75 (a_melody_vs_b_bass) \u2014 keys sit together",
+      "vocal_collision: pass (93) \u2014 simultaneous-vocal energy ratio 0.04 (raw 0.26 x mid-overlap exposure 0.15)",
+      "tail_hygiene: pass (100) \u2014 B's first solo bar runs -0.0 dB over B's own level"
+    ],
+    "his_verdict": "extremely clean",
+    "his_tier": "top",
+    "alignment": {
+      "a_offset_s": 0.0,
+      "b_offset_s": 35.118,
+      "b_align_shift_ms": 0.0,
+      "side_gain": 0.563,
+      "method": "build-machinery replication (grid-aligned cuts, builder stretch + kick align)"
+    }
+  },
+  {
+    "clip": "link04-v1-bass-swap",
+    "mode": "sides",
+    "duration_s": 46.82,
+    "window_s": [
+      15.61,
+      31.22
+    ],
+    "checks": [
+      {
+        "name": "beat_phase",
+        "status": "pass",
+        "score": 76.7,
+        "metrics": {
+          "beat_s": 0.4878,
+          "grid_offset_ms": 0.0,
+          "grid_basis": "build record",
+          "tail_grid": {
+            "tail_tempo_bpm": 126.05,
+            "tail_phase_dev_ms": 64.9,
+            "tail_ioi_cv": 0.051,
+            "tail_beats": 23
+          }
+        },
+        "note": "grid offset 0 ms between the sides (build record); B's tail steady on the grid: tempo 126.0 vs 123.0 BPM, beat regularity 0.05"
+      },
+      {
+        "name": "low_clash",
+        "status": "pass",
+        "score": 76.5,
+        "metrics": {
+          "excess_p90_db": 2.17,
+          "excess_mean_pos_db": 1.12,
+          "lows_contract": "continuous",
+          "deficit_p90_db": -0.0
+        },
+        "note": "low band in overlap runs +2.2 dB (p90) over the louder solo side \u2014 within summing tolerance"
+      },
+      {
+        "name": "loudness",
+        "status": "warn",
+        "score": 56.6,
+        "metrics": {
+          "max_bar_step_db": 5.78,
+          "bar_jitter_db": 1.24,
+          "max_dip_below_trend_db": 3.47,
+          "blend_sag_p75_db": 0.0
+        },
+        "note": "bar-to-bar: worst step 5.8 dB, jitter 1.2 dB, deepest dip 3.5 dB below local trend; sustained blend sag 0.0 dB under the louder side"
+      },
+      {
+        "name": "key_clash",
+        "status": "pass",
+        "score": 91.7,
+        "metrics": {
+          "side_rms_db": [
+            -16.5,
+            -18.4
+          ],
+          "chroma_similarity": {
+            "full": 0.951,
+            "a_melody_vs_b_bass": 0.808,
+            "a_bass_vs_b_melody": 0.945
+          },
+          "worst_pair": "a_melody_vs_b_bass"
+        },
+        "note": "weakest chroma agreement 0.81 (a_melody_vs_b_bass) \u2014 keys sit together"
+      },
+      {
+        "name": "vocal_collision",
+        "status": "fail",
+        "score": 39.5,
+        "metrics": {
+          "mid_presence_a": 0.734,
+          "mid_presence_b": 0.295,
+          "simultaneous_vocal_ratio_raw": 0.404,
+          "mid_overlap_exposure": 0.47,
+          "simultaneous_vocal_ratio": 0.19,
+          "b_onset_s": 15.58,
+          "b_silent_frac_in_window": 0.0
+        },
+        "note": "simultaneous-vocal energy ratio 0.19 (raw 0.40 x mid-overlap exposure 0.47)"
+      },
+      {
+        "name": "tail_hygiene",
+        "status": "pass",
+        "score": 100.0,
+        "metrics": {
+          "first_bar_excess_over_b_db": -0.0,
+          "post_handoff_chroma_sim_a": 0.964,
+          "post_handoff_chroma_sim_b": 0.952
+        },
+        "note": "B's first solo bar runs -0.0 dB over B's own level"
+      }
+    ],
+    "cleanliness_score": 72.3,
+    "verdict": "fail",
+    "summary": [
+      "beat_phase: pass (77) \u2014 grid offset 0 ms between the sides (build record); B's tail steady on the grid: tempo 126.0 vs 123.0 BPM, beat regularity 0.05",
+      "low_clash: pass (76) \u2014 low band in overlap runs +2.2 dB (p90) over the louder solo side \u2014 within summing tolerance",
+      "loudness: warn (57) \u2014 bar-to-bar: worst step 5.8 dB, jitter 1.2 dB, deepest dip 3.5 dB below local trend; sustained blend sag 0.0 dB under the louder side",
+      "key_clash: pass (92) \u2014 weakest chroma agreement 0.81 (a_melody_vs_b_bass) \u2014 keys sit together",
+      "vocal_collision: fail (40) \u2014 simultaneous-vocal energy ratio 0.19 (raw 0.40 x mid-overlap exposure 0.47)",
+      "tail_hygiene: pass (100) \u2014 B's first solo bar runs -0.0 dB over B's own level"
+    ],
+    "his_verdict": "cleanest so far (accepted)",
+    "his_tier": "high",
+    "alignment": {
+      "a_offset_s": 0.0,
+      "b_offset_s": 15.608,
+      "b_align_shift_ms": 0.0,
+      "side_gain": 0.474,
+      "method": "build-machinery replication (grid-aligned cuts, builder stretch + kick align)"
+    }
+  },
+  {
+    "clip": "link03-v2-fader-chops",
+    "mode": "sides",
+    "duration_s": 65.48,
+    "window_s": [
+      16.34,
+      34.26
+    ],
+    "checks": [
+      {
+        "name": "beat_phase",
+        "status": "pass",
+        "score": 100.0,
+        "metrics": {
+          "beat_s": 0.4878,
+          "tail_grid": {
+            "tail_tempo_bpm": 123.05,
+            "tail_phase_dev_ms": 67.2,
+            "tail_ioi_cv": 0.014,
+            "tail_beats": 23
+          }
+        },
+        "note": "B's tail steady on the grid: tempo 123.0 vs 123.0 BPM, beat regularity 0.01"
+      },
+      {
+        "name": "low_clash",
+        "status": "pass",
+        "score": 100.0,
+        "metrics": {
+          "excess_p90_db": 0.0,
+          "excess_mean_pos_db": 0.0,
+          "lows_contract": "free",
+          "deficit_p90_db": 0.0
+        },
+        "note": "low band in overlap runs +0.0 dB (p90) over the louder solo side \u2014 within summing tolerance"
+      },
+      {
+        "name": "loudness",
+        "status": "pass",
+        "score": 88.9,
+        "metrics": {
+          "max_bar_step_db": 2.12,
+          "bar_jitter_db": 1.27,
+          "max_dip_below_trend_db": 2.05,
+          "blend_sag_p75_db": 0.0
+        },
+        "note": "bar-to-bar: worst step 2.1 dB, jitter 1.3 dB, deepest dip 2.1 dB below local trend; sustained blend sag 0.0 dB under the louder side"
+      },
+      {
+        "name": "key_clash",
+        "status": "n/a",
+        "score": null,
+        "metrics": {
+          "side_rms_db": [
+            -15.3,
+            -180.0
+          ]
+        },
+        "note": "one side is effectively absent in the window \u2014 no simultaneous harmony to clash"
+      },
+      {
+        "name": "vocal_collision",
+        "status": "warn",
+        "score": 60.0,
+        "metrics": {
+          "mid_presence_a": 1.0,
+          "mid_presence_b": 0.0,
+          "simultaneous_vocal_ratio_raw": 0.0,
+          "mid_overlap_exposure": 0.0,
+          "simultaneous_vocal_ratio": 0.0,
+          "b_onset_s": 34.25,
+          "b_silent_frac_in_window": 1.0,
+          "b_entry_vocal_db": -22.4
+        },
+        "note": "simultaneous-vocal energy ratio 0.00 (raw 0.00 x mid-overlap exposure 0.00); incoming side enters vocal-first (-22 dBFS gated vocal band in its first solo bar) \u2014 drums-first is the house preference"
+      },
+      {
+        "name": "tail_hygiene",
+        "status": "pass",
+        "score": 100.0,
+        "metrics": {
+          "first_bar_excess_over_b_db": -0.0,
+          "post_handoff_chroma_sim_a": 0.94,
+          "post_handoff_chroma_sim_b": 0.997
+        },
+        "note": "B's first solo bar runs -0.0 dB over B's own level"
+      }
+    ],
+    "cleanliness_score": 91.7,
+    "verdict": "warn",
+    "summary": [
+      "beat_phase: pass (100) \u2014 B's tail steady on the grid: tempo 123.0 vs 123.0 BPM, beat regularity 0.01",
+      "low_clash: pass (100) \u2014 low band in overlap runs +0.0 dB (p90) over the louder solo side \u2014 within summing tolerance",
+      "loudness: pass (89) \u2014 bar-to-bar: worst step 2.1 dB, jitter 1.3 dB, deepest dip 2.1 dB below local trend; sustained blend sag 0.0 dB under the louder side",
+      "key_clash: n/a \u2014 one side is effectively absent in the window \u2014 no simultaneous harmony to clash",
+      "vocal_collision: warn (60) \u2014 simultaneous-vocal energy ratio 0.00 (raw 0.00 x mid-overlap exposure 0.00); incoming side enters vocal-first (-22 dBFS gated vocal band in its first solo bar) \u2014 drums-first is the house preference",
+      "tail_hygiene: pass (100) \u2014 B's first solo bar runs -0.0 dB over B's own level"
+    ],
+    "his_verdict": "partial \u2014 effect present, below reference standard",
+    "his_tier": "mid",
+    "alignment": {
+      "a_offset_s": 0.0,
+      "b_offset_s": 34.261,
+      "b_align_shift_ms": 0.0,
+      "side_gain": 0.578,
+      "method": "build-machinery replication (grid-aligned cuts, builder stretch + kick align)"
+    }
+  },
+  {
+    "clip": "link01-v1-bass-swap",
+    "mode": "sides",
+    "duration_s": 49.03,
+    "window_s": [
+      16.34,
+      32.69
+    ],
+    "checks": [
+      {
+        "name": "beat_phase",
+        "status": "pass",
+        "score": 93.5,
+        "metrics": {
+          "beat_s": 0.5106,
+          "grid_offset_ms": 0.0,
+          "grid_basis": "build record",
+          "tail_grid": {
+            "tail_tempo_bpm": 114.84,
+            "tail_phase_dev_ms": 164.6,
+            "tail_ioi_cv": 0.025,
+            "tail_beats": 21
+          }
+        },
+        "note": "grid offset 0 ms between the sides (build record); B's tail steady on the grid: tempo 114.8 vs 117.5 BPM, beat regularity 0.03"
+      },
+      {
+        "name": "low_clash",
+        "status": "pass",
+        "score": 74.8,
+        "metrics": {
+          "excess_p90_db": 2.26,
+          "excess_mean_pos_db": 1.17,
+          "lows_contract": "continuous",
+          "deficit_p90_db": 0.26
+        },
+        "note": "low band in overlap runs +2.3 dB (p90) over the louder solo side \u2014 within summing tolerance"
+      },
+      {
+        "name": "loudness",
+        "status": "warn",
+        "score": 59.7,
+        "metrics": {
+          "max_bar_step_db": 6.73,
+          "bar_jitter_db": 0.64,
+          "max_dip_below_trend_db": 5.02,
+          "blend_sag_p75_db": 0.0
+        },
+        "note": "bar-to-bar: worst step 6.7 dB, jitter 0.6 dB, deepest dip 5.0 dB below local trend; sustained blend sag 0.0 dB under the louder side"
+      },
+      {
+        "name": "key_clash",
+        "status": "pass",
+        "score": 100.0,
+        "metrics": {
+          "side_rms_db": [
+            -16.1,
+            -18.1
+          ],
+          "chroma_similarity": {
+            "full": 0.952,
+            "a_melody_vs_b_bass": 0.887,
+            "a_bass_vs_b_melody": 0.856
+          },
+          "worst_pair": "a_bass_vs_b_melody"
+        },
+        "note": "weakest chroma agreement 0.86 (a_bass_vs_b_melody) \u2014 keys sit together"
+      },
+      {
+        "name": "vocal_collision",
+        "status": "fail",
+        "score": 17.9,
+        "metrics": {
+          "mid_presence_a": 0.919,
+          "mid_presence_b": 0.361,
+          "simultaneous_vocal_ratio_raw": 0.531,
+          "mid_overlap_exposure": 0.471,
+          "simultaneous_vocal_ratio": 0.25,
+          "b_onset_s": 16.32,
+          "b_silent_frac_in_window": 0.0
+        },
+        "note": "simultaneous-vocal energy ratio 0.25 (raw 0.53 x mid-overlap exposure 0.47)"
+      },
+      {
+        "name": "tail_hygiene",
+        "status": "pass",
+        "score": 100.0,
+        "metrics": {
+          "first_bar_excess_over_b_db": -0.0,
+          "post_handoff_chroma_sim_a": 0.845,
+          "post_handoff_chroma_sim_b": 0.918
+        },
+        "note": "B's first solo bar runs -0.0 dB over B's own level"
+      }
+    ],
+    "cleanliness_score": 75.4,
+    "verdict": "fail",
+    "summary": [
+      "beat_phase: pass (94) \u2014 grid offset 0 ms between the sides (build record); B's tail steady on the grid: tempo 114.8 vs 117.5 BPM, beat regularity 0.03",
+      "low_clash: pass (75) \u2014 low band in overlap runs +2.3 dB (p90) over the louder solo side \u2014 within summing tolerance",
+      "loudness: warn (60) \u2014 bar-to-bar: worst step 6.7 dB, jitter 0.6 dB, deepest dip 5.0 dB below local trend; sustained blend sag 0.0 dB under the louder side",
+      "key_clash: pass (100) \u2014 weakest chroma agreement 0.86 (a_bass_vs_b_melody) \u2014 keys sit together",
+      "vocal_collision: fail (18) \u2014 simultaneous-vocal energy ratio 0.25 (raw 0.53 x mid-overlap exposure 0.47)",
+      "tail_hygiene: pass (100) \u2014 B's first solo bar runs -0.0 dB over B's own level"
+    ],
+    "his_verdict": "not very clean",
+    "his_tier": "low",
+    "alignment": {
+      "a_offset_s": 0.0,
+      "b_offset_s": 16.344,
+      "b_align_shift_ms": 0.0,
+      "side_gain": 0.491,
+      "method": "build-machinery replication (grid-aligned cuts, builder stretch + kick align)"
+    }
+  },
+  {
+    "clip": "link01-v2-filter-sweep",
+    "mode": "sides",
+    "duration_s": 65.38,
+    "window_s": [
+      16.34,
+      49.03
+    ],
+    "checks": [
+      {
+        "name": "beat_phase",
+        "status": "pass",
+        "score": 79.1,
+        "metrics": {
+          "beat_s": 0.5106,
+          "grid_offset_ms": 0.0,
+          "grid_basis": "build record",
+          "tail_grid": {
+            "tail_tempo_bpm": 114.84,
+            "tail_phase_dev_ms": 100.1,
+            "tail_ioi_cv": 0.049,
+            "tail_beats": 22
+          }
+        },
+        "note": "grid offset 0 ms between the sides (build record); B's tail steady on the grid: tempo 114.8 vs 117.5 BPM, beat regularity 0.05"
+      },
+      {
+        "name": "low_clash",
+        "status": "pass",
+        "score": 100.0,
+        "metrics": {
+          "excess_p90_db": -0.08,
+          "excess_mean_pos_db": 0.0,
+          "lows_contract": "free",
+          "deficit_p90_db": 12.95
+        },
+        "note": "low band in overlap runs -0.1 dB (p90) over the louder solo side \u2014 within summing tolerance"
+      },
+      {
+        "name": "loudness",
+        "status": "warn",
+        "score": 69.1,
+        "metrics": {
+          "max_bar_step_db": 2.45,
+          "bar_jitter_db": 0.75,
+          "max_dip_below_trend_db": 1.87,
+          "blend_sag_p75_db": 4.41
+        },
+        "note": "bar-to-bar: worst step 2.5 dB, jitter 0.7 dB, deepest dip 1.9 dB below local trend; sustained blend sag 4.4 dB under the louder side"
+      },
+      {
+        "name": "key_clash",
+        "status": "pass",
+        "score": 98.9,
+        "metrics": {
+          "side_rms_db": [
+            -13.6,
+            -15.8
+          ],
+          "chroma_similarity": {
+            "full": 0.96,
+            "a_melody_vs_b_bass": 0.893,
+            "a_bass_vs_b_melody": 0.845
+          },
+          "worst_pair": "a_bass_vs_b_melody"
+        },
+        "note": "weakest chroma agreement 0.84 (a_bass_vs_b_melody) \u2014 keys sit together"
+      },
+      {
+        "name": "vocal_collision",
+        "status": "pass",
+        "score": 100.0,
+        "metrics": {
+          "mid_presence_a": 0.906,
+          "mid_presence_b": 0.013,
+          "simultaneous_vocal_ratio_raw": 0.501,
+          "mid_overlap_exposure": 0.025,
+          "simultaneous_vocal_ratio": 0.013,
+          "b_onset_s": 16.32,
+          "b_silent_frac_in_window": 0.0
+        },
+        "note": "simultaneous-vocal energy ratio 0.01 (raw 0.50 x mid-overlap exposure 0.03)"
+      },
+      {
+        "name": "tail_hygiene",
+        "status": "pass",
+        "score": 100.0,
+        "metrics": {
+          "first_bar_excess_over_b_db": -0.0,
+          "post_handoff_chroma_sim_a": 0.911,
+          "post_handoff_chroma_sim_b": 0.931
+        },
+        "note": "B's first solo bar runs -0.0 dB over B's own level"
+      }
+    ],
+    "cleanliness_score": 88.4,
+    "verdict": "warn",
+    "summary": [
+      "beat_phase: pass (79) \u2014 grid offset 0 ms between the sides (build record); B's tail steady on the grid: tempo 114.8 vs 117.5 BPM, beat regularity 0.05",
+      "low_clash: pass (100) \u2014 low band in overlap runs -0.1 dB (p90) over the louder solo side \u2014 within summing tolerance",
+      "loudness: warn (69) \u2014 bar-to-bar: worst step 2.5 dB, jitter 0.7 dB, deepest dip 1.9 dB below local trend; sustained blend sag 4.4 dB under the louder side",
+      "key_clash: pass (99) \u2014 weakest chroma agreement 0.84 (a_bass_vs_b_melody) \u2014 keys sit together",
+      "vocal_collision: pass (100) \u2014 simultaneous-vocal energy ratio 0.01 (raw 0.50 x mid-overlap exposure 0.03)",
+      "tail_hygiene: pass (100) \u2014 B's first solo bar runs -0.0 dB over B's own level"
+    ],
+    "his_verdict": "doesn't fade cleanly into stay high",
+    "his_tier": "low",
+    "alignment": {
+      "a_offset_s": 0.0,
+      "b_offset_s": 16.344,
+      "b_align_shift_ms": 0.0,
+      "side_gain": 0.651,
+      "method": "build-machinery replication (grid-aligned cuts, builder stretch + kick align)"
+    }
+  },
+  {
+    "clip": "link02-v1-bass-swap",
+    "mode": "sides",
+    "duration_s": 46.82,
+    "window_s": [
+      15.61,
+      31.22
+    ],
+    "checks": [
+      {
+        "name": "beat_phase",
+        "status": "pass",
+        "score": 88.0,
+        "metrics": {
+          "beat_s": 0.4878,
+          "grid_offset_ms": 0.0,
+          "grid_basis": "build record",
+          "tail_grid": {
+            "tail_tempo_bpm": 126.05,
+            "tail_phase_dev_ms": 53.3,
+            "tail_ioi_cv": 0.011,
+            "tail_beats": 23
+          }
+        },
+        "note": "grid offset 0 ms between the sides (build record); B's tail steady on the grid: tempo 126.0 vs 123.0 BPM, beat regularity 0.01"
+      },
+      {
+        "name": "low_clash",
+        "status": "pass",
+        "score": 86.8,
+        "metrics": {
+          "excess_p90_db": 0.41,
+          "excess_mean_pos_db": 0.13,
+          "lows_contract": "continuous",
+          "deficit_p90_db": 3.05
+        },
+        "note": "low end in overlap sits 3.1 dB (p90) under the louder side \u2014 the bottom drops out mid-blend"
+      },
+      {
+        "name": "loudness",
+        "status": "pass",
+        "score": 88.4,
+        "metrics": {
+          "max_bar_step_db": 2.27,
+          "bar_jitter_db": 1.17,
+          "max_dip_below_trend_db": 1.17,
+          "blend_sag_p75_db": 0.99
+        },
+        "note": "bar-to-bar: worst step 2.3 dB, jitter 1.2 dB, deepest dip 1.2 dB below local trend; sustained blend sag 1.0 dB under the louder side"
+      },
+      {
+        "name": "key_clash",
+        "status": "pass",
+        "score": 84.1,
+        "metrics": {
+          "side_rms_db": [
+            -16.3,
+            -20.4
+          ],
+          "chroma_similarity": {
+            "full": 0.943,
+            "a_melody_vs_b_bass": 0.77,
+            "a_bass_vs_b_melody": 0.846
+          },
+          "worst_pair": "a_melody_vs_b_bass"
+        },
+        "note": "weakest chroma agreement 0.77 (a_melody_vs_b_bass) \u2014 keys sit together"
+      },
+      {
+        "name": "vocal_collision",
+        "status": "warn",
+        "score": 49.7,
+        "metrics": {
+          "mid_presence_a": 0.623,
+          "mid_presence_b": 0.366,
+          "simultaneous_vocal_ratio_raw": 0.351,
+          "mid_overlap_exposure": 0.459,
+          "simultaneous_vocal_ratio": 0.161,
+          "b_onset_s": 15.58,
+          "b_silent_frac_in_window": 0.0
+        },
+        "note": "simultaneous-vocal energy ratio 0.16 (raw 0.35 x mid-overlap exposure 0.46)"
+      },
+      {
+        "name": "tail_hygiene",
+        "status": "pass",
+        "score": 100.0,
+        "metrics": {
+          "first_bar_excess_over_b_db": -0.0,
+          "post_handoff_chroma_sim_a": 0.941,
+          "post_handoff_chroma_sim_b": 0.989
+        },
+        "note": "B's first solo bar runs -0.0 dB over B's own level"
+      }
+    ],
+    "cleanliness_score": 83.6,
+    "verdict": "warn",
+    "summary": [
+      "beat_phase: pass (88) \u2014 grid offset 0 ms between the sides (build record); B's tail steady on the grid: tempo 126.0 vs 123.0 BPM, beat regularity 0.01",
+      "low_clash: pass (87) \u2014 low end in overlap sits 3.1 dB (p90) under the louder side \u2014 the bottom drops out mid-blend",
+      "loudness: pass (88) \u2014 bar-to-bar: worst step 2.3 dB, jitter 1.2 dB, deepest dip 1.2 dB below local trend; sustained blend sag 1.0 dB under the louder side",
+      "key_clash: pass (84) \u2014 weakest chroma agreement 0.77 (a_melody_vs_b_bass) \u2014 keys sit together",
+      "vocal_collision: warn (50) \u2014 simultaneous-vocal energy ratio 0.16 (raw 0.35 x mid-overlap exposure 0.46)",
+      "tail_hygiene: pass (100) \u2014 B's first solo bar runs -0.0 dB over B's own level"
+    ],
+    "his_verdict": "not very clean \u2014 slower fade needed",
+    "his_tier": "low",
+    "alignment": {
+      "a_offset_s": 0.0,
+      "b_offset_s": 15.608,
+      "b_align_shift_ms": 0.0,
+      "side_gain": 0.435,
+      "method": "build-machinery replication (grid-aligned cuts, builder stretch + kick align)"
+    }
+  }
+]
