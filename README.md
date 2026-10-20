@@ -8,7 +8,7 @@ Every DJ tutorial teaches the same transitions: the long harmonic EQ blend, the 
 
 ## What this is
 
-1. **`techniques/`** — 32 technique specs, each a parameter-level recipe: the exact moves (EQ positions, filter automation curves, FX type + values, timing in bars/beats), parameters with units and defaults, why it works, when to use/avoid it, and bank provenance (T-001–T-038). Prose is documentation; the parameters are the product.
+1. **`techniques/`** — 64 technique specs, each a parameter-level recipe: the exact moves (EQ positions, filter automation curves, FX type + values, timing in bars/beats), parameters with units and defaults, why it works, when to use/avoid it, and provenance (bank T-001–T-039, gap-report GAP-01–GAP-18, DM-clip DM-Axx, performer PERF-ZAB). Prose is documentation; the parameters are the product.
 2. **`engine/`** — deterministic DSP (numpy + scipy only) that renders the techniques on real audio: `dsp.py` (building blocks), `techniques.py` (the 32 named techniques), `render.py` (plan-file batch renderer), `verify.py` (silence/headroom/timbre gates).
 3. **`demos/`** — `make_demos.py` synthesizes two deterministic test tracks (no copyrighted audio) and renders + verifies a demo clip per technique into `demos/out/`.
 4. **The framework** ([FRAMEWORK.md](FRAMEWORK.md)) — what makes this a system instead of a pile of recipes: every technique is registered in a **metadata registry** (`engine/meta.py`) with hard preconditions, soft preference rules, parameter families, an energy/exit profile, and ≥1 real-world evidence reference (no orphan techniques). A **selection engine** (`engine/select.py`) takes structured info about two songs — tempo, key, energy, sections, vocals, genre — evaluates every technique's preconditions, and returns ranked candidates with reasons *plus* a "why not" list for the rejects. An **extension grammar** (variants × parameter grids, overlays, chains, compounds) grows the library mechanically toward hundreds of renderable entries.
@@ -61,6 +61,31 @@ Every DJ tutorial teaches the same transitions: the long harmonic EQ blend, the 
 | `reverb_freeze` | T-034 | ADOPT | high | Frozen reverb tail; B launches inside it, freeze releases |
 | `riser_drop` | — | ADOPT | medium | Riser + HP thinning into a tempo-jump drop |
 | `select_technique` | T-037 | ADOPT | high | Decision brain: musical features → technique + rejection reasons (pure) |
+| `stem_element_crossfade` | GAP-08 | ADOPT | medium | 16-bar handover one stem at a time — incl. the bass-stem-only entry |
+| `strip_down_buildup` | GAP-09 | ADOPT | medium | The build is progressive element *removal*; B's full kit slams in |
+| `flying_solo_acapella` | GAP-10 | ADAPT | medium | Naked-vocal reset: soloed acapella alone, B filters up underneath |
+| `beat_switch_under_acapella` | GAP-11 | ADOPT | medium | One continuous acapella; the instrumentals rotate underneath |
+| `accidental_duet` | GAP-12 | ADAPT | medium | Two isolated vocals in key/tempo sync read as a duet |
+| `same_song_switchup` | GAP-13 | ADAPT | medium | Two arrangements of the same song alternated via cue flips |
+| `sample_connection` | GAP-01 | ADAPT | medium | Cue swap into the track that samples A, exactly on the shared element |
+| `loop_tightening_build` | GAP-02 | ADOPT | medium | Hype Loops: grabbed loop halved (4→2→1→½) over B's build |
+| `polyrhythmic_loops` | GAP-04 | ADAPT | medium | 4-beat vs 3-beat loops layered as an evolving transition bed |
+| `slip_mode_flourish` | GAP-05 | ADAPT | medium | Live flourish over a playhead that never stops (slip safety net) |
+| `premade_tempo_bridge_edit` | GAP-07 | ADOPT | medium | A produced edit that itself ramps BPM carries the bridge — no live pitch work |
+| `sampler_one_shot_mask` | GAP-17 | ADOPT | medium | One-shot fired exactly on the cut masks the join |
+| `feedback_loop_build` | PERF-ZAB | ADOPT | medium | Zabiela: feedback delay ramped 0.5→0.95, then the loop cuts |
+| `metric_loop_pivot` | PERF-ZAB | ADAPT | medium | 3-beat loop cycles pivot tempo at the 12-beat alignment (Zabiela 2020) |
+| `scratch_in` | GAP-14 | ADAPT | medium | B's first beat baby-scratched in rhythm, released on the downbeat |
+| `rhythmic_fader_chops` | GAP-15 | ADOPT | high | Transformer-style fader chops as the transition gesture itself |
+| `spare_deck_element_firing` | GAP-16 | ADAPT | medium | Spare-deck elements (riser loop, vocal hit) fired like orchestra sections |
+| `riser_ducking_overlay` | T-035 | ADOPT | high | Overlay: kick-ducked riser at −6 dB under the mix, hard cut + downlifter |
+| `live_loop_mix` | DM-A14 | ADAPT | medium | 2-bar loop + ¼-beat TRANS gate while B's fader rises (French Candy) |
+| `cdj_synth_lead` | DM-A15 | ADOPT | medium | Single-cycle synthesis: a loop grab becomes a playable lead |
+| `tempo_double_trick` | DM-A21 | ADAPT | medium | Metric doubling: pitch-ramp to 2× as B enters (French Candy) |
+| `reverse_vocal_ambience` | DM-A23 | ADOPT | medium | Reverse → delay/reverb → reverse back: a swelling entrance texture |
+| `whoa_reverb_wobble` | DM-A39 | ADOPT | medium | Skrillex "whoa": big reverb tail + accelerating tremolo wobble |
+| `vocal_tremolo_gate` | DM-A44 | ADOPT | medium | 1/16 tremolo gate, amount automated up on the note (mono Auto-Pan) |
+| `mic_talkover_reset` | GAP-18 | ADAPT | medium | Planning entry: mic over the outro resets the room; next track cold |
 
 Verdict key: **ADOPT** = fully scriptable parameter automation · **ADAPT** = automatable, needs human-feel choices (noted per technique) · field-tested = rendered and approved by ear on real mixes.
 
@@ -123,16 +148,23 @@ engine/
   dsp.py          DSP primitives: 3-band EQ, sweep filters, feedback delay,
                   Schroeder reverb (+freeze), riser synth (T-035 ducking),
                   warp resample (brake/power-down), phase-vocoder stretch
-  techniques.py   the 32 named techniques (parameterized, docstringed)
+  techniques.py   the core bank techniques (parameterized, docstringed)
+  dm_techniques.py  DM-clip lane (DM-A14…A44) · gap_struct.py  stem/routing
+                  gaps · gap_rest.py  TIME/DYN/SYNTH gaps + Zabiela ·
+                  performer.py  PERF gaps + T-035 overlay
   meta.py         technique metadata registry (preconditions, preferences,
                   parameter families, evidence) — read by the selector
   select.py       selection engine v1: two songs in → ranked techniques
                   with reasons + a "why not" list (generalizes T-037)
+  variants.py     variant generator: base × named parameter presets
+                  (127 variants, see VARIANTS.md)
   render.py       plan-file batch renderer (TECHNIQUES registry)
   verify.py       silence / headroom / centroid gates + plots
-techniques/       per-technique spec docs (generated from docstrings:
-                  demos/gen_technique_docs.py)
+techniques/       per-technique spec docs (core generated from docstrings:
+                  demos/gen_technique_docs.py; domains ship theirs)
 knowledge/        production / mixing / set craft with provenance
+                  (81 entries: producing, mixing, setcraft, workflows,
+                  performers)
 demos/
   make_demos.py   synthesized test tracks + demos + verification
                   (auto-merges demos/ext_*.py domain modules)
@@ -143,7 +175,7 @@ BUILD-LOG.md      what was built, tested, and what's next
 
 ## Status
 
-Active build. 38 techniques implemented, 36 demos rendered + verified, 2 pure functions assertion-checked. Phase 2 (2026-10-18): closed GAP-A (T-009 build_to_drop, T-011 wordplay, T-020 three_deck_layer, T-028 beat_jump, T-032 pitch_play) and GAP-B (T-039 screwed_treatment, new bank entry); added dsp.pitch_shift; verify.py plots now optional (matplotlib/numpy2 env). Framework phase (2026-10-20): FRAMEWORK.md + metadata registry (39 entries, all with evidence) + selection engine v1 (`engine/select.py`, agrees with T-037 on its canonical cases, asserted in the demo suite) + domain-module contracts so new technique lanes merge without shared-file edits. See [BUILD-LOG.md](BUILD-LOG.md) for the session log and the queued next batch.
+Active build. **64 registry entries: 62 executable techniques + the T-037 decision brain + 1 planning entry; 127 named variants renderable via `engine/variants.py`; 81 knowledge entries.** Phase 4 (2026-10-20): the expansion wave — gap report's 16 actionable gaps all implemented (incl. element-by-element stem crossfade with the bass-stem-only entry), 6 DM-clip DJ techniques, Zabiela's feedback-loop + metric-pivot moves, T-035 riser ducking as an overlay, and the variant generator. Selection smoke tests: stem techniques surface only when stems exist and reject with the named reason otherwise. See [BUILD-LOG.md](BUILD-LOG.md) and [VARIANTS.md](VARIANTS.md).
 
 ## License
 

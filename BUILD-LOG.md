@@ -112,3 +112,18 @@ Framework first, per his "experimental but needs a framework for real utility" d
 5. **Publish** — `github.com/chance600/open-transitions` (public, MIT), first push: framework + full current library.
 
 Verification: 36/36 demos clean, select checks green, README catalog verified.
+
+## Phase 4 — Expansion wave (2026-10-20)
+
+Six domain lanes landed in parallel under the §7 contracts (each lane: engine module + ext demos + spec docs; zero shared-file edits), then one merge pass wired the public surface.
+
+1. **DM-clip lane** (`engine/dm_techniques.py`, +6): live_loop_mix (DM-A14), cdj_synth_lead (DM-A15), tempo_double_trick (DM-A21), reverse_vocal_ambience (DM-A23), whoa_reverb_wobble (DM-A39), vocal_tremolo_gate (DM-A44) — the DJ-applicable subset of the 44 DM-clip candidates, each with the source clip URL + creator + save date as evidence. The remaining producing/mixing candidates went to `knowledge/` (below).
+2. **STRUCT gaps** (`engine/gap_struct.py`, +7): stem_element_crossfade (GAP-08, incl. bass-stem-only entry), strip_down_buildup (GAP-09), flying_solo_acapella (GAP-10), beat_switch_under_acapella (GAP-11), accidental_duet (GAP-12), same_song_switchup (GAP-13), mic_talkover_reset (GAP-18, planning kind). Stem demos use the new stem-separated sketch tracks.
+3. **TIME/DYN/SYNTH gaps + Zabiela** (`engine/gap_rest.py`, +8): sample_connection (GAP-01), loop_tightening_build (GAP-02, Hype Loops), polyrhythmic_loops (GAP-04), slip_mode_flourish (GAP-05), premade_tempo_bridge_edit (GAP-07), sampler_one_shot_mask (GAP-17), feedback_loop_build + metric_loop_pivot (PERF-ZAB, edu-survey-G §4).
+4. **PERF gaps + T-035** (`engine/performer.py`, +4): scratch_in (GAP-14), rhythmic_fader_chops (GAP-15), spare_deck_element_firing (GAP-16), riser_ducking_overlay (T-035 — first parameterized software recipe; kind "overlay").
+5. **Variants** (`engine/variants.py`): generator over the registry's declared preset axes — **127 named variants / 36 bases**, all renderable via `render_variant`; 30 sampled through the demo pipeline, all clean. (backspin / vocal_punchline_snap variants are registered and renderable but excluded from the *sample* — their intentional silence spans need declared allowances, the §7 mechanism; the core demos cover both.)
+6. **Knowledge tree** (`knowledge/`, 81 entries): producing (36), mixing (18), setcraft (11 — incl. T-016 energy planning + the documented exclusions), workflows (7 — incl. the Mixed In Key → Rekordbox pipeline), performers (9 — Zabiela/Hype/EZ craft + the S0–S11 extraction pipeline + L0–L4 confidence ladder). Every entry carries provenance.
+
+**Counts now:** 64 registry entries (62 executable techniques + T-037 + 1 planning), 48 plan-renderable, 127 variants, 81 knowledge entries, 3 registered exclusions (toneplay, holding-pattern loop, siren/horn). Selection smoke tests pass: stem techniques rank when stems exist, reject with named reasons when they don't; planning entries never rank.
+
+Honest residuals: stem-signature techniques are demo+registry only (the plan renderer can't cut stems from a file — stem plan support is future work); `premade_tempo_bridge_edit` variants need their lane's staging scene; the full-suite verification receipt is regenerated on every merge run.
