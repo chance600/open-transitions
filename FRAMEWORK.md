@@ -209,14 +209,15 @@ techniques/<name>.md      # spec doc, same format as the core specs
   (the docstring IS the spec source; the .md mirrors it).
 - `META` entries follow §3 exactly, including ≥1 evidence item.
 - `demos/ext_<domain>.py` receives `ctx` = {`SR`, `BPM`, `BAR_S`, `BEAT_S`,
-  `get_tracks()`, `bars()`, `last_bars()`, `get_stems()`} from
+  `get_tracks()`, `bars()`, `last_bars()`} from
   `demos/make_demos.py` and returns demo registrations in the core format.
   Demos must pass `verify.verify_clip` (silence/headroom gates) — intentional
   silence is declared via `allowed_fn`, never by weakening the gate.
 - `engine/meta.py` and `engine/render.py` auto-merge domain modules
   (try-import); `demos/make_demos.py` auto-merges `ext_*` demo modules.
   Adding a domain = dropping in files, no shared-file edits.
-- Stem techniques use `ctx["get_stems()"]` in demos: tracks synthesized as
+- Stem techniques use the stem-separated sketch tracks in demos:
+  `ctx["get_tracks"]()["stemsA"]` / `["stemsB"]` — tracks synthesized as
   separate `drums`/`bass`/`melody`/`vocal` arrays so element-level moves are
   honestly demonstrable on sketch audio.
 
