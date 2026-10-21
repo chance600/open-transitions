@@ -197,3 +197,76 @@ reverse_roll + shepard_riser + flanger_sweep rank on a build pair,
 spiral_echo ranks #6/30 on a key-clash pair (eligible, prefers fire,
 no canonical displacement); all 59 new variants render finite output
 via `render_variant`.
+
+## Phase 6 — Educationals study program: source list + tranche 1 (2026-10-21)
+
+Standing program kickoff (his directive: "Keep studying other DJ and
+producer educationals. Assemble a large list if needed first."). Two
+deliverables, in order: (1) the bibliography that outlives the run;
+(2) the first mining tranche drawn from it.
+
+1. **The source list** — `technique-bank/EDUCATIONAL-SOURCES.md` (goal
+   workspace; the registry's companion reading list): **85 sources**
+   in 5 classes — DJ educators/channels 20, official gear/software
+   documentation 14, knowledge bases/blogs/forums 13, producer
+   educationals 31, books 7. Each entry carries a URL, what it's
+   good for, access (free / free-with-signup / paid), and a mining
+   status. Every URL was verified resolving (redirects followed):
+   four wrong URLs were corrected to their verified forms, two
+   entries whose listed homes are gone were replaced in place, and
+   the exceptions (two 403 bot walls, one dead domain) are noted
+   inline — nothing silently kept. Paid sources are marked "paid —
+   his per-item call"; nothing was purchased and no accounts were
+   created. The file ends with a ranked **NEXT QUEUE** (10 sources),
+   re-ranked at the end of every future tranche.
+2. **Tranche 1 — the effect catalogs.** Mined the full DJM Beat FX /
+   Colour FX catalogs (900NXS2 definitions + the A9 list), the
+   Traktor FX catalog (Traktor 2 manual, Effects in Detail), the
+   RMX-1000 Scene FX descriptions, and the producer riser/downer
+   literature. Four techniques cleared the evidence + executability
+   bar — banked first as WEB-07…WEB-10 in `technique-bank/
+   TECHNIQUES.md` with provenance, then built into the existing web
+   lane (`engine/web_techniques.py` + `demos/ext_web.py`; no new
+   merge points):
+   - `helix_catch` (WEB-07, TIME) — DJM HELIX: A's last fragment is
+     caught into a loop whose pitch ramps during the hold; the
+     release snaps home into B (DJM-900NXS2 manual p.17 via the
+     Pioneer official forum; Pestrela KB).
+   - `beatslicer_shuffle` (WEB-08, TIME) — Traktor BeatSlicer: A's
+     final bar(s) are sliced (8 per bar) and replayed in a named
+     permutation as a build, BUZZ on the final beat (Traktor 2
+     manual §14.4.29).
+   - `downlifter_exit` (WEB-09, SYNTH) — the producer's "downer": a
+     descending low-passed-noise sweep spans the seam and masks a
+     hard cut (MusicRadar synth-sweep tutorial; bank T-035's
+     documented usage).
+   - `shimmer_wash` (WEB-10, SPACE) — RMX-1000 Reverb Up / the
+     shimmer principle: A's tail pitch-shifted +12 st into a long
+     reverb swells as dry A exits; B enters under the climbing tail
+     (RMX-1000 manual via Pestrela KB; Production Expert). The
+     render is the feed-forward approximation of the feedback
+     original, disclosed in the spec (the WEB-02 convention).
+   **22 further catalog items were overlap-resolved**, banked in
+   TECHNIQUES.md with pointers, and deliberately not rebuilt:
+   phaser → `flanger_sweep`; dub echo / ping pong / low-cut echo /
+   multi-tap → the T-004 echo family; trans / time gater →
+   T-019/GAP-15/DM-A44 gate family; triplet filter/roll → timing
+   axes of T-003/T-008; roll/slip roll/vinyl brake/pitch FX →
+   T-008/GAP-05/T-006/T-032; melodic → DM-A15; Iceverb → the
+   T-005/T-034 reverb family (its manual mechanism is resonant-
+   filter color, not pitch shimmer); beatmasher → T-008/T-019;
+   barber pole → `shepard_riser`; Enigma Jet → a WEB-05+WEB-02
+   compound; Traktor MacroFX + DJTT chains → FRAMEWORK §6
+   compounds, knowledge-class; reverse reverb → DM-A23 (already
+   built). Nothing was force-built to inflate the count.
+
+**Counts now:** registry 70 → **74** (65 render + 3 decision + 5
+overlay + 1 planning; 73 executable), plan-renderable 54 → **58**,
+variants 186 → **237** (+51 across the 4 new bases; VARIANTS.md
+regenerated), knowledge **81** (unchanged), demos 96 → **100**
+(suite: 100/100 rendered + verified clean). Verdicts: ADOPT 52 /
+ADAPT 22. Selection: `check_select()` green (T-037 agreement +
+ranking sanity); probe pairs rank the new techniques sensibly —
+`shimmer_wash` surfaces #4 with both preference reasons firing on a
+key-clash pair, the rest are eligible and sit below the top-5 cut on
+a generic pair, the same behavior as WEB-01…WEB-06.

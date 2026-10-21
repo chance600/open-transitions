@@ -7,7 +7,7 @@ registry lives in `engine/variants.py` and is **generated,
 never hand-listed**: `VARIANTS = build_variants()` enumerates
 `meta.all_meta()` at import time.
 
-**Snapshot: 186 variants across 42 base techniques** (108 variants across 29 core-bank bases; the rest arrive via domain modules, FRAMEWORK.md §7).
+**Snapshot: 237 variants across 46 base techniques** (108 variants across 29 core-bank bases; the rest arrive via domain modules, FRAMEWORK.md §7).
 This file is a snapshot of one generation run — see
 *Regenerating* below.
 
@@ -47,6 +47,26 @@ core base, capped at 40) through the standard demo pipeline.
 | `backspin__half` | spin_beats=0.5 |
 | `backspin__one` | spin_beats=1.0 |
 | `backspin__two` | spin_beats=2.0 |
+
+### beatslicer_shuffle — BeatSlicer Shuffle (Buffer Slice-Permutation Build) (15 variants)
+
+| variant | params |
+|---|---|
+| `beatslicer_shuffle__bookends` | pattern='bookends' |
+| `beatslicer_shuffle__bookends_one` | pattern='bookends', buffer_bars=1 |
+| `beatslicer_shuffle__bookends_two` | pattern='bookends', buffer_bars=2 |
+| `beatslicer_shuffle__halves` | pattern='halves' |
+| `beatslicer_shuffle__halves_one` | pattern='halves', buffer_bars=1 |
+| `beatslicer_shuffle__halves_two` | pattern='halves', buffer_bars=2 |
+| `beatslicer_shuffle__inside_out` | pattern='inside_out' |
+| `beatslicer_shuffle__inside_out_one` | pattern='inside_out', buffer_bars=1 |
+| `beatslicer_shuffle__inside_out_two` | pattern='inside_out', buffer_bars=2 |
+| `beatslicer_shuffle__reverse` | pattern='reverse' |
+| `beatslicer_shuffle__reverse_one` | pattern='reverse', buffer_bars=1 |
+| `beatslicer_shuffle__reverse_two` | pattern='reverse', buffer_bars=2 |
+| `beatslicer_shuffle__stride` | pattern='stride' |
+| `beatslicer_shuffle__stride_one` | pattern='stride', buffer_bars=1 |
+| `beatslicer_shuffle__swap_pairs` | pattern='swap_pairs' |
 
 ### brake_stop — Brake / Tape Stop (12 variants)
 
@@ -96,6 +116,23 @@ core base, capped at 40) through the standard demo pipeline.
 |---|---|
 | `double_drop__16bar` | drop_at_bar=16 |
 | `double_drop__8bar` | drop_at_bar=8 |
+
+### downlifter_exit — Downlifter Exit (Descending Sweep Seam Mask) (12 variants)
+
+| variant | params |
+|---|---|
+| `downlifter_exit__half` | sweep_bars=0.5 |
+| `downlifter_exit__half_low` | sweep_bars=0.5, f_end=300.0 |
+| `downlifter_exit__half_mid` | sweep_bars=0.5, f_end=800.0 |
+| `downlifter_exit__half_sub` | sweep_bars=0.5, f_end=120.0 |
+| `downlifter_exit__one` | sweep_bars=1.0 |
+| `downlifter_exit__one_low` | sweep_bars=1.0, f_end=300.0 |
+| `downlifter_exit__one_mid` | sweep_bars=1.0, f_end=800.0 |
+| `downlifter_exit__one_sub` | sweep_bars=1.0, f_end=120.0 |
+| `downlifter_exit__two` | sweep_bars=2.0 |
+| `downlifter_exit__two_low` | sweep_bars=2.0, f_end=300.0 |
+| `downlifter_exit__two_mid` | sweep_bars=2.0, f_end=800.0 |
+| `downlifter_exit__two_sub` | sweep_bars=2.0, f_end=120.0 |
 
 ### drum_bridge — Drum Bridge (Atonal Neutral Zone) (3 variants)
 
@@ -187,6 +224,23 @@ core base, capped at 40) through the standard demo pipeline.
 | `granular_freeze__standard_long` | grain_ms=70.0, cloud_bars=8 |
 | `granular_freeze__standard_short` | grain_ms=70.0, cloud_bars=2 |
 | `granular_freeze__standard_standard` | grain_ms=70.0, cloud_bars=4 |
+
+### helix_catch — Helix Catch (Loop-Sampler Pitch-Ramp Hold & Release) (12 variants)
+
+| variant | params |
+|---|---|
+| `helix_catch__bar` | capture_beats=4.0 |
+| `helix_catch__bar_four` | capture_beats=4.0, hold_bars=4 |
+| `helix_catch__bar_one` | capture_beats=4.0, hold_bars=1 |
+| `helix_catch__bar_two` | capture_beats=4.0, hold_bars=2 |
+| `helix_catch__beat` | capture_beats=1.0 |
+| `helix_catch__beat_four` | capture_beats=1.0, hold_bars=4 |
+| `helix_catch__beat_one` | capture_beats=1.0, hold_bars=1 |
+| `helix_catch__beat_two` | capture_beats=1.0, hold_bars=2 |
+| `helix_catch__half` | capture_beats=0.5 |
+| `helix_catch__half_four` | capture_beats=0.5, hold_bars=4 |
+| `helix_catch__half_one` | capture_beats=0.5, hold_bars=1 |
+| `helix_catch__half_two` | capture_beats=0.5, hold_bars=2 |
 
 ### hook_drop_handoff — Hook-Drop Handoff (12 variants)
 
@@ -365,6 +419,23 @@ core base, capped at 40) through the standard demo pipeline.
 | `shepard_riser__up_long` | direction=1, bars=16 |
 | `shepard_riser__up_short` | direction=1, bars=4 |
 | `shepard_riser__up_standard` | direction=1, bars=8 |
+
+### shimmer_wash — Shimmer Wash (Octave-Climbing Reverb Exit) (12 variants)
+
+| variant | params |
+|---|---|
+| `shimmer_wash__fifth` | shift_semitones=7.0 |
+| `shimmer_wash__fifth_long` | shift_semitones=7.0, swell_bars=8 |
+| `shimmer_wash__fifth_short` | shift_semitones=7.0, swell_bars=2 |
+| `shimmer_wash__fifth_standard` | shift_semitones=7.0, swell_bars=4 |
+| `shimmer_wash__fourth` | shift_semitones=5.0 |
+| `shimmer_wash__fourth_long` | shift_semitones=5.0, swell_bars=8 |
+| `shimmer_wash__fourth_short` | shift_semitones=5.0, swell_bars=2 |
+| `shimmer_wash__fourth_standard` | shift_semitones=5.0, swell_bars=4 |
+| `shimmer_wash__octave` | shift_semitones=12.0 |
+| `shimmer_wash__octave_long` | shift_semitones=12.0, swell_bars=8 |
+| `shimmer_wash__octave_short` | shift_semitones=12.0, swell_bars=2 |
+| `shimmer_wash__octave_standard` | shift_semitones=12.0, swell_bars=4 |
 
 ### slip_mode_flourish — Slip-Mode Flourish (3 variants)
 

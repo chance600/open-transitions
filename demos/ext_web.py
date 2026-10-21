@@ -2,7 +2,7 @@
 open-transitions — demo specs for the web-mined domain module
 (FRAMEWORK.md §7).
 
-Registers demos for engine/web_techniques.py (WEB-01..WEB-06, mined
+Registers demos for engine/web_techniques.py (WEB-01..WEB-10, mined
 2026-10-21). Merged automatically by demos/make_demos.py
 (load_ext_specs). All material is the suite's synthesized sketch audio
 (ctx tracks) — no copyrighted audio.
@@ -68,6 +68,44 @@ def demo_specs(ctx):
     # and owns the mix from bar 8.
     specs["granular_freeze"] = (
         lambda: web.granular_freeze(bars(A, 8), bars(B, 8), SR, BAR_S),
+        lambda m: 8 * BAR_S,
+        None,
+    )
+
+    # WEB-07 helix_catch: A's final beat (of the 8-bar segment) is
+    # caught and looped for 2 bars while its pitch ramps +12 st; the
+    # release lands B at natural pitch — handoff = 7 bars + 3 beats
+    # of dry A, then the 2-bar hold.
+    specs["helix_catch"] = (
+        lambda: web.helix_catch(last_bars(A, 8), bars(B, 8), SR, BPM,
+                                BAR_S),
+        lambda m: 10 * BAR_S - BEAT_S,
+        None,
+    )
+
+    # WEB-08 beatslicer_shuffle: A plays 7 bars clean; its final bar
+    # is re-dealt in the stride permutation (with BUZZ); B releases
+    # on the downbeat at bar 8.
+    specs["beatslicer_shuffle"] = (
+        lambda: web.beatslicer_shuffle(bars(A, 8), bars(B, 8), SR,
+                                       BAR_S),
+        lambda m: 8 * BAR_S,
+        None,
+    )
+
+    # WEB-09 downlifter_exit: A hands to B at bar 8 under a 1-bar
+    # descending sweep (12 kHz -> 300 Hz) centered on the seam.
+    specs["downlifter_exit"] = (
+        lambda: web.downlifter_exit(bars(A, 8), bars(B, 8), SR,
+                                     BAR_S),
+        lambda m: 8 * BAR_S,
+        None,
+    )
+
+    # WEB-10 shimmer_wash: A's last 4 bars feed the +12 st shimmer
+    # layer; A ends at bar 8 and B fades in under the climbing tail.
+    specs["shimmer_wash"] = (
+        lambda: web.shimmer_wash(bars(A, 8), bars(B, 8), SR, BAR_S),
         lambda m: 8 * BAR_S,
         None,
     )
