@@ -2,11 +2,11 @@
 open-transitions engine — web-mined techniques (domain module,
 FRAMEWORK.md §7).
 
-Ten techniques mined from DJ literature outside the bank (2026-10-21
-tranches; banked as WEB-01..WEB-10 in technique-bank/TECHNIQUES.md
-with full provenance). Each function takes numpy mono float64 audio
-+ sr and returns mono float64. Docstrings are the spec source;
-techniques/<name>.md mirrors them.
+Twelve techniques mined from DJ literature outside the bank
+(2026-10-21 tranches; banked as WEB-01..WEB-12 in
+technique-bank/TECHNIQUES.md with full provenance). Each function
+takes numpy mono float64 audio + sr and returns mono float64.
+Docstrings are the spec source; techniques/<name>.md mirrors them.
 
   WEB-01 spiral_echo     feedback delay whose repeats pitch-shift
                          (Pioneer DJM SPIRAL beat FX, rendered)
@@ -23,11 +23,16 @@ techniques/<name>.md mirrors them.
                          the riser's mirror, masking the cut
   WEB-10 shimmer_wash    octave-up pitch-shifted reverb exit tail
                          (RMX-1000 Reverb Up / shimmer principle)
+  WEB-11 infinity_filter endless barber-pole resonant sweep exit
+                         (Serato Infinity Filter / Shepard Filter)
+  WEB-12 pattern_layer_bridge  synthesized Pattern Player drum
+                         layer carrying the seam (Traktor Pro 4)
 
-All ten are two-track renderers, exported via TECHNIQUE_FUNCS.
+All twelve are two-track renderers, exported via TECHNIQUE_FUNCS.
 """
 
 import numpy as np
+from scipy import signal
 
 from . import dsp
 
@@ -824,6 +829,333 @@ def shimmer_wash(a, b, sr, bar_s, shift_semitones=12.0, swell_bars=4,
 
 
 # ----------------------------------------------------------------------------
+# WEB-11 — Infinity Filter (endless barber-pole sweep exit)
+# ----------------------------------------------------------------------------
+
+def _bp_sweep_bank(x, sr, centers_hz, gains, half_width_oct=0.35,
+                   block=1024):
+    """Sum of narrow bandpasses whose centers follow centers_hz (n, k),
+    each weighted by its per-sample gain envelope gains (n, k).
+
+    Block-wise coefficient updates with state carryover, mirroring
+    dsp.sweep_filter's pattern: one 2nd-order bandpass per peak, edges
+    at center * 2^(+-half_width_oct). Returns the summed wet signal.
+    """
+    x = np.asarray(x, dtype=np.float64)
+    n = len(x)
+    k = centers_hz.shape[1]
+    y = np.zeros(n)
+    nyq = sr / 2.0
+    for j in range(k):
+        zj = None
+        col = np.zeros(n)
+        for start in range(0, n, block):
+            stop = min(start + block, n)
+            fc = float(np.mean(centers_hz[start:stop, j]))
+            fc = min(max(fc, 15.0), nyq * 0.95)
+            lo = max(10.0, fc * 2.0 ** (-half_width_oct)) / nyq
+            hi = min(nyq * 0.98, fc * 2.0 ** half_width_oct) / nyq
+            if hi <= lo:
+                continue
+            b, a = signal.iirfilter(2, [lo, hi], btype="bandpass",
+                                    output="ba")
+            if zj is None or len(zj) != max(len(b), len(a)) - 1:
+                zj = np.zeros(max(len(b), len(a)) - 1)
+            seg, zj = signal.lfilter(b, a, x[start:stop], zi=zj)
+            col[start:stop] = seg
+        y += col * gains[:, j]
+    return y
+
+
+def infinity_filter(a, b, sr, bar_s, direction=1, cycles=2.0,
+                    sweep_bars=4, mix=0.85, fade_bars=0.5):
+    """Infinity filter: A's exit through an endlessly sweeping
+    resonant peak stack (barber-pole filter); B enters dry.
+
+    Serato's DJ-FX catalog (3.2+) lists an \"Infinity Filter\" among
+    its Advanced FX, and Serato's Hex FX page describes the family
+    mechanism: \"endless sweeping peaks for evolving, dramatic
+    soundscapes\" — a filter sweep that never arrives, the frequency-
+    domain sibling of the Shepard tone (the legacy Serato packs named
+    the same idea \"Shepard Filter\"; Pestrela decomposes Pioneer's
+    Mobius as \"Shepard Tone\"). This renders the transition use with
+    the Shepard construction itself: a bank of narrow resonant peaks
+    spaced one octave apart, each sweeping exponentially upward
+    (direction=-1: downward); a peak's gain follows a Gaussian window
+    over log-frequency, so peaks fade in at the bottom of the window
+    and out at the top — the ear tracks one peak rising forever while
+    A is still, recognizably, A. Across the final `sweep_bars` bars
+    the wet stack crossfades in to `mix` while the peaks complete
+    `cycles` full wraps; at the seam the filtered A cuts and `b`
+    enters dry, faded over `fade_bars`.
+
+    Parameters
+    ----------
+    a : outgoing segment (mono float64); its final `sweep_bars`
+        bars pass through the peak stack.
+    b : incoming segment (mono float64), faded in over `fade_bars`
+        at the seam.
+    sr : sample rate, Hz.
+    bar_s : seconds per bar (sets the sweep zone and B's fade).
+    direction : +1 sweeps up (default), -1 sweeps down.
+    cycles : full octave wraps completed across the zone
+        (default 2.0).
+    sweep_bars : length of the filtered zone in bars (default 4).
+    mix : wet level at full engagement, 0..1 (default 0.85; the
+        remaining dry residue keeps A's body in the exit).
+    fade_bars : B's entrance fade in bars (default 0.5 — the
+        infinity motion, not B, is the event; B arrives promptly).
+
+    Why it works: a one-way filter sweep (T-003) spends its motion
+    and arrives — the exit is the arrival. An endless sweep never
+    resolves, so A's final bars hang in permanent departure: the
+    track is leaving the whole time, and B's dry downbeat is the
+    only arrival on offer. Distinct from WEB-05 `shepard_riser`
+    (an *added* oscillator layer under an intact A): here A's own
+    spectrum is what climbs.
+    """
+    a = np.asarray(a, dtype=np.float64)
+    b = np.asarray(b, dtype=np.float64)
+    zone_n = min(len(a), int(round(sweep_bars * bar_s * sr)))
+    if zone_n <= 0:
+        zone_n = len(a)
+    x = a[-zone_n:]
+    n = zone_n
+
+    # Shepard geometry: peaks one octave apart across a fixed
+    # log-frequency window; sweep phase advances `cycles` wraps.
+    f_lo, f_hi = 120.0, 6000.0
+    span_oct = np.log2(f_hi / f_lo)
+    n_peaks = int(np.ceil(span_oct)) + 1
+    t = np.arange(n) / max(n - 1, 1)
+    phase = float(direction) * float(cycles) * t  # in octaves
+    centers = np.empty((n, n_peaks))
+    gains = np.empty((n, n_peaks))
+    mid_oct = 0.5 * np.log2(f_lo * f_hi)
+    sigma_oct = span_oct / 4.0
+    for j in range(n_peaks):
+        # Peak j's log-frequency position: drifts with the sweep phase
+        # and wraps inside the window (negative phase = descending
+        # peaks, wrapping bottom -> top). The Gaussian gain over
+        # position is what makes the wrap inaudible.
+        pos = np.log2(f_lo) + (j + phase) % span_oct
+        centers[:, j] = 2.0 ** pos
+        gains[:, j] = np.exp(-0.5 * ((pos - mid_oct) / sigma_oct) ** 2)
+    wet = _bp_sweep_bank(x, sr, centers, gains)
+    # The Gaussian window keeps the stack's summed energy ~constant as
+    # peaks wrap (the illusion's evenness); normalize the wet stack to
+    # the dry zone's peak so `mix` means what it says.
+    wpeak = float(np.max(np.abs(wet))) + 1e-12
+    wet = wet / wpeak * (float(np.max(np.abs(x))) + 1e-12)
+
+    ramp_n = max(1, zone_n // 2)
+    menv = np.full(n, float(mix))
+    menv[:ramp_n] = float(mix) * dsp.raised_cosine(ramp_n, up=True)
+    zone_out = (1.0 - menv) * x + menv * wet
+    zone_out = _edge_fades(zone_out, sr)
+
+    out = np.zeros(len(a) + len(b))
+    out[:len(a)] += a
+    out[len(a) - zone_n:len(a)] = zone_out
+    fade_n = min(len(b), int(round(fade_bars * bar_s * sr)))
+    if fade_n > 0:
+        benv = np.ones(len(b))
+        benv[:fade_n] = dsp.raised_cosine(fade_n, up=True)
+        out[len(a):] += b * benv
+    else:
+        out[len(a):] += b
+    return out
+
+
+# ----------------------------------------------------------------------------
+# WEB-12 — Pattern Layer Bridge (Pattern Player seam layer)
+# ----------------------------------------------------------------------------
+
+def _oneshot_kick(n, sr, f_start, f_end, decay_s):
+    """Synthesized kick: sine with exponential pitch drop + amp decay."""
+    t = np.arange(n) / sr
+    freq = f_end + (f_start - f_end) * np.exp(-t / (decay_s * 0.35))
+    phase = 2.0 * np.pi * np.cumsum(freq) / sr
+    return np.sin(phase) * np.exp(-t / decay_s)
+
+
+def _oneshot_noise(n, sr, seed, decay_s, kind, kit):
+    """Synthesized snare/hat: seeded noise burst, shaped + decayed."""
+    rng = np.random.default_rng(seed)
+    t = np.arange(n) / sr
+    raw = rng.standard_normal(n)
+    nyq = sr / 2.0
+    if kind == "snare":
+        lo, hi = (1500.0, 7000.0) if kit == "kit909" else (1200.0, 5500.0)
+        bb, aa = signal.iirfilter(2, [lo / nyq, hi / nyq],
+                                  btype="bandpass", output="ba")
+        body = signal.lfilter(bb, aa, raw)
+        tone = np.sin(2.0 * np.pi * 190.0 * t) * np.exp(-t / 0.03)
+        sig = body * 0.8 + tone * 0.5
+    else:  # hat
+        fc = 7800.0 if kit == "kit909" else 6800.0
+        bb, aa = signal.iirfilter(2, fc / nyq, btype="highpass",
+                                  output="ba")
+        sig = signal.lfilter(bb, aa, raw)
+    return sig * np.exp(-t / decay_s)
+
+
+_PATTERN_STEPS = {
+    # 16-step bars: (kick, snare, hat) step sets. Activity order is
+    # the manual's: patterns are "sorted by increasing activity".
+    "foundation": ({0, 4, 8, 12}, set(), {2, 6, 10, 14}),
+    "groove": ({0, 4, 8, 12}, {4, 12}, {0, 2, 4, 6, 8, 10, 12, 14}),
+    "build": ({0, 4, 8, 12}, {4, 12, 15},
+              set(range(16))),
+    "roll": ({0, 4, 8, 12}, {4, 12}, {0, 2, 4, 6, 8, 10, 12, 14}),
+}
+
+_KITS = {
+    # Parametric approximations of the two classic kits the manual
+    # names (808 / 909): kick pitch envelope + decay, hat brightness.
+    "kit808": dict(kick=(105.0, 40.0, 0.42), snare_dec=0.11,
+                   hat_dec=0.045),
+    "kit909": dict(kick=(122.0, 44.0, 0.27), snare_dec=0.13,
+                   hat_dec=0.05),
+}
+
+
+def pattern_layer_bridge(a, b, sr, bpm, bar_s, pattern="groove",
+                         kit="kit909", bars=8, level_db=-9.0,
+                         duck_db=0.0, duck_release_ms=300.0):
+    """Pattern layer bridge: a synthesized drum pattern (Traktor Pro 4
+    Pattern Player) carries the seam while the decks hand over.
+
+    Traktor Pro 4's Pattern Player is an FX-unit mode that plays
+    rhythmic one-shot patterns (808/909-style kits, 8 samples, patterns
+    \"sorted by increasing activity\") in sync with the master clock,
+    on top of a deck; its Decay knob doubles as the release of an
+    optional ducking envelope that sidechains the deck under the
+    pattern (manual, Pattern Player controls). NI's own transition
+    recipe: start the pattern during A's breakdown, raise the pattern
+    activity to build, drop B in, swap the bass under the pattern,
+    fade A out, then dial the pattern back. This renders that arc:
+    across the seam zone (the last `bars`/2 bars of `a` + the first
+    `bars`/2 bars of `b`) a synthesized pattern plays at the pair's
+    tempo; `a` exits with a one-beat fade into the seam (the pattern
+    masks it), `b` fades in across its zone half and is established
+    as the pattern stops. With `duck_db` > 0 both decks dip on every
+    kick step — fast attack, `duck_release_ms` release (the manual's
+    200–500 ms duck-release range).
+
+    Parameters
+    ----------
+    a, b : outgoing / incoming segments (mono float64).
+    sr : sample rate, Hz.
+    bpm : tempo of the pair (the pattern's clock).
+    bar_s : seconds per bar.
+    pattern : named density — \"foundation\" (kick + offbeat hats),
+        \"groove\" (+ backbeat snare, 8th hats), \"build\" (+ 16th
+        hats, extra snare), \"roll\" (groove + a final-bar snare
+        roll into the seam's B side establishment).
+    kit : \"kit808\" / \"kit909\" — parametric one-shot voices.
+    bars : total seam-zone length in bars (default 8).
+    level_db : pattern bus peak level (default -9.0).
+    duck_db : deck ducking depth on kick steps (default 0.0 = off).
+    duck_release_ms : duck release (default 300 ms; manual range
+        200–500).
+
+    Why it works: the seam's hardest moment is two records trading
+    rhythmic authority. A third, neutral rhythm — owned by neither
+    track, locked to the shared grid — holds the floor's pulse
+    constant while the records swap underneath it, so neither A's
+    exit nor B's entrance has to carry the groove alone. Distinct
+    from T-022 `drum_bridge` (which strips to *A's own* drums) and
+    T-020 `three_deck_layer` (a third *track* as glue): the glue
+    here is synthesized, keyless, and identical under both tracks.
+    """
+    a = np.asarray(a, dtype=np.float64)
+    b = np.asarray(b, dtype=np.float64)
+    total = len(a) + len(b)
+    beat_s = 60.0 / float(bpm)
+    step_s = beat_s / 4.0
+    half_bars = max(1, int(bars) // 2)
+    zone_a_n = min(len(a), int(round(half_bars * bar_s * sr)))
+    zone_b_n = min(len(b), int(round(half_bars * bar_s * sr)))
+    zone_start = len(a) - zone_a_n
+    zone_end = len(a) + zone_b_n
+    zone_n = zone_end - zone_start
+
+    kitp = _KITS.get(kit, _KITS["kit909"])
+    kicks, snares, hats = _PATTERN_STEPS.get(pattern,
+                                             _PATTERN_STEPS["groove"])
+    pat = np.zeros(zone_n)
+    kick_steps = []
+    n_steps = int(np.ceil(zone_n / (step_s * sr)))
+    zone_bars = zone_n / (bar_s * sr)
+    for s in range(n_steps):
+        at = int(round(s * step_s * sr))
+        if at >= zone_n:
+            break
+        step_in_bar = s % 16
+        bar_idx = s // 16
+        # Activity arc: later bars hit slightly harder (NI: raise
+        # pattern activity into the drop, dial back after) — velocity
+        # only; the step sets themselves are the named patterns.
+        vel = 0.85 + 0.15 * (bar_idx / max(zone_bars - 1.0, 1.0))
+        if step_in_bar in kicks:
+            g = _oneshot_kick(int(0.6 * sr), sr, *kitp["kick"])
+            m = min(len(g), zone_n - at)
+            pat[at:at + m] += vel * g[:m]
+            kick_steps.append(at)
+        is_roll_bar = (pattern == "roll"
+                       and bar_idx == int(zone_bars) - 1
+                       and at >= zone_a_n)
+        if step_in_bar in snares or is_roll_bar:
+            g = _oneshot_noise(int(0.3 * sr), sr, 1000 + s,
+                               kitp["snare_dec"], "snare", kit)
+            m = min(len(g), zone_n - at)
+            pat[at:at + m] += vel * 0.8 * g[:m]
+        if step_in_bar in hats:
+            g = _oneshot_noise(int(0.12 * sr), sr, 5000 + s,
+                               kitp["hat_dec"], "hat", kit)
+            m = min(len(g), zone_n - at)
+            pat[at:at + m] += vel * 0.45 * g[:m]
+    ppeak = float(np.max(np.abs(pat))) + 1e-12
+    pat = pat / ppeak * dsp.db_to_gain(float(level_db))
+
+    # Track gains on the concatenated timeline.
+    ga = np.ones(total)
+    fade_a_n = min(zone_a_n, int(round(beat_s * sr)))
+    if fade_a_n > 1:
+        ga[len(a) - fade_a_n:len(a)] = dsp.raised_cosine(fade_a_n,
+                                                         up=False)
+    ga[len(a):] = 0.0
+    gb = np.zeros(total)
+    if zone_b_n > 1:
+        gb[len(a):zone_end] = dsp.raised_cosine(zone_b_n, up=True)
+    gb[zone_end:] = 1.0
+
+    mix_ab = ga * np.concatenate([a, np.zeros(len(b))]) \
+        + gb * np.concatenate([np.zeros(len(a)), b])
+
+    # Optional ducking: decks dip under each kick step (the pattern
+    # itself is the sidechain source and is not ducked).
+    if duck_db > 0 and kick_steps:
+        env = np.ones(zone_n)
+        dip = dsp.db_to_gain(-float(duck_db))
+        atk = max(1, int(0.005 * sr))
+        rel = max(1, int(float(duck_release_ms) / 1000.0 * sr))
+        for at in kick_steps:
+            e = min(at + atk, zone_n)
+            env[at:e] = np.linspace(1.0, dip, e - at)
+            r = min(at + atk + rel, zone_n)
+            if r > e:
+                env[e:r] = np.minimum(env[e:r],
+                                      np.linspace(dip, 1.0, r - e))
+        mix_ab[zone_start:zone_end] *= env
+
+    out = mix_ab
+    out[zone_start:zone_end] += pat
+    return _edge_fades(out, sr)
+
+
+# ----------------------------------------------------------------------------
 # Metadata registry (FRAMEWORK.md §3) — merged by engine/meta.py
 # ----------------------------------------------------------------------------
 
@@ -1299,6 +1631,133 @@ META = {
         ],
         "composed_of": ["reverb_wash"],
     },
+    "infinity_filter": {
+        "title": "Infinity Filter (Endless Barber-Pole Sweep Exit)",
+        "bank": "WEB-11", "family": "FREQ", "kind": "render",
+        "verdict": "ADOPT", "confidence": "medium",
+        "requires": {"bpm_delta_pct_max": None, "camelot_max": None,
+                     "vocal_ok": ["a_only", "b_only", "both",
+                                  "neither"],
+                     "phrase_a_ok": ["outro", "build", "drop", "verse",
+                                     "chorus"],
+                     "genre_pair_ok": ["same", "neighbor", "leap"],
+                     "needs": []},
+        "prefers": [
+            {"when": "camelot>=2", "weight": 2,
+             "reason": "the peak stack never stops leaving A's pitch "
+                       "center — key distance is forgiven"},
+            {"when": "phrase_a==outro", "weight": 1,
+             "reason": "an outro in permanent departure is the "
+                       "classic infinity-sweep exit"},
+        ],
+        "energy": {"delta": 1, "tension": "rising"},
+        "exit": "snap", "clash_risk": "none",
+        "params": {
+            "direction": {"type": "int", "range": [-1, 1],
+                          "default": 1, "unit": "sign",
+                          "presets": {"up": 1, "down": -1}},
+            "cycles": {"type": "float", "range": [0.5, 4.0],
+                       "default": 2.0, "unit": "wraps",
+                       "presets": {"one": 1.0, "two": 2.0,
+                                   "three": 3.0}},
+            "sweep_bars": {"type": "int", "range": [2, 8],
+                           "default": 4, "unit": "bars",
+                           "presets": {"short": 2, "standard": 4,
+                                       "long": 8}},
+            "mix": {"type": "float", "range": [0.5, 1.0],
+                    "default": 0.85, "unit": "ratio"},
+            "fade_bars": {"type": "float", "range": [0.25, 4.0],
+                          "default": 0.5, "unit": "bars"},
+        },
+        "evidence": [
+            {"type": "manual",
+             "ref": "Serato Support — DJ-FX & Channel FX list "
+                    "(Serato DJ Pro 3.2+): Infinity Filter and "
+                    "Infinity Flanger among the Advanced FX; legacy "
+                    "packs named the same idea Shepard Filter",
+             "url": "https://support.serato.com/hc/en-us/articles/"
+                    "10271055029263-DJ-FX-Channel-FX-list",
+             "date": "2026-10-21"},
+            {"type": "tutorial",
+             "ref": "Serato Hex FX — Filters: the Infinity Filter "
+                    "has \"endless sweeping peaks for evolving, "
+                    "dramatic soundscapes\"; Infinity Flanger "
+                    "\"rises or falls infinitely\"",
+             "url": "http://serato.com/hex-fx",
+             "date": "2026-10-21"},
+            dict(_PEST),
+        ],
+        "composed_of": ["filter_sweep"],
+    },
+    "pattern_layer_bridge": {
+        "title": "Pattern Layer Bridge (Pattern Player Seam Layer)",
+        "bank": "WEB-12", "family": "SYNTH", "kind": "render",
+        "verdict": "ADOPT", "confidence": "medium",
+        "requires": {"bpm_delta_pct_max": 6.0, "camelot_max": None,
+                     "vocal_ok": ["a_only", "b_only", "both",
+                                  "neither"],
+                     "phrase_a_ok": ["breakdown", "outro", "build",
+                                     "drop"],
+                     "genre_pair_ok": ["same", "neighbor", "leap"],
+                     "needs": []},
+        "prefers": [
+            {"when": "phrase_a==breakdown", "weight": 2,
+             "reason": "NI's recipe starts the pattern in A's "
+                       "breakdown, where neither track owns the "
+                       "groove"},
+            {"when": "energy_delta>=1", "weight": 1,
+             "reason": "the pattern's activity arc builds into a "
+                       "bigger B"},
+        ],
+        "energy": {"delta": 1, "tension": "rising"},
+        "exit": "seamless", "clash_risk": "none",
+        "params": {
+            "pattern": {"type": "str", "range": None,
+                        "default": "groove", "unit": "pattern",
+                        "presets": {"foundation": "foundation",
+                                    "groove": "groove",
+                                    "build": "build",
+                                    "roll": "roll"}},
+            "kit": {"type": "str", "range": None,
+                    "default": "kit909", "unit": "kit",
+                    "presets": {"kit808": "kit808",
+                                "kit909": "kit909"}},
+            "bars": {"type": "int", "range": [4, 16], "default": 8,
+                     "unit": "bars",
+                     "presets": {"short": 4, "standard": 8,
+                                 "long": 16}},
+            "level_db": {"type": "float", "range": [-18.0, -3.0],
+                         "default": -9.0, "unit": "dB"},
+            "duck_db": {"type": "float", "range": [0.0, 12.0],
+                        "default": 0.0, "unit": "dB"},
+            "duck_release_ms": {"type": "float",
+                                "range": [200.0, 500.0],
+                                "default": 300.0, "unit": "ms"},
+        },
+        "evidence": [
+            {"type": "manual",
+             "ref": "Native Instruments Traktor Pro 4 manual — "
+                    "Pattern Player: an FX-unit mode playing "
+                    "rhythmic one-shot patterns in sync with the "
+                    "master clock; Volume/Kit/Pattern/Pitch/Decay "
+                    "controls; ducking sidechains the deck to the "
+                    "pattern, duck release 200-500 ms set by Decay",
+             "url": "https://www.manua.ls/native-instruments/"
+                    "traktor-pro-4/manual?p=25",
+             "date": "2026-10-21"},
+            {"type": "tutorial",
+             "ref": "Native Instruments Blog — Beyond "
+                    "four-on-the-floor: mixing with the Pattern "
+                    "Player in Traktor Pro 4 (transitions and "
+                    "builds: pattern over A's breakdown, raise "
+                    "activity, drop B, swap the bass under the "
+                    "pattern, fade A out, dial the pattern back)",
+             "url": "https://blog.native-instruments.com/"
+                    "pattern-player-traktor-pro/",
+             "date": "2026-10-21"},
+        ],
+        "composed_of": ["drum_bridge"],
+    },
 }
 
 
@@ -1314,4 +1773,6 @@ TECHNIQUE_FUNCS = {
     "beatslicer_shuffle": beatslicer_shuffle,
     "downlifter_exit": downlifter_exit,
     "shimmer_wash": shimmer_wash,
+    "infinity_filter": infinity_filter,
+    "pattern_layer_bridge": pattern_layer_bridge,
 }

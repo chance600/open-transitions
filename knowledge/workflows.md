@@ -36,3 +36,8 @@ Provenance: @dnksaus, https://www.instagram.com/p/CeMGMcvl7xb/ (2022-05-30).
 
 Stop waiting months for labels to reply or for the "perfect" release home — self-release, and teach/show how the music is made instead.
 Provenance: @imtrvcy, https://www.instagram.com/p/C8kmRBePQDZ/ (2024-06-23).
+
+### Serato Flip — recorded cue automation as a track edit
+
+Flip records a performance — hot-cue triggers and censor actions, in time — into an automation lane saved in the track file's own metadata, then replays that automation on playback: the track edits itself. Serato's named uses are transition-shaped: extend intros, breakdowns or outros for better mixing; create transition sections inside a song for changing tempo or beat structure; auto-skip verses/choruses; clean (censor) edits; tone play. Loop Snap quantizes the recorded Flip's length to the track's BPM so a looped Flip cycles in time. This is the authoring model behind the registry's premade-edit family (T-028 beat_jump's playhead arithmetic, T-014 hotcue_drop_swap, GAP-07 premade tempo-bridge edit): the moves are performed once, then stored *with the track* rather than re-performed nightly — prep-layer, not a renderer, so it lives here in the knowledge layer (study program tranche 2, 2026-10-21).
+Provenance: Serato Support, Serato Flip User Guide, https://support.serato.com/hc/en-us/articles/203157550-Serato-Flip-User-Guide , mined 2026-10-21.

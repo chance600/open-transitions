@@ -270,3 +270,96 @@ ranking sanity); probe pairs rank the new techniques sensibly —
 `shimmer_wash` surfaces #4 with both preference reasons firing on a
 key-clash pair, the rest are eligible and sit below the top-5 cut on
 a generic pair, the same behavior as WEB-01…WEB-06.
+
+## Phase 7 — Educationals study program: tranche 2 (2026-10-21)
+
+Second tranche of the standing study program, worked from the top
+of the Phase 6 NEXT QUEUE, items 1–4 in order and to depth:
+(1) the DJM-A9 manual body — Sound Color FX types (pp.40–41),
+Beat FX types and settings (pp.52–56), FX FREQUENCY usage
+(pp.47–50); (2) Serato's official FX + Flip documentation
+(Serato Support: Using DJ-FX in both editions, the 3.2.0 DJ-FX &
+Channel FX FAQ, the full DJ-FX & Channel FX list, the Flip User
+Guide); (3) the Traktor Pro 4 manual's FX chapters — Pattern
+Player controls (p.25) and FX-unit mode (p.78), the 9-piece
+Mixer FX set — plus NI's Pattern Player blog; (4) the DJ
+TechTools compounds pass — the Fader FX Theory article (2008)
+and the chain lists preserved on the Pestrela effects page.
+
+Two techniques cleared the evidence + executability bar — banked
+first as WEB-11/WEB-12 in `technique-bank/TECHNIQUES.md` with
+provenance, then built into the existing web lane
+(`engine/web_techniques.py` + `demos/ext_web.py`; no new merge
+points):
+
+- `infinity_filter` (WEB-11, FREQ) — Serato's Infinity Filter
+  (legacy name: Shepard Filter): the Shepard construction
+  transposed to filters — an octave-spaced stack of narrow
+  resonant peaks sweeps A's final bars endlessly under a Gaussian
+  log-frequency window, so the exit never arrives; B enters dry
+  (Serato Support DJ-FX & Channel FX list; Serato Hex FX:
+  "endless sweeping peaks"; Pestrela's Mobius = Shepard Tone
+  decomposition).
+- `pattern_layer_bridge` (WEB-12, SYNTH) — Traktor Pro 4's
+  Pattern Player as a transition: a synthesized one-shot pattern
+  layer (parametric 808/909-style voices on a 16-step grid, named
+  density patterns in the manual's increasing-activity order,
+  optional kick ducking with the manual's 200–500 ms release)
+  carries the seam zone while A exits and B establishes (Traktor
+  Pro 4 manual pp.25/78; NI blog's transitions-and-builds
+  recipe).
+
+One authoring model went to the knowledge layer: **Serato Flip**
+— recorded hot-cue/censor automation saved into the track's
+metadata and replayed as an edit — banked in
+`knowledge/workflows.md` (knowledge 81 → **82**), the model
+behind the premade-edit family (T-028/T-014/GAP-07), not a
+renderer.
+
+**Everything else was overlap-resolved in the bank with
+pointers, deliberately not rebuilt:** the full A9 catalog
+against its manual body (MOBIUS → `shepard_riser` — the body's
+signed beat fractions are its direction axis; SPACE →
+`reverb_wash` band-pair axis; TRIPLET FILTER/ROLL → timing axes
+— Phase 6's resolutions *confirmed* by the body; FX FREQUENCY →
+a routing-axis note over the existing band machinery); 40+
+Serato DJ-FX names across the 3.2 list and the legacy iZotope
+packs (echo/brake/roll/gate/crush/reverb family voicings;
+Pitch Looper → `helix_catch`; Particle Delay → a
+`granular_freeze` feed axis; Pan Delay → the mono T-004
+disposition), with three **named unknowns banked-not-built** —
+Infinity Tone, Space Invader, U.F.O: no mechanism published in
+any source read (the French Candy disposition); Traktor's 9
+Mixer FX — every one decomposes as an effect + bipolar filter
+(Barber Pole → `shepard_riser`, Dotted Delay → a T-004 timing
+axis, Crush → `crush_degrade`, its "no pitch increase" note
+being exactly the DJM distinction) — plus Delay T3 / Free Run
+and Flux Mode as axes/planning notes on existing entries; and
+the DJTT compounds pass proper: Fader FX's three-slot grammar
+(repeating → shaping → dimensional) is FRAMEWORK §6's chain
+operator with named slot roles, and every named chain — JogFX
+(Detox, Build, Swirl), MacroFX (Wormhole, PolarWind,
+FlightTest, LaserSlicer, DarkMatter, Zzzurp, EventHorizon,
+Bass-o-Matic, Strrretch, GranuPhase), the Koolis combos —
+decomposes into registry bases with **zero new primitives**
+(the ring modulator appears only as a compound ingredient and
+is banked-not-built as a base; Bass-o-Matic's "triplets slicer"
+is a third vendor confirming triplet timing as an axis). The
+NEXT QUEUE in `technique-bank/EDUCATIONAL-SOURCES.md` is
+refreshed — Denon Engine DJ tops it now.
+
+**Counts now:** registry 74 → **76** (67 render + 3 decision +
+5 overlay + 1 planning; 75 executable), plan-renderable 58 →
+**60**, variants 237 → **257** (+20 across the 2 new bases;
+VARIANTS.md regenerated), knowledge 81 → **82**, demos 100 →
+**102** (suite: 102/102 rendered + verified clean). Verdicts:
+ADOPT 54 / ADAPT 22. Selection: `check_select()` green (T-037
+agreement); probes rank the new techniques on-design —
+`pattern_layer_bridge` #1 on a breakdown → bigger-B pair with
+both preference reasons firing, `infinity_filter` #3 on a
+key-clash pair (both prefers firing) and #5 on a generic matched
+pair, eligible-but-unremarkable where its preferences don't
+apply; all 20 new variants render finite output via
+`render_variant`. Two render bugs were caught and fixed during
+smoke (bandpass state-vector length in the peak bank; a zone
+slice running past the seam).

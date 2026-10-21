@@ -7,7 +7,7 @@ registry lives in `engine/variants.py` and is **generated,
 never hand-listed**: `VARIANTS = build_variants()` enumerates
 `meta.all_meta()` at import time.
 
-**Snapshot: 237 variants across 46 base techniques** (108 variants across 29 core-bank bases; the rest arrive via domain modules, FRAMEWORK.md §7).
+**Snapshot: 257 variants across 48 base techniques** (108 variants across 29 core-bank bases; the rest arrive via domain modules, FRAMEWORK.md §7).
 This file is a snapshot of one generation run — see
 *Regenerating* below.
 
@@ -267,6 +267,19 @@ core base, capped at 40) through the standard demo pipeline.
 | `hotcue_drop_swap__4beat` | xfade_beats=4 |
 | `hotcue_drop_swap__8beat` | xfade_beats=8 |
 
+### infinity_filter — Infinity Filter (Endless Barber-Pole Sweep Exit) (8 variants)
+
+| variant | params |
+|---|---|
+| `infinity_filter__down` | direction=-1 |
+| `infinity_filter__down_one` | direction=-1, cycles=1.0 |
+| `infinity_filter__down_three` | direction=-1, cycles=3.0 |
+| `infinity_filter__down_two` | direction=-1, cycles=2.0 |
+| `infinity_filter__up` | direction=1 |
+| `infinity_filter__up_one` | direction=1, cycles=1.0 |
+| `infinity_filter__up_three` | direction=1, cycles=3.0 |
+| `infinity_filter__up_two` | direction=1, cycles=2.0 |
+
 ### layered_fx_stack — Layered FX Stack (Echo + Filter + Reverb) (2 variants)
 
 | variant | params |
@@ -309,6 +322,23 @@ core base, capped at 40) through the standard demo pipeline.
 | `noise_echo_buildup__16bar` | build_bars=16 |
 | `noise_echo_buildup__4bar` | build_bars=4 |
 | `noise_echo_buildup__8bar` | build_bars=8 |
+
+### pattern_layer_bridge — Pattern Layer Bridge (Pattern Player Seam Layer) (12 variants)
+
+| variant | params |
+|---|---|
+| `pattern_layer_bridge__build` | pattern='build' |
+| `pattern_layer_bridge__build_kit808` | pattern='build', kit='kit808' |
+| `pattern_layer_bridge__build_kit909` | pattern='build', kit='kit909' |
+| `pattern_layer_bridge__foundation` | pattern='foundation' |
+| `pattern_layer_bridge__foundation_kit808` | pattern='foundation', kit='kit808' |
+| `pattern_layer_bridge__foundation_kit909` | pattern='foundation', kit='kit909' |
+| `pattern_layer_bridge__groove` | pattern='groove' |
+| `pattern_layer_bridge__groove_kit808` | pattern='groove', kit='kit808' |
+| `pattern_layer_bridge__groove_kit909` | pattern='groove', kit='kit909' |
+| `pattern_layer_bridge__roll` | pattern='roll' |
+| `pattern_layer_bridge__roll_kit808` | pattern='roll', kit='kit808' |
+| `pattern_layer_bridge__roll_kit909` | pattern='roll', kit='kit909' |
 
 ### pitch_play — Pitch Play (Key-Shifted Vocal Overlay) (4 variants)
 
