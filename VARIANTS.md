@@ -7,7 +7,7 @@ registry lives in `engine/variants.py` and is **generated,
 never hand-listed**: `VARIANTS = build_variants()` enumerates
 `meta.all_meta()` at import time.
 
-**Snapshot: 127 variants across 36 base techniques** (108 variants across 29 core-bank bases; the rest arrive via domain modules, FRAMEWORK.md §7).
+**Snapshot: 186 variants across 42 base techniques** (108 variants across 29 core-bank bases; the rest arrive via domain modules, FRAMEWORK.md §7).
 This file is a snapshot of one generation run — see
 *Regenerating* below.
 
@@ -73,6 +73,23 @@ core base, capped at 40) through the standard demo pipeline.
 | `build_to_drop__32bar` | build_bars=32 |
 | `build_to_drop__8bar` | build_bars=8 |
 
+### crush_degrade — Crush Degrade (Bit-Reduction Exit) (12 variants)
+
+| variant | params |
+|---|---|
+| `crush_degrade__crushed` | bits_end=5.0 |
+| `crush_degrade__crushed_long` | bits_end=5.0, bars=8 |
+| `crush_degrade__crushed_short` | bits_end=5.0, bars=2 |
+| `crush_degrade__crushed_standard` | bits_end=5.0, bars=4 |
+| `crush_degrade__destroyed` | bits_end=3.5 |
+| `crush_degrade__destroyed_long` | bits_end=3.5, bars=8 |
+| `crush_degrade__destroyed_short` | bits_end=3.5, bars=2 |
+| `crush_degrade__destroyed_standard` | bits_end=3.5, bars=4 |
+| `crush_degrade__lofi` | bits_end=7.0 |
+| `crush_degrade__lofi_long` | bits_end=7.0, bars=8 |
+| `crush_degrade__lofi_short` | bits_end=7.0, bars=2 |
+| `crush_degrade__lofi_standard` | bits_end=7.0, bars=4 |
+
 ### double_drop — Double Drop (Dual-Build Collision) (2 variants)
 
 | variant | params |
@@ -136,6 +153,40 @@ core base, capped at 40) through the standard demo pipeline.
 | `filter_sweep__long` | sweep_bars=12 |
 | `filter_sweep__quick` | sweep_bars=4 |
 | `filter_sweep__standard` | sweep_bars=7 |
+
+### flanger_sweep — Flanger Sweep (Jet Comb Build/Exit) (12 variants)
+
+| variant | params |
+|---|---|
+| `flanger_sweep__long` | sweep_bars=16 |
+| `flanger_sweep__long_deep` | sweep_bars=16, depth_ms=3.8 |
+| `flanger_sweep__long_jet` | sweep_bars=16, depth_ms=2.2 |
+| `flanger_sweep__long_subtle` | sweep_bars=16, depth_ms=1.2 |
+| `flanger_sweep__standard` | sweep_bars=8 |
+| `flanger_sweep__standard_deep` | sweep_bars=8, depth_ms=3.8 |
+| `flanger_sweep__standard_jet` | sweep_bars=8, depth_ms=2.2 |
+| `flanger_sweep__standard_subtle` | sweep_bars=8, depth_ms=1.2 |
+| `flanger_sweep__tight` | sweep_bars=4 |
+| `flanger_sweep__tight_deep` | sweep_bars=4, depth_ms=3.8 |
+| `flanger_sweep__tight_jet` | sweep_bars=4, depth_ms=2.2 |
+| `flanger_sweep__tight_subtle` | sweep_bars=4, depth_ms=1.2 |
+
+### granular_freeze — Granular Freeze (Frozen-Moment Cloud Handoff) (12 variants)
+
+| variant | params |
+|---|---|
+| `granular_freeze__coarse` | grain_ms=120.0 |
+| `granular_freeze__coarse_long` | grain_ms=120.0, cloud_bars=8 |
+| `granular_freeze__coarse_short` | grain_ms=120.0, cloud_bars=2 |
+| `granular_freeze__coarse_standard` | grain_ms=120.0, cloud_bars=4 |
+| `granular_freeze__fine` | grain_ms=35.0 |
+| `granular_freeze__fine_long` | grain_ms=35.0, cloud_bars=8 |
+| `granular_freeze__fine_short` | grain_ms=35.0, cloud_bars=2 |
+| `granular_freeze__fine_standard` | grain_ms=35.0, cloud_bars=4 |
+| `granular_freeze__standard` | grain_ms=70.0 |
+| `granular_freeze__standard_long` | grain_ms=70.0, cloud_bars=8 |
+| `granular_freeze__standard_short` | grain_ms=70.0, cloud_bars=2 |
+| `granular_freeze__standard_standard` | grain_ms=70.0, cloud_bars=4 |
 
 ### hook_drop_handoff — Hook-Drop Handoff (12 variants)
 
@@ -246,6 +297,14 @@ core base, capped at 40) through the standard demo pipeline.
 | `reverb_wash__late` | wash_start_bar=8 |
 | `reverb_wash__standard` | wash_start_bar=4 |
 
+### reverse_roll — Reverse Roll (Reversed Loop-Sampler Build) (3 variants)
+
+| variant | params |
+|---|---|
+| `reverse_roll__long` | roll_bars=4 |
+| `reverse_roll__quick` | roll_bars=1 |
+| `reverse_roll__standard` | roll_bars=2 |
+
 ### rhythmic_fader_chops — Rhythmic Fader Chops (Transformer) (3 variants)
 
 | variant | params |
@@ -294,6 +353,19 @@ core base, capped at 40) through the standard demo pipeline.
 | `screwed_treatment__screw_coupled` | rate=0.7, pitch_coupled=True |
 | `screwed_treatment__screw_held` | rate=0.7, pitch_coupled=False |
 
+### shepard_riser — Shepard Riser (Endless-Rise Build Layer) (8 variants)
+
+| variant | params |
+|---|---|
+| `shepard_riser__down` | direction=-1 |
+| `shepard_riser__down_long` | direction=-1, bars=16 |
+| `shepard_riser__down_short` | direction=-1, bars=4 |
+| `shepard_riser__down_standard` | direction=-1, bars=8 |
+| `shepard_riser__up` | direction=1 |
+| `shepard_riser__up_long` | direction=1, bars=16 |
+| `shepard_riser__up_short` | direction=1, bars=4 |
+| `shepard_riser__up_standard` | direction=1, bars=8 |
+
 ### slip_mode_flourish — Slip-Mode Flourish (3 variants)
 
 | variant | params |
@@ -301,6 +373,23 @@ core base, capped at 40) through the standard demo pipeline.
 | `slip_mode_flourish__half` | flourish_beats=0.5 |
 | `slip_mode_flourish__one` | flourish_beats=1.0 |
 | `slip_mode_flourish__two` | flourish_beats=2.0 |
+
+### spiral_echo — Spiral Echo (Pitch-Riding Feedback Delay) (12 variants)
+
+| variant | params |
+|---|---|
+| `spiral_echo__beat` | delay_beats=1.0 |
+| `spiral_echo__beat_down2` | delay_beats=1.0, shift_semitones=-2.0 |
+| `spiral_echo__beat_down4` | delay_beats=1.0, shift_semitones=-4.0 |
+| `spiral_echo__beat_up2` | delay_beats=1.0, shift_semitones=2.0 |
+| `spiral_echo__beat_up4` | delay_beats=1.0, shift_semitones=4.0 |
+| `spiral_echo__dotted` | delay_beats=0.75 |
+| `spiral_echo__dotted_down2` | delay_beats=0.75, shift_semitones=-2.0 |
+| `spiral_echo__dotted_down4` | delay_beats=0.75, shift_semitones=-4.0 |
+| `spiral_echo__dotted_up2` | delay_beats=0.75, shift_semitones=2.0 |
+| `spiral_echo__dotted_up4` | delay_beats=0.75, shift_semitones=4.0 |
+| `spiral_echo__quarter` | delay_beats=0.25 |
+| `spiral_echo__quarter_down2` | delay_beats=0.25, shift_semitones=-2.0 |
 
 ### tempo_bridge — Tempo Bridge (BPM Ramp / Half-Double) (3 variants)
 

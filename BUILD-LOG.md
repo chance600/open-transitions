@@ -127,3 +127,73 @@ Six domain lanes landed in parallel under the §7 contracts (each lane: engine m
 **Counts now:** 64 registry entries (62 executable techniques + T-037 + 1 planning), 48 plan-renderable, 127 variants, 81 knowledge entries, 3 registered exclusions (toneplay, holding-pattern loop, siren/horn). Selection smoke tests pass: stem techniques rank when stems exist, reject with named reasons when they don't; planning entries never rank.
 
 Honest residuals: stem-signature techniques are demo+registry only (the plan renderer can't cut stems from a file — stem plan support is future work); `premade_tempo_bridge_edit` variants need their lane's staging scene; the full-suite verification receipt is regenerated on every merge run.
+
+## Phase 5 — Backlog audit + web-mined tranche (2026-10-21)
+
+Two workstreams, in order: (1) audit the banked backlog against the
+registry, build anything qualifying that isn't built; (2) mine fresh
+techniques from DJ literature outside the bank, bank them first, then
+build to the same bar.
+
+1. **Backlog audit — zero buildable leftovers.** The DM clip study's
+   44 candidates: 6 already built in Phase 4 (A-14, A-15, A-21, A-23,
+   A-39, A-44), 33 are knowledge-class (producing/mixing/workflows/
+   business — they live in `knowledge/`, where they belong), 5 were
+   overlap-resolved into existing entries (A-09/A-33/A-34 → vocal-chop
+   family; A-28 → T-035/T-019 primitives; A-30 is an in-track fill,
+   not a transition). TECHNIQUES.md's gap entries: all 16 actionable
+   gaps were implemented in Phase 4; the remaining bank entries are
+   the documented exclusions (T-012 toneplay, T-036 siren/horn) and
+   T-016 energy planning (knowledge-class, in T-037/setcraft). GAP-03
+   and GAP-06 exist in no bank or repo record — numbering skips, not
+   lost techniques. The full audit with per-candidate reasons is
+   recorded in `technique-bank/TECHNIQUES.md` ("Backlog audit —
+   2026-10-21"). **Nothing was force-built to inflate the count.**
+2. **Web-mined lane** (`engine/web_techniques.py`, +6 render
+   techniques, banked first as WEB-01…WEB-06 in TECHNIQUES.md with
+   per-technique sources):
+   - `spiral_echo` (WEB-01, SPACE) — Pioneer DJM SPIRAL beat FX
+     rendered: a feedback delay whose repeats pitch-shift per return
+     (DJM-450 manual; Pestrela DJ Knowledge Base).
+   - `flanger_sweep` (WEB-02, FREQ) — DJM Colour FX "Jet": a swept
+     comb thins A's final bars; B enters dry (Pestrela KB; Engine DJ
+     course).
+   - `reverse_roll` (WEB-03, TIME) — REV ROLL reversed loop sampler
+     as an exit build: A's last beat tiles backwards, halving
+     (Pestrela KB).
+   - `crush_degrade` (WEB-04, DYN) — DJM Crush extended: bit depth,
+     sample rate, and low-pass all collapse over A's final bars;
+     B arrives at full fidelity (Pestrela KB).
+   - `shepard_riser` (WEB-05, SYNTH) — Shepard-Risset endless-rise
+     layer (the DJM Mobius illusion, synthesized): octave sine stack
+     under a Gaussian log-frequency envelope (Pestrela KB; Sound on
+     Sound, iZotope Möbius Filter review).
+   - `granular_freeze` (WEB-06, SPACE) — A's last ~150 ms sustained
+     as a Hann-grain cloud while B fades up inside it (Amazing Noises
+     Grain Freezer recipe via Rekkerd; Sound on Sound granular
+     synthesis primer). Distinct from T-034 reverb_freeze, which
+     freezes the room's tail — this freezes the source.
+   Each ships with META (requires/prefers/params/evidence), spec doc,
+   demo (`demos/ext_web.py`), and variants from its preset axes.
+   Deliberately left banked, not built: the French Candy "washing
+   machine" effect (Part B of the DM study) — named in one clip but
+   never explained in text; it fails the evidence standard until a
+   source describes the mechanism. A-42 stereo automation stays
+   knowledge-class (a produced-track technique, not a transition).
+
+**Counts now:** registry 64 → **70** (61 render + 3 decision + 5
+overlay + 1 planning; 69 executable), plan-renderable 48 → **54**,
+variants 127 → **186** (+59 across the 6 new bases; VARIANTS.md
+regenerated), knowledge **81** (unchanged — this tranche added no
+knowledge entries), exclusions unchanged (3). Verdicts: ADOPT 48 /
+ADAPT 22.
+
+**Verification:** full demo suite `python3 demos/make_demos.py` —
+**96/96 demos rendered + verified clean** (90 baseline + 6 new;
+silence/headroom/centroid gates, QC-gate self-test included);
+`check_select()` T-037 canonical agreement still green; selection
+smoke: crush_degrade + granular_freeze rank on a genre-leap pair,
+reverse_roll + shepard_riser + flanger_sweep rank on a build pair,
+spiral_echo ranks #6/30 on a key-clash pair (eligible, prefers fire,
+no canonical displacement); all 59 new variants render finite output
+via `render_variant`.
