@@ -2,11 +2,11 @@
 open-transitions engine — web-mined techniques (domain module,
 FRAMEWORK.md §7).
 
-Six techniques mined from DJ literature outside the bank (2026-10-21
-tranche; banked as WEB-01..WEB-06 in technique-bank/TECHNIQUES.md with
-full provenance). Each function takes numpy mono float64 audio + sr and
-returns mono float64. Docstrings are the spec source; techniques/<name>.md
-mirrors them.
+Ten techniques mined from DJ literature outside the bank (2026-10-21
+tranches; banked as WEB-01..WEB-10 in technique-bank/TECHNIQUES.md
+with full provenance). Each function takes numpy mono float64 audio
++ sr and returns mono float64. Docstrings are the spec source;
+techniques/<name>.md mirrors them.
 
   WEB-01 spiral_echo     feedback delay whose repeats pitch-shift
                          (Pioneer DJM SPIRAL beat FX, rendered)
@@ -15,8 +15,16 @@ mirrors them.
   WEB-04 crush_degrade   bit-depth + sample-rate degradation exit
   WEB-05 shepard_riser   Shepard-Risset endless-rise build layer
   WEB-06 granular_freeze frozen-moment grain-cloud handoff
+  WEB-07 helix_catch     loop-sampler catch, pitch ramps during the
+                         hold, release snaps home into B (DJM HELIX)
+  WEB-08 beatslicer_shuffle  A's final bar(s) slice-permuted as a
+                         build (Traktor BeatSlicer)
+  WEB-09 downlifter_exit descending synth sweep across the seam —
+                         the riser's mirror, masking the cut
+  WEB-10 shimmer_wash    octave-up pitch-shifted reverb exit tail
+                         (RMX-1000 Reverb Up / shimmer principle)
 
-All six are two-track renderers, exported via TECHNIQUE_FUNCS.
+All ten are two-track renderers, exported via TECHNIQUE_FUNCS.
 """
 
 import numpy as np
@@ -496,6 +504,326 @@ def granular_freeze(a, b, sr, bar_s, cloud_bars=4, capture_ms=150.0,
 
 
 # ----------------------------------------------------------------------------
+# WEB-07 — Helix Catch (loop-sampler pitch-ramp hold & release)
+# ----------------------------------------------------------------------------
+
+def helix_catch(a, b, sr, bpm, bar_s, capture_beats=1.0, hold_bars=2,
+                ramp_semitones=12.0, fade_bars=0.5):
+    """Helix catch: A's final fragment loops while its pitch ramps; B
+    enters at natural pitch on the release.
+
+    The Pioneer DJM HELIX beat FX captures the playing sound into a
+    loop the moment it engages; while held, the loop's pitch changes
+    progressively (LEVEL/DEPTH sets the ramp — turned fully right it
+    *fixes* the pitch, rendered here as ramp_semitones=0); on release
+    the pitch returns to the point where the effect was switched on.
+    This renders the transition use: `a` plays dry, its final
+    `capture_beats` fragment is caught and looped for `hold_bars`
+    bars with the playback rate (pitch-coupled, like the hardware)
+    ramping linearly in semitones from 0 to `ramp_semitones`, then
+    the hold ends and `b` enters faded over `fade_bars` at its own
+    pitch — the ramp's tension resolves into the new track instead
+    of evaporating (contrast WEB-01's decaying spiral tail).
+
+    Parameters
+    ----------
+    a : outgoing segment (mono float64); the caught fragment is its
+        final `capture_beats`.
+    b : incoming segment (mono float64), faded in over `fade_bars`
+        starting at the release.
+    sr : sample rate, Hz.
+    bpm : tempo of the pair (sets the capture grid).
+    bar_s : seconds per bar (sets the hold length and B's fade).
+    capture_beats : caught fragment length in beats (default 1.0).
+    hold_bars : hold length in bars (default 2).
+    ramp_semitones : total pitch ramp across the hold, signed
+        (default +12.0 — one octave up; 0.0 renders the fixed-pitch
+        loop behaviour).
+    fade_bars : B's entrance fade in bars (default 0.5 — the release
+        is a near-snap by design).
+
+    Why it works: a caught loop is the outgoing track insisting on
+    staying; the continuous pitch ramp makes that insistence
+    unstable, so the ear waits for the release. The loop is A's own
+    material on A's own grid, so B can enter beat-locked the moment
+    the helix lets go.
+    """
+    a = np.asarray(a, dtype=np.float64)
+    b = np.asarray(b, dtype=np.float64)
+    beat_s = 60.0 / float(bpm)
+    frag_n = max(256, int(round(capture_beats * beat_s * sr)))
+    if len(a) >= frag_n:
+        pre, frag = a[:-frag_n], a[-frag_n:]
+    else:
+        pre = np.zeros(0)
+        frag = np.pad(a, (frag_n - len(a), 0))
+    hold_n = max(frag_n, int(round(hold_bars * bar_s * sr)))
+    u = np.linspace(0.0, 1.0, hold_n)
+    rate = 2.0 ** (float(ramp_semitones) * u / 12.0)
+    # warp_resample consumes source at cumsum(rate); tile the fragment
+    # so the read head never runs dry (worst case: max rate throughout).
+    need = int(np.sum(rate)) + frag_n
+    reps = int(np.ceil(need / max(1, frag_n))) + 1
+    src = np.tile(frag, reps)
+    hold = dsp.warp_resample(src, sr, rate, out_len=hold_n)
+    hold = _edge_fades(hold, sr, 5.0)
+    held = np.concatenate([pre, hold]) if len(pre) else hold
+
+    fade_n = min(len(b), int(round(fade_bars * bar_s * sr)))
+    if fade_n > 0:
+        env = np.ones(len(b))
+        env[:fade_n] = dsp.raised_cosine(fade_n, up=True)
+        b = b * env
+    return _seam_concat(held, b, sr)
+
+
+# ----------------------------------------------------------------------------
+# WEB-08 — BeatSlicer Shuffle (buffer slice-permutation build)
+# ----------------------------------------------------------------------------
+
+_SLICE_PATTERNS = {
+    "identity": [0, 1, 2, 3, 4, 5, 6, 7],
+    "reverse": [7, 6, 5, 4, 3, 2, 1, 0],
+    "swap_pairs": [1, 0, 3, 2, 5, 4, 7, 6],
+    "bookends": [0, 7, 1, 6, 2, 5, 3, 4],
+    "stride": [0, 2, 4, 6, 1, 3, 5, 7],
+    "halves": [4, 5, 6, 7, 0, 1, 2, 3],
+    "inside_out": [3, 4, 2, 5, 1, 6, 0, 7],
+}
+
+
+def beatslicer_shuffle(a, b, sr, bar_s, pattern="stride",
+                       buffer_bars=1, buzz=1):
+    """BeatSlicer shuffle: A's final bar(s) replayed slice-permuted,
+    then B releases on the downbeat.
+
+    Traktor's BeatSlicer buffers up to 2 bars, subdivides the buffer
+    into small chunks and replays them in a different sequence — "a
+    rhythmically shuffled version of the original music" — from 20
+    hardware patterns in 5 styles. This renders the transition use:
+    `a` plays dry; its final `buffer_bars` bars are re-dealt as 8
+    slices per bar replayed in the named permutation `pattern`; the
+    effect's BUZZ control is rendered as a half-slice self-repeat on
+    the final beat when `buzz` is 1; `b` then enters on the next
+    downbeat through a 3 ms seam guard. The shuffled region is
+    exactly as long as the region it replaces — permutation scrambles
+    order, never the grid.
+
+    Parameters
+    ----------
+    a : outgoing segment (mono float64); its final `buffer_bars`
+        bars are the slicer's buffer.
+    b : incoming segment (mono float64), entering dry at the seam.
+    sr : sample rate, Hz.
+    bar_s : seconds per bar (the buffer and slice grids).
+    pattern : permutation name — one of identity, reverse,
+        swap_pairs, bookends, stride, halves, inside_out
+        (default "stride").
+    buffer_bars : buffered bars, 1 or 2 (default 1; the hardware
+        buffers 2 bars and applies its pattern across them).
+    buzz : 1 renders the BUZZ half-slice repeat on the final beat,
+        0 leaves the final beat as permuted (default 1).
+
+    Why it works: every slice is A's own audio on A's own beat grid,
+    so the floor keeps dancing while the pattern stops making sense —
+    a build made of pure expectation violation, resolved by B.
+    Distinct from a beat-repeat roll (one fragment tiled forward) and
+    a stutter (onset repeats): the whole bar is re-dealt.
+    """
+    a = np.asarray(a, dtype=np.float64)
+    b = np.asarray(b, dtype=np.float64)
+    bar_n = max(8, int(round(bar_s * sr)))
+    buf_n = bar_n * int(buffer_bars)
+    if len(a) >= buf_n:
+        pre, buf = a[:-buf_n], a[-buf_n:].copy()
+    else:
+        pre = np.zeros(0)
+        buf = np.pad(a, (buf_n - len(a), 0))
+    perm = _SLICE_PATTERNS[pattern]
+    # Slice boundaries tile each bar exactly (last slice absorbs the
+    # rounding remainder), so the shuffled region keeps the bar grid.
+    bounds = [int(round(i * bar_n / 8.0)) for i in range(9)]
+    slice_n = bounds[1] - bounds[0]
+    out_buf = np.zeros(buf_n)
+    for bar_i in range(int(buffer_bars)):
+        base = bar_i * bar_n
+        for slot in range(8):
+            s_lo = base + bounds[perm[slot]]
+            s_hi = base + bounds[perm[slot] + 1]
+            seg = _edge_fades(buf[s_lo:s_hi], sr, 1.5)
+            d_lo = base + bounds[slot]
+            d_hi = base + bounds[slot + 1]
+            n = min(len(seg), d_hi - d_lo)
+            out_buf[d_lo:d_lo + n] = seg[:n]
+    if buzz:
+        # BUZZ: the final beat's two slices each repeat their first
+        # half — an intra-beat insistence right before the release.
+        beat_n = bounds[8] - bounds[6]
+        region = out_buf[-beat_n:].copy()
+        mid = beat_n // 2
+        for lo, hi in ((0, mid), (mid, beat_n)):
+            s = region[lo:hi]
+            h = max(1, len(s) // 2)
+            buzzed = np.concatenate([s[:h], s[:h]])
+            if len(buzzed) < len(s):
+                buzzed = np.concatenate([buzzed, s[len(buzzed):]])
+            region[lo:hi] = buzzed[:len(s)]
+        out_buf[-beat_n:] = region
+    body = np.concatenate([pre, out_buf]) if len(pre) else out_buf
+    return _seam_concat(body, b, sr)
+
+
+# ----------------------------------------------------------------------------
+# WEB-09 — Downlifter Exit (descending sweep seam mask)
+# ----------------------------------------------------------------------------
+
+def downlifter_exit(a, b, sr, bar_s, sweep_bars=1.0, f_start=12000.0,
+                    f_end=300.0, level_db=-9.0, seed=11):
+    """Downlifter exit: a descending filtered-noise sweep spans the
+    seam and masks the cut.
+
+    The producer's "downer" — the riser's mirror. Synthesized white
+    noise runs through a low-pass whose cutoff falls exponentially
+    from `f_start` to `f_end` Hz across `sweep_bars` bars; the sweep
+    swells in over the first three quarters (A's final stretch) and
+    crashes down through the last quarter (B's first beat), dying as
+    B establishes. Underneath it, `a` hands to `b` with a plain 3 ms
+    seam guard — a hard join the sweep exists to hide. Where a riser
+    builds tension *before* a change and is killed at the seam, the
+    downlifter spends tension *across* the seam.
+
+    Parameters
+    ----------
+    a, b : outgoing / incoming segments (mono float64).
+    sr : sample rate, Hz.
+    bar_s : seconds per bar (the sweep grid).
+    sweep_bars : sweep length in bars (default 1.0).
+    f_start, f_end : cutoff sweep endpoints in Hz (defaults
+        12000 -> 300 — full-spectrum crash to a low rumble).
+    level_db : sweep peak level (default -9.0 — loud enough to mask,
+        under the mix's own peaks).
+    seed : noise seed (default 11; renders are deterministic).
+
+    Why it works: the falling sweep is a full-spectrum event with a
+    clear trajectory, so the ear tracks *it* through the exact moment
+    the tracks change; the seam hides inside the loudest, fastest-
+    moving part of the sweep. It also reads as punctuation — "that
+    section is over" — which licenses hard changes (tempo, key,
+    genre) underneath it.
+    """
+    a = np.asarray(a, dtype=np.float64)
+    b = np.asarray(b, dtype=np.float64)
+    out = _seam_concat(a, b, sr)
+    g = min(int(3.0 / 1000.0 * sr), len(a), len(b))
+    seam = len(a) - g
+    total = int(round(sweep_bars * bar_s * sr))
+    pre_n = int(round(0.75 * total))
+    post_n = total - pre_n
+    start = max(0, seam - pre_n)
+    length = min(total, len(out) - start)
+    if length <= 0:
+        return out
+    rng = np.random.default_rng(int(seed))
+    noise = rng.standard_normal(length)
+    u = np.linspace(0.0, 1.0, length)
+    cut = float(f_start) * (float(f_end) / float(f_start)) ** u
+    swept = dsp.sweep_filter(noise, sr, cut, ftype="lowpass",
+                             block=2048)
+    env = np.ones(length)
+    atk = min(seam - start, length)
+    if atk > 1:
+        env[:atk] = np.linspace(0.0, 1.0, atk) ** 1.5
+    dec0 = atk
+    if length > dec0:
+        env[dec0:] = np.exp(-3.0 * np.linspace(0.0, 1.0,
+                                               length - dec0))
+    swept = swept * env
+    peak = float(np.max(np.abs(swept))) + 1e-12
+    swept *= dsp.db_to_gain(float(level_db)) / peak
+    out[start:start + length] += swept
+    return out
+
+
+# ----------------------------------------------------------------------------
+# WEB-10 — Shimmer Wash (octave-climbing reverb exit)
+# ----------------------------------------------------------------------------
+
+def shimmer_wash(a, b, sr, bar_s, shift_semitones=12.0, swell_bars=4,
+                 level_db=-12.0, decay_s=6.0, fade_bars=2.0):
+    """Shimmer wash: A's tail pitch-shifted up into a long reverb,
+    swelling as dry A exits; B enters under the climbing tail.
+
+    Pioneer's RMX-1000 "Reverb Up" adds reverberation and raises the
+    pitch of the echo as time passes — the shimmer-reverb principle
+    (a pitch-shifted layer, classically +12 semitones, fed into the
+    reverb) applied to an exit. The hardware climbs inside a feedback
+    loop; this render uses the feed-forward architecture — A's final
+    `swell_bars` bars are pitch-shifted by `shift_semitones` and fed
+    (zero-padded, so the tail rings out naturally) into a Schroeder
+    reverb — as the approximation, the same honesty convention as
+    WEB-02's feed-forward flanger. The layer swells in across the
+    swell region while `a` plays dry to its end, and hangs over `b`'s
+    entrance (B fades in over `fade_bars`) for up to `decay_s`
+    seconds.
+
+    Parameters
+    ----------
+    a : outgoing segment (mono float64); its final `swell_bars`
+        bars feed the shimmer layer.
+    b : incoming segment (mono float64), faded in over `fade_bars`.
+    sr : sample rate, Hz.
+    bar_s : seconds per bar.
+    shift_semitones : layer pitch shift (default +12.0 — the
+        classic octave; +7/+5 keep more of A's key for shorter
+        distances. This is a diffuse reverb tail, not a vocal
+        overlay — the T-032 ±2 formant rule does not apply).
+    swell_bars : bars of A feeding the layer (default 4).
+    level_db : layer peak level (default -12.0).
+    decay_s : tail length over B in seconds (default 6.0).
+    fade_bars : B's entrance fade in bars (default 2.0).
+
+    Why it works: a plain reverb tail decays in place and keeps A's
+    key center alive under B; a shimmer tail *leaves* the key center
+    upward while staying unmistakably made of A — the exit reads as
+    the track dissolving into light rather than stopping, and B's
+    entrance is graded against a tail that is already departing.
+    """
+    a = np.asarray(a, dtype=np.float64)
+    b = np.asarray(b, dtype=np.float64)
+    swell_n = min(len(a), int(round(swell_bars * bar_s * sr)))
+    if swell_n <= 0:
+        swell_n = len(a)
+    src = a[-swell_n:]
+    tail_n = min(len(b), int(round(float(decay_s) * sr)))
+    shifted = dsp.pitch_shift(src, sr, float(shift_semitones))
+    padded = np.pad(shifted, (0, tail_n))
+    wet = dsp.schroeder_reverb(padded, sr, wet=1.0,
+                               decay=max(2.0, float(decay_s) * 0.7))
+    layer = wet[:swell_n + tail_n]
+    env = np.ones(len(layer))
+    env[:swell_n] = dsp.raised_cosine(swell_n, up=True)
+    f = min(int(0.05 * sr), len(layer))
+    if f > 1:
+        env[-f:] *= dsp.raised_cosine(f, up=False)
+    layer = layer * env
+    peak = float(np.max(np.abs(layer))) + 1e-12
+    layer *= dsp.db_to_gain(float(level_db)) / peak
+
+    out = np.zeros(len(a) + len(b))
+    out[:len(a)] += a
+    s0 = len(a) - swell_n
+    out[s0:s0 + len(layer)] += layer
+    fade_n = min(len(b), int(round(fade_bars * bar_s * sr)))
+    if fade_n > 0:
+        benv = np.ones(len(b))
+        benv[:fade_n] = dsp.raised_cosine(fade_n, up=True)
+        out[len(a):] += b * benv
+    else:
+        out[len(a):] += b
+    return out
+
+
+# ----------------------------------------------------------------------------
 # Metadata registry (FRAMEWORK.md §3) — merged by engine/meta.py
 # ----------------------------------------------------------------------------
 
@@ -752,6 +1080,225 @@ META = {
         ],
         "composed_of": ["reverb_freeze"],
     },
+    "helix_catch": {
+        "title": "Helix Catch (Loop-Sampler Pitch-Ramp Hold & Release)",
+        "bank": "WEB-07", "family": "TIME", "kind": "render",
+        "verdict": "ADOPT", "confidence": "medium",
+        "requires": {"bpm_delta_pct_max": None, "camelot_max": None,
+                     "vocal_ok": ["a_only", "b_only", "both",
+                                  "neither"],
+                     "phrase_a_ok": ["outro", "build", "drop", "verse",
+                                     "chorus"],
+                     "genre_pair_ok": ["same", "neighbor", "leap"],
+                     "needs": []},
+        "prefers": [
+            {"when": "energy_delta>=1", "weight": 2,
+             "reason": "the release lands hardest when B is the "
+                       "bigger record"},
+            {"when": "phrase_a==drop", "weight": 1,
+             "reason": "catching a drop's last beat is the hardware "
+                       "move"},
+        ],
+        "energy": {"delta": 1, "tension": "rising"},
+        "exit": "snap", "clash_risk": "none",
+        "params": {
+            "capture_beats": {"type": "float", "range": [0.5, 4.0],
+                              "default": 1.0, "unit": "beats",
+                              "presets": {"half": 0.5, "beat": 1.0,
+                                          "bar": 4.0}},
+            "hold_bars": {"type": "int", "range": [1, 4],
+                          "default": 2, "unit": "bars",
+                          "presets": {"one": 1, "two": 2, "four": 4}},
+            "ramp_semitones": {"type": "float",
+                               "range": [-12.0, 12.0],
+                               "default": 12.0, "unit": "semitones",
+                               "presets": {"up_octave": 12.0,
+                                           "up_fifth": 7.0,
+                                           "down_octave": -12.0,
+                                           "fixed": 0.0}},
+            "fade_bars": {"type": "float", "range": [0.25, 4.0],
+                          "default": 0.5, "unit": "bars"},
+        },
+        "evidence": [
+            {"type": "tutorial",
+             "ref": "Pioneer DJM-900NXS2 manual p.17 via Pioneer "
+                    "official forum (HELIX/FREEZE thread): engaging "
+                    "HELIX loops the sound, releasing returns the "
+                    "pitch to the engage point, LEVEL/DEPTH fully "
+                    "right fixes the output pitch",
+             "url": "https://forums.pioneerdj.com/hc/en-us/"
+                    "community/posts/205498726-HELIX-FREEZE-ON-DJM-"
+                    "900NXS2",
+             "date": "2026-10-21"},
+            dict(_PEST),
+        ],
+        "composed_of": ["loop_roll_build"],
+    },
+    "beatslicer_shuffle": {
+        "title": "BeatSlicer Shuffle (Buffer Slice-Permutation Build)",
+        "bank": "WEB-08", "family": "TIME", "kind": "render",
+        "verdict": "ADOPT", "confidence": "medium",
+        "requires": {"bpm_delta_pct_max": None, "camelot_max": None,
+                     "vocal_ok": ["a_only", "b_only", "both",
+                                  "neither"],
+                     "phrase_a_ok": ["outro", "build", "drop", "verse",
+                                     "chorus"],
+                     "genre_pair_ok": ["same", "neighbor", "leap"],
+                     "needs": []},
+        "prefers": [
+            {"when": "energy_delta>=1", "weight": 2,
+             "reason": "the shuffled bar reads as a build — B "
+                       "should cash it"},
+            {"when": "phrase_a==chorus", "weight": 1,
+             "reason": "a hook the floor knows, re-dealt, is the "
+                       "strongest permutation material"},
+        ],
+        "energy": {"delta": 1, "tension": "rising"},
+        "exit": "snap", "clash_risk": "none",
+        "params": {
+            "pattern": {"type": "str", "range": None,
+                        "default": "stride", "unit": "pattern",
+                        "presets": {"stride": "stride",
+                                    "reverse": "reverse",
+                                    "bookends": "bookends",
+                                    "swap_pairs": "swap_pairs",
+                                    "halves": "halves",
+                                    "inside_out": "inside_out"}},
+            "buffer_bars": {"type": "int", "range": [1, 2],
+                            "default": 1, "unit": "bars",
+                            "presets": {"one": 1, "two": 2}},
+            "buzz": {"type": "int", "range": [0, 1], "default": 1,
+                     "unit": "flag",
+                     "presets": {"off": 0, "on": 1}},
+        },
+        "evidence": [
+            {"type": "tutorial",
+             "ref": "Native Instruments Traktor 2 manual §14.4.29 "
+                    "BeatSlicer Buffer: samples 2 bars, subdivides "
+                    "into chunks, replays them in a different "
+                    "sequence; 20 patterns in 5 styles",
+             "url": "https://www.manua.ls/native-instruments/"
+                    "traktor-2/manual?p=248",
+             "date": "2026-10-21"},
+        ],
+        "composed_of": ["loop_roll_build", "stutter_transition"],
+    },
+    "downlifter_exit": {
+        "title": "Downlifter Exit (Descending Sweep Seam Mask)",
+        "bank": "WEB-09", "family": "SYNTH", "kind": "render",
+        "verdict": "ADOPT", "confidence": "medium",
+        "requires": {"bpm_delta_pct_max": None, "camelot_max": None,
+                     "vocal_ok": ["a_only", "b_only", "both",
+                                  "neither"],
+                     "phrase_a_ok": ["outro", "build", "drop", "verse",
+                                     "chorus"],
+                     "genre_pair_ok": ["same", "neighbor", "leap"],
+                     "needs": []},
+        "prefers": [
+            {"when": "genre_pair==leap", "weight": 2,
+             "reason": "the sweep licenses hard changes underneath "
+                       "it"},
+            {"when": "phrase_a==drop", "weight": 1,
+             "reason": "a downer is the standard drop-exit "
+                       "punctuation in EDM arrangement"},
+        ],
+        "energy": {"delta": 0, "tension": "falling"},
+        "exit": "snap", "clash_risk": "none",
+        "params": {
+            "sweep_bars": {"type": "float", "range": [0.5, 2.0],
+                           "default": 1.0, "unit": "bars",
+                           "presets": {"half": 0.5, "one": 1.0,
+                                       "two": 2.0}},
+            "f_end": {"type": "float", "range": [80.0, 1500.0],
+                      "default": 300.0, "unit": "Hz",
+                      "presets": {"sub": 120.0, "low": 300.0,
+                                  "mid": 800.0}},
+            "f_start": {"type": "float", "range": [4000.0, 16000.0],
+                        "default": 12000.0, "unit": "Hz"},
+            "level_db": {"type": "float", "range": [-18.0, -3.0],
+                         "default": -9.0, "unit": "dB",
+                         "presets": {"under": -12.0,
+                                     "standard": -9.0, "loud": -6.0}},
+        },
+        "evidence": [
+            {"type": "tutorial",
+             "ref": "MusicRadar — How to make synth sweep FX for "
+                    "EDM drops: risers build before a change, "
+                    "'downers' are equally commonplace; noise through "
+                    "a low-pass with automated cutoff",
+             "url": "http://nghialong.com/synth-sweep-fx.html",
+             "date": "2026-10-21"},
+            {"type": "tutorial",
+             "ref": "sonical.ly — How to Create Epic Risers and "
+                    "Transition Effects for Electronic Music "
+                    "(transition FX taxonomy)",
+             "url": "https://sonical.ly/how-to-create-epic-risers-"
+                    "and-transition-effects-for-electronic-music-a-"
+                    "complete-guide/",
+             "date": "2026-10-21"},
+        ],
+        "composed_of": ["noise_echo_buildup"],
+    },
+    "shimmer_wash": {
+        "title": "Shimmer Wash (Octave-Climbing Reverb Exit)",
+        "bank": "WEB-10", "family": "SPACE", "kind": "render",
+        "verdict": "ADOPT", "confidence": "medium",
+        "requires": {"bpm_delta_pct_max": None, "camelot_max": None,
+                     "vocal_ok": ["a_only", "b_only", "both",
+                                  "neither"],
+                     "phrase_a_ok": ["outro", "breakdown", "verse",
+                                     "chorus"],
+                     "genre_pair_ok": ["same", "neighbor", "leap"],
+                     "needs": []},
+        "prefers": [
+            {"when": "camelot>=2", "weight": 2,
+             "reason": "the tail climbs out of A's key — key "
+                       "distance is forgiven"},
+            {"when": "phrase_a==outro", "weight": 1,
+             "reason": "a dissolving outro is the classic shimmer "
+                       "exit"},
+        ],
+        "energy": {"delta": 0, "tension": "falling"},
+        "exit": "tail", "clash_risk": "none",
+        "params": {
+            "shift_semitones": {"type": "float", "range": [5.0, 12.0],
+                                "default": 12.0, "unit": "semitones",
+                                "presets": {"octave": 12.0,
+                                            "fifth": 7.0,
+                                            "fourth": 5.0}},
+            "swell_bars": {"type": "int", "range": [2, 8],
+                           "default": 4, "unit": "bars",
+                           "presets": {"short": 2, "standard": 4,
+                                       "long": 8}},
+            "level_db": {"type": "float", "range": [-24.0, -6.0],
+                         "default": -12.0, "unit": "dB",
+                         "presets": {"ghost": -18.0,
+                                     "standard": -12.0,
+                                     "present": -8.0}},
+            "decay_s": {"type": "float", "range": [2.0, 12.0],
+                        "default": 6.0, "unit": "s"},
+            "fade_bars": {"type": "float", "range": [0.5, 8.0],
+                          "default": 2.0, "unit": "bars"},
+        },
+        "evidence": [
+            {"type": "tutorial",
+             "ref": "Pioneer RMX-1000 manual via Pestrela KB — "
+                    "Reverb Up: adds reverberation and raises the "
+                    "pitch of the echo as time passes (Reverb Down "
+                    "lowers it)",
+             "url": "https://pestrela.github.io/dj_kb/effects/",
+             "date": "2026-10-21"},
+            {"type": "tutorial",
+             "ref": "Production Expert — How To Create Two "
+                    "Specialist Reverbs: shimmer = pitch shift "
+                    "(usually +12 semitones) before the reverb",
+             "url": "https://www.production-expert.com/production-"
+                    "expert-1/how-to-create-shimmer-reverb-and-the-"
+                    "original-blackhole-reverb-in-pro-tools",
+             "date": "2026-10-21"},
+        ],
+        "composed_of": ["reverb_wash"],
+    },
 }
 
 
@@ -763,4 +1310,8 @@ TECHNIQUE_FUNCS = {
     "crush_degrade": crush_degrade,
     "shepard_riser": shepard_riser,
     "granular_freeze": granular_freeze,
+    "helix_catch": helix_catch,
+    "beatslicer_shuffle": beatslicer_shuffle,
+    "downlifter_exit": downlifter_exit,
+    "shimmer_wash": shimmer_wash,
 }
