@@ -1320,5 +1320,33 @@
     "render_ok": true,
     "normalize_db": 1.6,
     "path": "demos/out/shimmer_wash.wav"
+  },
+  {
+    "clip": "infinity_filter",
+    "duration_s": 30.0,
+    "silence_gaps_s": [],
+    "silence_ok": true,
+    "peak_dbfs": -1.0,
+    "headroom_ok": true,
+    "handoff_s": 15.0,
+    "centroid_max_jump_hz": 5851.8,
+    "technique": "infinity_filter",
+    "render_ok": true,
+    "normalize_db": 1.6,
+    "path": "demos/out/infinity_filter.wav"
+  },
+  {
+    "clip": "pattern_layer_bridge",
+    "duration_s": 30.0,
+    "silence_gaps_s": [],
+    "silence_ok": true,
+    "peak_dbfs": -1.0,
+    "headroom_ok": true,
+    "handoff_s": 15.0,
+    "centroid_max_jump_hz": 11716.0,
+    "technique": "pattern_layer_bridge",
+    "render_ok": true,
+    "normalize_db": 0.64,
+    "path": "demos/out/pattern_layer_bridge.wav"
   }
 ]

@@ -2,7 +2,7 @@
 open-transitions — demo specs for the web-mined domain module
 (FRAMEWORK.md §7).
 
-Registers demos for engine/web_techniques.py (WEB-01..WEB-10, mined
+Registers demos for engine/web_techniques.py (WEB-01..WEB-12, mined
 2026-10-21). Merged automatically by demos/make_demos.py
 (load_ext_specs). All material is the suite's synthesized sketch audio
 (ctx tracks) — no copyrighted audio.
@@ -106,6 +106,24 @@ def demo_specs(ctx):
     # layer; A ends at bar 8 and B fades in under the climbing tail.
     specs["shimmer_wash"] = (
         lambda: web.shimmer_wash(bars(A, 8), bars(B, 8), SR, BAR_S),
+        lambda m: 8 * BAR_S,
+        None,
+    )
+
+    # WEB-11 infinity_filter: A's final 4 bars pass through the
+    # endless peak stack (2 wraps up); B enters dry at the seam.
+    specs["infinity_filter"] = (
+        lambda: web.infinity_filter(bars(A, 8), bars(B, 8), SR, BAR_S),
+        lambda m: 8 * BAR_S,
+        None,
+    )
+
+    # WEB-12 pattern_layer_bridge: the synthesized 909 pattern plays
+    # across the seam zone (A's last 4 bars + B's first 4 bars);
+    # B is established as the pattern stops at bar 12.
+    specs["pattern_layer_bridge"] = (
+        lambda: web.pattern_layer_bridge(bars(A, 8), bars(B, 8), SR,
+                                         BPM, BAR_S),
         lambda m: 8 * BAR_S,
         None,
     )

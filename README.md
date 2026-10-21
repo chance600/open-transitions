@@ -8,7 +8,7 @@ Every DJ tutorial teaches the same transitions: the long harmonic EQ blend, the 
 
 ## What this is
 
-1. **`techniques/`** — 74 technique specs, each a parameter-level recipe: the exact moves (EQ positions, filter automation curves, FX type + values, timing in bars/beats), parameters with units and defaults, why it works, when to use/avoid it, and provenance (bank T-001–T-039, gap-report GAP-01–GAP-18, DM-clip DM-Axx, performer PERF-ZAB, web-mined WEB-01–WEB-10). Prose is documentation; the parameters are the product.
+1. **`techniques/`** — 76 technique specs, each a parameter-level recipe: the exact moves (EQ positions, filter automation curves, FX type + values, timing in bars/beats), parameters with units and defaults, why it works, when to use/avoid it, and provenance (bank T-001–T-039, gap-report GAP-01–GAP-18, DM-clip DM-Axx, performer PERF-ZAB, web-mined WEB-01–WEB-12). Prose is documentation; the parameters are the product.
 2. **`engine/`** — deterministic DSP (numpy + scipy only) that renders the techniques on real audio: `dsp.py` (building blocks), `techniques.py` (the 32 named techniques), `render.py` (plan-file batch renderer), `verify.py` (silence/headroom/timbre gates).
 3. **`demos/`** — `make_demos.py` synthesizes two deterministic test tracks (no copyrighted audio) and renders + verifies a demo clip per technique into `demos/out/`.
 4. **The framework** ([FRAMEWORK.md](FRAMEWORK.md)) — what makes this a system instead of a pile of recipes: every technique is registered in a **metadata registry** (`engine/meta.py`) with hard preconditions, soft preference rules, parameter families, an energy/exit profile, and ≥1 real-world evidence reference (no orphan techniques). A **selection engine** (`engine/select.py`) takes structured info about two songs — tempo, key, energy, sections, vocals, genre — evaluates every technique's preconditions, and returns ranked candidates with reasons *plus* a "why not" list for the rejects. An **extension grammar** (variants × parameter grids, overlays, chains, compounds) grows the library mechanically toward hundreds of renderable entries.
@@ -158,19 +158,19 @@ engine/
   dm_techniques.py  DM-clip lane (DM-A14…A44) · gap_struct.py  stem/routing
                   gaps · gap_rest.py  TIME/DYN/SYNTH gaps + Zabiela ·
                   performer.py  PERF gaps + T-035 overlay ·
-                  web_techniques.py  web-mined lane (WEB-01…WEB-06)
+                  web_techniques.py  web-mined lane (WEB-01…WEB-12)
   meta.py         technique metadata registry (preconditions, preferences,
                   parameter families, evidence) — read by the selector
   select.py       selection engine v1: two songs in → ranked techniques
                   with reasons + a "why not" list (generalizes T-037)
   variants.py     variant generator: base × named parameter presets
-                  (237 variants, see VARIANTS.md)
+                  (257 variants, see VARIANTS.md)
   render.py       plan-file batch renderer (TECHNIQUES registry)
   verify.py       silence / headroom / centroid gates + plots
 techniques/       per-technique spec docs (core generated from docstrings:
                   demos/gen_technique_docs.py; domains ship theirs)
 knowledge/        production / mixing / set craft with provenance
-                  (81 entries: producing, mixing, setcraft, workflows,
+                  (82 entries: producing, mixing, setcraft, workflows,
                   performers)
 demos/
   make_demos.py   synthesized test tracks + demos + verification
@@ -182,7 +182,7 @@ BUILD-LOG.md      what was built, tested, and what's next
 
 ## Status
 
-Active build. **74 registry entries: 73 executable techniques + 1 planning entry; 237 named variants renderable via `engine/variants.py`; 81 knowledge entries.** Phase 4 (2026-10-20): the expansion wave — gap report's 16 actionable gaps all implemented (incl. element-by-element stem crossfade with the bass-stem-only entry), 6 DM-clip DJ techniques, Zabiela's feedback-loop + metric-pivot moves, T-035 riser ducking as an overlay, and the variant generator. Selection smoke tests: stem techniques surface only when stems exist and reject with the named reason otherwise. Web-mined tranche (2026-10-21): a full backlog audit (zero buildable leftovers — every qualifying DM/gap candidate was already built; the rest are knowledge-class or documented skips) plus six fresh techniques mined from DJ literature (Pioneer DJM effect taxonomy, Shepard-tone and granular-synthesis sources) — spiral echo, flanger sweep, reverse roll, crush degrade, Shepard riser, granular freeze — each with registry entry, variants, spec doc, and a verified demo (suite: 96/96 clean). Phase 6 (2026-10-21): the educationals study program opened — an 85-source bibliography of DJ/producer educational sources (in the goal workspace's technique-bank, with a ranked next-mining queue), and tranche 1 mined the first-party effect catalogs (DJM Beat FX/Colour FX, Traktor FX, RMX-1000) for four more techniques: helix catch, beatslicer shuffle, downlifter exit, shimmer wash — 22 further catalog items were overlap-resolved into existing entries, not rebuilt (suite: 100/100 clean). See [BUILD-LOG.md](BUILD-LOG.md) and [VARIANTS.md](VARIANTS.md).
+Active build. **76 registry entries: 75 executable techniques + 1 planning entry; 257 named variants renderable via `engine/variants.py`; 82 knowledge entries.** Phase 4 (2026-10-20): the expansion wave — gap report's 16 actionable gaps all implemented (incl. element-by-element stem crossfade with the bass-stem-only entry), 6 DM-clip DJ techniques, Zabiela's feedback-loop + metric-pivot moves, T-035 riser ducking as an overlay, and the variant generator. Selection smoke tests: stem techniques surface only when stems exist and reject with the named reason otherwise. Web-mined tranche (2026-10-21): a full backlog audit (zero buildable leftovers — every qualifying DM/gap candidate was already built; the rest are knowledge-class or documented skips) plus six fresh techniques mined from DJ literature (Pioneer DJM effect taxonomy, Shepard-tone and granular-synthesis sources) — spiral echo, flanger sweep, reverse roll, crush degrade, Shepard riser, granular freeze — each with registry entry, variants, spec doc, and a verified demo (suite: 96/96 clean). Phase 6 (2026-10-21): the educationals study program opened — an 85-source bibliography of DJ/producer educational sources (in the goal workspace's technique-bank, with a ranked next-mining queue), and tranche 1 mined the first-party effect catalogs (DJM Beat FX/Colour FX, Traktor FX, RMX-1000) for four more techniques: helix catch, beatslicer shuffle, downlifter exit, shimmer wash — 22 further catalog items were overlap-resolved into existing entries, not rebuilt (suite: 100/100 clean). Phase 7 (2026-10-21): tranche 2 of the study program worked the source list's queue top-down — the DJM-A9 manual body, Serato's FX + Flip documentation, Traktor Pro 4's FX chapters, and the DJ TechTools compounds pass — for two more techniques: infinity filter (Serato's endless barber-pole sweep, rendered as a Shepard peak stack) and pattern layer bridge (Traktor's Pattern Player as a synthesized seam layer) — Serato Flip went to the knowledge layer as an authoring model, and everything else (the full A9 catalog against its manual body, 40+ Serato FX names, Traktor's 9 Mixer FX, every named DJTT/MacroFX chain) was overlap-resolved into existing entries, not rebuilt (suite: 102/102 clean). See [BUILD-LOG.md](BUILD-LOG.md) and [VARIANTS.md](VARIANTS.md).
 
 ## License
 
