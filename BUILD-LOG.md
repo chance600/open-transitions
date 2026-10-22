@@ -1220,3 +1220,196 @@ EDUCATIONAL-SOURCES.md: the Denon Prime manual bodies
 now lead; the conditional items (educator revisits,
 Cambridge, the Reddit revisit) hold their places at
 the tail.
+
+## Phase 15 — Educationals study program: tranche 10 (2026-10-21–22)
+
+Worked the Phase 14 NEXT QUEUE top-down: (1) the
+Denon Prime manuals' remainder, (2) DJ Jazzy Jeff,
+(3) Ean Golden / DJ TechTools (YouTube), (4) In The
+Mix, (5) Multiplier. **Zero new bases.** Knowledge
+103 → **107**. Two items land as honest partials —
+the tranche's yield is concentrated in the device
+manual body and the performer/controllerist record,
+and its tail is now explicit about which of the
+list's promises were environment-shaped rather than
+real.
+
+Item 1 (Denon Prime manuals, remainder): the
+current-generation Engine OS manual body (109 pp.,
+shared PRIME 4 / 2 / GO / SC LIVE) read first-hand
+beyond the FAQ and GO passes of Phases 8/13. The
+**Stems Mode body completes GAP-08's Engine
+surface**: pads isolate Vocal / Melody / Bass /
+Drums as mute toggles; the **Parameter buttons are
+one-press group isolations** (◀ Acapella, ▶
+Instrumental; absent on PRIME GO); the access model
+splits by generation — automatic on PRIME 4+, a
+one-time license on every other Engine OS device —
+and the desktop-create + pack-to-drive prep model is
+restated verbatim, so the four-surface comparison
+(Traktor in-app, Serato real-time, rekordbox
+real-time, Engine pre-render + pack + license) now
+stands at manual depth throughout. **Fader Echo**
+(Control Center / Toolbar body, verbatim) banks as
+T-004's gesture-triggered trigger-form: the exit
+gesture itself fires the echo tail — the operator
+Pioneer ships as Smooth Echo, stated by a second
+vendor, on standalone hardware, as a global deck
+behavior. Knowledge: workflows — **Playlist Deck**
+(the automated-crossfade deck: one global crossfade
+time over a list; the authoring spectrum's
+automation pole against Cruise Mode's fade markers
+and MIX POINT LINK's paired points) and **Ableton
+Link** (sync as federation — beat/phase/tempo held
+in common over a network, lead tempo adjustable from
+any peer — against Traktor's Tempo Master
+succession). Corroborations at body depth: Slip /
+Censor bodies, Key Sync long-press + the Key Change
+Menu, Auto Loop 1/32–64, flexible beat grids (Insert
+Anchor), Stop Time, X Fader Contour — and the
+**Sampler Mode body supersedes Phase 13's FAQ-era
+"16 slots on Prime 4+" with eight slots** (Roll
+pressed twice; second bank on GO / SC LIVE 2).
+
+Item 2 (DJ Jazzy Jeff): a 1988 first-person
+interview (Phaze 1, via muzines), the Serato Icon
+film's coverage (DJWORX / MN2S / DDJT), and the
+biographical record (PBS's Art of Turntablism;
+encyclopedia.com; The Skinny, 2007), all first-hand.
+Zero new bases. **Transformer** gains its provenance
+on GAP-14's pattern axis — Philadelphia, mid-1980s,
+Spinbad / Cash Money / Jeff, invention banked as
+contested (PBS co-invention; the 1988 interview
+Jeff's claim; encyclopedia.com: some credit Cash
+Money, Jeff first to record) — plus its hardware
+consequence: the pattern demanded a crisper fader
+cutoff than stock mixers had and pushed the modern
+crossfader's redesign. **Chirp** is Jeff's outright
+(The Skinny: "his own invention," debuted on "The
+Magnificent Jazzy Jeff," 1987) — two of the axis's
+six named patterns now trace to one Philadelphia
+lineage, and both names are onomatopoeia. The 1988
+interview's **decoupling layer** (mats off; 45s, wax
+paper, cut-up album covers between record and deck)
+banks as the scratch family's material premise — the
+slipmat's improvised ancestor — and its first-person
+**drop** dates the pre-beatmatch transition default.
+The **Peter Piper routine's** published structure
+(MN2S's account of the 2015 film: acapella fore →
+synth stab scratched into a new rhythm → vocals +
+instrumental combine over dropped-in drumbeat
+moments → the vocal tag) is the vocal-led order
+axis's third practitioner, banked at summary weight.
+Knowledge: performers — his two-phase doctrine
+("The turntables are mastered. Now it's just a
+process of making up new techniques") and study
+method ("Examine everybody else's techniques and
+learn from them… but use them in your own way").
+Caveats: his DDJT courses (How To DJ Right; Scratch
+Skills Masterclass) are paid — unmined, his
+per-item call; the Rolling Stone Playlist Retreat
+feature is blocked in this environment and stands
+unread, recorded at headline weight.
+
+Item 3 (Ean Golden / DJ TechTools, YouTube): the
+channel's mechanism text layer (DJTT's Instant
+Gratification demystification, 2014; Twisted
+Gratification, 2016, Golden first-person; the
+one-button-builds article, 2014; the VCI-400 Ean
+Golden edition statement, 2012; the Midi Fighter
+maps pages) — the Angelo standard: mechanisms bank
+from the texts that state them. Zero new bases.
+**Instant Gratification** resolves as T-017's
+performed form — *atomic total state recall*:
+≥7 mapping commands per press (selector, parameters,
+dry/wet, routing on for the target deck and off for
+all others, unit mode) so "one magic button *always*
+work[s]"; banked to knowledge/workflows as total
+state recall, the authoring rule the registry's own
+specs obey. The demystification's **rate-row
+press-count hold** (a modifier counts held Beatmasher
+rate buttons 0–7; the effect dies only at count 0)
+is the gate family's performed wiring — rates played
+as a keyboard over one continuously gated masher.
+**One-button builds** are T-018's held-gesture form:
+snap-to-start, auto-repeat ramp while held,
+release-with-tail. **Fader effects** complete the
+gesture-coupling genealogy across three layers —
+mapping (Golden, 2008–2011: fader travel zoned, cut
+first, FX depth after) → mixer feature (Pioneer
+Smooth Echo) → device behavior (Denon Fader Echo,
+item 1) — each layer coarsening the coupling as it
+hardens. **Twisted Gratification** banks the
+macro-knob form (one knob, a three-FX chain along
+pre-tuned ranges) and the designed exit (Release FX:
+press = echo freeze + kill all FX; hold = filter the
+freeze); **Midi Fighter 3D motion** records attitude
+as a modulation source against Phase 9's
+modulation-source layer. Knowledge: workflows +1
+(total state recall carries the Twisted forms).
+
+Item 4 (In The Mix): **PARTIAL — episode level
+unevidenced in this environment; nothing banked.**
+Michael Wynne's channel identity and scope confirmed
+first-hand (channel page; Wikitubia history — first
+video April 2017, a sidechain tutorial; gearnews),
+but eight targeted searches surfaced no transition
+episode by name, the channel listing is JS-gated to
+the text fetcher, and the Mastering The Mix blog
+carries no transition article. Two attribution traps
+were opened and **rejected**: a transition-dense FL
+Studio course transcript in the same results is
+Miguel's (Mad Miguel), and an arrangement
+masterclass naming "the turnaround and the marker"
+is Underdog's Oscar (Triangle Method) — neither
+banks under this entry. Entry 50 stays open at the
+queue tail, conditional on a readable video-ID
+source (the transcript host itself is reachable; IDs
+are the missing piece).
+
+Item 5 (Multiplier): **PARTIAL — the canon is paid;
+the free channel is evidenced at listing weight
+only; nothing banked.** Adam Pollard's identity
+confirmed across the Ask.Video listings, Blue Cat's
+tutorial index, and Point Blank's channel roundup.
+His mechanism canon is the paid Ask.Video /
+macProVideo series — *Dance Music Styles 102:
+Dubstep*, the *Dance Sound Design* set (Bass, Lead
+Synths, Pads, Vocals), *Advanced Vocals for Sound
+Design* (resampling, FM vocal conversion,
+interpolation settings, bespoke wavetables) —
+listings name topics, not mechanisms, and are banked
+at that weight; unmined, his per-item call. Point
+Blank's roundup characterizes the free channel
+(concept-forward: "how a limiter actually listens to
+your audio," wavetables into an analog synth,
+chord-writing approaches) and names one video
+(rq6NCdxk_4E, workflow tips) whose transcript fetch
+returned the host's 429 — the Carlo caveat verbatim;
+no transition episode was evidenced at transcript
+weight. Entry 51 stays open at the queue tail on
+either condition: the 429 clearing, or his call on
+the paid canon.
+
+Selection smoke: `check_select()` green (incl. the
+P1–P3 guard Cases 6–8). No engine or spec changes
+this phase — the recount below was verified against
+the live engine (`variants` regenerates to 332;
+meta verdicts tally ADOPT 60 / ADAPT 22).
+
+Counts (recounted from artifacts): registry **82**
+(unchanged — 81 executable + 1 planning; 66
+plan-renderable), variants **332** across **54**
+bases (unchanged), knowledge 103 → **107** (+3
+workflows, +1 performers), verdicts unchanged:
+ADOPT 60 / ADAPT 22. Demo suite: **108/108 rendered
++ verified clean** (`demos/out/verification.json` —
+no new demos; no engine or spec changes). NEXT
+QUEUE refreshed in EDUCATIONAL-SOURCES.md: Alex Rome
+and Zen World now lead the producer class; Underdog
+(entry 73) is promoted on evidence found this
+tranche — its arrangement masterclass transcript was
+read first-hand during item 4's attribution check and
+carries bankable turnaround/marker material, queued
+rather than banked out of turn; entries 50/51 hold
+their conditional places at the tail.
