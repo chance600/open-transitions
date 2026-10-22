@@ -944,3 +944,148 @@ verification.json` — no new demos; no engine or spec
 changes). NEXT QUEUE refreshed in
 EDUCATIONAL-SOURCES.md: DJ TechTools' remainder now
 leads; the Reddit revisit stays at the tail.
+
+## Phase 13 — Educationals study program: tranche 8 (2026-10-21)
+
+Eighth tranche, worked the NEXT QUEUE top-down, items
+1–5: (1) DJ TechTools, remainder, (2) Serato
+documentation, remainder (Pitch 'n Time + Stems),
+(3) DJ TLM, (4) DJ Angelo, (5) Engine DJ, remainder.
+Yield: **zero new bases**, four knowledge entries, and
+a run of axes/premises — the tranche the Phase 12
+refresh predicted for the worked-over canon: what
+remains is confirmation with sharper edges, and the
+edges here were real. All banked in TECHNIQUES
+(Phase 13 section).
+
+- **DJ TechTools, remainder — zero new bases, one
+  knowledge entry.** Seven archive articles read
+  first-hand (2008–2016). Cue Point Juggling (2008)
+  is the cue family's origin statement: direct play
+  vs sample play ("sample and hold" — the gated
+  trigger mode Phase 10 banked on T-019, at its
+  origin), and its durable content is a prep rule,
+  banked to knowledge/workflows: the **five-cue
+  layout** (kick / snare / hat / fill / section, same
+  roles on every track). The Advanced Cue Point
+  Scratch resolves to a T-019 × T-017 compound with
+  its fixed chain decomposed (lo-fi > Filter LFO 92
+  > reverb > peak filter); Controltablism (John
+  Type, 2016) banks T-019's trigger-source axis
+  (finger / gated / sequenced — cues as programmable
+  patterns). The 2014 transition chains decompose
+  (T-008 × T-003 × T-005; gate × T-003 × T-005) with
+  their harmonic-thinning rationale recorded against
+  T-004; EQ Mixing (2012) completes T-001's named
+  modes with **Tone Matching** (the pair's shared
+  timbre as the blend's EQ target); Advanced Key
+  Mixing (2013) corroborates the selection layer
+  three ways (Energy Swap = the P1 diagonal;
+  Absolute Major/Minor = the parallel move; the
+  Energy Boost arithmetic = MIK's, independently
+  stated) and names the loop family's harmonic-
+  ferryman staging; Value-Added Mixing contributes
+  the Bridge-the-Mix material constraint on WEB-12 /
+  GAP-16, a divergent +3 Camelot lift recorded but
+  not adopted (MIK governs), and a restraint
+  corroboration.
+- **Serato, remainder — zero new bases, one axis.**
+  The Stems articles are GAP-08's second vendor
+  control surface (four stems + Acapella/Instrumental
+  one-button groups, real-time separation). **Stem
+  Pad FX** bank GAP-08's **FX-scope axis**: FX Vocal
+  Echo / FX Instrumental Echo / FX Drums Echo /
+  Instrumental Braker are T-004 and T-006 with their
+  scope narrowed to a stem group at the seam —
+  Traktor's per-stem sends were the continuous form;
+  Serato's is the pad-fired exit throw. Pitch 'n
+  Time DJ (the support article + three quickstart
+  Key Shift sections, identical across devices) is
+  the key-shift capability provenance under T-015 /
+  T-032: semitone pad ranges, Key Sync, Pitch Play —
+  the control the selection layer's key_move
+  arithmetic presumes.
+- **DJ TLM — zero new bases, one knowledge entry,
+  the evidence shape stated in the bank.** His deep
+  canon is the paid DJ Courses Online subscription
+  (unmined; his per-item call). The free footprint:
+  his school's blog read first-hand (Bartmann
+  bylines) + podcast topics at title weight. Yield:
+  the **post-fader premise** under T-004/T-005 (the
+  tail outlives the cut because the send is
+  post-fader; reverb 50% wet / ~10 s decay is the
+  worked example), the **reset** doctrine (FX in a
+  phrase's last 2–4 bars, cut at the boundary — the
+  exit family run as intra-track punctuation), the
+  **throwback** (knowledge/setcraft: the layer
+  family's source axis set to *previously played*),
+  and corroborations (Hard Swap, anticipation
+  arithmetic, the glue track).
+- **DJ Angelo — zero new bases, one knowledge
+  entry.** Worked from his published canons (the
+  Turntable Tutorial Collection's episode list; the
+  full Tricks & Transitions curriculum) at the Luke
+  precedent's weight. The scratch canon banks as
+  **GAP-14's pattern axis** — tear (faderless) /
+  stab / transformer / chirp / flare-n-click / crab,
+  in his teaching order: a rendered scratch-in now
+  names its pattern. Beat juggling resolves to
+  T-031's manual form + its loops/pauses variants;
+  his course's named forms resolve to compounds
+  (acapella switch → GAP-13 × GAP-10; acapella
+  bridge → T-010 × GAP-11, third named practitioner;
+  tone/pitch play direction + sliding axes on T-032;
+  tone play × key shift as a stated compound).
+  Beat chasing recorded name-only (no mechanism in
+  his free text; DM-A21 noted as candidate, not
+  asserted); Autobahn / Boomerang name-only (the
+  "Delay Doubles" handling). Knowledge: performers
+  (Angelo — the turntablist as transitionist; 4PLAY
+  as the deck-count extreme performed with
+  restraint).
+- **Engine DJ, remainder — zero new bases, one
+  knowledge entry.** The 3.2 + 4.1 release articles,
+  the Prime GO manual's Pad Modes/Stems sections,
+  and the X1850 mic settings, read first-hand.
+  Engine OS Stems are GAP-08's **third vendor
+  surface** with the prep divergence stated plainly:
+  stems are created in the desktop software and
+  *packed to a drive* — Serato separates in real
+  time, Traktor generates in-app, Engine pre-renders;
+  the gate's satisfiability is vendor-shaped, the
+  crossfade identical. **Fuzzy Key Sync** →
+  knowledge/setcraft (Strict = same key, Fuzzy =
+  closest compatible key — the sync target as a
+  compatibility set, the third first-party anchor
+  for the model select.py scores). Flex Gate banks
+  the gate family's pattern axis (patterns
+  synchronize to the track's phase; the X1850's
+  16-pattern Beat Break Edit is the storage end).
+  Slip on Prime GO is GAP-05's third vendor
+  statement; Active Loops bank the loop family's
+  position-armed trigger (the fade-marker authoring
+  model applied to loops); the X1850 talkover
+  settings give GAP-18 its parameter set (level
+  −40…−20 dB, resume Normal/Fast, gate threshold);
+  Instant Doubles is DM-A21's Denon surface.
+
+Selection smoke: `check_select()` green (incl. the
+P1–P3 guard Cases 6–8). Probes: a stems-available
+house pair co-leads `stem_element_crossfade` at 8.0
+alongside `eq_blend` (the GAP-08 material behaving as
+banked); an open-format hip-hop pair ranks
+`scratch_in` with its snap exit and the open-format
+norm reason. No engine changes this phase.
+
+Counts (recounted from artifacts): registry **82**
+(unchanged — 81 executable + 1 planning; 66
+plan-renderable), variants **332** across **54**
+bases (unchanged), knowledge 94 → **98** (+1
+workflows, +2 setcraft, +1 performers), verdicts
+unchanged: ADOPT 60 / ADAPT 22. Demo suite: **108/108
+rendered + verified clean** (`demos/out/
+verification.json` — no new demos; no engine or spec
+changes). NEXT QUEUE refreshed in
+EDUCATIONAL-SOURCES.md: the rekordbox manuals'
+remainder now leads; the Reddit revisit stays at the
+tail.
