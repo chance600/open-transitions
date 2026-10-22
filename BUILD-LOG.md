@@ -598,3 +598,121 @@ corrected (the demo suite does not exercise META gates). The NEXT QUEUE in
 `technique-bank/EDUCATIONAL-SOURCES.md` is refreshed — the
 structured catalogs are exhausted, so Crossfader's named
 transition techniques top it now.
+
+## Phase 10 — Educationals study program: tranche 5 (2026-10-21)
+
+Fifth tranche, two workstreams. Workstream A worked the NEXT
+QUEUE top-down: (1) Crossfader's named transition techniques —
+the channel's canonical "12 High-Energy DJ Transitions" set,
+mined from Crossfader's own step-by-step walkthrough text
+(wearecrossfader.co.uk) plus the full transcript of "5 Ways To
+Stop Your DJ Mixes Sounding Boring"; (2) Club Ready DJ School
++ DJ Carlo routine/mashup breakdowns — Club Ready's written
+harmonic-mixing guide (Tribe Talk blog) and Carlo's flagship
+"10 MUST KNOW DJ Mixing Techniques," all read first-hand.
+Workstream B discharged the queue's engineering debt: the
+three select.py proposals recorded in Phase 9.
+
+**Workstream A — zero new bases, the pattern holds.** Five
+educator canons and four vendor taxonomies have now been
+absorbed without a registry gap since Phase 9. The yield is
+axes, framings, and selection knowledge, all banked in
+TECHNIQUES (Phase 10 section):
+- Crossfader: 8 of the 12 names were already bank-cited and
+  are mechanism-confirmed by the walkthrough text. The 4
+  unmined names resolve as: **Same Song Switch Up** — a
+  pairing framing (same-composition pairs license full-phrase
+  simultaneous playback; the audio ops are T-003 × T-002);
+  **Polyrhythmic Looping** — a fractional loop-length axis of
+  T-008 (3/2, 3/4 lengths precessing against the host grid;
+  the triplet precedent governs: axis, not base), with its
+  tempo-mediation use recorded against T-021; **Sample Switch
+  Up + Wide Syncing** — one shared axis of T-021: the tempo
+  ramp applied to the *sync-locked pair* rather than the
+  outgoing stream alone (104→126 BPM over 16 bars in the
+  moderate instance; 125→~183 wide-range in the extreme), the
+  sample-genealogy pairing recorded as its selection context.
+  The second video contributes **Gate Cue** — Serato's
+  momentary cue mode ("once you release that performance pad
+  it's going to stop instantly") banked as T-019's
+  trigger-mode axis (latched / gated), with the
+  loop→performed-pattern swap as its staging form.
+- Club Ready: the compatibility-vs-modulation framing banked
+  in `knowledge/setcraft.md` (+1 entry); their +4 caution
+  corroborates the simplicity gate's premise; their +9 note
+  is recorded as a set-level color and explicitly NOT adopted
+  into the ladder (single-source personal preference).
+  Curriculum titles state no mechanisms — nothing banked from
+  titles.
+- DJ Carlo: the pro EQ blend stated as doctrine (T-001/T-002);
+  the named Buildup Loop Transition confirms T-008's ladder;
+  stems mashup mixing resolves to GAP-08
+  `stem_element_crossfade` with a **vocal-led order axis**
+  (his staging leads with the vocal; GAP-08's default order
+  leads with the bass). Coverage caveat: the transcript host
+  rate-limited the full page; every banked claim is verbatim
+  transcript text surfaced via the search index, and none
+  rest on the unexcerpted middle segments.
+
+**Workstream B — P1–P3 all implemented** in
+`engine/select.py`, each behind before/after probe evidence
+(pairs exercising the change; harness preserved with the
+tranche's working papers). The bar held: `check_select()`
+green throughout with three new guard cases; no existing
+gate loosened except where a proposal names it.
+- **P1 — diagonal refinement.** `camelot_distance`: a
+  cross-letter wheel-adjacent pair (step 1) scores **2** when
+  the minor's number ≡ the major's number + 1 (mod 12) — the
+  note-sharing diagonal — and stays **4** otherwise. Probe:
+  before, all four diagonal directions scored 4 and DIAG-WORK
+  (8B→9A) was clash-rejected by every blend family; after,
+  8B→9A = 9A→8B = 2 with eq_blend/bass_swap admitted (6.0),
+  while DIAG-DISS (8B→7A) stays 4 and rejected. Case 6.
+- **P2 — signed key_move + boost preference.** New
+  `_tonic_pc`/`key_move` (semitone delta −6..+5, circle of
+  fifths anchored 8B = C) and an `energy_boost` feature
+  (key_move ∈ {+1, +2} with energy_delta ≥ 0). `_boost_bonus`
+  adds **+1.0 with a stated MIK reason to snap/void-class
+  exits only** — seamless and tail scores are bit-identical,
+  and no camelot_max gate moves: the quick-mix rule as
+  scoring. Probe: before, BOOST+2 (8A→10A) and its mirror
+  MIRROR-2 (8A→6A) produced *identical* selection output —
+  direction was invisible; after, hard_cut scores 2.0 on the
+  boost pair with the reason vs absent on the mirror,
+  eq_blend identical (6.0) in both directions, the semitone
+  route (8A→3A, the +7/−5 move) earns the same +1.0 against
+  its downward control (8A→1A), and a falling-energy boost
+  pair earns nothing (energy_boost False — MIK's
+  support-with-energy condition enforced). Case 7. Observed
+  interaction, recorded not hidden: DIAG-DISS (8B→7A) has
+  key_move +2, so its snap exits earn the boost preference
+  even though blends stay clash-rejected there — coherent,
+  since the boost keys on tonic pitch motion, independent of
+  the compatibility ladder.
+- **P3 — the +4 simplicity gate.** In `derive_features`: an
+  upward same-letter +4 move on a vocal-free pair
+  (`vocal_pair == "neither"`, the interim simplicity proxy)
+  reads an effective camelot of **3** — the top of the
+  workable band — with the raw ladder preserved as
+  `camelot_raw`. Probe: PLUS4-SIMPLE (8B→12B) moves from
+  clash-class (all blends rejected) to eq_blend admitted
+  (6.0), while double_drop stays Camelot-rejected (3 > 2) —
+  camelot_max ≤ 2 techniques remain closed to gated pairs;
+  PLUS4-VOCAL (both-vocal) and PLUS4-DOWN (the downward far
+  move) stay 4 and rejected. Case 8.
+Both MIK setcraft entries carry "Implemented (Phase 10)"
+notes; entry 36 of the sources list records the discharge.
+
+**Counts now:** registry **81** (unchanged — no new bases),
+variants **319** (unchanged), knowledge 86 → **87** (+1
+Club Ready entry), demos **107** (suite: 107/107 rendered +
+verified clean). Verdicts
+unchanged: ADOPT 59 / ADAPT 22. Selection: `check_select()`
+green — "T-037 agreement + ranking sanity OK" — now including
+Cases 6–8 (diagonal distance + admission split; key_move
+signs + the exact +1.0 boost differential + the
+falling-energy exclusion; the +4 gate's admission/rejection
+split). The NEXT QUEUE in
+`technique-bank/EDUCATIONAL-SOURCES.md` is refreshed —
+Digital DJ Tips tops it; the proposals item is discharged
+and off the queue.

@@ -96,23 +96,57 @@ def genre_scene(g: str) -> Optional[str]:
 
 # ----------------------------------------------------------------------------
 # Camelot distance (T-037 ladder: 0 same · 1 ±1/relative · 2–3 · 4+ clash)
+# Phase 9 proposal P1 landed Phase 10: the ladder's clash class is no
+# longer flat for cross-letter pairs — see the diagonal rule below.
 # ----------------------------------------------------------------------------
 
-def camelot_distance(ka: str, kb: str) -> int:
-    def parse(k):
-        k = k.strip().upper()
-        return int(k[:-1]), k[-1]
+def _parse_camelot(k: str):
+    k = k.strip().upper()
+    return int(k[:-1]), k[-1]
 
-    na, la = parse(ka)
-    nb, lb = parse(kb)
+
+def camelot_distance(ka: str, kb: str) -> int:
+    na, la = _parse_camelot(ka)
+    nb, lb = _parse_camelot(kb)
     if na == nb and la == lb:
         return 0
     if na == nb:
         return 1  # relative major/minor
     step = min((nb - na) % 12, (na - nb) % 12)
     if la != lb:
+        # MIK diagonal asymmetry (knowledge/setcraft.md, Phase 9): the
+        # diagonal whose minor sits one wheel-step clockwise of the
+        # major (8B->9A, 9A->8B) shares six of seven scale notes and
+        # works — score 2, the workable band. The reverse diagonal
+        # (8B->7A, 7A->8B) holds dissonant intervals — stays 4.
+        if step == 1:
+            n_major = na if la == "B" else nb
+            n_minor = nb if la == "B" else na
+            if (n_minor - n_major) % 12 == 1:
+                return 2
         return 4  # different mode at a different wheel position — clash-prone
     return min(step, 4)
+
+
+def _tonic_pc(key: str) -> int:
+    """Tonic pitch class of a Camelot code (C = 0). The wheel is the
+    circle of fifths anchored at 8B = C major; the A ring holds the
+    relative minors, a minor third below the same-number major."""
+    n, letter = _parse_camelot(key)
+    pc = (7 * (n - 8)) % 12
+    if letter == "A":
+        pc = (pc - 3) % 12
+    return pc
+
+
+def key_move(ka: str, kb: str) -> int:
+    """Signed semitone move from A's tonic to B's tonic, -6..+5
+    (shortest signed path; the tritone folds to -6). Directional —
+    the quantity the symmetric camelot_distance cannot express
+    (Phase 9 proposal P2, landed Phase 10). Wheel checks: +2
+    same-letter = +2 semitones; +7 (or -5) same-letter = +1."""
+    d = (_tonic_pc(kb) - _tonic_pc(ka)) % 12
+    return d - 12 if d >= 6 else d
 
 
 # ----------------------------------------------------------------------------
@@ -136,10 +170,32 @@ def derive_features(a: Song, b: Song) -> dict:
     ratio = b.bpm / a.bpm if a.bpm else 1.0
     half_double_ok = abs(ratio - 2.0) < 0.01 or abs(ratio - 0.5) < 0.01
     dE = b.energy - a.energy
+    km = key_move(a.key, b.key)
+    cam_raw = camelot_distance(a.key, b.key)
+    cam = cam_raw
+    # MIK +4 simplicity gate (Phase 9 proposal P3, landed Phase 10): a
+    # same-letter +4 wheel move (10B->2B) is clash-class on the raw
+    # ladder but works on melodically simple pairs (Guetta via MIK).
+    # Interim simplicity proxy: vocal_pair — "neither" (no sung melody
+    # on either side) is the least melodic density the schema can see,
+    # until a melodic-density feature exists. Gated pairs read 3, the
+    # top of the workable band: camelot_max<=2 techniques stay closed,
+    # and the raw ladder value is preserved in camelot_raw.
+    if cam_raw == 4:
+        na, la = _parse_camelot(a.key)
+        nb, lb = _parse_camelot(b.key)
+        if la == lb and (nb - na) % 12 == 4 \
+                and _vocal_pair(a, b) == "neither":
+            cam = 3
     feats = {
         "bpm_delta_pct": bpm_delta_pct,
         "half_double_ok": half_double_ok,
-        "camelot": camelot_distance(a.key, b.key),
+        "camelot": cam,
+        "camelot_raw": cam_raw,
+        "key_move": km,
+        # Energy Boost (MIK): a +1/+2-semitone key lift is an energy
+        # event when the energy does not fall to meet it (P2).
+        "energy_boost": km in (1, 2) and dE >= 0,
         "energy_delta": dE,
         "energy_delta_abs": abs(dE),
         "energy_a": a.energy, "energy_b": b.energy,
@@ -257,6 +313,20 @@ def _genre_bonus(tid: str, entry: dict, f: dict):
     return pts, reasons
 
 
+# Energy-boost bonus (MIK doctrine, knowledge/setcraft.md; Phase 9
+# proposal P2, landed Phase 10): a +1/+2-semitone key lift on
+# non-falling energy lifts the floor by itself — but the keys are
+# incompatible, so only quick exits can carry it (the quick-mix rule).
+# Snap/void exits (cuts, brakes, freezes, drop collisions) earn the
+# preference; seamless/tail exits earn nothing, and their camelot_max
+# gates keep excluding semitone moves exactly as before.
+def _boost_bonus(tid: str, entry: dict, f: dict):
+    if f.get("energy_boost") and entry.get("exit") in ("snap", "void"):
+        return 1.0, ["energy boost: +1/+2 semitone key lift on "
+                      "non-falling energy — a quick exit carries it (MIK)"]
+    return 0.0, []
+
+
 # ----------------------------------------------------------------------------
 # Main entry point
 # ----------------------------------------------------------------------------
@@ -277,11 +347,12 @@ def select(a: Song, b: Song, top_n: int = 5) -> dict:
             continue
         pts, reasons = _score_prefers(entry.get("prefers", []), f)
         bpts, breasons = _genre_bonus(tid, entry, f)
-        total = 1.0 + pts + bpts
+        xpts, xreasons = _boost_bonus(tid, entry, f)
+        total = 1.0 + pts + bpts + xpts
         params_hint = {k: v.get("default") for k, v in
                        entry.get("params", {}).items()}
         scored.append({"technique": tid, "score": round(total, 2),
-                       "reasons": reasons + breasons,
+                       "reasons": reasons + breasons + xreasons,
                        "energy": entry.get("energy"),
                        "exit": entry.get("exit"),
                        "params_hint": params_hint})
@@ -333,4 +404,67 @@ def check_select():
                                 genre="trap"))
     assert "eq_blend" in r3["rejected"]
     assert "BPM" in r3["rejected"]["eq_blend"], r3["rejected"]["eq_blend"]
+
+    # Case 6 — MIK diagonals (Phase 9 proposal P1, landed Phase 10):
+    # the note-sharing diagonal scores 2 and admits blend-class
+    # techniques; the dissonant diagonal stays clash 4
+    assert camelot_distance("8B", "9A") == 2
+    assert camelot_distance("9A", "8B") == 2
+    assert camelot_distance("8B", "7A") == 4
+    assert camelot_distance("7A", "8B") == 4
+    rw = select(songs(key="8B"), songs(key="9A"), top_n=100)
+    rd = select(songs(key="8B"), songs(key="7A"), top_n=100)
+    assert rw["features"]["camelot"] == 2, rw["features"]
+    assert rd["features"]["camelot"] == 4, rd["features"]
+    assert "eq_blend" not in rw["rejected"], rw["rejected"].get("eq_blend")
+    assert "eq_blend" in rd["rejected"]
+    assert "Camelot" in rd["rejected"]["eq_blend"]
+
+    # Case 7 — energy boost (P2): signed key_move; snap exits prefer
+    # the upward move; the mirror move, the falling-energy move, and
+    # seamless/tail exits earn nothing
+    assert key_move("8A", "10A") == 2 and key_move("8A", "6A") == -2
+    assert key_move("8A", "3A") == 1 and key_move("8A", "1A") == -1
+
+    def entry(r, tid):
+        return next(x for x in r["ranked"] if x["technique"] == tid)
+
+    up = select(songs(), songs(key="10A", energy=8.0), top_n=100)
+    dn = select(songs(), songs(key="6A", energy=8.0), top_n=100)
+    assert up["features"]["energy_boost"] is True
+    assert dn["features"]["energy_boost"] is False
+    assert entry(up, "hard_cut")["score"] == \
+        entry(dn, "hard_cut")["score"] + 1.0
+    assert any("energy boost" in s
+               for s in entry(up, "hard_cut")["reasons"])
+    assert not any("energy boost" in s
+                   for s in entry(dn, "hard_cut")["reasons"])
+    assert entry(up, "eq_blend")["score"] == \
+        entry(dn, "eq_blend")["score"]
+    flat = select(songs(), songs(key="10A", energy=6.0), top_n=100)
+    assert flat["features"]["energy_boost"] is False
+    semi = select(songs(), songs(key="3A", energy=8.0), top_n=100)
+    smdn = select(songs(), songs(key="1A", energy=8.0), top_n=100)
+    assert semi["features"]["key_move"] == 1
+    assert entry(semi, "hard_cut")["score"] == \
+        entry(smdn, "hard_cut")["score"] + 1.0
+    assert entry(semi, "echo_out")["score"] == \
+        entry(smdn, "echo_out")["score"]
+
+    # Case 8 — +4 simplicity gate (P3): an upward same-letter +4 move
+    # on a vocal-free pair reads 3 (raw ladder preserved at 4), admits
+    # camelot_max=3 techniques and keeps camelot_max<=2 closed; any
+    # sung melody, or the downward far move, keeps the clash score
+    g = select(songs(key="8B"), songs(key="12B"), top_n=100)
+    assert g["features"]["camelot_raw"] == 4, g["features"]
+    assert g["features"]["camelot"] == 3, g["features"]
+    assert "eq_blend" not in g["rejected"], g["rejected"].get("eq_blend")
+    assert "Camelot" in g["rejected"]["double_drop"]
+    gv = select(songs(key="8B", vocal="hook"),
+                songs(key="12B", vocal="hook"), top_n=100)
+    assert gv["features"]["camelot"] == 4, gv["features"]
+    assert "eq_blend" in gv["rejected"]
+    gd = select(songs(key="12B"), songs(key="8B"), top_n=100)
+    assert gd["features"]["camelot"] == 4, gd["features"]
+    assert "eq_blend" in gd["rejected"]
     print("select.py checks: T-037 agreement + ranking sanity OK")
