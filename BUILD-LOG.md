@@ -2373,3 +2373,188 @@ engine meta), demos 108 records — all
 render_ok / silence_ok / headroom_ok. Repo
 phases 1–21; this commit is the repo's
 20th.
+
+## Phase 22 — 2026-10-22 (expansion tranche 1: performer corpus, tranche A)
+
+The study program REOPENS under the user's
+expansion mandate ("82 transitions is like
+still a very small fraction. Go get more.").
+The V1 closure's framing error is owned in
+the bank: the 85-source list was a seed,
+not the map. The map is now
+EDUCATIONAL-SOURCES-V2.md (192 entries, 7
+classes, cartography 2026-10-22), and this
+phase works its ranked queue item 1 —
+performer corpus tranche A, the R2 attack
+order: Zabiela → Hype → EZ, then the HÖR
+Berlin / Boiler Room corpus route via
+1001tracklists. S0–S11 were run per item
+at the level the reachable evidence
+carries; where full S2 audio alignment was
+infeasible from here, entries bank at
+their evidenced confidence with the
+limitation recorded in place. Yield: 2 new
+bases, 4 named axes, 4 knowledge entries,
+3 performer entries extended.
+
+Zabiela (the attack order's #1) was mined
+from his own teaching: the "How To DJ"
+Episode 3 series (DJdownload / Ministry of
+Sound, 2009), all eight parts read at
+episode-description weight first-hand, plus
+Balance 029's full Act 1/Act 2 tracklists.
+One new base: transform_gate_loop
+(PERF-ZAB, ADAPT, confidence high — the
+source is L4-grade, the performer teaching
+his own move) — the EFX-1000 transform
+effect gating a held loop (his: a loop of
+his own scratching), beat-select patterns
+switched live; engine form doubles the
+gate subdivision per bar over a gate_bars
+window and cuts into B. Deduped in place
+against GAP-15 (manual fader between two
+sources), T-019 (retrigger, not gating),
+and the tremolo gate (LFO on an overlay).
+Three axes banked from the same pass:
+loop_length_modulation on
+feedback_loop_build (BPM-halving to change
+a feedback loop's length; spinback fills
+inside the hold), capture_source: live mic
+on live_loop_mix DM-A14 (headphones into
+the mic input — his "thank you" vocal
+mashup, Part 4), and a beat-roll-as-sampler
+use-note on T-008/WEB-03. Balance 029 banks
+as setcraft (composite-track staging: one
+perceived track, elements of three or four
+sources; the tape-exhaustion halt as a
+set-level ending), with the produced-mix
+caveat stated — composites evidence the
+doctrine, not live density.
+
+James Hype was re-mined and yields ZERO
+new bases — the Phase 12 verdict stands,
+now corroborated at three independent
+weights (Pioneer "How I DJ" episode
+summary; DJ Carlo's flagship transcript at
+verbatim weight for the buildup-loop
+section; Digital DJ Tips' timestamped
+Flying Solo instance). The yield is real
+but axis-class: out_point_creep on GAP-02
+(the sub-beat tightening stage after the
+halving ladder — re-press Out, jog the
+loop end inside the beat), echo_assignment:
+per-deck on the echo family, the GAP-10
+performed instance, and his EQ doctrine
+(boost EQ over gain; strip acapella lows)
+in the performers entry. His paid Mixing
+Skills course remains the unmined
+ground-truth surface — the user's per-item
+call, unchanged by this phase.
+
+DJ EZ yields the tranche's second base:
+dual_loop_composite (PERF-EZ, ADAPT,
+confidence medium / L1) — the Boiler Room
+x RBMA set's minute-~14 construction,
+documented by timestamped watcher anatomy
+(Line Noise): a tiny loop of Wookie's
+"Battle" as the bass drum, Cleptomaniacs'
+"All I Do" dub as percussive stutter, both
+role-stripped into a third groove. This
+closes the extraction target performers.md
+named in 2026-10-17. Deduped against T-031,
+T-020, GAP-16, WEB-12 in the spec. Set-level
+yield: the two-mode density doctrine
+(31 cuts/45 min Boiler Room vs FABRICLIVE
+71's 32 tracks/75.5 min with long-hold
+blends — knowledge/setcraft) and the
+Recess archive's two-copy offset jerk +
+sampler-carry handoff (knowledge/mixing).
+
+The HÖR Berlin / Boiler Room corpus route
+was verified, not exhausted: 1001tracklists
+fetches cleanly with w/ layering notation
+intact (proof item: Nitepunk @ HÖR Berlin
+2026-10-15 — 22 positions, 2 w/ layer
+events, 6 ID–ID). No S2 alignment was run
+on any set this phase; EZ's 2012 set has
+no reachable full timestamped tracklist, so
+no timing statistics are claimed for it.
+The corpus is staged behind queue item 2
+(genre traditions tranche A), which gives
+the extraction its genre-native labels;
+the V2 queue now leaves item 2 at the top.
+
+Selection smoke: check_select() green,
+including the P1–P3 guard cases, re-run
+this phase. Probes, as measured: on a
+melodic-house build→drop pair (124→126,
+energy 6→8) transform_gate_loop ranks at
+3.0 with its prefers reason firing; on a
+UKG outro→drop pair (132→134, inside its
+3% tempo gate) dual_loop_composite ranks
+at 3.0 with its reason firing, and it
+stays out of the build-phrase pair its
+requires exclude.
+
+Counts recounted from artifacts: registry
+84 (techniques/*.md = 85 with INDEX; meta
+kinds 75 render / 5 overlay / 3 decision /
+1 planning; 83 executable; 68
+plan-renderable by the render module's
+function registry), variants 356 / 56
+bases (VARIANTS.md regenerated), knowledge
+124 (mixing 21, performers 14, producing
+48, setcraft 24, workflows 17 — the ###
+count across knowledge/*.md), verdicts
+ADOPT 60 / ADAPT 24 (tallied from engine
+meta), demos 110 records — all render_ok /
+silence_ok / headroom_ok (110/110 verified
+clean; the transform gate's gate window is
+a declared allowed-silence span). Repo
+phases 1–22.
+
+WHITE SPACE — what this tranche revealed
+that is NOT on the V2 list:
+(1) The DJdownload "How To DJ" series
+itself: Zabiela's Episode 3 is one episode
+of a multi-performer taught series — the
+other episodes' performers are unlisted
+anywhere on the map, and taught-series
+episodes are L4-grade ore wherever they
+survive (Listen Notes carries the catalog
+with descriptions).
+(2) The Recess.co.uk technique archive —
+a practitioner-written UK text corpus
+(mix walkthroughs with exact choreography,
+reader-contributed named tricks) that
+appears on neither the V1 nor V2 lists; it
+surfaced via EZ and immediately yielded
+two banked moves. A classic-text stratum
+(Recess, the old DJ Forums / about.com
+era pages) is missing from the map's
+classes entirely.
+(3) The watcher-anatomy genre: long-form
+critical writing that timestamps and
+anatomizes single gestures (Line Noise on
+EZ; the BCR001 mixography format) — a
+source class between review and tutorial
+that the map's Class 4 does not name, and
+the only free surface that produced a
+timestamped gesture claim this tranche.
+(4) Produced-mix archaeology: Balance 029
+was built in a DDJ-RZ + Ableton
+back-and-forth over a year — the
+commercial mix-CD back-catalogs (Balance,
+Renaissance, Global Underground) are a
+documented-composite corpus with full
+tracklists, unlisted as a class; their
+evidence weight (studio composites) needs
+its own ladder rung between L1 and L2.
+(5) EZ's minute-14 composite suggests a
+mechanism family the map has no name for:
+role-assigned loop construction (fragments
+reduced to drum roles and recombined) —
+the breaks/juggling traditions likely hold
+more instances (the map's Class 2C names
+jungle choppage of *source material*, not
+loop-role construction from *two* records).

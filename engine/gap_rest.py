@@ -14,6 +14,8 @@ beat roll / transform craft, and the 2020 3:4 tempo-modulation demo).
   GAP-17 sampler_one_shot_mask    one-shot fired on the cut to mask the join
   PERF-ZAB feedback_loop_build    EFX-1000 feedback ramp, cut, B slams
   PERF-ZAB metric_loop_pivot      3:4 metric pivot (130 -> 173.4, no sync)
+  PERF-ZAB transform_gate_loop    EFX transform gate on a held loop (Ph.22)
+  PERF-EZ  dual_loop_composite    two role-assigned loops, new groove (Ph.22)
 
 Conventions follow engine/techniques.py: numpy mono float64 in/out,
 timing in bars/beats, the docstring IS the spec source (techniques/*.md
@@ -601,6 +603,160 @@ def metric_loop_pivot(a, b, sr, bar_s, cycle_beats=3, total_beats=12):
 
 
 # ----------------------------------------------------------------------------
+# PERF-ZAB — Transform gate loop (Phase 22, performer tranche A)
+# ----------------------------------------------------------------------------
+
+def transform_gate_loop(a, b, sr, bpm, bar_s, gate_bars=4,
+                        duty_cycle=0.5):
+    """A held loop of A's last bar, gated by an accelerating transform.
+
+    Parameters
+    ----------
+    a : outgoing track segment (mono float64); its last `gate_bars`
+        bars are the gate window (earlier bars pass through untouched).
+    b : incoming track segment (mono float64) — cuts in at full level
+        the moment the gate window ends.
+    sr : sample rate (Hz).
+    bpm : tempo (beats/min) — sets the gate grid.
+    bar_s : seconds per bar.
+    gate_bars : gate-window length (bars, default 4 bars).
+    duty_cycle : fraction of each gate subdivision the loop is
+        audible (default 0.5; lower = tighter, more percussive).
+
+    Returns
+    -------
+    Mono float64 mix: A's head untouched; then A's final bar looped
+    across the gate window under a transform gate whose subdivision
+    doubles every bar (1, 2, 4, then 8 gates per beat, capped); then
+    a hard cut (2 ms guard) and B at full power.
+
+    Why it works
+    ------------
+    The EFX-1000 TRANSFORM effect as James Zabiela teaches it in his
+    own "How To DJ" series (DJdownload / Ministry of Sound, 2009,
+    Episode 3 Parts 7-8): a captured loop — in his hands, a loop of
+    his own scratching — is chopped by a beat-select gate whose
+    pattern the performer switches live (1/4, 1/8, 1/16...). The
+    material never changes; the *gate pattern* is the performance,
+    and its acceleration is the build. Distinct from the manual
+    two-deck fader chops (GAP-15: the fader moves between sources)
+    and from retrigger stutters (T-019: playback restarts) — here a
+    single held source is amplitude-gated by a DSP pattern. Cutting
+    the gate dead and slamming B cashes the pattern's tension.
+    Evidence: the performer's own tutorial descriptions (Listen
+    Notes episode pages for Parts 7 and 8, fetched 2026-10-22) —
+    L4-grade source (he teaches the move on camera).
+    """
+    a = np.asarray(a, dtype=np.float64)
+    b = np.asarray(b, dtype=np.float64)
+    beat_s = 60.0 / bpm
+    n_bar = int(round(bar_s * sr))
+    n_gate = int(round(gate_bars * bar_s * sr))
+    n_gate = min(n_gate, len(a))
+    head, seg = a[:-n_gate], a[-n_gate:]
+
+    frag = seg[-n_bar:] if len(seg) >= n_bar else np.pad(
+        seg, (0, n_bar - len(seg)))
+    looped = np.resize(frag, n_gate)
+
+    t = np.arange(n_gate) / sr
+    bar_idx = np.minimum((t / bar_s).astype(int), max(gate_bars - 1, 0))
+    div = np.minimum(2.0 ** bar_idx, 8.0)          # gates per beat
+    phase = (t / beat_s * div) % 1.0
+    gate = (phase < duty_cycle).astype(np.float64)
+    edge = max(1, int(0.0015 * sr))                # click guard
+    gate = np.convolve(gate, np.ones(edge) / edge, mode="same")
+    gated = looped * gate
+
+    a_out = np.concatenate([head, gated]) if len(head) else gated
+    g = max(1, int(0.002 * sr))
+    if g < len(a_out):
+        a_out = a_out.copy()
+        a_out[-g:] *= 0.5 + 0.5 * np.cos(np.pi * np.linspace(0, 1, g))
+    return np.concatenate([a_out, b])
+
+
+# ----------------------------------------------------------------------------
+# PERF-EZ — Dual-loop composite (Phase 22, performer tranche A)
+# ----------------------------------------------------------------------------
+
+def dual_loop_composite(a, b, sr, bar_s, comp_bars=4,
+                        role_split_hz=250.0):
+    """Two role-assigned loops — A's lows, B's highs — as a new groove.
+
+    Parameters
+    ----------
+    a : outgoing track segment (mono float64); its last bar is the
+        kick-role loop source; everything before the composite window
+        passes through untouched.
+    b : incoming track segment (mono float64); its first bar is the
+        percussion-role loop source; B then plays in full after the
+        composite.
+    sr : sample rate (Hz).
+    bar_s : seconds per bar.
+    comp_bars : composite length (bars, default 4 bars).
+    role_split_hz : spectral role split (Hz, default 250) — A's loop
+        keeps only what is below it, B's loop only what is above.
+
+    Returns
+    -------
+    Mono float64 mix: A's head; then the composite — A's last bar
+    looped and low-passed (the kick role) under B's first bar looped
+    and high-passed (the percussive role) for `comp_bars` bars; then
+    B in full from its start.
+
+    Why it works
+    ------------
+    DJ EZ's Boiler Room x RBMA set (London, Dec 2012) at minute ~14:
+    a tiny loop of Wookie's "Battle" runs as the bass drum while
+    Cleptomaniacs' "All I Do" (Bump & Flex dub) plays as a
+    percussive stutter on the other deck — neither record is playing;
+    a third, synthetic groove built from two role-stripped loops is.
+    Watchers called it "DJing as production". The move is a
+    transition because the composite is a neutral rhythmic ground
+    both records can exit and enter through: A has already left, B
+    is present only as percussion, so B's full entrance lands as a
+    reveal rather than a join. Distinct from loop juggling one
+    track's own loops (T-031), from layering full tracks (T-020),
+    and from a pattern bridge over a playing track (WEB-12) — here
+    both sources are reduced to loops and spectral roles, and the
+    composite *replaces* both. Evidence: timestamped watcher
+    anatomy (Line Noise, Substack) + the fabric/FABRICLIVE 71 style
+    record; confidence L1 (audio anatomy documented; the demo
+    render is the re-render proof). performers.md named this exact
+    move "the extraction target not yet in the engine" (2026-10-17);
+    this closes it.
+    """
+    a = np.asarray(a, dtype=np.float64)
+    b = np.asarray(b, dtype=np.float64)
+    n_bar = int(round(bar_s * sr))
+    n_comp = int(round(comp_bars * bar_s * sr))
+    n_comp = min(n_comp, len(a))
+    head = a[:-n_comp] if n_comp < len(a) else a[:0]
+
+    a_frag = a[-n_bar:] if len(a) >= n_bar else np.pad(
+        a, (n_bar - len(a), 0))
+    b_frag = b[:n_bar] if len(b) >= n_bar else np.pad(
+        b, (0, n_bar - len(b)))
+    a_loop = np.resize(a_frag, n_comp)
+    b_loop = np.resize(b_frag, n_comp)
+
+    a_lo, _, _ = dsp.split_3band(a_loop, sr, low_cut=role_split_hz,
+                                 high_cut=5000.0)
+    _, b_mid, b_hi = dsp.split_3band(b_loop, sr,
+                                      low_cut=role_split_hz,
+                                      high_cut=5000.0)
+    comp = a_lo + 0.85 * (b_mid + b_hi)
+
+    g = max(1, int(0.002 * sr))
+    if g < len(comp):
+        comp = comp.copy()
+        comp[-g:] *= 0.5 + 0.5 * np.cos(np.pi * np.linspace(0, 1, g))
+    parts = [p for p in (head, comp, b) if len(p)]
+    return np.concatenate(parts)
+
+
+# ----------------------------------------------------------------------------
 # Metadata (FRAMEWORK.md §3) + TECHNIQUE_FUNCS export
 # ----------------------------------------------------------------------------
 
@@ -812,6 +968,72 @@ META = {
         ],
         "composed_of": [],
     },
+    "transform_gate_loop": {
+        "title": "Transform Gate Loop (Zabiela EFX Transform)",
+        "bank": "PERF-ZAB", "family": "PERF", "kind": "render",
+        "verdict": "ADAPT", "confidence": "high",
+        "requires": {"bpm_delta_pct_max": 5.0, "camelot_max": None,
+                     "vocal_ok": ["a_only", "b_only", "neither"],
+                     "phrase_a_ok": ["outro", "build", "chorus"],
+                     "genre_pair_ok": ["same", "neighbor"],
+                     "needs": []},
+        "prefers": [
+            {"when": "energy_delta>=1", "weight": 2,
+             "reason": "the gate pattern's acceleration is the build — it wants a drop to cash into"},
+        ],
+        "energy": {"delta": 1, "tension": "build"},
+        "exit": "snap", "clash_risk": "none",
+        "params": {"gate_bars": {"type": "int", "range": [2, 8],
+                                  "default": 4, "unit": "bars",
+                                  "presets": {"2bar": 2, "4bar": 4,
+                                              "8bar": 8}},
+                   "duty_cycle": {"type": "float", "range": [0.25, 0.75],
+                                  "default": 0.5, "unit": "frac",
+                                  "presets": {"tight": 0.35, "half": 0.5,
+                                              "open": 0.65}}},
+        "evidence": [
+            {"type": "tutorial",
+             "ref": "James Zabiela, 'How To DJ' Episode 3 Parts 7-8 (DJdownload / Ministry of Sound, 2009) — scratch/transform craft and the EFX-1000 transform effect on a looped scratch sample, patterns improvised on the beat-select buttons; episode descriptions fetched first-hand 2026-10-22 (Listen Notes)",
+             "url": "https://www.listennotes.com/podcasts/djdownloadcom/how-to-dj-episode-3-DqGUcR7lPFf/",
+             "date": "2009"},
+        ],
+        "composed_of": [],
+    },
+    "dual_loop_composite": {
+        "title": "Dual-Loop Composite (EZ Loop-as-Instrument)",
+        "bank": "PERF-EZ", "family": "PERF", "kind": "render",
+        "verdict": "ADAPT", "confidence": "medium",
+        "requires": {"bpm_delta_pct_max": 3.0, "camelot_max": None,
+                     "vocal_ok": ["a_only", "b_only", "neither"],
+                     "phrase_a_ok": ["outro", "groove", "breakdown"],
+                     "genre_pair_ok": ["same", "neighbor", "leap"],
+                     "needs": []},
+        "prefers": [
+            {"when": "energy_delta>=1", "weight": 2,
+             "reason": "the composite raises rhythmic density before B's full entrance lands as a reveal"},
+        ],
+        "energy": {"delta": 1, "tension": "build"},
+        "exit": "snap", "clash_risk": "low",
+        "params": {"comp_bars": {"type": "int", "range": [2, 8],
+                                  "default": 4, "unit": "bars",
+                                  "presets": {"2bar": 2, "4bar": 4,
+                                              "8bar": 8}},
+                   "role_split_hz": {"type": "float", "range": [120, 400],
+                                  "default": 250, "unit": "hz",
+                                  "presets": {"low": 150, "mid": 250,
+                                              "high": 350}}},
+        "evidence": [
+            {"type": "clip",
+             "ref": "DJ EZ, Boiler Room x RBMA London (Dec 2012), minute ~14 — tiny loop of Wookie 'Battle' as the bass drum, Cleptomaniacs 'All I Do' (Bump & Flex dub) as percussive stutter; timestamped watcher anatomy, Line Noise (Substack); set = 31 cuts in 45 min (Mixmag via BCR001)",
+             "url": "https://linenoise.substack.com/p/dj-ez-pure-garage-and-the-djs-dj",
+             "date": "2012-12-14"},
+            {"type": "article",
+             "ref": "fabriclondon.com, FABRICLIVE 71 newsflash — EZ's trademark style stated (hard fast cutting, volume manipulation, loops, effects, drops + long subtle mixes)",
+             "url": "https://www.fabriclondon.com/posts/newsflash-dj-ez-to-mix-fabriclive-71",
+             "date": "2013"},
+        ],
+        "composed_of": [],
+    },
 }
 
 
@@ -842,11 +1064,13 @@ _ALL_FUNCS = {
     "sampler_one_shot_mask": sampler_one_shot_mask,
     "feedback_loop_build": feedback_loop_build,
     "metric_loop_pivot": metric_loop_pivot,
+    "transform_gate_loop": transform_gate_loop,
+    "dual_loop_composite": dual_loop_composite,
 }
 
 # Qualify (fn(a, b, sr, **kwargs)): sample_connection, polyrhythmic_loops,
 # premade_tempo_bridge_edit, sampler_one_shot_mask, feedback_loop_build,
-# metric_loop_pivot.
+# metric_loop_pivot, transform_gate_loop, dual_loop_composite.
 # Excluded: loop_tightening_build (first input is `loop_src`, a loop
 # fragment, not the outgoing track — positional pair-calling would be a
 # semantic lie) and slip_mode_flourish (single-deck move over A; there is

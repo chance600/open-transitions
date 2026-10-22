@@ -7,7 +7,7 @@ registry lives in `engine/variants.py` and is **generated,
 never hand-listed**: `VARIANTS = build_variants()` enumerates
 `meta.all_meta()` at import time.
 
-**Snapshot: 332 variants across 54 base techniques** (108 variants across 29 core-bank bases; the rest arrive via domain modules, FRAMEWORK.md §7).
+**Snapshot: 356 variants across 56 base techniques** (108 variants across 29 core-bank bases; the rest arrive via domain modules, FRAMEWORK.md §7).
 This file is a snapshot of one generation run — see
 *Regenerating* below.
 
@@ -141,6 +141,23 @@ core base, capped at 40) through the standard demo pipeline.
 | `drum_bridge__12bar` | interlude_bars=12 |
 | `drum_bridge__16bar` | interlude_bars=16 |
 | `drum_bridge__8bar` | interlude_bars=8 |
+
+### dual_loop_composite — Dual-Loop Composite (EZ Loop-as-Instrument) (12 variants)
+
+| variant | params |
+|---|---|
+| `dual_loop_composite__2bar` | comp_bars=2 |
+| `dual_loop_composite__2bar_high` | comp_bars=2, role_split_hz=350 |
+| `dual_loop_composite__2bar_low` | comp_bars=2, role_split_hz=150 |
+| `dual_loop_composite__2bar_mid` | comp_bars=2, role_split_hz=250 |
+| `dual_loop_composite__4bar` | comp_bars=4 |
+| `dual_loop_composite__4bar_high` | comp_bars=4, role_split_hz=350 |
+| `dual_loop_composite__4bar_low` | comp_bars=4, role_split_hz=150 |
+| `dual_loop_composite__4bar_mid` | comp_bars=4, role_split_hz=250 |
+| `dual_loop_composite__8bar` | comp_bars=8 |
+| `dual_loop_composite__8bar_high` | comp_bars=8, role_split_hz=350 |
+| `dual_loop_composite__8bar_low` | comp_bars=8, role_split_hz=150 |
+| `dual_loop_composite__8bar_mid` | comp_bars=8, role_split_hz=250 |
 
 ### echo_out — Echo Out (4 variants)
 
@@ -611,6 +628,23 @@ core base, capped at 40) through the standard demo pipeline.
 |---|---|
 | `three_deck_layer__12bar` | swap_bar=12 |
 | `three_deck_layer__16bar` | swap_bar=16 |
+
+### transform_gate_loop — Transform Gate Loop (Zabiela EFX Transform) (12 variants)
+
+| variant | params |
+|---|---|
+| `transform_gate_loop__2bar` | gate_bars=2 |
+| `transform_gate_loop__2bar_half` | gate_bars=2, duty_cycle=0.5 |
+| `transform_gate_loop__2bar_open` | gate_bars=2, duty_cycle=0.65 |
+| `transform_gate_loop__2bar_tight` | gate_bars=2, duty_cycle=0.35 |
+| `transform_gate_loop__4bar` | gate_bars=4 |
+| `transform_gate_loop__4bar_half` | gate_bars=4, duty_cycle=0.5 |
+| `transform_gate_loop__4bar_open` | gate_bars=4, duty_cycle=0.65 |
+| `transform_gate_loop__4bar_tight` | gate_bars=4, duty_cycle=0.35 |
+| `transform_gate_loop__8bar` | gate_bars=8 |
+| `transform_gate_loop__8bar_half` | gate_bars=8, duty_cycle=0.5 |
+| `transform_gate_loop__8bar_open` | gate_bars=8, duty_cycle=0.65 |
+| `transform_gate_loop__8bar_tight` | gate_bars=8, duty_cycle=0.35 |
 
 ### vocal_chop_build — Vocal-Chop Build (2 variants)
 
