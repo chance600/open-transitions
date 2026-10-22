@@ -51,6 +51,7 @@
 - [premade_tempo_bridge_edit](premade_tempo_bridge_edit.md) — GAP-07
 - [pumper_exit](pumper_exit.md) — WEB-13
 - [reverb_freeze](reverb_freeze.md) — T-034
+- [resonator_tail](resonator_tail.md) — WEB-18
 - [reverb_wash](reverb_wash.md) — T-005
 - [reverse_roll](reverse_roll.md) — WEB-03
 - [ring_mod_dissolve](ring_mod_dissolve.md) — WEB-16

@@ -1418,5 +1418,19 @@
     "render_ok": true,
     "normalize_db": 1.6,
     "path": "demos/out/formant_morph_exit.wav"
+  },
+  {
+    "clip": "resonator_tail",
+    "duration_s": 30.0,
+    "silence_gaps_s": [],
+    "silence_ok": true,
+    "peak_dbfs": -1.0,
+    "headroom_ok": true,
+    "handoff_s": 15.0,
+    "centroid_max_jump_hz": 4843.9,
+    "technique": "resonator_tail",
+    "render_ok": true,
+    "normalize_db": 1.6,
+    "path": "demos/out/resonator_tail.wav"
   }
 ]
