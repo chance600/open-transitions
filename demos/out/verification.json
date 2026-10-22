@@ -1460,5 +1460,47 @@
     "render_ok": true,
     "normalize_db": 1.6,
     "path": "demos/out/resonator_tail.wav"
+  },
+  {
+    "clip": "continuous_drop",
+    "duration_s": 45.0,
+    "silence_gaps_s": [],
+    "silence_ok": true,
+    "peak_dbfs": -1.0,
+    "headroom_ok": true,
+    "handoff_s": 30.0,
+    "centroid_max_jump_hz": 5878.8,
+    "technique": "continuous_drop",
+    "render_ok": true,
+    "normalize_db": -0.78,
+    "path": "demos/out/continuous_drop.wav"
+  },
+  {
+    "clip": "drop_chop",
+    "duration_s": 22.5,
+    "silence_gaps_s": [],
+    "silence_ok": true,
+    "peak_dbfs": -1.0,
+    "headroom_ok": true,
+    "handoff_s": 16.875,
+    "centroid_max_jump_hz": 5843.7,
+    "technique": "drop_chop",
+    "render_ok": true,
+    "normalize_db": -2.75,
+    "path": "demos/out/drop_chop.wav"
+  },
+  {
+    "clip": "drop_insert",
+    "duration_s": 30.0,
+    "silence_gaps_s": [],
+    "silence_ok": true,
+    "peak_dbfs": -1.0,
+    "headroom_ok": true,
+    "handoff_s": 15.0,
+    "centroid_max_jump_hz": 5895.6,
+    "technique": "drop_insert",
+    "render_ok": true,
+    "normalize_db": 2.01,
+    "path": "demos/out/drop_insert.wav"
   }
 ]

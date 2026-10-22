@@ -44,8 +44,19 @@ Docstrings are the spec source; techniques/<name>.md mirrors them.
   WEB-18 resonator_tail  A's final bars ring away through a tuned
                          five-resonator bank voiced as B's chord
                          (Ableton Resonators)
+  WEB-19 continuous_drop A's drop plays out with B staged beneath
+                         its final bars; B's drop lands on the
+                         downbeat A's ends (DnB drop-to-drop relay)
+  WEB-20 drop_chop       two landed drops alternate full-level
+                         ownership on a bar grid, then commit to B
+                         (DnB / riddim chopping between drops)
+  WEB-21 drop_insert     B's drop substitutes for A's for 1-4 bars
+                         at the drop downbeat, then A's drop resumes
+                         (the guest bar; dubstep switch, shortest form)
 
-All eighteen are two-track renderers, exported via TECHNIQUE_FUNCS.
+All twenty-one are two-track renderers, exported via TECHNIQUE_FUNCS.
+WEB-19..21 were mined in Phase 23 (genre traditions tranche A) from
+fetched DnB/dubstep texts — see technique-bank/TECHNIQUES.md.
 """
 
 import numpy as np
@@ -1864,6 +1875,232 @@ _RESONATOR_CHORDS = {
 
 
 # ----------------------------------------------------------------------------
+# WEB-19 — Continuous drop (Phase 23, genre traditions tranche A: DnB)
+# ----------------------------------------------------------------------------
+
+def continuous_drop(a, b, sr, bar_s, stage_bars=8, stage_from_db=-14.0,
+                    stage_to_db=-6.0):
+    """Continuous drop: A's drop plays out while B is staged beneath
+    its final bars; B's drop lands on the exact downbeat A's ends.
+
+    The lead pattern of a working DnB DJ's own transition taxonomy
+    (kohadachan, note.com, "A Personal Drum and Bass DJ how to",
+    fetched 2026-10-22): "Continuous Drop — the end of the previous
+    track's drop -> the start of the next track's drop (start from 8
+    bars before the previous track drop's end)". There is no
+    breakdown, no valley, no breath between the drops: A's drop is
+    the transition surface. Across its final `stage_bars` bars,
+    B's first bar is looped underneath with its lows killed,
+    rising from `stage_from_db` to `stage_to_db` against the
+    window's own peak, so the crowd registers B's rhythm arriving
+    inside A's drop before it owns anything. At A's final sample
+    B starts — at its drop, at full level.
+
+    Parameters
+    ----------
+    a, b : outgoing / incoming segments (mono float64). `a` ENDS
+        at its drop's end (caller aligns); `b` STARTS at its drop,
+        and its first bar doubles as the staging cell.
+    sr : sample rate, Hz.
+    bar_s : seconds per bar (sizes the staging window).
+    stage_bars : staging window in bars (default 8 — the source's
+        number; 4 = late staging for short drops, 16 = the long
+        liquid form).
+    stage_from_db / stage_to_db : the staged cell's gain ramp
+        against the window peak of `a` (defaults −14 -> −6 dB:
+        felt as pressure before it is heard as a track).
+
+    Why it works: at DnB tempo a breakdown between every pair of
+    drops bleeds the floor; the genre's default seam is drop ->
+    drop with the energy line unbroken. Staging B's own first bar
+    (not a foreign loop) under A's tail means the drop that lands
+    is already familiar — its rhythm has been playing, at pressure
+    level, for the whole window. Distinct from build_to_drop
+    (T-009: two BUILDS layer and only B drops — A never reaches
+    its own drop), from breakdown_transition (T-023: the seam
+    lives inside a breakdown, the energy opposite), and from
+    hook_drop_handoff (T-038: A exits ON a vocal hook; here A
+    exits by completing its drop). The sparse cousin — B's intro
+    over A's outro — is DJ.Studio's "Intro Over Outro" method and
+    stays an EQ-blend staging, not this base: here both segments
+    are drops and the window sits inside A's.
+    """
+    a = np.asarray(a, dtype=np.float64)
+    b = np.asarray(b, dtype=np.float64)
+    bar_n = int(round(bar_s * sr))
+    stage_n = min(len(a), int(stage_bars) * bar_n)
+    out_a = a.copy()
+    if stage_n > 0 and len(b) > 0 and bar_n > 0:
+        cell = b[:bar_n]
+        if len(cell) < bar_n:
+            cell = np.pad(cell, (0, bar_n - len(cell)))
+        staged = np.resize(cell, stage_n)
+        # lows killed: the staged cell is rhythm + timbre, never a
+        # second bassline (the genre's one-bassline doctrine)
+        staged = dsp.apply_3band_eq(staged, sr, -60.0, 0.0, 0.0)
+        ref = float(np.max(np.abs(a[-stage_n:]))) + 1e-12
+        peak = float(np.max(np.abs(staged))) + 1e-12
+        staged = staged / peak * ref
+        ramp = np.linspace(dsp.db_to_gain(stage_from_db),
+                           dsp.db_to_gain(stage_to_db), stage_n)
+        out_a[-stage_n:] += staged * ramp
+    g = max(1, int(0.002 * sr))
+    if g < len(out_a):
+        out_a[-g:] *= 0.5 + 0.5 * np.cos(np.pi * np.linspace(0, 1, g))
+    return np.concatenate([out_a, b])
+
+
+# ----------------------------------------------------------------------------
+# WEB-20 — Drop chop (Phase 23, genre traditions tranche A: DnB / riddim)
+# ----------------------------------------------------------------------------
+
+def drop_chop(a, b, sr, bar_s, chop_bars=2, rounds=2, land_bars=1):
+    """Drop chop: two drops land together, then full-level ownership
+    alternates between them on a bar grid before committing to B.
+
+    Named in two fetched DnB texts: DJGear2K's double-drop guide
+    (step 4 — once both drops are playing, "use the channel volume
+    faders or the crossfader to either jump from one drop to
+    another or blend the two drops together") and DJ.Studio's
+    method 8, "Cutting and Switching" ("the DJ flicks the volume
+    crossfader between the tracks... parts of new songs are
+    quickly cut in and out... a cool way to tease elements of the
+    new track"). Rendered at drop scale: after `land_bars` bars of
+    both drops together (the double-drop landing), ownership
+    alternates every `chop_bars` bars — A, B, A, B — for `rounds`
+    full cycles, with the silent side killed outright (3 ms
+    smoothed edges, never a blend). The chop IS the single-sub
+    rule performed: exactly one bassline exists at any instant, so
+    two full drops can occupy one passage without ever summing.
+    After the last alternation the mix commits to B.
+
+    Parameters
+    ----------
+    a, b : phrase-aligned DROP segments (mono float64), equal
+        treatment — the shorter is zero-padded. Caller aligns the
+        two drops' downbeats.
+    sr : sample rate, Hz.
+    bar_s : seconds per bar (the chop grid).
+    chop_bars : bars per ownership window (default 2; 1 = the
+        riddim quick-chop, 4 = the long DnB trade).
+    rounds : full A+B alternation cycles after the landing
+        (default 2).
+    land_bars : bars both drops play together before the chop
+        starts (default 1 — the landing must register as a double
+        drop before it starts trading).
+
+    Why it works: a double drop held static spends its surprise in
+    one bar; chopping converts it into a conversation — each
+    window is a reminder that both tracks are present, and each
+    cut is a downbeat-level event the floor can anticipate and
+    ride. Distinct from rhythmic_fader_chops (GAP-15: a 16th-note
+    gate on an EXITING A while B fades in beneath — an entry
+    gesture with a bar-5 deadline; here both tracks are already
+    the main event, the period is bars not subdivisions, and
+    neither side is fading anywhere) and from double_drop
+    (T-024: both drops held under one enforced sub, then a bass
+    swap — the chop replaces the hold with alternation).
+    """
+    a = np.asarray(a, dtype=np.float64)
+    b = np.asarray(b, dtype=np.float64)
+    n = max(len(a), len(b))
+    if len(a) < n:
+        a = np.pad(a, (0, n - len(a)))
+    if len(b) < n:
+        b = np.pad(b, (0, n - len(b)))
+    bar_n = int(round(bar_s * sr))
+    a_env = np.ones(n)
+    b_env = np.ones(n)
+    t0 = int(land_bars) * bar_n
+    win = int(chop_bars) * bar_n
+    n_alt = int(rounds) * 2
+    for i in range(n_alt):
+        w0 = t0 + i * win
+        if w0 >= n:
+            break
+        w1 = min(n, w0 + win)
+        if i % 2 == 0:
+            b_env[w0:w1] = 0.0   # A owns this window
+        else:
+            a_env[w0:w1] = 0.0   # B owns this window
+    commit = t0 + n_alt * win
+    if commit < n:
+        a_env[commit:] = 0.0     # the mix commits to B
+    sm = max(1, int(0.003 * sr))
+    if sm > 1:
+        kernel = np.ones(sm) / sm
+        for env in (a_env, b_env):
+            smoothed = np.convolve(np.pad(env, (sm, sm), mode="edge"),
+                                   kernel, mode="same")[sm:-sm]
+            env[:] = smoothed
+    return a * a_env + b * b_env
+
+
+# ----------------------------------------------------------------------------
+# WEB-21 — Drop insert (Phase 23, genre traditions tranche A: DnB / dubstep)
+# ----------------------------------------------------------------------------
+
+def drop_insert(a, b, sr, bar_s, insert_bars=1, drop_bar=8):
+    """Drop insert: at A's drop downbeat, B's drop plays for
+    `insert_bars` bars INSTEAD — then A's drop resumes.
+
+    From the same note.com taxonomy's variety section ("Surprising
+    spreading out from Buildup to Drop... when I move from the
+    familiar build-up to the drop, I will insert a bar of another
+    track to make it unexpected, and then return to the original
+    track. It's just very difficult.") — and it is the shortest
+    performed form of the dubstep switch: the crowd has been sold
+    A's drop by A's build, a foreign drop fires for one bar, and
+    then the promised drop arrives anyway, doubled in impact for
+    having been withheld. A keeps running underneath while muted
+    (the booth reality: the deck never stops), so A's drop resumes
+    at the position it would have reached — the insert is a
+    substitution window in A's timeline, not a pause in it.
+
+    Parameters
+    ----------
+    a, b : segments (mono float64). `a` contains its build AND
+        its drop; the drop's first downbeat is at bar `drop_bar`
+        (caller aligns). `b` STARTS at its drop.
+    sr : sample rate, Hz.
+    bar_s : seconds per bar.
+    insert_bars : the substitution window (default 1 — the
+        source's bar; 2 = a statement, 4 = the full dubstep switch,
+        A's drop withheld for a whole phrase).
+    drop_bar : bar index (0-based) of A's drop inside `a`.
+
+    Why it works: expectation is the currency — the move spends
+    one bar of it and repays with interest when the real drop
+    lands mid-phrase, already in progress, as if it had never been
+    interrupted. Distinct from fake_drop (T-029: the rug-pull is a
+    VOID — nothing plays; here a whole foreign drop plays), from
+    hotcue_drop_swap (T-014: the replacement is permanent; here A
+    returns), from same_song_switchup (GAP-13: two arrangements of
+    ONE track; here the guest is a different track), and from
+    hook_drop_handoff (T-038: A exits for good on its hook). A
+    human-triggered weapon like T-029 — it only reads on a
+    well-known A whose drop the crowd can predict.
+    """
+    a = np.asarray(a, dtype=np.float64)
+    b = np.asarray(b, dtype=np.float64)
+    bar_n = int(round(bar_s * sr))
+    i0 = int(drop_bar) * bar_n
+    i1 = min(len(a), i0 + int(insert_bars) * bar_n)
+    out = a.copy()
+    if i0 < len(a) and i1 > i0:
+        seg = b[:i1 - i0]
+        if len(seg) < i1 - i0:
+            seg = np.pad(seg, (0, i1 - i0 - len(seg)))
+        g = max(1, int(0.002 * sr))
+        if 2 * g < len(seg):
+            seg = seg.copy()
+            seg[:g] *= 0.5 - 0.5 * np.cos(np.pi * np.linspace(0, 1, g))
+            seg[-g:] *= 0.5 + 0.5 * np.cos(np.pi * np.linspace(0, 1, g))
+        out[i0:i1] = seg
+    return out
+
+
+# ----------------------------------------------------------------------------
 # Metadata registry (FRAMEWORK.md §3) — merged by engine/meta.py
 # ----------------------------------------------------------------------------
 
@@ -2887,6 +3124,119 @@ META = {
         ],
         "composed_of": [],
     },
+    # ------------------------------------------------------------- WEB-19
+    "continuous_drop": {
+        "title": "Continuous Drop (Drop-to-Drop Relay)",
+        "bank": "WEB-19", "family": "STRUCT", "kind": "render",
+        "verdict": "ADAPT", "confidence": "medium",
+        "requires": {"bpm_delta_pct_max": 3.0, "camelot_max": 2,
+                     "vocal_ok": ["a_only", "b_only", "neither"],
+                     "phrase_a_ok": ["drop"],
+                     "genre_pair_ok": ["same", "neighbor"],
+                     "needs": ["drop_pair", "b_build"]},
+        "prefers": [
+            {"when": "phrase_a==drop", "weight": 3,
+             "reason": "A is in its drop — the staging window lives inside it"},
+            {"when": "energy_delta>=0", "weight": 2,
+             "reason": "the relay only runs forward — B's drop holds or raises the floor"},
+            {"when": "camelot<=1", "weight": 1,
+             "reason": "the staged cell rides A's tail — keys must not fight at pressure level"},
+        ],
+        "energy": {"delta": 0, "tension": "flat"},
+        "exit": "snap", "clash_risk": "bass",
+        "params": {
+            "stage_bars": {"type": "int", "range": [4, 16],
+                           "default": 8, "unit": "bars",
+                           "presets": {"4bar": 4, "8bar": 8,
+                                       "16bar": 16}},
+        },
+        "evidence": [
+            {"type": "tutorial",
+             "ref": "kohadachan, 'A Personal Drum and Bass DJ how to' (note.com, 2024) — transition-pattern taxonomy: 'Continuous Drop: the end of the previous track's drop -> the start of the next track's drop (start from 8 bars before the previous track drop's end)'",
+             "url": "https://note.com/kohadachan/n/na667cfa0b9e9",
+             "date": "2026-10-22"},
+            {"type": "tutorial",
+             "ref": "DJ.Studio, 'How To Mix Drum And Bass' (2024) — the drop-respecting method family (double drops, breakdown switch, intro over outro) the relay belongs to",
+             "url": "https://dj.studio/blog/mix-drum-and-bass",
+             "date": "2026-10-22"},
+        ],
+        "composed_of": [],
+    },
+    # ------------------------------------------------------------- WEB-20
+    "drop_chop": {
+        "title": "Drop Chop (Alternating Drop Ownership)",
+        "bank": "WEB-20", "family": "STRUCT", "kind": "render",
+        "verdict": "ADAPT", "confidence": "medium",
+        "requires": {"bpm_delta_pct_max": 3.0, "camelot_max": 2,
+                     "vocal_ok": ["a_only", "b_only", "neither"],
+                     "phrase_a_ok": ["drop"],
+                     "genre_pair_ok": ["same", "neighbor"],
+                     "needs": ["drop_pair"]},
+        "prefers": [
+            {"when": "energy_delta_abs<=1", "weight": 2,
+             "reason": "the trades read as equals — a hotter B ends the conversation early"},
+            {"when": "phrase_a==drop", "weight": 3,
+             "reason": "both drops are live — the chop sustains a landed double drop"},
+        ],
+        "energy": {"delta": 0, "tension": "build"},
+        "exit": "snap", "clash_risk": "bass",
+        "params": {
+            "chop_bars": {"type": "int", "range": [1, 4],
+                          "default": 2, "unit": "bars",
+                          "presets": {"1bar": 1, "2bar": 2,
+                                      "4bar": 4}},
+            "rounds": {"type": "int", "range": [1, 4],
+                       "default": 2, "unit": "cycles",
+                       "presets": {"x1": 1, "x2": 2, "x4": 4}},
+        },
+        "evidence": [
+            {"type": "tutorial",
+             "ref": "DJGear2K, 'What Is A Double Drop?' (2023) — step 4: with both drops playing, 'use the channel volume faders or the crossfader to either jump from one drop to another or blend the two drops together'",
+             "url": "https://djgear2k.com/double-drop-mixing-guide/",
+             "date": "2026-10-22"},
+            {"type": "tutorial",
+             "ref": "DJ.Studio, 'How To Mix Drum And Bass' (2024) — method 8, 'Cutting and Switching': flicking the crossfader between tracks to tease elements of the new track and create sudden transitions",
+             "url": "https://dj.studio/blog/mix-drum-and-bass",
+             "date": "2026-10-22"},
+        ],
+        "composed_of": ["double_drop"],
+    },
+    # ------------------------------------------------------------- WEB-21
+    "drop_insert": {
+        "title": "Drop Insert (Guest-Bar Drop Substitution)",
+        "bank": "WEB-21", "family": "STRUCT", "kind": "render",
+        "verdict": "ADAPT", "confidence": "medium",
+        "requires": {"bpm_delta_pct_max": 3.0, "camelot_max": None,
+                     "vocal_ok": ["a_only", "b_only", "neither"],
+                     "phrase_a_ok": ["build"],
+                     "genre_pair_ok": ["same", "neighbor"],
+                     "needs": ["drop_pair"]},
+        "prefers": [
+            {"when": "energy_delta>=1", "weight": 1,
+             "reason": "human-triggered weapon — the guest bar must hit at least as hard as the drop it replaces"},
+            {"when": "iconic_a", "weight": 2,
+             "reason": "the move only reads on a well-known A whose drop the crowd can predict"},
+        ],
+        "energy": {"delta": 1, "tension": "build"},
+        "exit": "snap", "clash_risk": "none",
+        "params": {
+            "insert_bars": {"type": "int", "range": [1, 4],
+                            "default": 1, "unit": "bars",
+                            "presets": {"1bar": 1, "2bar": 2,
+                                        "4bar": 4}},
+        },
+        "evidence": [
+            {"type": "tutorial",
+             "ref": "kohadachan, 'A Personal Drum and Bass DJ how to' (note.com, 2024) — 'when I move from the familiar build-up to the drop, I will insert a bar of another track to make it unexpected, and then return to the original track'",
+             "url": "https://note.com/kohadachan/n/na667cfa0b9e9",
+             "date": "2026-10-22"},
+            {"type": "tutorial",
+             "ref": "Pioneer DJ, DDJ-400 technique tutorials (2019) — the drop swap named 'a staple of trap and dubstep music': the performed fake-out family this insert is the shortest form of",
+             "url": "https://www.pioneerdj.com/en/news/2019/ddj-400-dj-controller-mixing-technique-tutorials/",
+             "date": "2026-10-22"},
+        ],
+        "composed_of": [],
+    },
 }
 
 
@@ -2910,4 +3260,7 @@ TECHNIQUE_FUNCS = {
     "ring_mod_dissolve": ring_mod_dissolve,
     "formant_morph_exit": formant_morph_exit,
     "resonator_tail": resonator_tail,
+    "continuous_drop": continuous_drop,
+    "drop_chop": drop_chop,
+    "drop_insert": drop_insert,
 }

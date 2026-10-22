@@ -2558,3 +2558,190 @@ the breaks/juggling traditions likely hold
 more instances (the map's Class 2C names
 jungle choppage of *source material*, not
 loop-role construction from *two* records).
+
+## Phase 23 — 2026-10-22 (expansion tranche 2: genre traditions, tranche A — DnB + dubstep + UKG texts)
+
+Queue item 2 of the V2 map: Class 2A/2B/2E
+texts mined for named vocabularies and
+bounds, so the staged S2-alignment corpus
+(HÖR/Boiler Room, Phase 22) has
+genre-native labels when it re-enters.
+All eleven text entries were fetched
+first-hand in full in this environment;
+the two video items stand as listed (the
+EZ masterclass — performed corpus mined
+in Phase 22; the STRANJAH Transmission
+page — a video landing page, worked at
+its six-technique outline weight).
+
+Three new bases, all from the DnB texts.
+continuous_drop (WEB-19) is the lead
+pattern of kohadachan's note.com
+taxonomy — a working DJ's own named
+patterns: A's drop plays out with B's
+first bar staged beneath its final 8
+bars (lows killed, −14 -> −6 dB), and
+B's drop lands on the exact downbeat
+A's ends. drop_chop (WEB-20) renders
+DJGear2K's step-4 chop and DJ.Studio's
+"Cutting and Switching": two drops land
+together, then full-level ownership
+alternates on a bar grid (1/2/4 bars x
+rounds) before committing to B — the
+single-sub rule performed, deduped
+against GAP-15's 16th-note entry gate
+and T-024's held collision. drop_insert
+(WEB-21) is the taxonomy's variety move
+verbatim ("insert a bar of another
+track... then return to the original
+track"): B's drop substitutes for
+insert_bars at A's drop downbeat while
+A keeps running muted, then A's drop
+resumes mid-course — a human-triggered
+weapon whose selector prefer prices the
+well-known-A precondition (iconic_a).
+
+Four axes banked on existing bases: the
+converge exit (the mountain pattern's
+second outcome) and triple-drop staging
+(deck_count = 3; the taxonomy's Andy C
+case study) on double_drop; Pioneer's
+official dual-build staging (DDJ-400
+tutorials: both build-ups played
+simultaneously, swap before the drop)
+on hotcue_drop_swap; periodic bass
+alternation (~8-bar ownership trades
+inside a long blend, DJTT forum) on
+bass_swap. Eight knowledge entries:
+mixing x4 (the pattern taxonomy itself,
+incl. the cut-in cueing rule and the
+1/4-bar pre-drop dip; the long-layer EQ
+doctrine — total bass constant, staged
+faders, the break+intro two-lows
+exception; LowCut Echo as the echo
+family's band axis; the DnB key moves
++2 / +6 "back code" / −3, priced by
+coexistence duration), setcraft x2 (DnB
+dwell arithmetic — 44/66/88-second
+quanta and the five-part hour; the NUKG
+short-blend doctrine from RA's Conducta
+review — blends "normally just a few
+bars long," peak picture over
+narrative), producing x2 (Stranjah's
+break-choppage as role material —
+jungle + deep-140, the single-source
+studio form of dual_loop_composite's
+two-record gesture; EDM Templates'
+arrangement bounds — 8-bar change rule,
+second-drop switch-up, pre-drop
+silence, the standard bass-music
+structure).
+
+Resolved without builds: DJ.Studio's
+other seven methods are the registry's
+core set under DnB bounds — the genre's
+*vocabulary* was the gap, not its
+mechanisms; Benztown's worked double
+drop corroborates T-024 (its phrase
+arithmetic joins the taxonomy entry);
+4D4M's dubstep↔hardstyle guide is
+generic cross-tempo advice already
+inside T-021/T-026 bounds. Two map
+corrections stand in V2 in place: the
+4D4M riddim guide and the ADSR
+deep-dubstep page are production texts
+whose [S]-grade summaries overstated
+their DJ content — fetched in full,
+banked at production weight, never
+quietly upgraded. The UKG cell closes
+honestly: no UKG transition text
+educator exists; the EZ masterclass
+video stands for the performed corpus.
+
+Selection smoke: check_select() green,
+including the P1–P3 guard cases, re-run
+this phase. Probes, as measured: on a
+DnB drop pair (174 BPM, same key,
+drop_pair flagged) continuous_drop
+ranks at 7.0 with all three prefers
+reasons firing and drop_chop at 6.0
+with both of its reasons; on a build
+pair with an iconic A, drop_insert
+ranks at 4.0 with its weapon + iconic
+reasons firing; without the drop_pair
+flag all three reject with the named
+missing-context reason. Behavioral
+render checks: the insert window is
+sample-equal to B and everything
+outside it to A; chop windows are
+sample-equal to their owner, the
+landing bar to A+B, the commit tail
+to B; variant renders smoke-clean
+(continuous_drop__4bar/16bar,
+drop_chop__1bar/1bar_x4/4bar_x1,
+drop_insert__1bar/4bar).
+
+Counts recounted from artifacts:
+registry 87 (techniques/*.md = 88 with
+INDEX; meta kinds 78 render / 5 overlay
+/ 3 decision / 1 planning; 86
+executable; 71 plan-renderable by the
+render module's function registry),
+variants 374 / 59 bases (VARIANTS.md
+regenerated), knowledge 132 (mixing 25,
+performers 14, producing 50, setcraft
+26, workflows 17 — the ### count across
+knowledge/*.md), verdicts ADOPT 60 /
+ADAPT 27 (tallied from engine meta),
+demos 113 records — all render_ok /
+silence_ok / headroom_ok (113/113
+verified clean). Repo phases 1–23.
+
+WHITE SPACE — what this tranche
+revealed that is NOT on the V2 list:
+(1) The [S]-grade summary risk is
+quantified now: 2 of 11 fetched texts
+materially misdescribed their content
+(both production texts in DJ dress, both
+in the same genre cell). Class 2's
+remaining cells (2C–2M) are [S]-grade
+throughout — tranche B should budget a
+fetch-correction rate of roughly 1 in 5
+and treat every yield figure as
+unverified until fetched, exactly as
+the class header warns.
+(2) The non-English practitioner-text
+stratum is bigger than one note.com
+article: kohadachan's taxonomy links a
+Japanese DnB scene with its own labels,
+festivals, and DJ-course culture, and
+his pattern names (valley, mountain)
+exist in no English source the map
+holds. A deliberate non-English sweep
+(Japanese, German, Spanish, Korean DJ
+text) is a source class the map's seven
+classes do not name.
+(3) The DAW-construction literature for
+performed moves (Benztown's Pro Tools
+double drop; the DAW-built mixshow
+craft in Class 2L) is a bridge genre:
+moves documented as *edits* with exact
+parameters, at higher precision than
+any tutorial — a mining surface between
+Class 2 and Class 6 that neither names.
+(4) Riddim's performed vocabulary
+(chopping doubles, fake-out switches at
+set scale) exists — Phase 23 verified
+its textual surface is nearly empty
+(the 4D4M correction), which moves the
+vein's real home: it is a Class 1
+performed-corpus item (Skrillex/Excision
+sets) and should be re-queued there
+rather than chased in text again.
+(5) Track titles as technique evidence:
+a UKG tracklist carrying a tune named
+"Wheel Up" is doctrine data — repertoire
+named after gestures (wheel-up, gun
+fingers) is an unlisted signal source
+for which gestures a tradition considers
+load-bearing.
