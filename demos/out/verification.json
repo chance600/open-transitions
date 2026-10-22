@@ -1390,5 +1390,33 @@
     "render_ok": true,
     "normalize_db": 1.25,
     "path": "demos/out/fader_synth.wav"
+  },
+  {
+    "clip": "ring_mod_dissolve",
+    "duration_s": 30.0,
+    "silence_gaps_s": [],
+    "silence_ok": true,
+    "peak_dbfs": -1.0,
+    "headroom_ok": true,
+    "handoff_s": 15.0,
+    "centroid_max_jump_hz": 5263.3,
+    "technique": "ring_mod_dissolve",
+    "render_ok": true,
+    "normalize_db": 1.6,
+    "path": "demos/out/ring_mod_dissolve.wav"
+  },
+  {
+    "clip": "formant_morph_exit",
+    "duration_s": 30.0,
+    "silence_gaps_s": [],
+    "silence_ok": true,
+    "peak_dbfs": -1.0,
+    "headroom_ok": true,
+    "handoff_s": 15.0,
+    "centroid_max_jump_hz": 5263.3,
+    "technique": "formant_morph_exit",
+    "render_ok": true,
+    "normalize_db": 1.6,
+    "path": "demos/out/formant_morph_exit.wav"
   }
 ]
