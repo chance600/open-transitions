@@ -1348,5 +1348,47 @@
     "render_ok": true,
     "normalize_db": 0.64,
     "path": "demos/out/pattern_layer_bridge.wav"
+  },
+  {
+    "clip": "pumper_exit",
+    "duration_s": 30.0,
+    "silence_gaps_s": [],
+    "silence_ok": true,
+    "peak_dbfs": -1.0,
+    "headroom_ok": true,
+    "handoff_s": 15.0,
+    "centroid_max_jump_hz": 5870.4,
+    "technique": "pumper_exit",
+    "render_ok": true,
+    "normalize_db": 1.6,
+    "path": "demos/out/pumper_exit.wav"
+  },
+  {
+    "clip": "scale_down_exit",
+    "duration_s": 30.0,
+    "silence_gaps_s": [],
+    "silence_ok": true,
+    "peak_dbfs": -1.0,
+    "headroom_ok": true,
+    "handoff_s": 15.0,
+    "centroid_max_jump_hz": 4818.1,
+    "technique": "scale_down_exit",
+    "render_ok": true,
+    "normalize_db": 0.41,
+    "path": "demos/out/scale_down_exit.wav"
+  },
+  {
+    "clip": "fader_synth",
+    "duration_s": 30.0,
+    "silence_gaps_s": [],
+    "silence_ok": true,
+    "peak_dbfs": -1.0,
+    "headroom_ok": true,
+    "handoff_s": 15.0,
+    "centroid_max_jump_hz": 1370.0,
+    "technique": "fader_synth",
+    "render_ok": true,
+    "normalize_db": 1.25,
+    "path": "demos/out/fader_synth.wav"
   }
 ]

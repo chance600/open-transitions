@@ -363,3 +363,107 @@ apply; all 20 new variants render finite output via
 `render_variant`. Two render bugs were caught and fixed during
 smoke (bandpass state-vector length in the peak bank; a zone
 slice running past the seam).
+
+## Phase 8 — Educationals study program: tranche 3 (2026-10-21)
+
+Third tranche of the standing study program, worked from the top
+of the Phase 7 NEXT QUEUE, items 1–4 in order and to depth:
+(1) the Denon Engine DJ documentation — X1850 PRIME User Guide
+(BPM FX and Sweep FX chapters), Prime GO manual Touch FX (p.59),
+Prime 4+/G2 FAQ, and the Engine DJ v3.1 release article with its
+26-effect Main FX list (+ the 3.1 Release Notes); (2) the
+Pestrela DJ Knowledge Base's Mappings & Controllers remainder,
+read in full; (3) the rekordbox manuals — DDJ-RZX ("Using the
+release FX"), XDJ-RX3 (Release FX pad assignments), and the
+software manual's slip mode chapter (pp.134–135); (4) the DJM-S11
+manual body — Sound Color FX (p.52), Beat FX types and settings
+(pp.55–61), Touch FX (p.62) — plus Smooth Echo from Pioneer's
+product copy. The tranche's first pass died in a daemon restart
+after its bank prose landed in `technique-bank/TECHNIQUES.md`;
+this phase was completed in a recovery pass that audited that
+prose against the sources first-hand, then built what it banked.
+
+Three techniques cleared the evidence + executability bar —
+banked as WEB-13/WEB-14/WEB-15 in `technique-bank/TECHNIQUES.md`
+with provenance, then built into the existing web lane
+(`engine/web_techniques.py` + `demos/ext_web.py`; no new merge
+points):
+
+- `pumper_exit` (WEB-13, DYN) — Denon's Pumper as a transition
+  exit: audio ducks on the downbeat grid (manual: Duck −2…−20 dB,
+  Offset to −1/2 beat) across A's final bars, the depth ramping
+  cycle by cycle; the final cycle's recovery is withheld and B
+  enters dry at full level in the hole (X1850 PRIME User Guide;
+  rekordbox's Release FX DUCKING is the second vendor).
+- `scale_down_exit` (WEB-14, TIME) — Engine DJ 3.1's Scale Down:
+  A's captured fragment replays over B's entrance, each replay
+  stepping down the scale in beat-locked steps (the Pitch Down
+  chromatic form is an axis). Engine names "four different
+  scales" without enumerating them; the render adopts the
+  standard four (major, natural minor, major and minor
+  pentatonic), disclosed in the bank entry (Engine DJ v3.1
+  article; Engine DJ 3.1 Release Notes).
+- `fader_synth` (WEB-15, SYNTH) — the DJM-S11's FADER SYNTH as a
+  seam: A's channel is *replaced* by an oscillator (SINE/SAW/
+  SQUARE, base octave −3…+3) whose pitch the fader plays, in
+  named scale quantizations; the line rides across the seam
+  zone while B fades in beneath it, then cuts — B inherits the
+  key and the energy (DJM-S11 manual, p.61).
+
+Two authoring models went to the knowledge layer
+(`knowledge/workflows.md`, knowledge 82 → **84**): **Release FX**
+— rekordbox's chain-terminator operator (FRAMEWORK §6: whatever
+chain is running, the release FX is how it ends; every member
+resolves to a registry base, DUCKING → WEB-13's mechanism in exit
+form), and **Smooth Echo** — trigger-coupled echo tails, a
+trigger-semantics layer over T-004/WEB-01 (the tail is fired by
+the cut gesture itself).
+
+**Everything else was overlap-resolved in the bank with
+pointers, deliberately not rebuilt:** Denon's Sweep FX set
+(ECHO/FLANGER/PHASER sweeps, WASH OUT → `shimmer_wash`'s knob
+form, NOISE GATE confirmed as `vocal_tremolo_gate`'s other
+vendor) and Touch FX set (every member a registry base, a
+gesture, a chain-order note, or a sequencer); the full 26 Main
+FX list (incl. the Phase 5/6 names re-confirmed — HELIX →
+`helix_catch`, MOBIUS TONE → `shepard_riser` — and the four
+simple locks BRK/ECHO/DUCK/ROLL BS); Pestrela's Controllers
+remainder — read in full, **zero new mechanisms** (gate
+compressors and dual-deck pagers banked as the page's two
+engineering footnotes); rekordbox slip mode, a second-vendor
+verbatim confirmation of the T-028/GAP-05 playhead model; and
+the S11's Beat FX body — every entry a registry base or a
+composition, with its new axes recorded where they belong
+(FADER PITCH's scale list → T-032; DUCKING ECHO's tail-coupling
+parameter; DELAY's Swing sub-parameter; KILL's attenuation
+time+curve pair; ROLL's dry-mute amount; the WIDE FILTER's
+extended travel; the cyclic vs one-shot split across the FX
+catalogs). One named unknown stays banked-not-built: the Sweep
+FX voice named "Gender" publishes no mechanism in any source
+read (the French Candy disposition). The README catalog table —
+carried since Phase 5 stopping at WEB-06 — now runs through
+WEB-15. The NEXT QUEUE in
+`technique-bank/EDUCATIONAL-SOURCES.md` is refreshed — the
+RMX-1000 manual body tops it now.
+
+**Counts now:** registry 76 → **79** (70 render + 3 decision +
+5 overlay + 1 planning; 78 executable), plan-renderable 60 →
+**63** (the plan renderer's merged technique map), variants
+257 → **295** (+38 across the 3 new bases; VARIANTS.md
+regenerated), knowledge 82 → **84**, demos 102 → **105** (suite:
+105/105 rendered + verified clean). Verdicts: ADOPT 57 /
+ADAPT 22. Selection: `check_select()` green (T-037 agreement);
+probes rank the new techniques on-design — `fader_synth` #1 on a
+breakdown → bigger-B pair with both preference reasons firing
+(`pattern_layer_bridge` #2 alongside), `scale_down_exit` #5 on a
+key-clash outro pair with both prefers firing (`spiral_echo` #7
+with the same), `pumper_exit` eligible with both preferences
+firing (score 3.0, in a six-way tie cluster) on a chorus →
+bigger-B pair; on a generic outro pair `pumper_exit` and
+`fader_synth` are rejected by their phrase gates — by design —
+and `scale_down_exit` is eligible below the cut; all 38 new
+variants render finite output via `render_variant`. One demo
+fix during the run: `pumper_exit`'s withheld-recovery hole —
+the technique's signature silence — is declared as allowed
+silence in its demo spec, the brake/power-down pattern, after
+the verifier flagged the final beat.

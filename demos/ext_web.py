@@ -2,7 +2,7 @@
 open-transitions — demo specs for the web-mined domain module
 (FRAMEWORK.md §7).
 
-Registers demos for engine/web_techniques.py (WEB-01..WEB-12, mined
+Registers demos for engine/web_techniques.py (WEB-01..WEB-15, mined
 2026-10-21). Merged automatically by demos/make_demos.py
 (load_ext_specs). All material is the suite's synthesized sketch audio
 (ctx tracks) — no copyrighted audio.
@@ -124,6 +124,36 @@ def demo_specs(ctx):
     specs["pattern_layer_bridge"] = (
         lambda: web.pattern_layer_bridge(bars(A, 8), bars(B, 8), SR,
                                          BPM, BAR_S),
+        lambda m: 8 * BAR_S,
+        None,
+    )
+
+    # WEB-13 pumper_exit: A's last 4 bars duck on the downbeat grid,
+    # deepening to -10 dB; the final recovery is withheld and B
+    # enters dry in the hole at the seam (the last beat of A is the
+    # hole — declared allowed silence, as with the brake/power-down
+    # demos).
+    specs["pumper_exit"] = (
+        lambda: web.pumper_exit(bars(A, 8), bars(B, 8), SR, BPM,
+                                BAR_S),
+        lambda m: 8 * BAR_S,
+        lambda m: [(8 * BAR_S - BEAT_S, 8 * BAR_S + 0.25)],
+    )
+
+    # WEB-14 scale_down_exit: A's final beat is captured and replayed
+    # 4 times across B's fade-in, stepping down the major scale.
+    specs["scale_down_exit"] = (
+        lambda: web.scale_down_exit(last_bars(A, 8), bars(B, 8), SR,
+                                     BPM, BAR_S),
+        lambda m: 8 * BAR_S,
+        None,
+    )
+
+    # WEB-15 fader_synth: A is replaced across the seam zone (bars
+    # 7-10) by a saw line riding scale steps from the root; B fades
+    # in under the line and is established as the synth cuts.
+    specs["fader_synth"] = (
+        lambda: web.fader_synth(bars(A, 8), bars(B, 8), SR, BAR_S),
         lambda m: 8 * BAR_S,
         None,
     )

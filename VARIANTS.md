@@ -7,7 +7,7 @@ registry lives in `engine/variants.py` and is **generated,
 never hand-listed**: `VARIANTS = build_variants()` enumerates
 `meta.all_meta()` at import time.
 
-**Snapshot: 257 variants across 48 base techniques** (108 variants across 29 core-bank bases; the rest arrive via domain modules, FRAMEWORK.md §7).
+**Snapshot: 295 variants across 51 base techniques** (108 variants across 29 core-bank bases; the rest arrive via domain modules, FRAMEWORK.md §7).
 This file is a snapshot of one generation run — see
 *Regenerating* below.
 
@@ -167,6 +167,23 @@ core base, capped at 40) through the standard demo pipeline.
 | `eq_blend__32bar` | blend_bars=32 |
 | `eq_blend__64bar` | blend_bars=64 |
 | `eq_blend__8bar` | blend_bars=8 |
+
+### fader_synth — Fader Synth (Source-Replacing Fader Oscillator) (12 variants)
+
+| variant | params |
+|---|---|
+| `fader_synth__saw` | waveform='saw' |
+| `fader_synth__saw_arp` | waveform='saw', ride='arp' |
+| `fader_synth__saw_glide` | waveform='saw', ride='glide' |
+| `fader_synth__saw_hold` | waveform='saw', ride='hold' |
+| `fader_synth__saw_steps` | waveform='saw', ride='steps' |
+| `fader_synth__sine` | waveform='sine' |
+| `fader_synth__sine_arp` | waveform='sine', ride='arp' |
+| `fader_synth__sine_glide` | waveform='sine', ride='glide' |
+| `fader_synth__sine_hold` | waveform='sine', ride='hold' |
+| `fader_synth__sine_steps` | waveform='sine', ride='steps' |
+| `fader_synth__square` | waveform='square' |
+| `fader_synth__square_arp` | waveform='square', ride='arp' |
 
 ### fake_drop — Fake Drop (Rug Pull) (3 variants)
 
@@ -365,6 +382,23 @@ core base, capped at 40) through the standard demo pipeline.
 | `premade_tempo_bridge_edit__4bar` | edit_bars=4 |
 | `premade_tempo_bridge_edit__8bar` | edit_bars=8 |
 
+### pumper_exit — Pumper Exit (Downbeat Duck Pump Exit) (12 variants)
+
+| variant | params |
+|---|---|
+| `pumper_exit__deep` | duck_db=-16.0 |
+| `pumper_exit__deep_early16` | duck_db=-16.0, offset_beats=-0.0625 |
+| `pumper_exit__deep_early4` | duck_db=-16.0, offset_beats=-0.25 |
+| `pumper_exit__deep_early8` | duck_db=-16.0, offset_beats=-0.125 |
+| `pumper_exit__deep_on_grid` | duck_db=-16.0, offset_beats=0.0 |
+| `pumper_exit__light` | duck_db=-6.0 |
+| `pumper_exit__light_early16` | duck_db=-6.0, offset_beats=-0.0625 |
+| `pumper_exit__light_early4` | duck_db=-6.0, offset_beats=-0.25 |
+| `pumper_exit__light_early8` | duck_db=-6.0, offset_beats=-0.125 |
+| `pumper_exit__light_on_grid` | duck_db=-6.0, offset_beats=0.0 |
+| `pumper_exit__standard` | duck_db=-10.0 |
+| `pumper_exit__standard_early16` | duck_db=-10.0, offset_beats=-0.0625 |
+
 ### reverb_freeze — Reverb Freeze (3 variants)
 
 | variant | params |
@@ -411,6 +445,25 @@ core base, capped at 40) through the standard demo pipeline.
 | `riser_ducking_overlay__16bar` | pre_drop_bars=16 |
 | `riser_ducking_overlay__4bar` | pre_drop_bars=4 |
 | `riser_ducking_overlay__8bar` | pre_drop_bars=8 |
+
+### scale_down_exit — Scale Down Exit (Beat-Stepped Pitch Descent) (14 variants)
+
+| variant | params |
+|---|---|
+| `scale_down_exit__chromatic` | scale='chromatic' |
+| `scale_down_exit__chromatic_deep` | scale='chromatic', steps=6 |
+| `scale_down_exit__chromatic_few` | scale='chromatic', steps=3 |
+| `scale_down_exit__chromatic_standard` | scale='chromatic', steps=4 |
+| `scale_down_exit__major` | scale='major' |
+| `scale_down_exit__major_deep` | scale='major', steps=6 |
+| `scale_down_exit__major_few` | scale='major', steps=3 |
+| `scale_down_exit__major_pent` | scale='major_pent' |
+| `scale_down_exit__major_pent_deep` | scale='major_pent', steps=6 |
+| `scale_down_exit__major_pent_few` | scale='major_pent', steps=3 |
+| `scale_down_exit__major_pent_standard` | scale='major_pent', steps=4 |
+| `scale_down_exit__major_standard` | scale='major', steps=4 |
+| `scale_down_exit__minor` | scale='minor' |
+| `scale_down_exit__minor_pent` | scale='minor_pent' |
 
 ### scratch_in — Scratch-In / Scratch Drop (3 variants)
 
