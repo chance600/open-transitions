@@ -2907,3 +2907,100 @@ decision. Queue as left: item 4
 ranked queue after the staged HÖR /
 Boiler Room S2 corpus tranche, which
 re-enters next per its own note.
+
+## Phase 25 — 2026-10-22 (expansion tranche 4: the staged S2 mix-to-track alignment tranche)
+
+The staged HÖR Berlin / Boiler Room S2
+alignment tranche (queue item 3's note;
+the landscape's S0–S11 pipeline run for
+the first time). Authoritative record:
+ALIGNMENT.md in this repo (sets, method
+as run, per-track table, findings).
+Scratch artifacts (audio, features, DTW
+paths, alignment.json) retained at
+~/workspace/scratch/s2-alignment/ —
+nothing audio is committed.
+
+Sets attempted 3 / aligned 1. Nitepunk @
+HÖR Berlin and Andy C @ Rampage Open Air
+failed at S1 acquisition: YouTube media
+download is walled from both egress
+points (all yt-dlp clients probed:
+SABR-only / bot sign-in), neither set has
+an alternate public audio source, and no
+bypass was attempted. Substitute
+primary, John Digweed — Transitions
+1150 (Guerilla Records Special), aligned
+from the artist's official SoundCloud
+upload: 21 positions, 12 source tracks
+acquired, 9 DTW-aligned (5 solid /
+3 flagged proxies / 1 identity-excluded),
+2 adjacent-pair transition records,
+1 fully measured blend.
+
+Banked: 3 knowledge entries (setcraft:
+Digweed alignment calibration + the
+crossfader-class opener / same-song
+blind spot; workflows: acquisition
+routes). New bases 0, axes/variants 0 —
+the measured gesture (01→02: 9.2 s
+overlap, band crossovers spread 1.8 s,
+crossfader-class, residual mid 0.011 /
+high 0.009) belongs to an existing
+family, and one instance re-stages
+nothing. Calibration agreements vs Kim
+et al.: tempo adjustments 5/5 <5 %
+(+1.65 / −0.50 / −0.02 / −1.85 / +3.66 %,
+constant per-half slopes); vs Kim/Yang/
+Nam: the opener lands in the 28 %
+crossfader minority of the 28/72 split.
+Calibration disagreement of a different
+kind: the artist's published timestamps
+deviate from measured starts by up to
+38.6 s (RMS ≈26 s) — listing-grade, not
+alignment-grade, data.
+
+Counts: registry 88 → 88; variants
+736/60 bases (unchanged); knowledge
+138 → 141; demos 114/114 (unchanged);
+verdicts ADOPT 60 / ADAPT 28 (unchanged).
+No engine/technique/selection surface
+touched, so check_select() and the demo
+battery were not re-run — stated, not
+skipped silently. Method deviations
+recorded in ALIGNMENT.md: STFT chroma
+for CQT (2 h CQT OOM-killed), chunked
+feature extraction, cosine-metric NaN
+sanitisation.
+
+WHITE SPACE. (1) The corpus the map
+ranks highest for alignment (HÖR /
+Boiler Room, YouTube-only) is precisely
+the corpus acquisition cannot reach;
+this tranche's evidence is one
+long-blend radio set, and S6/S7 gesture
+extraction on high-rate performed
+material is still unproven. (2) The
+binding constraint was source-track
+supply — DRM-flagged official uploads
+(Spooky, Chameleon Project) and absent
+full-length uploads left 9 of 21
+positions unalignable; purchase routes
+exist for parts of this catalogue but
+are his per-item call, untouched here.
+(3) Track 06's fetched file is an
+unresolved identity failure (DTW
+optimum inside position 08's window);
+whether the upload is mislabelled or
+the matcher was fooled by same-family
+loops is undecided on current evidence.
+(4) The Gargantuan-album extraction for
+position 04 was fetched, not run — it
+buys an isolated track, no transition.
+(5) Queue as left: item 4
+(software/hardware tranche A — Mixxx,
+djay Neural Mix, SP-404MKII DJ mode,
+MODEL 1 + Xone) tops the ranked queue,
+unqualified; item 7's academic pass
+carries Phase 25's early partial
+delivery in its note.
