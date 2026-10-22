@@ -2044,3 +2044,189 @@ fetch-route conditionals, now including Alice
 Efe). The open free surfaces are otherwise
 exhausted; the paid canons remain his per-item
 call.
+## Phase 20 — 2026-10-22 (EDUCATIONAL TRANCHE 15 — MINING PHASE CLOSES)
+
+Queue item 1 of the Phase 19 NEXT QUEUE —
+MixbusTv (57), the last unmined free entry in
+class 4 — worked at the depth the evidence
+supports, then the program accounting audit
+that closes the mining phase. Yield: zero new
+registry bases (82 stays: 81 executable + 1
+planning, 66 plan-renderable), zero new
+variants (332 / 54 bases), zero knowledge
+(120 stays), no engine or spec changes, no
+new demos (suite 108/108 rendered + verified
+clean, unchanged).
+
+Item 1 — MixbusTv (57). Resolved at index
+weight. Identity and canon confirmed
+first-hand: David Gnozzi, platinum
+mix/mastering engineer (MC Solaar's
+*Geopoetique*), the MixbusTv channel
+(2014– ), Pro Mix Academy tutor — the
+Produce Like A Pro profile of him (entry
+55's own site), the Recording Studio
+Rockstars session notes, and his own site's
+blog index (news, presets, course
+announcements; no technique articles) read
+first-hand. The canon as evidenced is
+mixing/mastering craft: mix-bus chains,
+vocal mixing, gear reviews at technical
+depth. His vocal-FX teaching, at summary
+weight (a third-party summary of "How To
+Mix Vocals Like A Pro"): sends-based
+reverb/delay returns, ducked out of the
+vocal's way, decay and pre-delay calculated
+from the project BPM, the effected track
+EQ'd — the T-004/T-005 SPACE family's send
+craft entire, already banked at higher
+weight (the ducked return's full named
+form, Phase 17; tempo-synced tails, Phase
+18). His one named doctrine point — keying
+the mixbus compressor from a partial signal
+(the bass, or the vocals) rather than the
+full mix, so the bus breathes with a chosen
+element — recorded in the bank at
+practitioner-report weight (Gearspace
+discussion of his clip): a dynamics
+key-source practice, mix craft rather than
+a seam mechanism; recorded, not banked, on
+the Phase 19 Slynk precedent. No transition
+mechanism surfaces at readable weight — the
+queue's expectation (SPACE-family tail craft
+at best) is met and exhausted by the
+higher-weight entries standing. His courses
+(three ProMix Academy titles; his own
+store's courses) are paid — unmined, his
+per-item call. Bank: TECHNIQUES Phase 20
+section.
+
+Item 2 — the program accounting audit (the
+mining phase's closing state; the full table
+stands as the PROGRAM-STATUS section at the
+head of EDUCATIONAL-SOURCES.md). Every one
+of the 85 sources on the list is accounted
+by final state, **recounted from the list's
+own Status fields**, not carried from any
+tranche summary:
+
+- **Mined — 53:** entries 1–14, 16 · 22,
+  24–27, 29–34 · 35, 36, 44 · 48, 52,
+  54–56, 57, 58–61, 63–73, 76, 77 · 85.
+  (Five carry recorded coverage caveats
+  inside their entries — 5, 6, 11, 13, 52 —
+  which stand as written.)
+- **Mined-partial — 13:** 21, 23, 28
+  (catalog remainders deduped, bodies not
+  re-read) · 37, 38 (community layer worked;
+  the subreddits proper unfetchable here) ·
+  47 (HELIX threads only) · 50, 51 (identity
+  confirmed; no episode evidenced at
+  transcript weight) · 53 (method banked;
+  tutorials member-gated / untranscribed) ·
+  62 (paid surface confirmed; free canon
+  unevidenced) · 74 (no readable text
+  route) · 75 (teaching inside paid
+  courses) · 82 (Making Music — free web
+  edition's 24 of 74 chapters; full book
+  paid).
+- **Conditional-parked, unworked — 1:**
+  83 (Mixing Secrets / Cambridge Music
+  Technology), bot-walled companion site;
+  its gate is a fetch route opening.
+- **Paid-canon unmined — 8:** 17 (Toolroom
+  Academy), 20 (Scratch DJ Academy), 49
+  (Sonic Academy), and five of the seven
+  class-5 books (78, 79, 80, 81, 84). His
+  per-item call; nothing purchased, ever.
+- **Free, unmined, never queued — 10:** the
+  residual queue below.
+
+**Sum check: 53 + 13 + 1 + 8 + 10 = 85** —
+the list total. ✓
+
+Two audit findings, recorded rather than
+smoothed. (1) **File integrity:** the entry
+bodies for 78–85 do not exist in
+EDUCATIONAL-SOURCES.md. The header count
+(84 at assembly; 85 with Production Expert
+added in Phase 6), this log's phase records,
+and the file's own queue history attest all
+eight — Making Music (82), Mixing Secrets /
+Cambridge (83), Production Expert (85, its
+shimmer article mined as WEB-10 evidence in
+Phase 6) — but the five remaining books'
+titles survive in no program file. They are
+accounted under their standing class-5
+disposition (paid / summary-weight only) in
+the paid-canon bucket; nothing about them
+is reconstructed beyond what the records
+state. (2) **Hygiene:** entry 31's status
+token still read "partial" although its
+remainder completed in Phase 15 — corrected
+at this audit, noted in the entry. The old
+tail queue's parenthetical cross-references
+likewise matched no current entries; the
+refreshed queue below uses numbers verified
+against the file.
+
+**Conditional overlay** (remainders parked;
+the entries are counted above — the gate is
+on their remainders, and per standing
+instruction no attempts were burned on them
+this tranche): transcript-host 429 or a
+readable transcript route — 5, 6, 50, 51,
+53, 62, 75; fetch route — 37, 38, 74; bot
+wall — 83.
+
+**Residual queue** (the NEXT QUEUE at the
+end of EDUCATIONAL-SOURCES.md, refreshed):
+the only sources actionable without new
+external conditions are the ten never-queued
+free entries — DJWORX YouTube (15), DJcity
+(18), BPM Supreme (19), r/Serato (39),
+r/Traktor (40), Serato Forum (41), DJWORX
+site (42), Magnetic Magazine (43), Native
+Instruments Blog (45), Wikipedia — DJ mix
+(46). All are community / gear-explainer
+surfaces of classes the program repeatedly
+found corroborative rather than
+mechanism-bearing, and none was ever ranked
+into a tranche's items; the two subreddits
+(39, 40) are untried routes whose hosts
+refused the sibling fetches (37, 38), so
+theirs may refuse identically. Everything
+else on the list waits on a gate lifting
+(the conditional clusters) or his per-item
+call (the paid canons, the Making Music
+full book, the DDT school). With this
+accounting, the mining phase is closed:
+the registry's mechanism set stands
+complete against the free evidence.
+
+Selection smoke: check_select() green,
+including the P1–P3 guard cases (Cases
+6–8), re-run at the audit. Probes, as
+measured (unchanged behavior, re-verified):
+a stems-available house pair co-leads
+stem_element_crossfade with eq_blend at
+8.0; an off-key pair (8A → 3A) rejects
+eq_blend and tops out on the filter family
+at 6.0; a vocal-free +4 pair (8B → 12B)
+measures effective camelot 3 with eq_blend
+admitted — the P3 gate live.
+
+Counts recounted from artifacts: registry
+82 (techniques/*.md = 83 with INDEX; meta
+kinds 73 render / 5 overlay / 3 decision /
+1 planning; 81 executable; 66
+plan-renderable by the render module's
+function registry), variants 332 / 54
+bases, knowledge 120 (mixing 19, performers
+14, producing 48, setcraft 22, workflows
+17 — the ### count across knowledge/*.md),
+verdicts ADOPT 60 / ADAPT 22 (tallied from
+engine meta), demos 108 records — all
+render_ok / silence_ok / headroom_ok. Repo
+phases 1–20; this commit is the repo's
+19th.
