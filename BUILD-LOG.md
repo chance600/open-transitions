@@ -1413,3 +1413,133 @@ read first-hand during item 4's attribution check and
 carries bankable turnaround/marker material, queued
 rather than banked out of turn; entries 50/51 hold
 their conditional places at the tail.
+
+## Phase 16 — Educationals study program: tranche 11 (2026-10-22)
+
+Tranche 11 worked the Phase 15 NEXT QUEUE top-down:
+the producer-YouTube class — (1) Alex Rome,
+(2) Zen World, (3) Underdog Electronic Music
+School, (4) Hyperbits (free surface only),
+(5) Bound to Divide. Zero new bases; the yield is
+six knowledge entries, all in the producing layer,
+and two honest partials. The tranche ran under
+tranche 10's attribution discipline throughout:
+open the material, name the presenter, then bank.
+
+Item 1 (Alex Rome): his named doctrine, the **Two
+Loop Rule**, banks to knowledge/producing as the
+arrangement-cadence law — the arrangement changes
+every two loops of the chords/main elements (two
+loops = 8 bars at the common 4-bar loop), from a
+small change vocabulary (add/remove an instrument,
+add/remove expression, MIDI transfer to another
+instrument, rhythm change), with seams worked
+(entry-point effects; full cut → drum fill + crash
+at the drop; the lead transferred to a pad and
+rested through the build). Evidence weight recorded
+in place: summary + trade press (MusicTech's
+account; the Woovebox manual's independent adoption
+restating the 8-bar equivalence) — the video's
+verbatim transcript was not read in this
+environment. His transitions canon proper is the
+paid Teachable course *EDM Fundamentals* ("Building
+Transitions and FX"; "Using Automation to Create
+Tension") — curriculum level only, unmined, his
+per-item call.
+
+Item 2 (Zen World): **PARTIAL** — identity and
+method confirmed first-hand from the Boomcast
+interview (full timestamped transcript read); his
+doctrine banks to knowledge/producing as **use over
+sound**: identity lives in the processing gesture
+applied to known material (a stock saw + a gate = a
+signature), learned by reverse-engineering presets.
+No transition/FX-build episode was evidenced at
+transcript weight (the transcript index returned
+none of his tutorials), and his current output
+(EvoSounds) is Patreon-first, member-gated past the
+introduction. Nothing banked from titles or teasers;
+the entry stays open on the producer-partial
+conditions.
+
+Item 3 (Underdog): the tranche's richest yield,
+both videos read in full at transcript weight.
+**Turnaround and marker** bank to
+knowledge/producing as the producer seam's two-part
+anatomy: the turnaround signals the ending (lows
+energy removed, reversed reverb swell, noise
+riser); the marker is the splash on the transition
+itself — including the **marker by subtraction**
+(the false drop's absent first hit *is* the placed
+event), markers manufactured from the track's own
+timbres, and the seam-pronunciation dial (explicit
+vs hypnotic edges). The **trilogy break** banks as
+a named staging compound (sparse → build ×3 →
+silence → drop), decomposed onto existing families,
+at reference weight. The **four levels of
+arrangement** and the **element-inventory study
+method** complete the item (+3 knowledge in all).
+Zero new bases — everything decomposes.
+
+Item 4 (Hyperbits, free surface): the **mono-build
+trick** banks to knowledge/producing at full
+parameter spec — stereo image automated toward
+mono across the build (4–8 bars, capped 40–60%) so
+the drop's width lands by contrast — knowledge-
+class under the standing mono-engine precedent
+(stereo automation, A-42), recorded whole so the
+spec survives a future stereo engine. The build-ups
+article's **master-bus automation** (level dip
+1–2 dB + low-cut/resonance + reverb across the
+build) is recorded on T-003's scope axis as its
+practitioner statement and level form; entrance
+doctrine corroborated (a third statement, after
+Oscar and Zen World, that the presentation of a
+sound outranks the sound). The masterclass is paid
+and untouched.
+
+Item 5 (Bound to Divide): **PARTIAL** — identity
+confirmed (Julian van Straten; Basic Wavez
+founder); his arrangement/transitions teaching sits
+inside paid courses (Basic Wavez, Sonic Academy,
+PML) at curriculum weight, unmined, his per-item
+call (pirate mirrors surfaced by the searches are
+never a route). The one transcript indexed under
+his name is a PML multi-tutor compilation whose two
+transition mechanisms (a standing return-chain
+transition bus; a freeze-and-reverse vocal riser)
+are individually unattributed — **rejected under
+this entry** by the attribution discipline, and
+recorded in the bank against entry 77's surface to
+be attribution-checked when Production Music Live
+is worked.
+
+Selection smoke: `check_select()` green (incl. the
+P1–P3 guard Cases 6–8). Probe: a same-key house
+pair whose B carries a build into a drop ranks
+`eq_blend` top with the build family
+(`loop_roll_build`, `loop_tightening_build`,
+`layered_fx_stack`) in the leading group at 4.0 —
+the build family behaving as banked in a tranche
+that banked three producer statements of build
+doctrine. No engine or spec changes this phase.
+
+Counts (recounted from artifacts): registry **82**
+(unchanged — 81 executable + 1 planning; 66
+plan-renderable), variants **332** across **54**
+bases (unchanged — `variants.count()` re-run),
+knowledge 107 → **113** (+6, all producing —
+verified by the `### ` count across knowledge/*.md:
+113, with each new entry physically in
+knowledge/producing.md per the Phase 15 lesson),
+verdicts unchanged: ADOPT 60 / ADAPT 22 (tallied
+from engine meta). Demo suite: **108/108 rendered
++ verified clean** (`demos/out/verification.json`
+re-read: 108 records, render/silence/headroom all
+true — no new demos; no engine or spec changes).
+NEXT QUEUE refreshed in EDUCATIONAL-SOURCES.md:
+Production Music Live leads (its surface now also
+carries the attribution check owed from item 5),
+then the rekordbox controller bodies and Point
+Blank, with the two conditional clusters held at
+the tail.
