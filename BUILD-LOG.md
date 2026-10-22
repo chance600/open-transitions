@@ -1851,3 +1851,196 @@ conditionals) follow. The written
 first-party and practitioner surfaces are nearly
 exhausted — what remains is the YouTube long
 tail and the gated revisits.
+
+## Phase 19 — 2026-10-22 (EDUCATIONAL TRANCHE 14)
+
+Queue item 1 of the Phase 18 NEXT QUEUE — the
+producer-YouTube remainder sweep (entries 61–70,
+74) — worked as one sweep, per-channel depth as
+the evidence earned it. Yield: zero new registry
+bases (82 stays: 81 executable + 1 planning, 66
+plan-renderable), zero new variants (332 / 54
+bases), +1 knowledge (119 → 120; setcraft 21 →
+22), no engine or spec changes, no new demos
+(suite 108/108 rendered + verified clean,
+unchanged). Every channel was dispositioned
+into the bank and the sources list incrementally
+as it closed. The sweep behaved as the queue
+predicted: corroboration, parameters and
+doctrine statements, no new mechanisms — the
+registry's mechanism set stands unrefuted by
+eleven more channels.
+
+Item 1 — Ableton Learning Music (61). The
+interactive fundamentals site read at its text
+weight (Get started; Play with song structures):
+sections are patterns combined in multiples of
+four, eight, or 16 bars, arranging is putting
+the sections together, and the site's opening
+premise is combination itself. Recorded as
+corroboration of the grammar the producing
+entries assume — the knowledge-class grounding
+the entry promised, delivered at exactly that
+weight. Nothing banks.
+
+Item 2 — Big Z (62). PARTIAL. Identity and
+current teaching surface confirmed first-party
+(Big Z Studios): a mixing/mastering practice
+whose course surface is the paid Mixing Academy
+— no transition module named at listing weight.
+The free channel this entry listed could not be
+evidenced at transcript weight in this
+environment (searches surfaced the paid surface
+and pirate mirrors, never used). No mechanism
+banked; the entry joins the
+transcript-conditionals cluster.
+
+Item 3 — SeamlessR (63). Resolved at interview
+weight: Image-Line's artist interview (his own
+account — Harmor as "the biggest game changer")
+and CreativeLive's instructor page. His
+resynthesis doctrine banks as GAP-07's
+instrument form: where render-and-process
+renders a passage for the seam, his renders
+the source sound itself — the render is the
+instrument, and the edit craft downstream is
+the slicer family's, already banked. His
+CreativeLive courses are paid — unmined.
+
+Item 4 — Slynk (64). Resolved: Ableton's own
+blog on his Grain Scanner vocal work (article
+weight) is WEB-06's granular family performed
+on the vocal, already banked; EDMProd's
+interview at show-notes weight states the
+groove doctrine — performance quality, not a
+seam mechanism — recorded in the bank rather
+than banked as knowledge. Nothing new.
+
+Item 5 — EDM Tips (65). The sweep's one
+knowledge yield. Will Darling's arrangement
+guide read in full first-hand: one micro
+progression carries the track, energy comes
+from melody, automation and element
+arrangement, and a second progression — if
+used at all — stays in the same key, reuses
+the main chords, and stays short. Banked to
+knowledge/setcraft as key stability: no key
+move is the unmarked default and the move is
+the bounded, priced exception — the
+producer-side premise under Club Ready's
+compatibility mode and select.py's P3 gate.
+His loop-to-song method is the layer family's
+compositional form, already standing.
+
+Item 6 — Reid Stefan (66). Resolved at index
+weight: first-party MyMixLab listings state a
+vocal-production and mix/master canon (vocal
+FX as reverb/delay space, width, tails and
+rhythmic FX) — the SPACE family's mix
+application at generic weight, tails as polish
+rather than seam craft. No transition
+mechanism named in the readable surface; the
+full-length canon is paid-platform — unmined.
+
+Item 7 — Andrew Huang (67). Resolved at
+product-description weight (his Baby Audio
+interview, first-party, plus published product
+descriptions; the plugin is a commercial
+product, not mined as a course). Transit
+chains 18 effect modules across seven slots
+under one macro transition controller whose
+span is set in bars/divisions — banked as
+T-017's (Layered FX Stack) macro form: the
+stack bound to a single controller, its span
+the timing parameter; randomize-with-locks is
+generate-and-select at device weight. Transit
+2's Loop and Reverser modules are in-macro
+compounds of the slicer and reverse families,
+and its Follower/Sidechain modes bank as the
+modulation-source axis's fourth term —
+signal-derived, after LFO, sample-and-hold,
+and Ned Rush's drawn function.
+
+Item 8 — Rick Beato (68). Resolved as
+knowledge-class corroboration, as the entry
+promised: the analysis canon (stem breakdowns
+naming key changes, modal interchange,
+borrowed chords) and his public advocacy of
+the key change as an energy event are the
+theory-side statement of the lift P2 scores.
+His course's modulation module stands at
+curriculum weight (paid — unmined); the
+mechanisms are standard theory already
+assumed. One widely indexed key-change
+summary is another educator's video —
+attribution rejected, not banked here.
+
+Item 9 — Busy Works Beats (69). Resolved at
+index weight: the rap-side FL educator's seam
+craft as evidenced is sample placement — his
+template bundle's "Chants & SFX — ear candy
+and transition effects" folder
+(product-description weight) is the marker
+family's sample form. A generic FL course
+transcript indexed near his name is
+unattributed — rejected. His courses are
+paid — curriculum weight.
+
+Item 10 — Virtual Riot (70). Resolved at
+workshop-report weight (Slam Academy's
+masterclass recap; UKF on his Studio Time
+series). "A saw-wave pitched down becomes
+rhythm" — the intervals landing on 2:3 and
+3:4 ratios — banks as the pitch/rhythm-
+continuum statement under T-008's fractional
+loop-length axis; his randomization doctrine
+(locked pitch, save the gems) corroborates
+generate-and-select. His Slam Academy course
+is paid — unmined; his growl chains are
+timbre craft, recorded as worked.
+
+Item 11 — Alice Efe (74). PARTIAL at title
+weight: identity stands as verified at the
+2026-10-21 list verification, but no tutorial
+text of hers could be read in this environment
+(search surfaced only generic looper material,
+none of it hers). Live-looping seam craft
+would resolve onto live_loop_mix's performed
+form if evidenced; nothing is asserted without
+the text. Held with the fetch-route
+conditionals.
+
+Selection smoke: check_select() green including
+the P1–P3 guard cases (Cases 6–8). Probes, as
+measured: a stems-available house pair co-leads
+stem_element_crossfade with eq_blend at 8.0
+(GAP-08 behaving as banked); an off-key pair
+(8A → 3A) rejects eq_blend and tops out on the
+filter family (filter_sweep / infinity_filter
+at 6.0) — the off-key behavior the key-stability
+entry prices; a vocal-free +4 pair (8B → 12B)
+measures effective camelot 3 with eq_blend
+admitted — the P3 gate live, unchanged.
+
+Counts recounted from artifacts: registry 82
+(techniques/*.md = 83 with INDEX; meta kinds
+73 render / 5 overlay / 3 decision / 1
+planning), variants 332 / 54 bases, knowledge
+120 (mixing 19, performers 14, producing 48,
+setcraft 22, workflows 17 — the new entry
+verified physically present in
+knowledge/setcraft.md by the ### count
+convention), verdicts ADOPT 60 / ADAPT 22
+(tallied from engine meta), demos 108 records —
+all render_ok / silence_ok / headroom_ok.
+
+The NEXT QUEUE at the end of
+EDUCATIONAL-SOURCES.md was refreshed at the end
+of this phase: MixbusTv (57) — the last unmined
+free entry in class 4 — now leads, followed by
+the two conditional clusters (transcript-gated
+revisits, now including Big Z's free canon;
+fetch-route conditionals, now including Alice
+Efe). The open free surfaces are otherwise
+exhausted; the paid canons remain his per-item
+call.
