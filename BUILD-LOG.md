@@ -1543,3 +1543,156 @@ carries the attribution check owed from item 5),
 then the rekordbox controller bodies and Point
 Blank, with the two conditional clusters held at
 the tail.
+
+## Phase 17 — 2026-10-22 (EDUCATIONAL TRANCHE 12)
+
+Queue items 1-5 of the Phase 16 NEXT QUEUE, worked
+to depth. Yield: zero new registry bases (82 stays:
+81 executable + 1 planning, 66 plan-renderable),
+zero new variants (332 / 54 bases), +2 knowledge
+(113 → 115; producing 45 → 46, setcraft 20 → 21),
+no engine or spec changes, no new demos (suite
+108/108 rendered + verified clean, unchanged).
+Every item was dispositioned into the bank and the
+sources list incrementally as it closed.
+
+Item 1 — Production Music Live (77), the
+attribution debt from Phase 16 discharged. The
+"7 Melodic House Tips" compilation was re-read in
+full at transcript weight: the source page names
+PML as author, the tips run in PML's voice with no
+per-tip attribution (one teaches PML's own
+Spacemaker), and the closing program promo maps
+tutors to program steps — none of them a
+transition step. The Phase 16 rejection of both
+mechanisms under Bound to Divide therefore
+stands, and both bank under PML at publisher
+weight: the standing transition bus (return
+track, full-decay reverb high-passed, drum-bus
+send automated at every transition, optional
+sidechain at the chain end) joins
+knowledge/producing as the T-004/T-005 throw's
+template form — Rome's entry-point effects and a
+premade band bus are its partial kin — and the
+freeze-and-reverse vocal riser (freeze the wet
+vocal, reverse the tail, lay it before the dry,
+ping-pong to smooth) is DM-A23's manufacture
+axis, GAP-07's render-and-process family. The
+Spacemaker is recorded as ducking's
+frequency-selective instrument, briefly. A PML
+article on arrangement corroborates (three
+introduction automations; the outro strips to
+main drums for the DJ mix-out); the paid course
+catalogue stays at curriculum weight, its two
+named transition lessons recorded.
+
+Item 2 — the rekordbox controller bodies (32,
+partial remainder). The CDJ-3000 manual body,
+read first-hand, states Key Sync's candidate set
+verbatim: "the key … with the least change among"
+the same key, dominant, subdominant, relative,
+and the relatives of both fifth-neighbors — the
+refined-distance neighborhood exactly, the
+compatibility model's fourth first-party anchor
+and its first from player hardware; banked in
+knowledge/setcraft (the second setcraft entry of
+Phase 14's rule, now at hardware weight). The
+DDJ-REV5 manual gives T-021 its one-button device
+form — Auto BPM Transition (ramp over 1/2/4/8
+bars, three selectable targets) — with a stem
+pre-mute coupling that enters GAP-08's family as
+the pre-mute axis, plus preselectable Key Lock
+and Auto Loop states; the REV7 adds Instant
+Scratch (hardware-resident samples, T-019's
+trigger source) and two Beat FX decomposed as
+compounds of standing bases (Duck Down =
+T-008 × tapestop; Fill Out = T-008 × T-004), with
+Helix Out recorded as WEB-07's vendor sibling
+(fade term in tow); the REV1 gives GAP-14 its
+device-automation form, Tracking Scratch. The
+XDJ line closed at feature-list weight, stated as
+such.
+
+Item 3 — Point Blank Music School (16). Worked
+from the school's own site: Oakenfull's
+arrangement lecture read in full at transcript
+weight, deconstruction pages at article weight.
+Zero new bases, no knowledge: the withheld beat
+(Harris's chorus that stages and holds back until
+the true chorus; Armin's beat held past the
+chorus boundary) is recorded as the build
+family's section-scale form and the second-verse
+release (drums out 4–8 bars post-chorus, or a
+counted new element) as the layer family's
+section form; the tempo-synced-reference study
+method corroborates Oscar's element inventory at
+section scale (already standing in
+knowledge/producing); the Pjanoo deconstruction's
+closing acapella mashup is a T-010 practitioner
+statement. Paid courses untouched.
+
+Item 4 — Produce Like A Pro (55). Zero new
+bases, no knowledge. Marc Daniel Nelson's vocal
+template, read first-hand on the school's own
+site: the ducked FX return's full named form —
+delay return sidechain-ducked under the dry vocal
+so no repeat sounds during the phrase, the bloom
+arriving into the reverb at phrase ends, template
+not automation — completing Phase 11's one-line
+Sound on Sound record against T-004/T-005. Warren
+Huart's one-reverb staged pre-delays (vocal
+0 ms / piano ~20 / bass ~40 / drums ~60 into one
+shared reverb, feed high-passed ~300–400 Hz)
+banked as T-005's depth axis at vendor-quoted
+weight. The wider mixing canon evidenced is mix
+craft without seam content; the paid academy
+untouched.
+
+Item 5 — Pensado's Place (56). Worked from his
+published interview text (verbatim, first-hand)
+and Lair-episode summaries, for the assigned tail
+and level craft. Zero new bases. Banked: the
+vocal-fill delay at bars 8/16 as the throw
+family's signal form ("the 'here comes the
+chorus' cue" — the throw as the marker Oscar
+named); the gated reverb keyed to its own source
+(the gate's key is the dry vocal; the tail's
+lifetime is the phrase's) with his silence
+doctrine recorded as the tail-hygiene principle's
+practitioner statement, and the octave-harmonizer
+reverb feed as WEB-10's feed-side form; imperfect
+(off-grid) delays as the delay family's timing
+axis, recorded at forum-report weight with the
+caveat in place; the Herbert effect — FX returns
+darkened — as the tail family's top-side spectral
+hygiene, at summary weight.
+
+Selection smoke: check_select() green including
+the P1–P3 guard cases. Probes: a diagonal
+8B → 9A house pair measures camelot distance 2
+(the CDJ candidate set's own diagonal) — bass_swap
+leads the ranking at 6.0 while eq_blend is vetoed
+by this pair's coexisting vocals, the distance
+admitting the family and the vocal gate doing its
+own job; a same-key 120 → 140 pair (16.7%) lifts
+the tempo-bridge family to co-lead (tempo_bridge
++ premade_tempo_bridge_edit at 4.0 — "wide BPM
+gap — ramp it or shift the metric"), the family
+item 2 just gave a one-button device form.
+
+Counts recounted from artifacts: registry 82
+(techniques/*.md = 83 with INDEX), variants
+332 / 54 bases, knowledge 115 (mixing 18,
+performers 14, producing 46, setcraft 21,
+workflows 16), verdicts ADOPT 60 / ADAPT 22
+(tallied from engine meta), demos 108 records —
+all render_ok / silence_ok / headroom_ok.
+
+The NEXT QUEUE at the end of EDUCATIONAL-SOURCES.md
+was refreshed at the end of this phase: Mr. Bill
+(71), Ned Rush (72), and iZotope Learn (76) carry
+over to the top; MusicRadar's remainder (59) and
+Attack Magazine (60) follow; the producer-YouTube
+remainder (61–70, 74) is ranked behind them; the
+conditional clusters (transcript-gated revisits;
+fetch-route conditionals) are unchanged.
