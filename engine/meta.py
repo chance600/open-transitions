@@ -977,7 +977,7 @@ CORE_META = {
 
 # Domain modules merged by all_meta() (FRAMEWORK.md §7). Core wins conflicts.
 _DOMAIN_MODULES = ("dm_techniques", "gap_struct", "gap_rest", "performer",
-                   "web_techniques")
+                   "web_techniques", "compounds")
 
 
 def all_meta():

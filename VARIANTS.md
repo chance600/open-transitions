@@ -7,7 +7,7 @@ registry lives in `engine/variants.py` and is **generated,
 never hand-listed**: `VARIANTS = build_variants()` enumerates
 `meta.all_meta()` at import time.
 
-**Snapshot: 374 variants across 59 base techniques** (108 variants across 29 core-bank bases; the rest arrive via domain modules, FRAMEWORK.md §7).
+**Snapshot: 736 variants across 60 base techniques** (117 variants across 29 core-bank bases; the rest arrive via domain modules, FRAMEWORK.md §7).
 This file is a snapshot of one generation run — see
 *Regenerating* below.
 
@@ -19,6 +19,14 @@ This file is a snapshot of one generation run — see
 - **Pairwise:** `<base>__<p1>_<p2>` — combinations of the first
   two preset axes, capped at 9 combos per technique.
   e.g. `brake_stop__long_exp` = `stop_beats=2.0, curve='exp'`.
+
+Phase 24 (ENUMERATION.md) extended the walk past the first two
+axes: singles on every axis and combos on every axis pair are
+admitted when the id is nameable (exactly one parameter set
+claims it) and every preset set is non-default — a default leg
+renders as its single, so default-legged combos are parameter
+notes, not variants. The legacy surface above is generated
+exactly as before and never delisted.
 
 Render any variant with `variants.render_variant(name, a, b, sr, **ctx)`;
 resolve without rendering via `variants.get_variant(name)`,
@@ -40,6 +48,22 @@ core base, capped at 40) through the standard demo pipeline.
 | `acapella_overlay__32bar` | overlay_bars=32 |
 | `acapella_overlay__8bar` | overlay_bars=8 |
 
+### aging_echo — Aging Echo (Dub Feedback-Tone Echo) (11 variants)
+
+| variant | params |
+|---|---|
+| `aging_echo__bright` | cutoff_hz=8000.0 |
+| `aging_echo__dark` | cutoff_hz=2000.0 |
+| `aging_echo__dotted` | beat_div=0.75 |
+| `aging_echo__dotted_bright` | beat_div=0.75, cutoff_hz=8000.0 |
+| `aging_echo__dotted_dark` | beat_div=0.75, cutoff_hz=2000.0 |
+| `aging_echo__full` | beat_div=1.0 |
+| `aging_echo__full_bright` | beat_div=1.0, cutoff_hz=8000.0 |
+| `aging_echo__full_dark` | beat_div=1.0, cutoff_hz=2000.0 |
+| `aging_echo__quarter` | beat_div=0.25 |
+| `aging_echo__quarter_bright` | beat_div=0.25, cutoff_hz=8000.0 |
+| `aging_echo__quarter_dark` | beat_div=0.25, cutoff_hz=2000.0 |
+
 ### backspin — Backspin (Spinback) (3 variants)
 
 | variant | params |
@@ -48,30 +72,40 @@ core base, capped at 40) through the standard demo pipeline.
 | `backspin__one` | spin_beats=1.0 |
 | `backspin__two` | spin_beats=2.0 |
 
-### beatslicer_shuffle — BeatSlicer Shuffle (Buffer Slice-Permutation Build) (15 variants)
+### beatslicer_shuffle — BeatSlicer Shuffle (Buffer Slice-Permutation Build) (24 variants)
 
 | variant | params |
 |---|---|
 | `beatslicer_shuffle__bookends` | pattern='bookends' |
+| `beatslicer_shuffle__bookends_off` | pattern='bookends', buzz=0 |
 | `beatslicer_shuffle__bookends_one` | pattern='bookends', buffer_bars=1 |
 | `beatslicer_shuffle__bookends_two` | pattern='bookends', buffer_bars=2 |
 | `beatslicer_shuffle__halves` | pattern='halves' |
+| `beatslicer_shuffle__halves_off` | pattern='halves', buzz=0 |
 | `beatslicer_shuffle__halves_one` | pattern='halves', buffer_bars=1 |
 | `beatslicer_shuffle__halves_two` | pattern='halves', buffer_bars=2 |
 | `beatslicer_shuffle__inside_out` | pattern='inside_out' |
+| `beatslicer_shuffle__inside_out_off` | pattern='inside_out', buzz=0 |
 | `beatslicer_shuffle__inside_out_one` | pattern='inside_out', buffer_bars=1 |
 | `beatslicer_shuffle__inside_out_two` | pattern='inside_out', buffer_bars=2 |
+| `beatslicer_shuffle__off` | buzz=0 |
 | `beatslicer_shuffle__reverse` | pattern='reverse' |
+| `beatslicer_shuffle__reverse_off` | pattern='reverse', buzz=0 |
 | `beatslicer_shuffle__reverse_one` | pattern='reverse', buffer_bars=1 |
 | `beatslicer_shuffle__reverse_two` | pattern='reverse', buffer_bars=2 |
 | `beatslicer_shuffle__stride` | pattern='stride' |
 | `beatslicer_shuffle__stride_one` | pattern='stride', buffer_bars=1 |
 | `beatslicer_shuffle__swap_pairs` | pattern='swap_pairs' |
+| `beatslicer_shuffle__swap_pairs_off` | pattern='swap_pairs', buzz=0 |
+| `beatslicer_shuffle__swap_pairs_two` | pattern='swap_pairs', buffer_bars=2 |
+| `beatslicer_shuffle__two` | buffer_bars=2 |
+| `beatslicer_shuffle__two_off` | buffer_bars=2, buzz=0 |
 
-### brake_stop — Brake / Tape Stop (12 variants)
+### brake_stop — Brake / Tape Stop (13 variants)
 
 | variant | params |
 |---|---|
+| `brake_stop__linear` | curve='linear' |
 | `brake_stop__long` | stop_beats=2.0 |
 | `brake_stop__long_exp` | stop_beats=2.0, curve='exp' |
 | `brake_stop__long_linear` | stop_beats=2.0, curve='linear' |
@@ -101,7 +135,7 @@ core base, capped at 40) through the standard demo pipeline.
 | `continuous_drop__4bar` | stage_bars=4 |
 | `continuous_drop__8bar` | stage_bars=8 |
 
-### crush_degrade — Crush Degrade (Bit-Reduction Exit) (12 variants)
+### crush_degrade — Crush Degrade (Bit-Reduction Exit) (14 variants)
 
 | variant | params |
 |---|---|
@@ -117,6 +151,8 @@ core base, capped at 40) through the standard demo pipeline.
 | `crush_degrade__lofi_long` | bits_end=7.0, bars=8 |
 | `crush_degrade__lofi_short` | bits_end=7.0, bars=2 |
 | `crush_degrade__lofi_standard` | bits_end=7.0, bars=4 |
+| `crush_degrade__long` | bars=8 |
+| `crush_degrade__short` | bars=2 |
 
 ### double_drop — Double Drop (Dual-Build Collision) (2 variants)
 
@@ -125,24 +161,36 @@ core base, capped at 40) through the standard demo pipeline.
 | `double_drop__16bar` | drop_at_bar=16 |
 | `double_drop__8bar` | drop_at_bar=8 |
 
-### downlifter_exit — Downlifter Exit (Descending Sweep Seam Mask) (12 variants)
+### downlifter_exit — Downlifter Exit (Descending Sweep Seam Mask) (24 variants)
 
 | variant | params |
 |---|---|
 | `downlifter_exit__half` | sweep_bars=0.5 |
+| `downlifter_exit__half_loud` | sweep_bars=0.5, level_db=-6.0 |
 | `downlifter_exit__half_low` | sweep_bars=0.5, f_end=300.0 |
 | `downlifter_exit__half_mid` | sweep_bars=0.5, f_end=800.0 |
 | `downlifter_exit__half_sub` | sweep_bars=0.5, f_end=120.0 |
+| `downlifter_exit__half_under` | sweep_bars=0.5, level_db=-12.0 |
+| `downlifter_exit__loud` | level_db=-6.0 |
+| `downlifter_exit__mid` | f_end=800.0 |
+| `downlifter_exit__mid_loud` | f_end=800.0, level_db=-6.0 |
+| `downlifter_exit__mid_under` | f_end=800.0, level_db=-12.0 |
 | `downlifter_exit__one` | sweep_bars=1.0 |
 | `downlifter_exit__one_low` | sweep_bars=1.0, f_end=300.0 |
 | `downlifter_exit__one_mid` | sweep_bars=1.0, f_end=800.0 |
 | `downlifter_exit__one_sub` | sweep_bars=1.0, f_end=120.0 |
+| `downlifter_exit__sub` | f_end=120.0 |
+| `downlifter_exit__sub_loud` | f_end=120.0, level_db=-6.0 |
+| `downlifter_exit__sub_under` | f_end=120.0, level_db=-12.0 |
 | `downlifter_exit__two` | sweep_bars=2.0 |
+| `downlifter_exit__two_loud` | sweep_bars=2.0, level_db=-6.0 |
 | `downlifter_exit__two_low` | sweep_bars=2.0, f_end=300.0 |
 | `downlifter_exit__two_mid` | sweep_bars=2.0, f_end=800.0 |
 | `downlifter_exit__two_sub` | sweep_bars=2.0, f_end=120.0 |
+| `downlifter_exit__two_under` | sweep_bars=2.0, level_db=-12.0 |
+| `downlifter_exit__under` | level_db=-12.0 |
 
-### drop_chop — Drop Chop (Alternating Drop Ownership) (12 variants)
+### drop_chop — Drop Chop (Alternating Drop Ownership) (14 variants)
 
 | variant | params |
 |---|---|
@@ -158,6 +206,8 @@ core base, capped at 40) through the standard demo pipeline.
 | `drop_chop__4bar_x1` | chop_bars=4, rounds=1 |
 | `drop_chop__4bar_x2` | chop_bars=4, rounds=2 |
 | `drop_chop__4bar_x4` | chop_bars=4, rounds=4 |
+| `drop_chop__x1` | rounds=1 |
+| `drop_chop__x4` | rounds=4 |
 
 ### drop_insert — Drop Insert (Guest-Bar Drop Substitution) (3 variants)
 
@@ -175,7 +225,7 @@ core base, capped at 40) through the standard demo pipeline.
 | `drum_bridge__16bar` | interlude_bars=16 |
 | `drum_bridge__8bar` | interlude_bars=8 |
 
-### dual_loop_composite — Dual-Loop Composite (EZ Loop-as-Instrument) (12 variants)
+### dual_loop_composite — Dual-Loop Composite (EZ Loop-as-Instrument) (14 variants)
 
 | variant | params |
 |---|---|
@@ -191,6 +241,8 @@ core base, capped at 40) through the standard demo pipeline.
 | `dual_loop_composite__8bar_high` | comp_bars=8, role_split_hz=350 |
 | `dual_loop_composite__8bar_low` | comp_bars=8, role_split_hz=150 |
 | `dual_loop_composite__8bar_mid` | comp_bars=8, role_split_hz=250 |
+| `dual_loop_composite__high` | role_split_hz=350 |
+| `dual_loop_composite__low` | role_split_hz=150 |
 
 ### echo_out — Echo Out (4 variants)
 
@@ -218,22 +270,78 @@ core base, capped at 40) through the standard demo pipeline.
 | `eq_blend__64bar` | blend_bars=64 |
 | `eq_blend__8bar` | blend_bars=8 |
 
-### fader_synth — Fader Synth (Source-Replacing Fader Oscillator) (12 variants)
+### fader_synth — Fader Synth (Source-Replacing Fader Oscillator) (68 variants)
 
 | variant | params |
 |---|---|
+| `fader_synth__arp` | ride='arp' |
+| `fader_synth__arp_down` | ride='arp', base_octave=-1 |
+| `fader_synth__arp_japanese` | ride='arp', scale='japanese' |
+| `fader_synth__arp_long` | ride='arp', zone_bars=8 |
+| `fader_synth__arp_minor` | ride='arp', scale='minor' |
+| `fader_synth__arp_short` | ride='arp', zone_bars=2 |
+| `fader_synth__arp_up` | ride='arp', base_octave=1 |
+| `fader_synth__down` | base_octave=-1 |
+| `fader_synth__down_long` | base_octave=-1, zone_bars=8 |
+| `fader_synth__down_short` | base_octave=-1, zone_bars=2 |
+| `fader_synth__glide` | ride='glide' |
+| `fader_synth__glide_down` | ride='glide', base_octave=-1 |
+| `fader_synth__glide_long` | ride='glide', zone_bars=8 |
+| `fader_synth__glide_short` | ride='glide', zone_bars=2 |
+| `fader_synth__glide_up` | ride='glide', base_octave=1 |
+| `fader_synth__hold` | ride='hold' |
+| `fader_synth__hold_down` | ride='hold', base_octave=-1 |
+| `fader_synth__hold_long` | ride='hold', zone_bars=8 |
+| `fader_synth__hold_short` | ride='hold', zone_bars=2 |
+| `fader_synth__hold_up` | ride='hold', base_octave=1 |
+| `fader_synth__japanese` | scale='japanese' |
+| `fader_synth__japanese_down` | scale='japanese', base_octave=-1 |
+| `fader_synth__japanese_long` | scale='japanese', zone_bars=8 |
+| `fader_synth__japanese_short` | scale='japanese', zone_bars=2 |
+| `fader_synth__japanese_up` | scale='japanese', base_octave=1 |
+| `fader_synth__long` | zone_bars=8 |
+| `fader_synth__minor` | scale='minor' |
+| `fader_synth__minor_down` | scale='minor', base_octave=-1 |
+| `fader_synth__minor_h` | scale='minor_h' |
+| `fader_synth__minor_h_down` | scale='minor_h', base_octave=-1 |
+| `fader_synth__minor_h_long` | scale='minor_h', zone_bars=8 |
+| `fader_synth__minor_h_short` | scale='minor_h', zone_bars=2 |
+| `fader_synth__minor_h_up` | scale='minor_h', base_octave=1 |
+| `fader_synth__minor_long` | scale='minor', zone_bars=8 |
+| `fader_synth__minor_short` | scale='minor', zone_bars=2 |
+| `fader_synth__minor_up` | scale='minor', base_octave=1 |
 | `fader_synth__saw` | waveform='saw' |
 | `fader_synth__saw_arp` | waveform='saw', ride='arp' |
 | `fader_synth__saw_glide` | waveform='saw', ride='glide' |
 | `fader_synth__saw_hold` | waveform='saw', ride='hold' |
 | `fader_synth__saw_steps` | waveform='saw', ride='steps' |
+| `fader_synth__short` | zone_bars=2 |
 | `fader_synth__sine` | waveform='sine' |
 | `fader_synth__sine_arp` | waveform='sine', ride='arp' |
+| `fader_synth__sine_down` | waveform='sine', base_octave=-1 |
 | `fader_synth__sine_glide` | waveform='sine', ride='glide' |
 | `fader_synth__sine_hold` | waveform='sine', ride='hold' |
+| `fader_synth__sine_japanese` | waveform='sine', scale='japanese' |
+| `fader_synth__sine_long` | waveform='sine', zone_bars=8 |
+| `fader_synth__sine_minor` | waveform='sine', scale='minor' |
+| `fader_synth__sine_minor_h` | waveform='sine', scale='minor_h' |
+| `fader_synth__sine_short` | waveform='sine', zone_bars=2 |
 | `fader_synth__sine_steps` | waveform='sine', ride='steps' |
+| `fader_synth__sine_up` | waveform='sine', base_octave=1 |
 | `fader_synth__square` | waveform='square' |
 | `fader_synth__square_arp` | waveform='square', ride='arp' |
+| `fader_synth__square_down` | waveform='square', base_octave=-1 |
+| `fader_synth__square_glide` | waveform='square', ride='glide' |
+| `fader_synth__square_hold` | waveform='square', ride='hold' |
+| `fader_synth__square_japanese` | waveform='square', scale='japanese' |
+| `fader_synth__square_long` | waveform='square', zone_bars=8 |
+| `fader_synth__square_minor` | waveform='square', scale='minor' |
+| `fader_synth__square_minor_h` | waveform='square', scale='minor_h' |
+| `fader_synth__square_short` | waveform='square', zone_bars=2 |
+| `fader_synth__square_up` | waveform='square', base_octave=1 |
+| `fader_synth__up` | base_octave=1 |
+| `fader_synth__up_long` | base_octave=1, zone_bars=8 |
+| `fader_synth__up_short` | base_octave=1, zone_bars=2 |
 
 ### fake_drop — Fake Drop (Rug Pull) (3 variants)
 
@@ -258,10 +366,11 @@ core base, capped at 40) through the standard demo pipeline.
 | `filter_sweep__quick` | sweep_bars=4 |
 | `filter_sweep__standard` | sweep_bars=7 |
 
-### flanger_sweep — Flanger Sweep (Jet Comb Build/Exit) (12 variants)
+### flanger_sweep — Flanger Sweep (Jet Comb Build/Exit) (14 variants)
 
 | variant | params |
 |---|---|
+| `flanger_sweep__deep` | depth_ms=3.8 |
 | `flanger_sweep__long` | sweep_bars=16 |
 | `flanger_sweep__long_deep` | sweep_bars=16, depth_ms=3.8 |
 | `flanger_sweep__long_jet` | sweep_bars=16, depth_ms=2.2 |
@@ -270,12 +379,13 @@ core base, capped at 40) through the standard demo pipeline.
 | `flanger_sweep__standard_deep` | sweep_bars=8, depth_ms=3.8 |
 | `flanger_sweep__standard_jet` | sweep_bars=8, depth_ms=2.2 |
 | `flanger_sweep__standard_subtle` | sweep_bars=8, depth_ms=1.2 |
+| `flanger_sweep__subtle` | depth_ms=1.2 |
 | `flanger_sweep__tight` | sweep_bars=4 |
 | `flanger_sweep__tight_deep` | sweep_bars=4, depth_ms=3.8 |
 | `flanger_sweep__tight_jet` | sweep_bars=4, depth_ms=2.2 |
 | `flanger_sweep__tight_subtle` | sweep_bars=4, depth_ms=1.2 |
 
-### formant_morph_exit — Formant Morph Exit (Vowel-Series Spectral Morph) (12 variants)
+### formant_morph_exit — Formant Morph Exit (Vowel-Series Spectral Morph) (66 variants)
 
 | variant | params |
 |---|---|
@@ -285,14 +395,68 @@ core base, capped at 40) through the standard demo pipeline.
 | `formant_morph_exit__ai` | path='ai' |
 | `formant_morph_exit__ai_english` | path='ai', table='english' |
 | `formant_morph_exit__ai_german` | path='ai', table='german' |
+| `formant_morph_exit__ai_light` | path='ai', mix=0.7 |
+| `formant_morph_exit__ai_long` | path='ai', zone_bars=8 |
+| `formant_morph_exit__ai_present` | path='ai', sharp=1.8 |
+| `formant_morph_exit__ai_short` | path='ai', zone_bars=2 |
+| `formant_morph_exit__ai_soft` | path='ai', sharp=0.6 |
+| `formant_morph_exit__ai_tight` | path='ai', fade_bars=0.25 |
+| `formant_morph_exit__ai_total` | path='ai', mix=1.0 |
+| `formant_morph_exit__german` | table='german' |
+| `formant_morph_exit__german_light` | table='german', mix=0.7 |
+| `formant_morph_exit__german_long` | table='german', zone_bars=8 |
+| `formant_morph_exit__german_present` | table='german', sharp=1.8 |
+| `formant_morph_exit__german_short` | table='german', zone_bars=2 |
+| `formant_morph_exit__german_soft` | table='german', sharp=0.6 |
+| `formant_morph_exit__german_tight` | table='german', fade_bars=0.25 |
+| `formant_morph_exit__german_total` | table='german', mix=1.0 |
+| `formant_morph_exit__light` | mix=0.7 |
+| `formant_morph_exit__light_tight` | mix=0.7, fade_bars=0.25 |
+| `formant_morph_exit__long` | zone_bars=8 |
+| `formant_morph_exit__long_light` | zone_bars=8, mix=0.7 |
+| `formant_morph_exit__long_tight` | zone_bars=8, fade_bars=0.25 |
+| `formant_morph_exit__long_total` | zone_bars=8, mix=1.0 |
 | `formant_morph_exit__ou` | path='ou' |
 | `formant_morph_exit__ou_english` | path='ou', table='english' |
 | `formant_morph_exit__ou_german` | path='ou', table='german' |
+| `formant_morph_exit__ou_light` | path='ou', mix=0.7 |
+| `formant_morph_exit__ou_long` | path='ou', zone_bars=8 |
+| `formant_morph_exit__ou_present` | path='ou', sharp=1.8 |
+| `formant_morph_exit__ou_short` | path='ou', zone_bars=2 |
+| `formant_morph_exit__ou_soft` | path='ou', sharp=0.6 |
+| `formant_morph_exit__ou_tight` | path='ou', fade_bars=0.25 |
+| `formant_morph_exit__ou_total` | path='ou', mix=1.0 |
 | `formant_morph_exit__ouiea` | path='ouiea' |
 | `formant_morph_exit__ouiea_english` | path='ouiea', table='english' |
 | `formant_morph_exit__ouiea_german` | path='ouiea', table='german' |
+| `formant_morph_exit__ouiea_light` | path='ouiea', mix=0.7 |
+| `formant_morph_exit__ouiea_long` | path='ouiea', zone_bars=8 |
+| `formant_morph_exit__ouiea_present` | path='ouiea', sharp=1.8 |
+| `formant_morph_exit__ouiea_short` | path='ouiea', zone_bars=2 |
+| `formant_morph_exit__ouiea_soft` | path='ouiea', sharp=0.6 |
+| `formant_morph_exit__ouiea_tight` | path='ouiea', fade_bars=0.25 |
+| `formant_morph_exit__ouiea_total` | path='ouiea', mix=1.0 |
+| `formant_morph_exit__present` | sharp=1.8 |
+| `formant_morph_exit__present_light` | sharp=1.8, mix=0.7 |
+| `formant_morph_exit__present_long` | sharp=1.8, zone_bars=8 |
+| `formant_morph_exit__present_short` | sharp=1.8, zone_bars=2 |
+| `formant_morph_exit__present_tight` | sharp=1.8, fade_bars=0.25 |
+| `formant_morph_exit__present_total` | sharp=1.8, mix=1.0 |
+| `formant_morph_exit__short` | zone_bars=2 |
+| `formant_morph_exit__short_light` | zone_bars=2, mix=0.7 |
+| `formant_morph_exit__short_tight` | zone_bars=2, fade_bars=0.25 |
+| `formant_morph_exit__short_total` | zone_bars=2, mix=1.0 |
+| `formant_morph_exit__soft` | sharp=0.6 |
+| `formant_morph_exit__soft_light` | sharp=0.6, mix=0.7 |
+| `formant_morph_exit__soft_long` | sharp=0.6, zone_bars=8 |
+| `formant_morph_exit__soft_short` | sharp=0.6, zone_bars=2 |
+| `formant_morph_exit__soft_tight` | sharp=0.6, fade_bars=0.25 |
+| `formant_morph_exit__soft_total` | sharp=0.6, mix=1.0 |
+| `formant_morph_exit__tight` | fade_bars=0.25 |
+| `formant_morph_exit__total` | mix=1.0 |
+| `formant_morph_exit__total_tight` | mix=1.0, fade_bars=0.25 |
 
-### granular_freeze — Granular Freeze (Frozen-Moment Cloud Handoff) (12 variants)
+### granular_freeze — Granular Freeze (Frozen-Moment Cloud Handoff) (14 variants)
 
 | variant | params |
 |---|---|
@@ -304,36 +468,60 @@ core base, capped at 40) through the standard demo pipeline.
 | `granular_freeze__fine_long` | grain_ms=35.0, cloud_bars=8 |
 | `granular_freeze__fine_short` | grain_ms=35.0, cloud_bars=2 |
 | `granular_freeze__fine_standard` | grain_ms=35.0, cloud_bars=4 |
+| `granular_freeze__long` | cloud_bars=8 |
+| `granular_freeze__short` | cloud_bars=2 |
 | `granular_freeze__standard` | grain_ms=70.0 |
 | `granular_freeze__standard_long` | grain_ms=70.0, cloud_bars=8 |
 | `granular_freeze__standard_short` | grain_ms=70.0, cloud_bars=2 |
 | `granular_freeze__standard_standard` | grain_ms=70.0, cloud_bars=4 |
 
-### helix_catch — Helix Catch (Loop-Sampler Pitch-Ramp Hold & Release) (12 variants)
+### helix_catch — Helix Catch (Loop-Sampler Pitch-Ramp Hold & Release) (29 variants)
 
 | variant | params |
 |---|---|
 | `helix_catch__bar` | capture_beats=4.0 |
+| `helix_catch__bar_down_octave` | capture_beats=4.0, ramp_semitones=-12.0 |
+| `helix_catch__bar_fixed` | capture_beats=4.0, ramp_semitones=0.0 |
 | `helix_catch__bar_four` | capture_beats=4.0, hold_bars=4 |
 | `helix_catch__bar_one` | capture_beats=4.0, hold_bars=1 |
 | `helix_catch__bar_two` | capture_beats=4.0, hold_bars=2 |
+| `helix_catch__bar_up_fifth` | capture_beats=4.0, ramp_semitones=7.0 |
 | `helix_catch__beat` | capture_beats=1.0 |
 | `helix_catch__beat_four` | capture_beats=1.0, hold_bars=4 |
 | `helix_catch__beat_one` | capture_beats=1.0, hold_bars=1 |
 | `helix_catch__beat_two` | capture_beats=1.0, hold_bars=2 |
+| `helix_catch__down_octave` | ramp_semitones=-12.0 |
+| `helix_catch__fixed` | ramp_semitones=0.0 |
+| `helix_catch__four` | hold_bars=4 |
+| `helix_catch__four_down_octave` | hold_bars=4, ramp_semitones=-12.0 |
+| `helix_catch__four_fixed` | hold_bars=4, ramp_semitones=0.0 |
+| `helix_catch__four_up_fifth` | hold_bars=4, ramp_semitones=7.0 |
 | `helix_catch__half` | capture_beats=0.5 |
+| `helix_catch__half_down_octave` | capture_beats=0.5, ramp_semitones=-12.0 |
+| `helix_catch__half_fixed` | capture_beats=0.5, ramp_semitones=0.0 |
 | `helix_catch__half_four` | capture_beats=0.5, hold_bars=4 |
 | `helix_catch__half_one` | capture_beats=0.5, hold_bars=1 |
 | `helix_catch__half_two` | capture_beats=0.5, hold_bars=2 |
+| `helix_catch__half_up_fifth` | capture_beats=0.5, ramp_semitones=7.0 |
+| `helix_catch__one` | hold_bars=1 |
+| `helix_catch__one_down_octave` | hold_bars=1, ramp_semitones=-12.0 |
+| `helix_catch__one_fixed` | hold_bars=1, ramp_semitones=0.0 |
+| `helix_catch__one_up_fifth` | hold_bars=1, ramp_semitones=7.0 |
+| `helix_catch__up_fifth` | ramp_semitones=7.0 |
 
-### hook_drop_handoff — Hook-Drop Handoff (12 variants)
+### hook_drop_handoff — Hook-Drop Handoff (19 variants)
 
 | variant | params |
 |---|---|
+| `hook_drop_handoff__2bar` | bloom_bars=2 |
+| `hook_drop_handoff__2bar_linear` | bloom_bars=2, bloom_curve='linear' |
+| `hook_drop_handoff__4bar` | bloom_bars=4 |
+| `hook_drop_handoff__4bar_linear` | bloom_bars=4, bloom_curve='linear' |
 | `hook_drop_handoff__60ms` | exit_fade_ms=60.0 |
 | `hook_drop_handoff__60ms_2bar` | exit_fade_ms=60.0, bloom_bars=2 |
 | `hook_drop_handoff__60ms_3bar` | exit_fade_ms=60.0, bloom_bars=3 |
 | `hook_drop_handoff__60ms_4bar` | exit_fade_ms=60.0, bloom_bars=4 |
+| `hook_drop_handoff__60ms_linear` | exit_fade_ms=60.0, bloom_curve='linear' |
 | `hook_drop_handoff__70ms` | exit_fade_ms=70.0 |
 | `hook_drop_handoff__70ms_2bar` | exit_fade_ms=70.0, bloom_bars=2 |
 | `hook_drop_handoff__70ms_3bar` | exit_fade_ms=70.0, bloom_bars=3 |
@@ -342,6 +530,8 @@ core base, capped at 40) through the standard demo pipeline.
 | `hook_drop_handoff__80ms_2bar` | exit_fade_ms=80.0, bloom_bars=2 |
 | `hook_drop_handoff__80ms_3bar` | exit_fade_ms=80.0, bloom_bars=3 |
 | `hook_drop_handoff__80ms_4bar` | exit_fade_ms=80.0, bloom_bars=4 |
+| `hook_drop_handoff__80ms_linear` | exit_fade_ms=80.0, bloom_curve='linear' |
+| `hook_drop_handoff__linear` | bloom_curve='linear' |
 
 ### hotcue_drop_swap — Hot-Cue Drop Swap (Drop Juggling) (3 variants)
 
@@ -351,14 +541,24 @@ core base, capped at 40) through the standard demo pipeline.
 | `hotcue_drop_swap__4beat` | xfade_beats=4 |
 | `hotcue_drop_swap__8beat` | xfade_beats=8 |
 
-### infinity_filter — Infinity Filter (Endless Barber-Pole Sweep Exit) (8 variants)
+### infinity_filter — Infinity Filter (Endless Barber-Pole Sweep Exit) (18 variants)
 
 | variant | params |
 |---|---|
 | `infinity_filter__down` | direction=-1 |
+| `infinity_filter__down_long` | direction=-1, sweep_bars=8 |
 | `infinity_filter__down_one` | direction=-1, cycles=1.0 |
+| `infinity_filter__down_short` | direction=-1, sweep_bars=2 |
 | `infinity_filter__down_three` | direction=-1, cycles=3.0 |
 | `infinity_filter__down_two` | direction=-1, cycles=2.0 |
+| `infinity_filter__long` | sweep_bars=8 |
+| `infinity_filter__one` | cycles=1.0 |
+| `infinity_filter__one_long` | cycles=1.0, sweep_bars=8 |
+| `infinity_filter__one_short` | cycles=1.0, sweep_bars=2 |
+| `infinity_filter__short` | sweep_bars=2 |
+| `infinity_filter__three` | cycles=3.0 |
+| `infinity_filter__three_long` | cycles=3.0, sweep_bars=8 |
+| `infinity_filter__three_short` | cycles=3.0, sweep_bars=2 |
 | `infinity_filter__up` | direction=1 |
 | `infinity_filter__up_one` | direction=1, cycles=1.0 |
 | `infinity_filter__up_three` | direction=1, cycles=3.0 |
@@ -407,22 +607,33 @@ core base, capped at 40) through the standard demo pipeline.
 | `noise_echo_buildup__4bar` | build_bars=4 |
 | `noise_echo_buildup__8bar` | build_bars=8 |
 
-### pattern_layer_bridge — Pattern Layer Bridge (Pattern Player Seam Layer) (12 variants)
+### pattern_layer_bridge — Pattern Layer Bridge (Pattern Player Seam Layer) (23 variants)
 
 | variant | params |
 |---|---|
 | `pattern_layer_bridge__build` | pattern='build' |
 | `pattern_layer_bridge__build_kit808` | pattern='build', kit='kit808' |
 | `pattern_layer_bridge__build_kit909` | pattern='build', kit='kit909' |
+| `pattern_layer_bridge__build_long` | pattern='build', bars=16 |
+| `pattern_layer_bridge__build_short` | pattern='build', bars=4 |
 | `pattern_layer_bridge__foundation` | pattern='foundation' |
 | `pattern_layer_bridge__foundation_kit808` | pattern='foundation', kit='kit808' |
 | `pattern_layer_bridge__foundation_kit909` | pattern='foundation', kit='kit909' |
+| `pattern_layer_bridge__foundation_long` | pattern='foundation', bars=16 |
+| `pattern_layer_bridge__foundation_short` | pattern='foundation', bars=4 |
 | `pattern_layer_bridge__groove` | pattern='groove' |
 | `pattern_layer_bridge__groove_kit808` | pattern='groove', kit='kit808' |
 | `pattern_layer_bridge__groove_kit909` | pattern='groove', kit='kit909' |
+| `pattern_layer_bridge__kit808` | kit='kit808' |
+| `pattern_layer_bridge__kit808_long` | kit='kit808', bars=16 |
+| `pattern_layer_bridge__kit808_short` | kit='kit808', bars=4 |
+| `pattern_layer_bridge__long` | bars=16 |
 | `pattern_layer_bridge__roll` | pattern='roll' |
 | `pattern_layer_bridge__roll_kit808` | pattern='roll', kit='kit808' |
 | `pattern_layer_bridge__roll_kit909` | pattern='roll', kit='kit909' |
+| `pattern_layer_bridge__roll_long` | pattern='roll', bars=16 |
+| `pattern_layer_bridge__roll_short` | pattern='roll', bars=4 |
+| `pattern_layer_bridge__short` | bars=4 |
 
 ### pitch_play — Pitch Play (Key-Shifted Vocal Overlay) (4 variants)
 
@@ -449,7 +660,7 @@ core base, capped at 40) through the standard demo pipeline.
 | `premade_tempo_bridge_edit__4bar` | edit_bars=4 |
 | `premade_tempo_bridge_edit__8bar` | edit_bars=8 |
 
-### pumper_exit — Pumper Exit (Downbeat Duck Pump Exit) (12 variants)
+### pumper_exit — Pumper Exit (Downbeat Duck Pump Exit) (27 variants)
 
 | variant | params |
 |---|---|
@@ -457,32 +668,123 @@ core base, capped at 40) through the standard demo pipeline.
 | `pumper_exit__deep_early16` | duck_db=-16.0, offset_beats=-0.0625 |
 | `pumper_exit__deep_early4` | duck_db=-16.0, offset_beats=-0.25 |
 | `pumper_exit__deep_early8` | duck_db=-16.0, offset_beats=-0.125 |
+| `pumper_exit__deep_long` | duck_db=-16.0, pump_bars=8 |
 | `pumper_exit__deep_on_grid` | duck_db=-16.0, offset_beats=0.0 |
+| `pumper_exit__deep_short` | duck_db=-16.0, pump_bars=2 |
+| `pumper_exit__early16` | offset_beats=-0.0625 |
+| `pumper_exit__early16_long` | offset_beats=-0.0625, pump_bars=8 |
+| `pumper_exit__early16_short` | offset_beats=-0.0625, pump_bars=2 |
+| `pumper_exit__early8` | offset_beats=-0.125 |
+| `pumper_exit__early8_long` | offset_beats=-0.125, pump_bars=8 |
+| `pumper_exit__early8_short` | offset_beats=-0.125, pump_bars=2 |
 | `pumper_exit__light` | duck_db=-6.0 |
 | `pumper_exit__light_early16` | duck_db=-6.0, offset_beats=-0.0625 |
 | `pumper_exit__light_early4` | duck_db=-6.0, offset_beats=-0.25 |
 | `pumper_exit__light_early8` | duck_db=-6.0, offset_beats=-0.125 |
+| `pumper_exit__light_long` | duck_db=-6.0, pump_bars=8 |
 | `pumper_exit__light_on_grid` | duck_db=-6.0, offset_beats=0.0 |
+| `pumper_exit__light_short` | duck_db=-6.0, pump_bars=2 |
+| `pumper_exit__long` | pump_bars=8 |
+| `pumper_exit__on_grid` | offset_beats=0.0 |
+| `pumper_exit__on_grid_long` | offset_beats=0.0, pump_bars=8 |
+| `pumper_exit__on_grid_short` | offset_beats=0.0, pump_bars=2 |
+| `pumper_exit__short` | pump_bars=2 |
 | `pumper_exit__standard` | duck_db=-10.0 |
 | `pumper_exit__standard_early16` | duck_db=-10.0, offset_beats=-0.0625 |
 
-### resonator_tail — Resonator Tail (Tuned Resonator-Bank Ring-Out) (13 variants)
+### resonator_tail — Resonator Tail (Tuned Resonator-Bank Ring-Out) (89 variants)
 
 | variant | params |
 |---|---|
+| `resonator_tail__bright` | color=0.85 |
+| `resonator_tail__bright_full` | color=0.85, ring_level=1.0 |
+| `resonator_tail__bright_high` | color=0.85, root_midi=57 |
+| `resonator_tail__bright_long` | color=0.85, zone_bars=4 |
+| `resonator_tail__bright_low` | color=0.85, root_midi=36 |
+| `resonator_tail__bright_short` | color=0.85, zone_bars=1 |
+| `resonator_tail__bright_slow` | color=0.85, fade_bars=2.0 |
+| `resonator_tail__bright_soft` | color=0.85, ring_level=0.55 |
+| `resonator_tail__bright_tight` | color=0.85, fade_bars=0.5 |
+| `resonator_tail__dark` | color=0.2 |
+| `resonator_tail__dark_full` | color=0.2, ring_level=1.0 |
+| `resonator_tail__dark_high` | color=0.2, root_midi=57 |
+| `resonator_tail__dark_long` | color=0.2, zone_bars=4 |
+| `resonator_tail__dark_low` | color=0.2, root_midi=36 |
+| `resonator_tail__dark_short` | color=0.2, zone_bars=1 |
+| `resonator_tail__dark_slow` | color=0.2, fade_bars=2.0 |
+| `resonator_tail__dark_soft` | color=0.2, ring_level=0.55 |
+| `resonator_tail__dark_tight` | color=0.2, fade_bars=0.5 |
+| `resonator_tail__full` | ring_level=1.0 |
+| `resonator_tail__full_slow` | ring_level=1.0, fade_bars=2.0 |
+| `resonator_tail__full_tight` | ring_level=1.0, fade_bars=0.5 |
+| `resonator_tail__high` | root_midi=57 |
+| `resonator_tail__high_full` | root_midi=57, ring_level=1.0 |
+| `resonator_tail__high_long` | root_midi=57, zone_bars=4 |
+| `resonator_tail__high_short` | root_midi=57, zone_bars=1 |
+| `resonator_tail__high_slow` | root_midi=57, fade_bars=2.0 |
+| `resonator_tail__high_soft` | root_midi=57, ring_level=0.55 |
+| `resonator_tail__high_tight` | root_midi=57, fade_bars=0.5 |
+| `resonator_tail__long_bright` | decay_s=4.5, color=0.85 |
+| `resonator_tail__long_dark` | decay_s=4.5, color=0.2 |
+| `resonator_tail__long_high` | decay_s=4.5, root_midi=57 |
+| `resonator_tail__long_long` | decay_s=4.5, zone_bars=4 |
+| `resonator_tail__long_low` | decay_s=4.5, root_midi=36 |
+| `resonator_tail__long_short` | decay_s=4.5, zone_bars=1 |
+| `resonator_tail__low` | root_midi=36 |
+| `resonator_tail__low_full` | root_midi=36, ring_level=1.0 |
+| `resonator_tail__low_long` | root_midi=36, zone_bars=4 |
+| `resonator_tail__low_short` | root_midi=36, zone_bars=1 |
+| `resonator_tail__low_slow` | root_midi=36, fade_bars=2.0 |
+| `resonator_tail__low_soft` | root_midi=36, ring_level=0.55 |
+| `resonator_tail__low_tight` | root_midi=36, fade_bars=0.5 |
 | `resonator_tail__major` | chord='major' |
 | `resonator_tail__major_long` | chord='major', decay_s=4.5 |
 | `resonator_tail__major_short` | chord='major', decay_s=1.2 |
 | `resonator_tail__major_standard` | chord='major', decay_s=2.5 |
 | `resonator_tail__minor` | chord='minor' |
+| `resonator_tail__minor_bright` | chord='minor', color=0.85 |
+| `resonator_tail__minor_dark` | chord='minor', color=0.2 |
+| `resonator_tail__minor_full` | chord='minor', ring_level=1.0 |
+| `resonator_tail__minor_high` | chord='minor', root_midi=57 |
 | `resonator_tail__minor_long` | chord='minor', decay_s=4.5 |
+| `resonator_tail__minor_low` | chord='minor', root_midi=36 |
 | `resonator_tail__minor_short` | chord='minor', decay_s=1.2 |
+| `resonator_tail__minor_slow` | chord='minor', fade_bars=2.0 |
+| `resonator_tail__minor_soft` | chord='minor', ring_level=0.55 |
 | `resonator_tail__minor_standard` | chord='minor', decay_s=2.5 |
+| `resonator_tail__minor_tight` | chord='minor', fade_bars=0.5 |
 | `resonator_tail__octave` | chord='octave' |
+| `resonator_tail__octave_bright` | chord='octave', color=0.85 |
+| `resonator_tail__octave_dark` | chord='octave', color=0.2 |
+| `resonator_tail__octave_full` | chord='octave', ring_level=1.0 |
+| `resonator_tail__octave_high` | chord='octave', root_midi=57 |
 | `resonator_tail__octave_long` | chord='octave', decay_s=4.5 |
+| `resonator_tail__octave_low` | chord='octave', root_midi=36 |
 | `resonator_tail__octave_short` | chord='octave', decay_s=1.2 |
+| `resonator_tail__octave_slow` | chord='octave', fade_bars=2.0 |
+| `resonator_tail__octave_soft` | chord='octave', ring_level=0.55 |
 | `resonator_tail__octave_standard` | chord='octave', decay_s=2.5 |
+| `resonator_tail__octave_tight` | chord='octave', fade_bars=0.5 |
 | `resonator_tail__power` | chord='power' |
+| `resonator_tail__power_bright` | chord='power', color=0.85 |
+| `resonator_tail__power_dark` | chord='power', color=0.2 |
+| `resonator_tail__power_full` | chord='power', ring_level=1.0 |
+| `resonator_tail__power_high` | chord='power', root_midi=57 |
+| `resonator_tail__power_low` | chord='power', root_midi=36 |
+| `resonator_tail__power_slow` | chord='power', fade_bars=2.0 |
+| `resonator_tail__power_soft` | chord='power', ring_level=0.55 |
+| `resonator_tail__power_tight` | chord='power', fade_bars=0.5 |
+| `resonator_tail__short_bright` | decay_s=1.2, color=0.85 |
+| `resonator_tail__short_dark` | decay_s=1.2, color=0.2 |
+| `resonator_tail__short_high` | decay_s=1.2, root_midi=57 |
+| `resonator_tail__short_long` | decay_s=1.2, zone_bars=4 |
+| `resonator_tail__short_low` | decay_s=1.2, root_midi=36 |
+| `resonator_tail__short_short` | decay_s=1.2, zone_bars=1 |
+| `resonator_tail__slow` | fade_bars=2.0 |
+| `resonator_tail__soft` | ring_level=0.55 |
+| `resonator_tail__soft_slow` | ring_level=0.55, fade_bars=2.0 |
+| `resonator_tail__soft_tight` | ring_level=0.55, fade_bars=0.5 |
+| `resonator_tail__tight` | fade_bars=0.5 |
 
 ### reverb_freeze — Reverb Freeze (3 variants)
 
@@ -516,22 +818,67 @@ core base, capped at 40) through the standard demo pipeline.
 | `rhythmic_fader_chops__4beat` | chop_beats=4 |
 | `rhythmic_fader_chops__8beat` | chop_beats=8 |
 
-### ring_mod_dissolve — Ring Mod Dissolve (Carrier-Multiplication Exit) (12 variants)
+### ring_mod_dissolve — Ring Mod Dissolve (Carrier-Multiplication Exit) (57 variants)
 
 | variant | params |
 |---|---|
+| `ring_mod_dissolve__am` | morph=0.0 |
+| `ring_mod_dissolve__am_long` | morph=0.0, zone_bars=8 |
+| `ring_mod_dissolve__am_raw` | morph=0.0, raw='square' |
+| `ring_mod_dissolve__am_short` | morph=0.0, zone_bars=2 |
+| `ring_mod_dissolve__am_tight` | morph=0.0, fade_bars=0.25 |
+| `ring_mod_dissolve__half` | morph=0.5 |
+| `ring_mod_dissolve__half_long` | morph=0.5, zone_bars=8 |
+| `ring_mod_dissolve__half_raw` | morph=0.5, raw='square' |
+| `ring_mod_dissolve__half_short` | morph=0.5, zone_bars=2 |
+| `ring_mod_dissolve__half_tight` | morph=0.5, fade_bars=0.25 |
+| `ring_mod_dissolve__long` | zone_bars=8 |
+| `ring_mod_dissolve__long_tight` | zone_bars=8, fade_bars=0.25 |
 | `ring_mod_dissolve__low` | carrier_start_hz=60.0 |
+| `ring_mod_dissolve__low_am` | carrier_start_hz=60.0, morph=0.0 |
+| `ring_mod_dissolve__low_half` | carrier_start_hz=60.0, morph=0.5 |
+| `ring_mod_dissolve__low_long` | carrier_start_hz=60.0, zone_bars=8 |
 | `ring_mod_dissolve__low_manual_max` | carrier_start_hz=60.0, carrier_end_hz=8371.0 |
+| `ring_mod_dissolve__low_raw` | carrier_start_hz=60.0, raw='square' |
+| `ring_mod_dissolve__low_short` | carrier_start_hz=60.0, zone_bars=2 |
 | `ring_mod_dissolve__low_soft` | carrier_start_hz=60.0, carrier_end_hz=1200.0 |
 | `ring_mod_dissolve__low_standard` | carrier_start_hz=60.0, carrier_end_hz=2800.0 |
+| `ring_mod_dissolve__low_tight` | carrier_start_hz=60.0, fade_bars=0.25 |
+| `ring_mod_dissolve__manual_max` | carrier_end_hz=8371.0 |
+| `ring_mod_dissolve__manual_max_am` | carrier_end_hz=8371.0, morph=0.0 |
+| `ring_mod_dissolve__manual_max_half` | carrier_end_hz=8371.0, morph=0.5 |
+| `ring_mod_dissolve__manual_max_long` | carrier_end_hz=8371.0, zone_bars=8 |
+| `ring_mod_dissolve__manual_max_raw` | carrier_end_hz=8371.0, raw='square' |
+| `ring_mod_dissolve__manual_max_short` | carrier_end_hz=8371.0, zone_bars=2 |
+| `ring_mod_dissolve__manual_max_tight` | carrier_end_hz=8371.0, fade_bars=0.25 |
 | `ring_mod_dissolve__manual_min` | carrier_start_hz=100.0 |
 | `ring_mod_dissolve__manual_min_manual_max` | carrier_start_hz=100.0, carrier_end_hz=8371.0 |
 | `ring_mod_dissolve__manual_min_soft` | carrier_start_hz=100.0, carrier_end_hz=1200.0 |
 | `ring_mod_dissolve__manual_min_standard` | carrier_start_hz=100.0, carrier_end_hz=2800.0 |
 | `ring_mod_dissolve__mid` | carrier_start_hz=240.0 |
+| `ring_mod_dissolve__mid_am` | carrier_start_hz=240.0, morph=0.0 |
+| `ring_mod_dissolve__mid_half` | carrier_start_hz=240.0, morph=0.5 |
+| `ring_mod_dissolve__mid_long` | carrier_start_hz=240.0, zone_bars=8 |
 | `ring_mod_dissolve__mid_manual_max` | carrier_start_hz=240.0, carrier_end_hz=8371.0 |
+| `ring_mod_dissolve__mid_raw` | carrier_start_hz=240.0, raw='square' |
+| `ring_mod_dissolve__mid_short` | carrier_start_hz=240.0, zone_bars=2 |
 | `ring_mod_dissolve__mid_soft` | carrier_start_hz=240.0, carrier_end_hz=1200.0 |
 | `ring_mod_dissolve__mid_standard` | carrier_start_hz=240.0, carrier_end_hz=2800.0 |
+| `ring_mod_dissolve__mid_tight` | carrier_start_hz=240.0, fade_bars=0.25 |
+| `ring_mod_dissolve__raw` | raw='square' |
+| `ring_mod_dissolve__raw_long` | raw='square', zone_bars=8 |
+| `ring_mod_dissolve__raw_short` | raw='square', zone_bars=2 |
+| `ring_mod_dissolve__raw_tight` | raw='square', fade_bars=0.25 |
+| `ring_mod_dissolve__short` | zone_bars=2 |
+| `ring_mod_dissolve__short_tight` | zone_bars=2, fade_bars=0.25 |
+| `ring_mod_dissolve__soft` | carrier_end_hz=1200.0 |
+| `ring_mod_dissolve__soft_am` | carrier_end_hz=1200.0, morph=0.0 |
+| `ring_mod_dissolve__soft_half` | carrier_end_hz=1200.0, morph=0.5 |
+| `ring_mod_dissolve__soft_long` | carrier_end_hz=1200.0, zone_bars=8 |
+| `ring_mod_dissolve__soft_raw` | carrier_end_hz=1200.0, raw='square' |
+| `ring_mod_dissolve__soft_short` | carrier_end_hz=1200.0, zone_bars=2 |
+| `ring_mod_dissolve__soft_tight` | carrier_end_hz=1200.0, fade_bars=0.25 |
+| `ring_mod_dissolve__tight` | fade_bars=0.25 |
 
 ### riser_drop — Riser Drop (2 variants)
 
@@ -548,7 +895,7 @@ core base, capped at 40) through the standard demo pipeline.
 | `riser_ducking_overlay__4bar` | pre_drop_bars=4 |
 | `riser_ducking_overlay__8bar` | pre_drop_bars=8 |
 
-### scale_down_exit — Scale Down Exit (Beat-Stepped Pitch Descent) (14 variants)
+### scale_down_exit — Scale Down Exit (Beat-Stepped Pitch Descent) (20 variants)
 
 | variant | params |
 |---|---|
@@ -556,6 +903,8 @@ core base, capped at 40) through the standard demo pipeline.
 | `scale_down_exit__chromatic_deep` | scale='chromatic', steps=6 |
 | `scale_down_exit__chromatic_few` | scale='chromatic', steps=3 |
 | `scale_down_exit__chromatic_standard` | scale='chromatic', steps=4 |
+| `scale_down_exit__deep` | steps=6 |
+| `scale_down_exit__few` | steps=3 |
 | `scale_down_exit__major` | scale='major' |
 | `scale_down_exit__major_deep` | scale='major', steps=6 |
 | `scale_down_exit__major_few` | scale='major', steps=3 |
@@ -565,7 +914,11 @@ core base, capped at 40) through the standard demo pipeline.
 | `scale_down_exit__major_pent_standard` | scale='major_pent', steps=4 |
 | `scale_down_exit__major_standard` | scale='major', steps=4 |
 | `scale_down_exit__minor` | scale='minor' |
+| `scale_down_exit__minor_deep` | scale='minor', steps=6 |
+| `scale_down_exit__minor_few` | scale='minor', steps=3 |
 | `scale_down_exit__minor_pent` | scale='minor_pent' |
+| `scale_down_exit__minor_pent_deep` | scale='minor_pent', steps=6 |
+| `scale_down_exit__minor_pent_few` | scale='minor_pent', steps=3 |
 
 ### scratch_in — Scratch-In / Scratch Drop (3 variants)
 
@@ -575,7 +928,7 @@ core base, capped at 40) through the standard demo pipeline.
 | `scratch_in__one` | scratch_beats=1.0 |
 | `scratch_in__two` | scratch_beats=2.0 |
 
-### screwed_treatment — Screwed Treatment (Chopped & Screwed / Slowed) (12 variants)
+### screwed_treatment — Screwed Treatment (Chopped & Screwed / Slowed) (13 variants)
 
 | variant | params |
 |---|---|
@@ -588,11 +941,12 @@ core base, capped at 40) through the standard demo pipeline.
 | `screwed_treatment__double` | rate=2.0 |
 | `screwed_treatment__double_coupled` | rate=2.0, pitch_coupled=True |
 | `screwed_treatment__double_held` | rate=2.0, pitch_coupled=False |
+| `screwed_treatment__held` | pitch_coupled=False |
 | `screwed_treatment__screw` | rate=0.7 |
 | `screwed_treatment__screw_coupled` | rate=0.7, pitch_coupled=True |
 | `screwed_treatment__screw_held` | rate=0.7, pitch_coupled=False |
 
-### shepard_riser — Shepard Riser (Endless-Rise Build Layer) (8 variants)
+### shepard_riser — Shepard Riser (Endless-Rise Build Layer) (10 variants)
 
 | variant | params |
 |---|---|
@@ -600,27 +954,41 @@ core base, capped at 40) through the standard demo pipeline.
 | `shepard_riser__down_long` | direction=-1, bars=16 |
 | `shepard_riser__down_short` | direction=-1, bars=4 |
 | `shepard_riser__down_standard` | direction=-1, bars=8 |
+| `shepard_riser__long` | bars=16 |
+| `shepard_riser__short` | bars=4 |
 | `shepard_riser__up` | direction=1 |
 | `shepard_riser__up_long` | direction=1, bars=16 |
 | `shepard_riser__up_short` | direction=1, bars=4 |
 | `shepard_riser__up_standard` | direction=1, bars=8 |
 
-### shimmer_wash — Shimmer Wash (Octave-Climbing Reverb Exit) (12 variants)
+### shimmer_wash — Shimmer Wash (Octave-Climbing Reverb Exit) (24 variants)
 
 | variant | params |
 |---|---|
 | `shimmer_wash__fifth` | shift_semitones=7.0 |
+| `shimmer_wash__fifth_ghost` | shift_semitones=7.0, level_db=-18.0 |
 | `shimmer_wash__fifth_long` | shift_semitones=7.0, swell_bars=8 |
+| `shimmer_wash__fifth_present` | shift_semitones=7.0, level_db=-8.0 |
 | `shimmer_wash__fifth_short` | shift_semitones=7.0, swell_bars=2 |
 | `shimmer_wash__fifth_standard` | shift_semitones=7.0, swell_bars=4 |
 | `shimmer_wash__fourth` | shift_semitones=5.0 |
+| `shimmer_wash__fourth_ghost` | shift_semitones=5.0, level_db=-18.0 |
 | `shimmer_wash__fourth_long` | shift_semitones=5.0, swell_bars=8 |
+| `shimmer_wash__fourth_present` | shift_semitones=5.0, level_db=-8.0 |
 | `shimmer_wash__fourth_short` | shift_semitones=5.0, swell_bars=2 |
 | `shimmer_wash__fourth_standard` | shift_semitones=5.0, swell_bars=4 |
+| `shimmer_wash__ghost` | level_db=-18.0 |
+| `shimmer_wash__long` | swell_bars=8 |
+| `shimmer_wash__long_ghost` | swell_bars=8, level_db=-18.0 |
+| `shimmer_wash__long_present` | swell_bars=8, level_db=-8.0 |
 | `shimmer_wash__octave` | shift_semitones=12.0 |
 | `shimmer_wash__octave_long` | shift_semitones=12.0, swell_bars=8 |
 | `shimmer_wash__octave_short` | shift_semitones=12.0, swell_bars=2 |
 | `shimmer_wash__octave_standard` | shift_semitones=12.0, swell_bars=4 |
+| `shimmer_wash__present` | level_db=-8.0 |
+| `shimmer_wash__short` | swell_bars=2 |
+| `shimmer_wash__short_ghost` | swell_bars=2, level_db=-18.0 |
+| `shimmer_wash__short_present` | swell_bars=2, level_db=-8.0 |
 
 ### slip_mode_flourish — Slip-Mode Flourish (3 variants)
 
@@ -630,7 +998,7 @@ core base, capped at 40) through the standard demo pipeline.
 | `slip_mode_flourish__one` | flourish_beats=1.0 |
 | `slip_mode_flourish__two` | flourish_beats=2.0 |
 
-### spiral_echo — Spiral Echo (Pitch-Riding Feedback Delay) (12 variants)
+### spiral_echo — Spiral Echo (Pitch-Riding Feedback Delay) (17 variants)
 
 | variant | params |
 |---|---|
@@ -644,8 +1012,13 @@ core base, capped at 40) through the standard demo pipeline.
 | `spiral_echo__dotted_down4` | delay_beats=0.75, shift_semitones=-4.0 |
 | `spiral_echo__dotted_up2` | delay_beats=0.75, shift_semitones=2.0 |
 | `spiral_echo__dotted_up4` | delay_beats=0.75, shift_semitones=4.0 |
+| `spiral_echo__down2` | shift_semitones=-2.0 |
+| `spiral_echo__down4` | shift_semitones=-4.0 |
 | `spiral_echo__quarter` | delay_beats=0.25 |
 | `spiral_echo__quarter_down2` | delay_beats=0.25, shift_semitones=-2.0 |
+| `spiral_echo__quarter_down4` | delay_beats=0.25, shift_semitones=-4.0 |
+| `spiral_echo__quarter_up4` | delay_beats=0.25, shift_semitones=4.0 |
+| `spiral_echo__up4` | shift_semitones=4.0 |
 
 ### tempo_bridge — Tempo Bridge (BPM Ramp / Half-Double) (3 variants)
 
@@ -662,7 +1035,7 @@ core base, capped at 40) through the standard demo pipeline.
 | `three_deck_layer__12bar` | swap_bar=12 |
 | `three_deck_layer__16bar` | swap_bar=16 |
 
-### transform_gate_loop — Transform Gate Loop (Zabiela EFX Transform) (12 variants)
+### transform_gate_loop — Transform Gate Loop (Zabiela EFX Transform) (14 variants)
 
 | variant | params |
 |---|---|
@@ -678,6 +1051,8 @@ core base, capped at 40) through the standard demo pipeline.
 | `transform_gate_loop__8bar_half` | gate_bars=8, duty_cycle=0.5 |
 | `transform_gate_loop__8bar_open` | gate_bars=8, duty_cycle=0.65 |
 | `transform_gate_loop__8bar_tight` | gate_bars=8, duty_cycle=0.35 |
+| `transform_gate_loop__open` | duty_cycle=0.65 |
+| `transform_gate_loop__tight` | duty_cycle=0.35 |
 
 ### vocal_chop_build — Vocal-Chop Build (2 variants)
 
@@ -758,6 +1133,14 @@ out.append("  e.g. `eq_blend__16bar` = eq_blend with `blend_bars=16`.")
 out.append("- **Pairwise:** `<base>__<p1>_<p2>` — combinations of the first")
 out.append("  two preset axes, capped at 9 combos per technique.")
 out.append("  e.g. `brake_stop__long_exp` = `stop_beats=2.0, curve='exp'`.")
+out.append("")
+out.append("Phase 24 (ENUMERATION.md) extended the walk past the first two")
+out.append("axes: singles on every axis and combos on every axis pair are")
+out.append("admitted when the id is nameable (exactly one parameter set")
+out.append("claims it) and every preset set is non-default — a default leg")
+out.append("renders as its single, so default-legged combos are parameter")
+out.append("notes, not variants. The legacy surface above is generated")
+out.append("exactly as before and never delisted.")
 out.append("")
 out.append("Render any variant with "
            "`variants.render_variant(name, a, b, sr, **ctx)`;")

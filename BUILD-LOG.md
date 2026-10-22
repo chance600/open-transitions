@@ -2745,3 +2745,165 @@ named after gestures (wheel-up, gun
 fingers) is an unlisted signal source
 for which gestures a tradition considers
 load-bearing.
+
+## Phase 24 — 2026-10-22 (expansion
+tranche 3: the combinatorial enumeration
+pass — V2 queue item 3, Class 3)
+
+Enumeration, not mining: the full axis
+walk + cross-base compounds/sequences
+over the registry as it stood, deduped
+at the admission bar. The complete audit
+trail — every cell counted in exactly one
+bucket — lives in ENUMERATION.md (new,
+repo root); this entry is its summary.
+
+**Part A — the axis walk.** 1,181 cells
+(313 singles + 868 pairs) across the 59
+bases declaring preset axes; meta
+defaults verified == fn defaults first
+(0 mismatches). Buckets: 374 already
+registered · 351 admitted (85 singles on
+axes 2–7 + 266 pairs on every axis pair)
+· 456 rejected — 214 unnameable, 234
+default-legged (render as their single
+or the base), 32 id-collisions with the
+registry, 182 id-ambiguous in the space,
+1 aliased preset, 7 conditionally inert
+legs found at validation. Nameability
+is the binding constraint: preset
+vocabularies repeat across axes and the
+id scheme does not encode the axis.
+Effectiveness was measured, not assumed
+— 61 axes render-tested, 60 effective;
+the 61st (brake_stop's curve) is
+effective but its s_curve value falls
+through dsp.pitch_dive to linear (no
+S-curve exists in the engine), so the
+alias is rejected and encoded in the
+generator's measured tables. The
+generator (engine/variants.py) now
+implements the bar exactly: legacy
+surface generated as before and never
+delisted (verified id-for-id against
+HEAD), expansion admitted only when
+nameable + non-default-legged +
+non-aliased + non-inert, computed over
+the full candidate space.
+
+**Validation.** All admitted variants
+rendered on sketch segments and checked
+vs base default, vs constituent singles,
+vs same-base siblings (375 renders).
+32 identity flags, two root causes:
+fader_synth's scale axis is conditionally
+inert (glide/hold rides never read it;
+the arp ride reads only degrees 0/2/4,
+where minor and harmonic-minor agree) —
+7 pairs rejected, condition encoded as
+_CONDITIONAL_INERT; and the new base's
+axes named their own defaults — fixed at
+the source. Post-fix revalidation of the
+affected bases: 67 variants, 0 problems.
+
+**Part B — compounds + sequences.** Of
+3,003 unordered render pairs: 40 already
+bases · 371 same-family collisions · 83
+clash collisions · 158 dual-architecture
+· 158 empty requires conjunctions · and
+of 2,185 structural survivors, 1,912 are
+additive stacks the overlay/layered
+machinery already expresses, 196 are
+stem-scoped axis applications (GAP-08),
+69 the FX-return pattern (banked as one
+knowledge entry), 8 gesture-triggered
+echo (already dispositioned at knowledge
+weight, not re-litigated). ONE new base
+clears the bar: **aging_echo** (CMP-01,
+ADAPT, high) — the dub tradition's
+feedback delay with a lowpass INSIDE the
+loop; repeat k is filtered k times, so
+the tail decays in brightness as well
+as level (demo centroids descend
+649→471 Hz across repeats where
+echo_out's stay flat at 4145 Hz). Its
+atom pair existed only as parallel atoms
+(layered_fx_stack / layered_emergence);
+the serial in-loop topology is the new
+mechanism, under the spiral_echo
+precedent. New domain module
+engine/compounds.py + demos/ext_compounds
+.py; spec + INDEX; selection ranks it
+first (5.0) on its home pair and
+hard-rejects past its tempo gate.
+Sequences: 6,006 ordered pairs under
+same-seam scoping, 5,227 compatible —
+six chains pass the naming bar and bank
+as knowledge with compositions stated
+(spinback→drop-swap, brake→drop,
+echo→rewind, tease→bass-swap,
+fake-out→double-drop, tighten→swap).
+
+**Correction to the map, in the open.**
+Class 3 estimated 40–80 compound bases;
+the bar returned 1. 23 phases had
+already mined the fusion grammar's
+named instances (28 composed_of
+relations); the residual pair space is
+addition, not interaction. The variant
+estimate (250–450) landed: 351 admitted
+(736 total, ≈2.0×).
+
+Counts recounted from artifacts:
+registry 88 (techniques/*.md = 89 with
+INDEX; meta kinds 79 render / 5 overlay
+/ 3 decision / 1 planning; 87
+executable; 72 plan-renderable by the
+render module's function registry),
+variants 736 / 60 bases (VARIANTS.md
+regenerated), knowledge 138 (mixing 31,
+performers 14, producing 50, setcraft 26,
+workflows 17 — the ### count across
+knowledge/*.md), verdicts ADOPT 60 /
+ADAPT 28 (tallied from engine meta),
+demos 114 records — all render_ok /
+silence_ok / headroom_ok (114/114
+verified clean). Repo phases 1–24.
+
+WHITE SPACE — what the enumeration
+revealed that neither map names:
+(1) the namespace is smaller than the
+mechanism space — 214 real stagings are
+unnameable under the standing id scheme;
+an axis-qualified scheme is a framework
+decision owed, not improvised. (2) Axes
+can be conditionally inert (fader_synth)
+— the meta schema cannot declare
+applicability conditions; conditional
+structure is discoverable only by
+rendering. (3) dsp.pitch_dive lacks the
+S-curve its preset promises — the legacy
+brake_stop *_s_curve pairs render as
+their *_linear siblings; implementing
+the curve changes shipped renders, a
+deliberate future fix. (4) The compound
+frontier is atom-bound: it moves when
+new atoms arrive (Classes 1/2/5 — the
+macro/chain systems especially), not
+when old atoms are re-paired. (5)
+Chains have no selection layer —
+select.py scores single techniques; a
+chain scorer is unbuilt, unnamed work.
+(6) Genre is not an axis: Class 3's
+step 5 (genre re-stagings) cannot be
+walked combinatorially while genre lives
+in requires windows. (7) Distinctness is
+length-relative (drop_chop rounds: x2≡x4
+at 8 bars, distinct at 16) — performance-
+length spot checks on high-axis bases are
+owed before a variant drives a set
+decision. Queue as left: item 4
+(software/hardware tranche A) tops the
+ranked queue after the staged HÖR /
+Boiler Room S2 corpus tranche, which
+re-enters next per its own note.

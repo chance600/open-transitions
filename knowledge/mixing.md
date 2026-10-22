@@ -112,3 +112,35 @@ Provenance: kohadachan, "A Personal Drum and Bass DJ how to" (note.com, 2024), "
 
 Harmonic practice stated as named moves at DnB tempo: for long mixes and mashups, same key (4A -> 4A); for slight change, one wheel step; for energy — "appears on lots of cut-ins" — a **+2 shift** (5A -> 7A, 12A -> 2A, one key up); a **+6 shift** (1A -> 7A, 12B -> 6B) the source names the **"back code"**, a tritone jump that reads as lift rather than clash at cut-in speed; and a **−3 shift** (7A -> 4A; arithmetically +9), used even into a deliberate bass replacement on an out-of-key pair for its "unique floating feeling." The registry's compatibility model already prices +1/+2 as the energy-boost band (select.py's key_move feature); the back code extends the named vocabulary to the far pole: at a cut-in, harmonic *distance* is spent as energy, where in a long blend it would be spent as clash — the same interval, two prices, decided by the transition's duration. That duration-dependence is the entry's claim: key-move acceptability is a function of how long the two keys must coexist.
 Provenance: kohadachan, "A Personal Drum and Bass DJ how to" (note.com, 2024), "Harmonic mixing", fetched first-hand 2026-10-22 (Phase 23).
+
+## From the Phase 24 enumeration (combinatorial pass)
+
+### Named chains I — spinback into the drop-swap; brake into the drop
+
+Two same-seam chains (§6 Sequence) whose second move fires inside the first's exit gesture. **Spinback → drop-swap** (`backspin` → `hotcue_drop_swap`): the rewind's snap lands the pair on a downbeat with the room's attention on the deck, and the swap spends that attention instantly — B's drop replaces A's at the exact point the spin dies, so the rewind reads as aim, not recovery. This is Class 3's own example chain from the V2 map, verified against the exit/entry graph (snap exit → cold entry). **Brake → drop** (`brake_stop` / `power_down` → `hotcue_drop_swap` or `double_drop`): the brake's contract already ends with "the caller drops the next track on the following downbeat" — the chain names what the contract implies, with the drop-swap preferred over a plain B start because the dive has already spent the pair's tempo relationship; a drop event forgives what a blend entry would expose.
+Provenance: Phase 24 combinatorial enumeration (ENUMERATION.md Part B — 6,006 ordered pairs under same-seam scoping, 5,227 compatible; chains banked at the naming bar, compositions stated per FRAMEWORK §6 operator 3).
+
+### Named chains II — echo, then rewind the deck
+
+**Echo → rewind** (`echo_out` → `backspin`): A's throw is already ringing post-fader when the hand takes the (silent) deck back — the tail keeps the room while the rewind is pure theatre and reset, and B enters on the spin's snap or under the tail's last repeats. Distinct from the gesture-triggered echo (Smooth Echo / Fader Echo dispositions, where the gesture *fires* the tail): here the order is reversed, the tail is established first, and the gesture plays over it — the pair is a sequence, not a compound, and the exit/entry graph prices it clean (tail exit → any entry).
+Provenance: Phase 24 combinatorial enumeration (ENUMERATION.md Part B).
+
+### Named chains III — tease, then swap the basses
+
+**Tease → bass-swap** (`filter_sweep` staged as a tease → `bass_swap`): across several phrases B is shown filtered — present, recognizable, weightless — and the basses trade only at the drop. The chain is the temporal reading of what `eq_blend` (T-001, composed of `filter_sweep` + `bass_swap`) does fused: the same two atoms, sequenced so the *reveal* and the *weight transfer* land as two separate events. DJs call the pair as one plan ("tease it, then swap on the drop"), which is what makes it a named chain and not just two transitions in a row.
+Provenance: Phase 24 combinatorial enumeration (ENUMERATION.md Part B); Class 3's second example chain in EDUCATIONAL-SOURCES-V2.md.
+
+### Named chains IV — the fake-out into the real double drop
+
+**Fake-out → double drop** (`fake_drop` → `double_drop`): A's drop is withheld at the last moment (the fake), and the energy the room braced for is paid by *both* drops landing together a phrase later. The fake alone spends expectation; the chain refinances it — the double drop's collision is the payoff the fake promised, which is why the pair is called as one move in dubstep/open-format practice rather than programmed as two. Graph check: snap exit → cold entry, compatible at the same seam.
+Provenance: Phase 24 combinatorial enumeration (ENUMERATION.md Part B).
+
+### Named chains V — tighten the loop, then swap (the Hype chain)
+
+**Tighten → swap** (`loop_tightening_build` → `hotcue_drop_swap`): the buildup loop halves toward the metric grid's floor (GAP-02, with the out-point-creep axis from Phase 22), and at maximum tightness the drop-swap fires — B's drop replaces the loop the crowd has been locked into. This is James Hype's signature sequence stated as a chain: the tightening supplies the tension curve, the swap supplies the event, and neither move carries the moment alone (a swap without the tighten is a trick; a tighten without the swap is a stall).
+Provenance: Phase 24 combinatorial enumeration (ENUMERATION.md Part B); the tightening atom and its creep axis from Phases 4/22 (Hype's buildup-loop craft).
+
+### Processing the return — the FX-return compound pattern
+
+The enumeration's largest compound class (69 surviving pairs) is one pattern: **a tail is generated, and the tail — not the track — is processed.** Gate the reverb return with a transform pattern and the wash pulses (the gated tail); duck the echo return against the incoming kick and the tail breathes around B (`pumper_exit`'s duck pointed at a return; the ducked FX return's full named form is Phase 17's); filter or formant-morph the return and the tail changes character as it dies (Engine's Filter Dub Echo names the filter case; the X1850's Hall Echo names echo-into-reverb). The pattern's rule: return processing is *staging of an existing tail*, expressible with the registry's send/return and stack machinery — knowledge-class, not a base — with one exception the enumeration did promote: conditioning that lives *inside* a feedback loop (repeat k is processed k times) is a mechanism, and its tone form is built as `aging_echo` (CMP-01). The line the pattern draws: process the tail once, it's staging; process it per-repeat, it's a mechanism.
+Provenance: Phase 24 combinatorial enumeration (ENUMERATION.md Part B); instances from the bank's vendor dispositions (Engine Touch FX / X1850, Phases 6–8) and Phase 17 (Produce Like A Pro's ducked return).

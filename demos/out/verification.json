@@ -862,16 +862,16 @@
     "path": "demos/out/acapella_overlay__16bar.wav"
   },
   {
-    "clip": "brake_stop__long",
+    "clip": "brake_stop__linear",
     "duration_s": 30.0,
     "silence_gaps_s": [],
     "silence_ok": true,
     "peak_dbfs": -1.0,
     "headroom_ok": true,
-    "technique": "brake_stop__long",
+    "technique": "brake_stop__linear",
     "render_ok": true,
-    "normalize_db": 0.2,
-    "path": "demos/out/brake_stop__long.wav"
+    "normalize_db": 0.13,
+    "path": "demos/out/brake_stop__linear.wav"
   },
   {
     "clip": "build_to_drop__16bar",
@@ -970,16 +970,16 @@
     "path": "demos/out/filter_sweep__long.wav"
   },
   {
-    "clip": "hook_drop_handoff__60ms",
+    "clip": "hook_drop_handoff__2bar",
     "duration_s": 30.0,
     "silence_gaps_s": [],
     "silence_ok": true,
     "peak_dbfs": -1.0,
     "headroom_ok": true,
-    "technique": "hook_drop_handoff__60ms",
+    "technique": "hook_drop_handoff__2bar",
     "render_ok": true,
     "normalize_db": 0.41,
-    "path": "demos/out/hook_drop_handoff__60ms.wav"
+    "path": "demos/out/hook_drop_handoff__2bar.wav"
   },
   {
     "clip": "hotcue_drop_swap__2beat",
@@ -1186,16 +1186,16 @@
     "path": "demos/out/brake_stop__long_exp.wav"
   },
   {
-    "clip": "hook_drop_handoff__60ms_2bar",
+    "clip": "hook_drop_handoff__2bar_linear",
     "duration_s": 30.0,
     "silence_gaps_s": [],
     "silence_ok": true,
     "peak_dbfs": -1.0,
     "headroom_ok": true,
-    "technique": "hook_drop_handoff__60ms_2bar",
+    "technique": "hook_drop_handoff__2bar_linear",
     "render_ok": true,
     "normalize_db": 0.41,
-    "path": "demos/out/hook_drop_handoff__60ms_2bar.wav"
+    "path": "demos/out/hook_drop_handoff__2bar_linear.wav"
   },
   {
     "clip": "screwed_treatment__chipmunk_coupled",
@@ -1502,5 +1502,19 @@
     "render_ok": true,
     "normalize_db": 2.01,
     "path": "demos/out/drop_insert.wav"
+  },
+  {
+    "clip": "aging_echo",
+    "duration_s": 30.0,
+    "silence_gaps_s": [],
+    "silence_ok": true,
+    "peak_dbfs": -1.0,
+    "headroom_ok": true,
+    "handoff_s": 15.0,
+    "centroid_max_jump_hz": 5146.8,
+    "technique": "aging_echo",
+    "render_ok": true,
+    "normalize_db": -0.14,
+    "path": "demos/out/aging_echo.wav"
   }
 ]
