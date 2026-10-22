@@ -822,3 +822,125 @@ render_ok, silence_ok, headroom_ok all true). NEXT QUEUE refreshed in EDUCATIONA
 Traktor Pro 4 non-FX chapters now lead; the Reddit
 revisit sits at the tail, honestly conditional on a fetch
 route opening.
+
+## Phase 12 — Educationals study program: tranche 7 (2026-10-21)
+
+Seventh tranche, worked the NEXT QUEUE top-down, items
+1–5: (1) the Traktor Pro 4 manual's non-FX chapters,
+(2) Making Music (DeSantis), (3) James Hype, (4) DJ Phil
+Harris, (5) Laidback Luke. Yield: **zero new bases**, six
+knowledge entries, four axes/records — the tranche the
+Phase 11 queue refresh predicted for the educator canon,
+worked to depth. All banked in TECHNIQUES (Phase 12
+section).
+
+- **Traktor Pro 4, non-FX chapters — zero new bases,
+  two knowledge entries.** The manual's Overview, Global
+  Concepts, both tutorial chapters, and Cruise Mode read
+  first-hand (manua.ls body). Flux Mode is the slip
+  playhead model's second first-party statement (after
+  rekordbox's Slip, Phase 8) and its crispest definition
+  ("without losing the phrasing of your tracks... a
+  second, virtual playhead continues forward"); Reverse
+  Mode is the excursion run backwards on the same
+  transport. QUANT/SNAP state the cue/loop bases'
+  alignment layer as two halves (land on-grid / set
+  on-grid). The Stem Deck is GAP-08's vendor control
+  surface ("transitions between elements Stem by Stem";
+  per-stem volume/filter/FX-send), and Traktor now
+  *generates* stems in-app — GAP-08's `needs: stems`
+  gate stands, its offline-prep assumption retired. The
+  Loop Recorder (capture the mix output itself as an
+  overdub-able loop) is `live_loop_mix`'s capture form;
+  the Remix Deck is the WEB-12 layer family's sample
+  surface. Two knowledge entries: **Tempo Master
+  succession** (setcraft — AUTO mode's handover rule:
+  master ends → the synced deck succeeds → the Master
+  Clock stands behind both) and the **fade-marker pair**
+  (workflows — Fade Out/Fade In cue points as
+  declarative transition authoring, Flip's second
+  vendor form, performed by Cruise Mode).
+- **Making Music — PARTIAL by edition, two knowledge
+  entries.** The free web edition publishes 24 of 74
+  chapters; its transition-relevant chapters were read
+  first-hand on the official site. **Fuzzy Boundaries**
+  (producing) — the staggered seam: extend/retract/
+  delete per track so the boundary goes jagged, which
+  is GAP-08's staging stated for arrangement; its fine
+  moves name the **fill-timing axis** (anticipation —
+  peak before the downbeat; hesitation — overrun it).
+  **Unique Events** (producing) — single events /
+  musical gestures / processing gestures as one-time
+  seam punctuation, with the restraint rule. The
+  Asynchronous/Polyrhythmic Loops chapter corroborates
+  the Phase 10 fractional-length axis from the producer
+  side. "Foreground, Middle Ground, and Background" and
+  "Short Loops as Endings" are NOT among the free 24 —
+  named from the published TOC only, text unread; the
+  full book is $30, his per-item call. No claim rests on
+  them or on any unofficial copy.
+- **James Hype — zero new bases.** Pioneer DJ's "How I
+  DJ" episode (description/timeline first-hand; spoken
+  content at published-summary weight, flagged) + his
+  verbatim course-page doctrines. **Acapellas as "the
+  glue"** confirms the T-010 × GAP-11 compound with its
+  named practitioner and completes the vocal-led
+  staging Carlo's Phase 10 note opened: vocal solo →
+  loop → next backing filtered up underneath (the Phase
+  11 DDJT sighting, now artist-confirmed). The "track
+  elements" doctrine states GAP-08's premise in the
+  artist's words. **"Hype Loops"** banked as a named
+  compound — its engine link (GAP-02
+  `loop_tightening_build`) predates the program; the
+  course module confirms the extraction.
+- **DJ Phil Harris — zero new bases, the Carlo-model
+  caveat.** The transcript host rate-limited the full
+  pages (HTTP 429, not retried); all banked claims are
+  verbatim transcript text via the search index. Yield:
+  the **Levels stack** — five passes over one pair,
+  escalating; Level 1 (EQ + phrasing) is the whole
+  foundation ("no point adding anything else... if the
+  EQing and phrasing isn't taken care of first") and
+  Level 2's effects are framed as *cleanup* ("help
+  clean up the mix in or mix out") — the registry's
+  implicit layering order stated as teaching doctrine —
+  and phrase mixing's staging rule (B's intro starts
+  halfway through A's outro; A's low EQ surrenders as B
+  rises).
+- **Laidback Luke — zero new bases, one axis, two
+  knowledge entries.** His DDJT course curriculum (paid,
+  unmined) is his named-mix taxonomy: "Bait & Switch" →
+  `fake_drop`'s performer name; "Scratch Drop" → the
+  T-014 compound; wordplay → T-020 with Luke as second
+  named practitioner; "Delay Doubles" recorded
+  name-only (mechanism unpublished in free text, the
+  "sick beat" handling). **"Element Matching"** banked
+  as `genre_bridge`'s staging axis — a shared element,
+  not a ramp, licenses the leap (workshop-corroborated:
+  "looking for similarities between songs").
+  **Tempo ≠ energy** (setcraft) — the Tempo
+  Rollercoaster doctrine: tempo and energy scored
+  separately, each spendable while the other holds.
+  Performers entry (performers): 60-tracks-an-hour
+  quick-mix density, manipulation as the style, scratch
+  competence as recovery insurance (verbatim).
+
+Selection smoke: `check_select()` green (incl. the
+P1–P3 guard Cases 6–8). Probe: a wide leap pair (128 →
+150 BPM, key distance 5, house → hardstyle) ranks the
+void/reset class on top (echo_out 8.0, hard_cut,
+infinity_filter) — the element-bridge/reset doctrine
+the Element Matching axis describes, behaving as
+encoded. No engine changes this phase.
+
+Counts (recounted from artifacts): registry **82**
+(unchanged — 81 executable + 1 planning; 66
+plan-renderable), variants **332** across **54** bases
+(unchanged), knowledge 88 → **94** (+2 setcraft, +2
+producing, +1 workflows, +1 performers), verdicts
+unchanged: ADOPT 60 / ADAPT 22. Demo suite: **108/108
+rendered + verified clean** (`demos/out/
+verification.json` — no new demos; no engine or spec
+changes). NEXT QUEUE refreshed in
+EDUCATIONAL-SOURCES.md: DJ TechTools' remainder now
+leads; the Reddit revisit stays at the tail.
