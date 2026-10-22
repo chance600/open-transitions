@@ -2230,3 +2230,146 @@ engine meta), demos 108 records — all
 render_ok / silence_ok / headroom_ok. Repo
 phases 1–20; this commit is the repo's
 19th.
+
+## Phase 21 — 2026-10-22 (EDUCATIONAL TRANCHE 16 — THE RESIDUAL SWEEP; FREE LIST EXHAUSTED)
+
+The residual queue named by the Phase 20
+audit — the ten free sources listed but
+never queued (entries 15, 18, 19, 39, 40,
+41, 42, 43, 45, 46) — worked in order at
+the depth the evidence supports. Yield:
+zero new registry bases (82 stays: 81
+executable + 1 planning, 66
+plan-renderable), zero new variants
+(332 / 54 bases), zero knowledge (120
+stays), no engine or spec changes, no new
+demos (suite 108/108 rendered + verified
+clean, unchanged).
+
+At index weight (channel / site surfaces
+read first-hand; technique content is
+corroboration of what stands banked at
+higher weight): DJWORX YouTube (15) — the
+channel is gear first-looks/reviews,
+event/set footage and heritage pieces; no
+tutorial canon stands on it, and Mojaxx's
+review-demonstrated FX behaviour is the
+gear's own documented behaviour from the
+class-2 passes. DJcity (18) — djcity.com
+is a record-pool storefront with no
+education-blog surface standing; DJcity TV
+is routine/performance video plus the same
+gear reviews. Attribution guard recorded:
+the "DJ City" education blog at
+djcity.com.au is an Australian retailer
+namesake, not this entry, and was not
+mined under it. BPM Supreme (19) — the
+pool's education surface is BPM Academy,
+bundled into subscription plans inside the
+subscriber app (title-weight only; no
+account created); its one free public
+technique surface, the 2021 Mix
+Breakdowns, was a Crossfader co-production
+whose techniques (tone play, wordplay,
+sample switch up) are entry 2's Phase 10
+banked set entire. DJWORX site (42) — the
+tutorial hub's technique doctrine is
+structural cue placement, phrase-boundary
+mixing and energy matching, all banked at
+higher weight. Magnetic Magazine (43) —
+its DJCity conversation, read in full,
+states the preparation-as-improvisation
+doctrine; recorded as corroboration of the
+prep/setcraft entries, not duplicated
+(the Phase 17 precedent).
+
+Mined, corroboration only (read
+first-hand; no mechanism the registry
+lacks): Serato Forum (41) — the forum
+proper is readable here, and its
+Scratch Live-era technique threads state
+the registry's core set in practitioner
+words (the bass cross as advice, the
+vocal-over-instrumental exit, spinback
+exits, the acapella ride-through,
+manufactured tempo-transition tracks as
+T-021's material form). This closes the
+loop opened in Phase 11, where the
+community layer was worked from indexed
+threads. Native Instruments Blog (45) —
+the vendor's tutorial surface restates
+entry 27's manual content as recipes (the
+Pattern Player drum layer inside a
+stem-staged live remix = WEB-12 × GAP-08;
+loops holding an incoming track;
+deliberate key changes for energy).
+Wikipedia — DJ mix (46) — the article's
+Technique taxonomy maps entire onto the
+registry, including its one distinctive
+line (Goa DJs mixing in the break over
+synth washes = T-023's encyclopedic
+statement); the neutral outside check the
+entry promised, passed.
+
+Attempted and refused: r/Serato (39) and
+r/Traktor (40). One honest fetch attempt
+was made on r/Serato via the program's
+normal route: reddit.com is blocked at the
+fetch layer in this environment — the
+same domain-level refusal entries 37/38
+met in Phase 11. r/Traktor's refusal is
+recorded against the identical gate rather
+than burned as a second identical request.
+No bypass route, no account, no posting.
+Both entries move to the fetch-route
+conditional cluster, content never read,
+nothing asserted.
+
+Close-out accounting, recounted from
+EDUCATIONAL-SOURCES.md's own Status fields
+(the PROGRAM-STATUS section at its head is
+updated to match): **mined 61 ·
+mined-partial 13 · conditional-parked
+unworked 3 (39, 40, 83) · paid-canon
+unmined 8 · free-unmined 0 — sum 61 + 13
++ 3 + 8 + 0 = 85 ✓**, the list total. The
+free list is genuinely exhausted: every
+free source has been read, or its reading
+honestly attempted and its gate recorded.
+The sweep surfaced nothing new and freely
+reachable beyond the ten, so the residual
+queue's final form (end of
+EDUCATIONAL-SOURCES.md) is empty of
+freely-actionable items — what remains is
+the conditional clusters with their gates
+(transcript host: 5, 6, 50, 51, 53, 62,
+75; fetch route: 37, 38, 39, 40, 74; bot
+wall: 83) and the paid canons on his
+per-item call.
+
+Selection smoke: check_select() green,
+including the P1–P3 guard cases (Cases
+6–8), re-run at the close-out. Probes, as
+measured (unchanged behavior, re-verified):
+a stems-available house pair co-leads
+stem_element_crossfade with eq_blend at
+8.0; an off-key pair (8A → 3A) rejects
+eq_blend and tops out on the filter family
+at 6.0; a vocal-free +4 pair (8B → 12B)
+measures effective camelot 3 with eq_blend
+admitted — the P3 gate live.
+
+Counts recounted from artifacts: registry
+82 (techniques/*.md = 83 with INDEX; meta
+kinds 73 render / 5 overlay / 3 decision /
+1 planning; 81 executable; 66
+plan-renderable by the render module's
+function registry), variants 332 / 54
+bases, knowledge 120 (mixing 19, performers
+14, producing 48, setcraft 22, workflows
+17 — the ### count across knowledge/*.md),
+verdicts ADOPT 60 / ADAPT 22 (tallied from
+engine meta), demos 108 records — all
+render_ok / silence_ok / headroom_ok. Repo
+phases 1–21; this commit is the repo's
+20th.
