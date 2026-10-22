@@ -1,11 +1,12 @@
 """
 open-transitions — demo registrations for the gap-rest domain module
-(engine/gap_rest.py): GAP-01/02/04/05/07/17 + the two Zabiela PERF moves.
+(engine/gap_rest.py): GAP-01/02/04/05/07/17 + the Zabiela PERF moves +
+the Phase 22 performer pair (transform gate loop, dual-loop composite).
 
 Merged automatically by demos/make_demos.py (FRAMEWORK.md §7). Each demo
 renders on the deterministic sketch tracks and must pass
-engine.verify.verify_clip — no intentional silence anywhere in this
-module, so allowed is () throughout.
+engine.verify.verify_clip — allowed is () throughout except the
+transform gate, whose gate window is declared intentional silence.
 """
 
 from engine import gap_rest as gr
@@ -67,5 +68,20 @@ def demo_specs(ctx):
             bars(A, 8), bars(B, 8), SR, BAR_S,
             cycle_beats=3, total_beats=12),
         handoff=lambda m: 4 * BAR_S + 12 * BEAT_S)
+
+    # Phase 22 (performer tranche A). The transform gate's off-phases
+    # are intentional rhythmic silence inside the gate window
+    # (bars 5-8), declared as an allowed span per FRAMEWORK.md §7.
+    reg("transform_gate_loop",
+        lambda: gr.transform_gate_loop(
+            bars(A, 8), bars(B, 8), SR, BPM, BAR_S, gate_bars=4),
+        handoff=lambda m: 8 * BAR_S,
+        allowed=lambda m: [(4 * BAR_S, 8 * BAR_S)])
+
+    reg("dual_loop_composite",
+        lambda: gr.dual_loop_composite(
+            bars(A, 8), bars(B, 8), SR, BAR_S,
+            comp_bars=4, role_split_hz=250.0),
+        handoff=lambda m: 8 * BAR_S)
 
     return specs

@@ -766,6 +766,34 @@
     "path": "demos/out/metric_loop_pivot.wav"
   },
   {
+    "clip": "transform_gate_loop",
+    "duration_s": 30.0,
+    "silence_gaps_s": [],
+    "silence_ok": true,
+    "peak_dbfs": -1.0,
+    "headroom_ok": true,
+    "handoff_s": 15.0,
+    "centroid_max_jump_hz": 6139.3,
+    "technique": "transform_gate_loop",
+    "render_ok": true,
+    "normalize_db": 1.6,
+    "path": "demos/out/transform_gate_loop.wav"
+  },
+  {
+    "clip": "dual_loop_composite",
+    "duration_s": 30.0,
+    "silence_gaps_s": [],
+    "silence_ok": true,
+    "peak_dbfs": -1.0,
+    "headroom_ok": true,
+    "handoff_s": 15.0,
+    "centroid_max_jump_hz": 5735.7,
+    "technique": "dual_loop_composite",
+    "render_ok": true,
+    "normalize_db": 1.6,
+    "path": "demos/out/dual_loop_composite.wav"
+  },
+  {
     "clip": "scratch_in",
     "duration_s": 30.0,
     "silence_gaps_s": [],
