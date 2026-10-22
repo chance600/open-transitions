@@ -1696,3 +1696,158 @@ Attack Magazine (60) follow; the producer-YouTube
 remainder (61–70, 74) is ranked behind them; the
 conditional clusters (transcript-gated revisits;
 fetch-route conditionals) are unchanged.
+
+## Phase 18 — 2026-10-22 (EDUCATIONAL TRANCHE 13)
+
+Queue items 1-5 of the Phase 17 NEXT QUEUE, worked
+to depth. Yield: zero new registry bases (82 stays:
+81 executable + 1 planning, 66 plan-renderable),
+zero new variants (332 / 54 bases), +4 knowledge
+(115 → 119; producing 46 → 48, workflows 16 → 17,
+mixing 18 → 19), no engine or spec changes, no new
+demos (suite 108/108 rendered + verified clean,
+unchanged). Every item was dispositioned into the
+bank and the sources list incrementally as it
+closed.
+
+Item 1 — Mr. Bill (71). The granular / beat-repeat
+family's practitioner depth resolves entirely onto
+the render-and-process family (GAP-07) and the
+slicer family (WEB-08): his seam craft is
+manufacture — transition material rendered from
+the track's own audio before the seam is placed.
+His free tutorial's reverb-artifact amplification
+(reverb → duplicated gain/tool stages magnify the
+tail's artifacts into glitch timbre, limiter last;
+bounce, onset-slice, shorten tails → glitch
+percussion) banks as GAP-07's artifact form, at
+recreation-transcript weight (Polarity's Bitwig
+walkthrough of the tutorials, full transcript
+read); the same source gives the all-pass /
+splitter phase stack as the crush family's phase
+form. Third-party notes on his start-to-finish
+series (summary weight — the series is his paid
+course surface) give master-bus resampling:
+resampler passes on the master channel yield
+glitch material related to the arrangement, placed
+to lead into the drop; banked in
+knowledge/producing as the resample-the-mix
+entry, with the stop-the-world quarter-note
+offset as a placement corollary. The DJTT
+performance walkthrough (article weight) banks
+his Simpler slice + Follow Actions + Chain
+Selector template as WEB-08 performed. His
+template and courses are paid — unmined.
+
+Item 2 — Ned Rush (72). The beat-repeat family's
+device-semantics remainder. His Follow Actions
+method (Seed to Stage's write-up of his video,
+article weight): Session clips edited at clip
+level (start/length/warp/pitch), Legato launch,
+Follow Action Any/Other chaining fragments at
+random within their block, the stream recorded
+and selected — banked as WEB-08's generative
+form, T-019's probability-chain trigger, and
+knowledge/workflows' generate-and-select entry
+(probability proposes, the ear disposes). His
+packs at product-description weight (the packs
+are paid; descriptions state the mechanisms):
+MashUp = T-008's per-effect probability panel;
+Scrubber = GAP-05's buffer device form (MIDI
+scrub playhead, auto-scrub, gating); the
+Function Suite = the drawn breakpoint function
+as the repeat/granular families' third
+modulation source (LFO / sample-and-hold /
+drawn function), Function Scrub aiming it at
+buffer start position; Psychedelay = WEB-01's
+buffer logic stated as a delay device. The
+Granulator III tutorial stands at title weight.
+
+Item 3 — iZotope Learn (76). The SPACE family's
+knowledge-class remainder, two articles read in
+full. Tempo-synced tails join knowledge/mixing:
+pre-delay and decay set to beat values (1/64 =
+52 ms at 71 BPM; decay = one half note, 1.69 s)
+so the wash ends on the grid — the tail budget
+authored in beats. Retriggered reverb (bypass
+automation restarts the wash per chord) banks
+as T-005's accumulation axis; feed conditioning
+banks as its feed axis — the ghost-trigger
+transient carve (the reverb reacts only to the
+tonal part) and the Abbey Road input EQ
+(band-limit the feed, completing the triangle
+with PML's in-chain high-pass and Pensado's
+darkened returns, Phases 17); gate-before-delay
+("10 Common Delay Mistakes" #4) is the
+send-gating axis's delay-side statement, and
+the delay-timing caution corroborates the
+timing axis at curriculum weight.
+
+Item 4 — MusicRadar (59), partial remainder
+closed at the index weight the queue assigned.
+The synth-sweep tutorial (full text read via a
+mirror of the MusicRadar piece): noise
+oscillator → low-pass with a resonance bump,
+cutoff automated — T-018's patch form, with
+its space-consistency term (the sweep is sent
+to the track's existing aux returns, so the
+transition sound lives in the track's own
+space). The drum-mix column's rhythmic-predelay
+note corroborates item 3's tempo-synced tail
+from the magazine side; its sidechain note is
+T-035's mix-scale form, already standing. The
+archive's bulk is gear/mix craft, recorded as
+worked at index weight.
+
+Item 5 — Attack Magazine (60). The Deconstructed
+series read at depth ('No UFO's' in full):
+the recurring transition sound joins
+knowledge/producing — one synth crash at every
+section head (and midpoint) as the marker's
+standing form, with the energy-carry corollary
+(a looped vocal + the crashes carry energy
+from chorus into breakdown — the ferryman at
+arrangement scale) and the austerity bound (no
+fills, no dropouts; energy carried by mixer
+mute changeovers alone, halfway pattern swaps
+as the mid-section term — Rome's two-loop
+cadence's ancestor). The easing-off chorus is
+the restraint doctrine's historical instance.
+Beat Dissected is drum-programming craft,
+nothing banked. Their books are paid — unmined.
+
+Selection smoke: check_select() green including
+the P1–P3 guard cases. Probes: a same-key,
+same-tempo bass pair ranks eq_blend top (7.0)
+with live_loop_mix second — the plain pair
+correctly earns no glitch-family preference;
+a stems-available house pair co-leads
+stem_element_crossfade with eq_blend at 8.0
+(GAP-08 behaving as banked through four vendor
+surfaces and two practitioner tranches); a
+drop → breakdown pair tops out on
+resonator_tail (4.0) with beatslicer_shuffle
+present but low (1.0) — its prefers want
+features this pair does not declare, reported
+as measured.
+
+Counts recounted from artifacts: registry 82
+(techniques/*.md = 83 with INDEX), variants
+332 / 54 bases, knowledge 119 (mixing 19,
+performers 14, producing 48, setcraft 21,
+workflows 17 — each new entry verified
+physically present in its repo file by the
+### count convention), verdicts ADOPT 60 /
+ADAPT 22 (tallied from engine meta), demos 108
+records — all render_ok / silence_ok /
+headroom_ok.
+
+The NEXT QUEUE at the end of EDUCATIONAL-SOURCES.md
+was refreshed at the end of this phase: the
+producer-YouTube remainder sweep (61–70, 74)
+now leads; the two conditional clusters
+(transcript-gated revisits; fetch-route
+conditionals) follow. The written
+first-party and practitioner surfaces are nearly
+exhausted — what remains is the YouTube long
+tail and the gated revisits.
