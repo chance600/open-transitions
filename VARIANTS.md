@@ -7,7 +7,7 @@ registry lives in `engine/variants.py` and is **generated,
 never hand-listed**: `VARIANTS = build_variants()` enumerates
 `meta.all_meta()` at import time.
 
-**Snapshot: 356 variants across 56 base techniques** (108 variants across 29 core-bank bases; the rest arrive via domain modules, FRAMEWORK.md §7).
+**Snapshot: 374 variants across 59 base techniques** (108 variants across 29 core-bank bases; the rest arrive via domain modules, FRAMEWORK.md §7).
 This file is a snapshot of one generation run — see
 *Regenerating* below.
 
@@ -93,6 +93,14 @@ core base, capped at 40) through the standard demo pipeline.
 | `build_to_drop__32bar` | build_bars=32 |
 | `build_to_drop__8bar` | build_bars=8 |
 
+### continuous_drop — Continuous Drop (Drop-to-Drop Relay) (3 variants)
+
+| variant | params |
+|---|---|
+| `continuous_drop__16bar` | stage_bars=16 |
+| `continuous_drop__4bar` | stage_bars=4 |
+| `continuous_drop__8bar` | stage_bars=8 |
+
 ### crush_degrade — Crush Degrade (Bit-Reduction Exit) (12 variants)
 
 | variant | params |
@@ -133,6 +141,31 @@ core base, capped at 40) through the standard demo pipeline.
 | `downlifter_exit__two_low` | sweep_bars=2.0, f_end=300.0 |
 | `downlifter_exit__two_mid` | sweep_bars=2.0, f_end=800.0 |
 | `downlifter_exit__two_sub` | sweep_bars=2.0, f_end=120.0 |
+
+### drop_chop — Drop Chop (Alternating Drop Ownership) (12 variants)
+
+| variant | params |
+|---|---|
+| `drop_chop__1bar` | chop_bars=1 |
+| `drop_chop__1bar_x1` | chop_bars=1, rounds=1 |
+| `drop_chop__1bar_x2` | chop_bars=1, rounds=2 |
+| `drop_chop__1bar_x4` | chop_bars=1, rounds=4 |
+| `drop_chop__2bar` | chop_bars=2 |
+| `drop_chop__2bar_x1` | chop_bars=2, rounds=1 |
+| `drop_chop__2bar_x2` | chop_bars=2, rounds=2 |
+| `drop_chop__2bar_x4` | chop_bars=2, rounds=4 |
+| `drop_chop__4bar` | chop_bars=4 |
+| `drop_chop__4bar_x1` | chop_bars=4, rounds=1 |
+| `drop_chop__4bar_x2` | chop_bars=4, rounds=2 |
+| `drop_chop__4bar_x4` | chop_bars=4, rounds=4 |
+
+### drop_insert — Drop Insert (Guest-Bar Drop Substitution) (3 variants)
+
+| variant | params |
+|---|---|
+| `drop_insert__1bar` | insert_bars=1 |
+| `drop_insert__2bar` | insert_bars=2 |
+| `drop_insert__4bar` | insert_bars=4 |
 
 ### drum_bridge — Drum Bridge (Atonal Neutral Zone) (3 variants)
 

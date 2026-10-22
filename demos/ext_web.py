@@ -3,7 +3,8 @@ open-transitions — demo specs for the web-mined domain module
 (FRAMEWORK.md §7).
 
 Registers demos for engine/web_techniques.py (WEB-01..WEB-18, mined
-2026-10-21). Merged automatically by demos/make_demos.py
+2026-10-21; WEB-19..WEB-21 added Phase 23, 2026-10-22). Merged
+automatically by demos/make_demos.py
 (load_ext_specs). All material is the suite's synthesized sketch audio
 (ctx tracks) — no copyrighted audio.
 """
@@ -185,6 +186,34 @@ def demo_specs(ctx):
     specs["resonator_tail"] = (
         lambda: web.resonator_tail(bars(A, 8), bars(B, 8), SR,
                                    BAR_S),
+        lambda m: 8 * BAR_S,
+        None,
+    )
+
+    # WEB-19 continuous_drop: A plays 16 bars (its "drop"); B's
+    # first bar is staged, lows killed, under A's final 8 bars;
+    # B lands at full level on the seam — handoff at bar 16.
+    specs["continuous_drop"] = (
+        lambda: web.continuous_drop(bars(A, 16), bars(B, 8), SR,
+                                    BAR_S),
+        lambda m: 16 * BAR_S,
+        None,
+    )
+
+    # WEB-20 drop_chop: 1 landing bar of both drops, then 2-bar
+    # ownership trades x2 rounds (bars 1-8), commit to B from
+    # bar 9 — handoff at the commit point, bar 9 (8 bars in).
+    specs["drop_chop"] = (
+        lambda: web.drop_chop(bars(A, 12), bars(B, 12), SR, BAR_S),
+        lambda m: 9 * BAR_S,
+        None,
+    )
+
+    # WEB-21 drop_insert: A's drop is due at bar 8; B's drop
+    # substitutes for 1 bar, then A's drop resumes — handoff at
+    # the insert point, bar 8.
+    specs["drop_insert"] = (
+        lambda: web.drop_insert(bars(A, 16), bars(B, 8), SR, BAR_S),
         lambda m: 8 * BAR_S,
         None,
     )
