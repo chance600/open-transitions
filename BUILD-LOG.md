@@ -1089,3 +1089,134 @@ changes). NEXT QUEUE refreshed in
 EDUCATIONAL-SOURCES.md: the rekordbox manuals'
 remainder now leads; the Reddit revisit stays at the
 tail.
+
+## Phase 14 — Educationals study program: tranche 9 (2026-10-21)
+
+Ninth tranche, worked the NEXT QUEUE top-down, items
+1–5: (1) rekordbox manuals, remainder, (2) A-Trak,
+(3) Passionate DJ, (4) EDMProd, (5) Rob Swift. Yield:
+**zero new bases**, five knowledge entries, and the
+tranche's real product — genealogy: the practitioners
+themselves stating which families descend from which.
+All banked in TECHNIQUES (Phase 14 section).
+
+- **rekordbox manuals, remainder — zero new bases,
+  one knowledge entry.** The rekordbox 7 FAQ + plan
+  pages, the MIX POINT LINK FAQ, the Instruction
+  Manual's KEY chapter, and the DDJ-FLX10 manual's
+  Mix Point Link pages, read first-hand. **STEMS**
+  are GAP-08's **fourth vendor surface** — real-time
+  separation (like Serato's), with ACTIVE STEM
+  mute/solo toggles, STEM ISO per-stem volume knobs,
+  and STEM FX — completing the cross-vendor
+  comparison (Traktor in-app generation, Serato
+  real-time + pad throws, Engine desktop pre-render,
+  rekordbox real-time + ISO), and adding the
+  **stem-granularity axis** (3 stems folds BASS into
+  INST; at 4, the bass hand-off can run inside the
+  surface) plus the mute axis's solo form. **KEY
+  SYNC** is the exact-target pole of the sync-target
+  question (against Engine's Fuzzy set, Phase 13);
+  KEY SHIFT (±12 pad mode) and KEYBOARD (cue-bound
+  pitch play) complete Pioneer's key-shift
+  provenance under T-015/T-032. **MIX POINT LINK**
+  → knowledge/workflows: paired-point cross-deck
+  authoring whose SILENT form pre-rolls the incoming
+  track *muted* under the outgoing one — the seam as
+  a level event, not a start event — with the FLX10
+  manual's cancel/relink state semantics. **GROOVE
+  CIRCUIT** is drum replacement's Pioneer surface:
+  the drums stem's axis gains its **replace** value.
+- **A-Trak — zero new bases, one knowledge entry.**
+  Three interviews read first-hand (DJ Times 2007,
+  Fusicology 2010, the 2014 #RealDJing post). The
+  **notation method** (his coinage, first-person) is
+  GAP-14's composability premise: scratch patterns
+  are discrete enough to write, so routines are
+  scores. **Transformer on the acapella** ("I'd grab
+  the a cappella and transform the singing part…
+  in question-and-answer style with our background
+  singer") banks as a named GAP-14 × GAP-10/11
+  compound — the chop scoped to the vocal over a
+  clean re-played beat. **Staged element entry**
+  (acapella chorus first, drums entering a verse
+  later on the other deck) corroborates the layer
+  family's vocal-led order axis with its second
+  named practitioner. Knowledge: performers — risk
+  as obligation, legibility as the routine's
+  constraint.
+- **Passionate DJ — zero new bases, one knowledge
+  entry.** "The Art of EQing" (2013) and "Restraint
+  & Patience" (2017) read first-hand. The EQ essay
+  banks **T-003's off-key entry form**: lead an
+  off-key track in on "just the very tip-top of the
+  audio spectrum" — hats and a touch of vocal carry
+  rhythm with no pitch commitment while the
+  outgoing track owns the harmony — and corroborates
+  Tone Matching from the record-box side. The
+  restraint essay → knowledge/setcraft: energy
+  headroom as a budgeted set-level resource, density
+  moves named as value-subtractors. Caveat recorded
+  in the bank: "It's OK to Let It Play" failed to
+  load in this environment and stands unread.
+- **EDMProd — zero new bases, one knowledge entry.**
+  "The Art of Turnarounds" (2023) and the build-up
+  guide read first-hand. The **nine turnarounds**
+  resolve onto the registry (silence + pickup, drum
+  fill, DIY sweeps, filter scopes, reversal + its
+  pickup form, character delay, pitch punctuation,
+  clap build) under the source's own frame — a
+  turnaround is the producer's name for the phrase-
+  end seam. **Render and Process** → knowledge/
+  producing: the seam manufactured offline from the
+  track's own rendered tail is GAP-07's producer
+  form. The **Filter Master** completes T-003's
+  scope axis with master-with-exemption (the whole
+  bus low-passed, one vocal left unaffected to carry
+  the seam). The build-up guide states T-018's
+  pitched forms as craft (pitch-automated snare
+  rolls; bounced reverb tails, pitched).
+- **Rob Swift — zero new bases, one knowledge
+  entry.** His own teaching texts (the backspinning
+  guide, "Don't Think, Feel", the Cardinal Rules)
+  and DJTT's lessons roundup, read first-hand. The
+  **backspin → juggle lineage** is stated by the
+  lineage source himself: backspinning on doubles,
+  "start off linear, then expand the order of your
+  Juggles… a new cycle… then a new cycle after
+  that" — T-031 descends from T-007 by the **cycle
+  axis**, on the material condition of the doubles
+  pair. The **Single Paradiddle** banks as GAP-14's
+  rudiment level (patterns as stroke sequences over
+  a Forward/Back alphabet), and stab primacy
+  corroborates the axis ordering. His **patterns-
+  exist-in-the-record** doctrine is recorded as the
+  discovery pole against A-Trak's notation — the
+  two poles of one family, both banked. Knowledge:
+  performers — Scratch Synchronicity, the scratch
+  family's ensemble constraint.
+
+Selection smoke: `check_select()` green (incl. the
+P1–P3 guard Cases 6–8). Probes: a stems-available
+house pair co-leads `stem_element_crossfade` at 8.0
+alongside `eq_blend` (the GAP-08 material, now with
+its four vendor surfaces banked); an off-key pair
+(8A → 3A) clash-rejects `eq_blend` and tops out on
+the filter family (`filter_sweep` / `infinity_filter`
+at 6.0) — the off-key entry behavior the Passionate
+DJ essay describes, as encoded. No engine changes
+this phase.
+
+Counts (recounted from artifacts): registry **82**
+(unchanged — 81 executable + 1 planning; 66
+plan-renderable), variants **332** across **54**
+bases (unchanged), knowledge 98 → **103** (+1
+workflows, +2 performers, +1 setcraft, +1
+producing), verdicts unchanged: ADOPT 60 / ADAPT 22.
+Demo suite: **108/108 rendered + verified clean**
+(`demos/out/verification.json` — no new demos; no
+engine or spec changes). NEXT QUEUE refreshed in
+EDUCATIONAL-SOURCES.md: the Denon Prime manual bodies
+now lead; the conditional items (educator revisits,
+Cambridge, the Reddit revisit) hold their places at
+the tail.
