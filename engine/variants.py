@@ -12,6 +12,24 @@ Naming: ``<base>__<preset>`` for single-axis variants,
 ``<base>__<p1>_<p2>`` for pairwise combos of the first two axes
 (capped at ``PAIRWISE_CAP`` combos per technique).
 
+**Phase 24 expansion (ENUMERATION.md, Class 3 axis walk).** The
+legacy surface above is generated exactly as before and never
+delisted. Beyond it, the full axis walk is admitted under the
+enumeration's bar, computed over the FULL candidate space (every
+preset on every axis; every combo on every axis pair):
+
+* singles on axes 2+ and combos on axis pairs other than (1, 2)
+  — plus (1, 2) combos beyond the legacy cap — are candidates;
+* a candidate is admitted only if its id is NAMEABLE: the id
+  denotes exactly one parameter set across the whole candidate
+  space and does not collide with a legacy id carrying different
+  params (preset vocabularies repeat across axes; ambiguous ids
+  are rejected, not renamed);
+* and AUDIBLY DISTINCT: every preset it sets is non-default
+  (a default-valued leg renders as that leg's single; a
+  default-valued single renders as the base — parameter notes,
+  not variants).
+
 Every variant inherits its base technique's evidence, recorded as
 ``"inherited from <base>"`` (§6: generated entries are renderable and
 carry the base's evidence, noted as inherited).
@@ -27,7 +45,7 @@ from . import meta, techniques
 # Domain modules merged exactly the way engine/render.py merges them
 # (FRAMEWORK.md §7): a module that isn't present yet is simply skipped.
 _DOMAIN_MODULES = ("dm_techniques", "gap_struct", "gap_rest", "performer",
-                   "web_techniques")
+                   "web_techniques", "compounds")
 
 PAIRWISE_CAP = 9
 
@@ -53,13 +71,129 @@ def _preset_axes(entry):
     return axes
 
 
+# Measured render aliases (Phase 24 enumeration, ENUMERATION.md
+# Part A): preset values that the render path provably treats
+# identically to another value on the same axis. Expansion
+# candidates using a non-representative aliased value are skipped
+# — they would render as the representative's variant. Measured,
+# not inferred: brake_stop's curve value "s" (preset s_curve)
+# falls through dsp.pitch_dive's curve branch to the linear
+# shape; no true S-curve exists in the engine yet.
+_RENDER_ALIASES = {
+    ("brake_stop", "curve"): {"s_curve": "linear"},
+}
+
+# Measured conditional inertness (Phase 24 validation,
+# ENUMERATION.md Part A): a leg the render path never reads —
+# or reads identically — under the OTHER leg's value.
+# fader_synth's scale is consumed by the "steps" ride (every
+# degree) and the "arp" ride (degrees 0/2/4 only); under
+# "glide" (continuous) and "hold" (the root, degree 0 in every
+# scale) it is never read, and under "arp" the minor and
+# minor_h tables — differing only at degree 6, which the arp
+# pattern never reaches — render identically. Pairs carrying
+# such a leg render as their other leg's single (or as the
+# sibling pair named in the table) and are skipped.
+_CONDITIONAL_INERT = {
+    ("fader_synth", "scale"): {
+        "glide": ("japanese", "minor", "minor_h"),
+        "hold": ("japanese", "minor", "minor_h"),
+        "arp": ("minor_h",),  # aliases the arp + minor pair
+    },
+}
+
+
+def _leg_inert(tid, axis, preset, other_preset):
+    """True if `preset` on `axis` cannot change the render when
+    the pair's other leg takes `other_preset` (measured table)."""
+    table = _CONDITIONAL_INERT.get((tid, axis), {})
+    return preset in table.get(other_preset, ())
+
+
+def _default_of(entry, pname):
+    spec = (entry.get("params") or {}).get(pname) or {}
+    return spec.get("default")
+
+
+def _expansion_candidates(all_meta, legacy):
+    """Phase 24 expansion candidates that pass the ENUMERATION.md
+    bar (nameable + audibly distinct), as {id: (base, params)}.
+
+    Nameability is judged over the FULL candidate space — every
+    single on every axis and every combo on every axis pair,
+    including default-valued cells that are themselves inadmissible:
+    an id that two different parameter sets would claim is
+    ambiguous and neither is admitted.
+    """
+    import itertools
+
+    full_space = {}   # id -> set of frozenset(params.items())
+    candidates = {}   # id -> (base, params)
+    for tid in sorted(all_meta):
+        entry = all_meta[tid]
+        axes = _preset_axes(entry)
+        if not axes:
+            continue
+        defaults = {pname: _default_of(entry, pname) for pname, _ in axes}
+
+        def note(cid, params):
+            full_space.setdefault(cid, set()).add(
+                frozenset(params.items()))
+
+        # Singles on every axis (full space); admission: axes 2+,
+        # non-default value.
+        for idx, (pname, presets) in enumerate(axes):
+            for pn in sorted(presets):
+                cid = f"{tid}__{pn}"
+                params = {pname: presets[pn]}
+                note(cid, params)
+                if (idx >= 1 and presets[pn] != defaults[pname]
+                        and pn not in _RENDER_ALIASES.get(
+                            (tid, pname), {})):
+                    candidates.setdefault(cid, (tid, params))
+        # Pairs on every axis pair (full space); admission: axis
+        # pair other than (1, 2) -> every combo with both legs
+        # non-default; axis pair (1, 2) -> combos beyond the legacy
+        # cap, both legs non-default.
+        for (i, (p1, pr1)), (j, (p2, pr2)) in itertools.combinations(
+                enumerate(axes), 2):
+            combos = [(n1, n2) for n1 in sorted(pr1) for n2 in sorted(pr2)]
+            for k, (n1, n2) in enumerate(combos):
+                cid = f"{tid}__{n1}_{n2}"
+                params = {p1: pr1[n1], p2: pr2[n2]}
+                note(cid, params)
+                if (i, j) == (0, 1) and k < PAIRWISE_CAP:
+                    continue  # legacy surface (admitted or not) — not ours
+                if pr1[n1] == defaults[p1] or pr2[n2] == defaults[p2]:
+                    continue  # a default leg renders as its single
+                if (n1 in _RENDER_ALIASES.get((tid, p1), {})
+                        or n2 in _RENDER_ALIASES.get((tid, p2), {})):
+                    continue  # an aliased leg renders as its pair
+                if (_leg_inert(tid, p1, n1, n2)
+                        or _leg_inert(tid, p2, n2, n1)):
+                    continue  # a conditionally inert leg renders
+                    # as its other leg's single (or sibling pair)
+                candidates.setdefault(cid, (tid, params))
+    admitted = {}
+    for cid, (tid, params) in candidates.items():
+        if len(full_space.get(cid, ())) != 1:
+            continue  # ambiguous id in the full candidate space
+        if cid in legacy and legacy[cid]["params"] != params:
+            continue  # id taken by the legacy surface, other params
+        admitted[cid] = (tid, params)
+    return admitted
+
+
 def build_variants():
     """Enumerate the full variant registry from meta.all_meta().
 
-    For each technique with >= 1 discrete preset axis: one variant per
-    preset on the FIRST axis, plus pairwise combos of the first two
-    axes (capped at PAIRWISE_CAP per technique). Deterministic: bases,
-    preset names, and the returned dict's keys are all sorted.
+    Legacy surface: for each technique with >= 1 discrete preset
+    axis, one variant per preset on the FIRST axis, plus pairwise
+    combos of the first two axes (capped at PAIRWISE_CAP per
+    technique). Phase 24 expansion: the full axis walk admitted
+    under the ENUMERATION.md bar (see _expansion_candidates).
+    Deterministic: bases, preset names, and the returned dict's
+    keys are all sorted.
     """
     registry = {}
     all_meta = meta.all_meta()
@@ -88,6 +222,19 @@ def build_variants():
                     "evidence": f"inherited from {tid}",
                     "title": f"{title} [{p1} + {p2}]",
                 }
+    for cid, (tid, params) in _expansion_candidates(
+            all_meta, registry).items():
+        if cid in registry:
+            continue
+        title = all_meta[tid].get("title", tid)
+        label = " + ".join(sorted(params, key=str))
+        names = cid.split("__", 1)[1]
+        registry[cid] = {
+            "base": tid,
+            "params": dict(params),
+            "evidence": f"inherited from {tid}",
+            "title": f"{title} [{names.replace('_', ' + ')}]",
+        }
     return dict(sorted(registry.items()))
 
 

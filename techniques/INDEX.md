@@ -2,6 +2,7 @@
 
 - [acapella_overlay](acapella_overlay.md) — T-010
 - [accidental_duet](accidental_duet.md) — GAP-12
+- [aging_echo](aging_echo.md) — CMP-01
 - [backspin](backspin.md) — T-007
 - [bass_swap](bass_swap.md) — T-002
 - [beat_jump](beat_jump.md) — T-028
