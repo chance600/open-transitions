@@ -5,7 +5,8 @@ Set-level craft: energy planning, hosting moves, genre norms, and the library's 
 ### Energy planning (bank T-016)
 
 **The scale:** energy is scored 1–10 (spectral flux + RMS + onset density). Reference arcs: warm-up 3–6, peak 6±3.5 (a sine, not a plateau), after-hours 5→2. Transition planning keys off the delta: lateral (±1) → invisible handoffs (eq_blend); up (+2) → builds and collisions; down (−2) → washes and freezes — never fake-lift into a comedown. The T-037 selection rules encode thresholds on this scale (e.g. bass_swap requires energy ≥ 6).
-Provenance: technique bank TECHNIQUES.md (T-016), 2026-10-16.
+**Calibration (Mixed In Key's published anchors for the same 1–10 scale, Phase 9):** level 2 = chill, no beat; 5 = lounge; 6 = the danceability threshold; 7 = upbeat; 9–10 = festival anthems. A +2 delta that crosses 5→6 or 8→9 changes kind, not just degree.
+Provenance: technique bank TECHNIQUES.md (T-016), 2026-10-16; anchors: Mixed In Key founder interview, 1001tracklists, mined 2026-10-21.
 
 ### Genre transition norms (bank GAPS.md #10)
 
@@ -61,3 +62,13 @@ Provenance: @marshalljamesmusic, https://www.instagram.com/reel/Dd4EeueBWTa/ (20
 
 A first-take solo played on an expressive instrument (Soma Terra) shaped the track "Won't Let You" — capturing a live first take as the core of a record.
 Provenance: @enamourmusic, https://www.instagram.com/reel/DOgNGtAiK1P/ (2025-09-12).
+
+### Energy Boost Mixing — key movement is an energy event (Mixed In Key)
+
+Mixed In Key's named doctrine: mixing *up* in pitch lifts the floor independently of the tracks' energy levels. +2 Camelot numbers, same letter (two semitones up) is the standard boost — "the best mix," safer than one semitone; +7 numbers (= −5 the short way round; MIK's current workflow page names it the "-5 move") is one semitone up, the sharper boost. Conditions: mix a boost **quickly** — the keys are incompatible, melodies clash, it is not a long-blend move; time it across percussive sections; support it with a higher Energy Level; use in moderation or the set feels forced. The mirror (−2 counter-clockwise) is an energy drop: a deliberate wind-down / closing signal. Selection consequence: key distance is *directional* — the same wheel step reads as lift going up and release going down, which a symmetric distance score cannot express (select.py proposals, BUILD-LOG Phase 9).
+Provenance: Mixed In Key, "Use Advanced Harmonic Mixing Techniques" (book chapter) + "Change DJ Set Energy With the Camelot Wheel" workflow, https://mixedinkey.com — mined 2026-10-21.
+
+### Camelot diagonals and the +4 — far moves are not uniformly clash (Mixed In Key)
+
+The wheel's diagonals are asymmetric: B→A with +1 (8B → 9A) and A→B with −1 (9A → 8B) share notes and work; the reverse diagonal (8B → 7A) contains dissonant intervals and does not. Separately, the +4 same-letter move (10B → 2B, Guetta via MIK) "sounds dissonant at first, but sometimes it works — tracks with simple melodies usually yield the best results." A flat distance ladder that scores every far or cross-letter move as clash erases both distinctions: the working diagonal, and the far move whose condition is melodic simplicity. Banked as selection knowledge; the `camelot_distance` refinement is a BUILD-LOG Phase 9 proposal, not implemented.
+Provenance: Mixed In Key, "Use Advanced Harmonic Mixing Techniques" (book chapter), https://mixedinkey.com/book/use-advanced-harmonic-mixing-techniques/ — mined 2026-10-21.

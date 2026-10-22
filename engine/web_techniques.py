@@ -2,8 +2,8 @@
 open-transitions engine — web-mined techniques (domain module,
 FRAMEWORK.md §7).
 
-Fifteen techniques mined from DJ literature outside the bank
-(2026-10-21 tranches; banked as WEB-01..WEB-15 in
+Seventeen techniques mined from DJ literature outside the bank
+(2026-10-21 tranches; banked as WEB-01..WEB-17 in
 technique-bank/TECHNIQUES.md with full provenance). Each function
 takes numpy mono float64 audio + sr and returns mono float64.
 Docstrings are the spec source; techniques/<name>.md mirrors them.
@@ -36,8 +36,13 @@ Docstrings are the spec source; techniques/<name>.md mirrors them.
   WEB-15 fader_synth     source-replacing fader oscillator line
                          across the seam (Pioneer DJM-S11 FADER
                          SYNTH)
+  WEB-16 ring_mod_dissolve  carrier-multiplication dissolve: A's
+                         final bars ring-modulate away under a
+                         rising carrier (Traktor Ring Modulator)
+  WEB-17 formant_morph_exit  A's final bars morph through a vowel
+                         formant series (Traktor Formant Filter)
 
-All fifteen are two-track renderers, exported via TECHNIQUE_FUNCS.
+All seventeen are two-track renderers, exported via TECHNIQUE_FUNCS.
 """
 
 import numpy as np
@@ -1516,6 +1521,231 @@ def fader_synth(a, b, sr, bar_s, waveform="saw", ride="steps",
 
 
 # ----------------------------------------------------------------------------
+# WEB-16 — Ring Mod Dissolve (carrier-multiplication exit)
+# ----------------------------------------------------------------------------
+
+def ring_mod_dissolve(a, b, sr, bar_s, carrier_start_hz=100.0,
+                      carrier_end_hz=2800.0, morph=1.0, raw="sine",
+                      zone_bars=4, fade_bars=0.5):
+    """Ring mod dissolve: A's final bars are multiplied by a rising
+    carrier until the track dissolves into inharmonic sidebands;
+    B enters dry.
+
+    Traktor's manual (§14.4.25) documents the Ring Modulator as a
+    standalone effect: it "modulates the tracks by multiplying the
+    high frequency signal onto the audio material" — the input is
+    multiplied by an oscillator whose PITCH runs 100 Hz to
+    8371 Hz, with an AM-RM control morphing between amplitude
+    modulation (soft, the dry signal survives inside the product)
+    and full ring modulation (the dry signal is gone; only
+    sidebands at f +/- fc remain), and a RAW switch changing the
+    carrier from a sine to a filtered square. Rendered as a
+    transition: across A's final `zone_bars` bars the mix ramps
+    from dry A to the fully modulated signal while the carrier
+    sweeps logarithmically from `carrier_start_hz` to
+    `carrier_end_hz`. As the carrier climbs through the audio
+    band, A's partials smear into inharmonic sideband pairs and
+    the track's pitch identity dissolves into metallic shimmer;
+    at the seam the shimmer cuts and `b` enters dry, faded over
+    `fade_bars`.
+
+    Parameters
+    ----------
+    a, b : outgoing / incoming segments (mono float64).
+    sr : sample rate, Hz.
+    bar_s : seconds per bar (sizes the zone and B's fade).
+    carrier_start_hz : carrier frequency at the zone's start
+        (default 100.0 — the manual's range floor).
+    carrier_end_hz : carrier frequency at the zone's end
+        (default 2800.0; the manual's ceiling is 8371.0).
+    morph : AM <-> RM morph, 0..1 (default 1.0 = full ring
+        modulation; 0.0 = pure amplitude modulation).
+    raw : "sine" carrier (default) or "square" — the manual's
+        RAW filtered-square carrier, rendered as a soft-clipped
+        sine (odd harmonics, rolled-off top).
+    zone_bars : dissolve zone length in bars (default 4).
+    fade_bars : B's entrance fade in bars (default 0.5).
+
+    Why it works: multiplication is the one basic operation the
+    rest of the registry never performs — filters subtract
+    (T-003), quantization coarsens (WEB-04 crush_degrade), combs
+    interfere (WEB-02 flanger_sweep). A ring modulator *adds new
+    partials* at sum-and-difference frequencies, so the exit is
+    not A getting quieter or duller but A becoming a different
+    spectrum altogether: recognizability drains as the carrier
+    rises, which is exactly the perceptual job of an exit, and
+    because the sidebands are inharmonic the move owes the pair
+    no key negotiation at all.
+    """
+    a = np.asarray(a, dtype=np.float64)
+    b = np.asarray(b, dtype=np.float64)
+    zone_n = min(len(a), int(round(zone_bars * bar_s * sr)))
+    if zone_n <= 0:
+        zone_n = len(a)
+    x = a[-zone_n:]
+    n = zone_n
+    t = np.arange(n, dtype=np.float64)
+    f0 = max(20.0, float(carrier_start_hz))
+    f1 = max(f0, float(carrier_end_hz))
+    freq = f0 * (f1 / f0) ** (t / max(n - 1, 1))
+    carrier = np.cos(2.0 * np.pi * np.cumsum(freq) / sr)
+    if raw == "square":
+        carrier = np.tanh(2.5 * carrier)
+        carrier = carrier / (float(np.max(np.abs(carrier))) + 1e-12)
+    m = min(max(float(morph), 0.0), 1.0)
+    mod = (1.0 - m) * (0.5 + 0.5 * carrier) + m * carrier
+    wet = x * mod
+    wpeak = float(np.max(np.abs(wet))) + 1e-12
+    wet = wet / wpeak * (float(np.max(np.abs(x))) + 1e-12)
+
+    ramp_n = max(1, int(0.75 * n))
+    menv = np.ones(n)
+    menv[:ramp_n] = dsp.raised_cosine(ramp_n, up=True)
+    zone_out = (1.0 - menv) * x + menv * wet
+    zone_out = _edge_fades(zone_out, sr)
+
+    out = np.zeros(len(a) + len(b))
+    out[:len(a)] += a
+    out[len(a) - zone_n:len(a)] = zone_out
+    fade_n = min(len(b), int(round(fade_bars * bar_s * sr)))
+    if fade_n > 0:
+        benv = np.ones(len(b))
+        benv[:fade_n] = dsp.raised_cosine(fade_n, up=True)
+        out[len(a):] += b * benv
+    else:
+        out[len(a):] += b
+    return out
+
+
+# ----------------------------------------------------------------------------
+# WEB-17 — Formant Morph Exit (vowel-series spectral morph)
+# ----------------------------------------------------------------------------
+
+# Classic adult-male formant targets (Peterson & Barney-style
+# published averages), F1/F2/F3 in Hz. The manual's TYP button
+# switches German/English vowel character; German vowels are
+# tenser / more peripheral, rendered here as a small systematic
+# shift of the same table (an approximation — NI publishes no
+# formant numbers).
+_FORMANT_TABLES = {
+    "english": {
+        "a": (730.0, 1090.0, 2440.0),
+        "e": (530.0, 1840.0, 2480.0),
+        "i": (270.0, 2290.0, 3010.0),
+        "o": (570.0, 840.0, 2410.0),
+        "u": (300.0, 870.0, 2240.0),
+    },
+    "german": {
+        "a": (700.0, 1060.0, 2400.0),
+        "e": (490.0, 1920.0, 2520.0),
+        "i": (250.0, 2380.0, 3060.0),
+        "o": (540.0, 820.0, 2380.0),
+        "u": (280.0, 840.0, 2180.0),
+    },
+}
+_FORMANT_GAINS = (1.0, 0.55, 0.30)
+
+
+def formant_morph_exit(a, b, sr, bar_s, path="aeiou",
+                       table="english", sharp=1.0, zone_bars=4,
+                       mix=0.9, fade_bars=0.5):
+    """Formant morph exit: A's final bars morph through a series
+    of vowel formants — the track "talks" its way out; B enters
+    dry.
+
+    Traktor's manual (§14.4.30) documents the Formant Filter: it
+    "imitates the sound of spoken vowels by morphing three
+    bandpass filters into each other." The TALK control morphs
+    through the formants produced from the mouth (a, e, i, o, u)
+    — dark at the left, brighter to the right; SHARP makes the
+    vowel sound more present; the TYP button switches German /
+    English vowel character. Rendered as a transition: across
+    A's final `zone_bars` bars the wet signal crossfades in to
+    `mix` while the three formant peaks travel — in log
+    frequency, at even keyframe spacing — through the vowel
+    series named by `path`, each vowel defined by its
+    (F1, F2, F3) targets in `table`. At the seam the last vowel
+    cuts and `b` enters dry, faded over `fade_bars`.
+
+    Parameters
+    ----------
+    a, b : outgoing / incoming segments (mono float64).
+    sr : sample rate, Hz.
+    bar_s : seconds per bar (sizes the zone and B's fade).
+    path : the vowel series to morph through, as a string of
+        vowel letters (default "aeiou" — the manual's TALK
+        order; "ouiea" runs it backwards).
+    table : "english" (default) or "german" — the manual's TYP
+        switch; the German table is a systematic shift of the
+        English one (tenser vowels), a render approximation.
+    sharp : the manual's SHARP — formant presence, 0.5..2.0
+        (default 1.0); higher = narrower, more resonant peaks.
+    zone_bars : morph zone length in bars (default 4).
+    mix : wet level at full engagement, 0..1 (default 0.9; the
+        dry residue keeps a whisper of A's body under the
+        vowels).
+    fade_bars : B's entrance fade in bars (default 0.5).
+
+    Why it works: a filter sweep (T-003) translates one peak
+    across the spectrum and a peak stack (WEB-11
+    infinity_filter) translates many together — the spectral
+    *shape* never changes, only its address. A formant morph
+    moves the peaks to vowel-specific relative configurations
+    and interpolates between shapes, so A keeps its rhythm and
+    rough spectrum while its timbre cycles through the most
+    recognisable shapes a listener knows: speech vowels. The
+    track appears to pronounce its own exit — a lateral,
+    characterful departure that needs no key or tempo
+    negotiation, and on a vocal A the effect doubles: the
+    singer's vowels are re-articulated by the morph itself.
+    """
+    a = np.asarray(a, dtype=np.float64)
+    b = np.asarray(b, dtype=np.float64)
+    zone_n = min(len(a), int(round(zone_bars * bar_s * sr)))
+    if zone_n <= 0:
+        zone_n = len(a)
+    x = a[-zone_n:]
+    n = zone_n
+    tbl = _FORMANT_TABLES.get(table, _FORMANT_TABLES["english"])
+    vowels = [c for c in str(path).lower() if c in tbl]
+    if not vowels:
+        vowels = ["a", "e", "i", "o", "u"]
+    if len(vowels) == 1:
+        vowels = vowels * 2
+    k = len(vowels)
+    key_pos = np.linspace(0.0, n - 1, k)
+    t = np.arange(n, dtype=np.float64)
+    centers = np.empty((n, 3))
+    gains = np.empty((n, 3))
+    for j in range(3):
+        lf = np.log2([tbl[v][j] for v in vowels])
+        centers[:, j] = 2.0 ** np.interp(t, key_pos, lf)
+        gains[:, j] = _FORMANT_GAINS[j]
+    hw = float(np.clip(0.32 / max(float(sharp), 0.05), 0.08, 0.8))
+    wet = _bp_sweep_bank(x, sr, centers, gains, half_width_oct=hw)
+    wpeak = float(np.max(np.abs(wet))) + 1e-12
+    wet = wet / wpeak * (float(np.max(np.abs(x))) + 1e-12)
+
+    ramp_n = max(1, n // 2)
+    menv = np.full(n, float(mix))
+    menv[:ramp_n] = float(mix) * dsp.raised_cosine(ramp_n, up=True)
+    zone_out = (1.0 - menv) * x + menv * wet
+    zone_out = _edge_fades(zone_out, sr)
+
+    out = np.zeros(len(a) + len(b))
+    out[:len(a)] += a
+    out[len(a) - zone_n:len(a)] = zone_out
+    fade_n = min(len(b), int(round(fade_bars * bar_s * sr)))
+    if fade_n > 0:
+        benv = np.ones(len(b))
+        benv[:fade_n] = dsp.raised_cosine(fade_n, up=True)
+        out[len(a):] += b * benv
+    else:
+        out[len(a):] += b
+    return out
+
+
+# ----------------------------------------------------------------------------
 # Metadata registry (FRAMEWORK.md §3) — merged by engine/meta.py
 # ----------------------------------------------------------------------------
 
@@ -2316,6 +2546,134 @@ META = {
         ],
         "composed_of": ["cdj_synth_lead"],
     },
+    "ring_mod_dissolve": {
+        "title": "Ring Mod Dissolve (Carrier-Multiplication Exit)",
+        "bank": "WEB-16", "family": "FREQ", "kind": "render",
+        "verdict": "ADOPT", "confidence": "medium",
+        "requires": {"bpm_delta_pct_max": None, "camelot_max": None,
+                     "vocal_ok": ["a_only", "b_only", "both",
+                                  "neither"],
+                     "phrase_a_ok": ["outro", "build", "drop",
+                                     "verse", "chorus", "breakdown"],
+                     "genre_pair_ok": ["same", "neighbor", "leap"],
+                     "needs": []},
+        "prefers": [
+            {"when": "energy_delta>=1", "weight": 1,
+             "reason": "the rising carrier is directed tension "
+                       "that resolves when B lands dry"},
+            {"when": "genre_pair==leap", "weight": 1,
+             "reason": "multiplication erases A's pitch identity "
+                       "— legal across a leap where blends are "
+                       "not"},
+        ],
+        "energy": {"delta": 1, "tension": "rising"},
+        "exit": "snap", "clash_risk": "none",
+        "params": {
+            "carrier_start_hz": {"type": "float",
+                                 "range": [40.0, 1000.0],
+                                 "default": 100.0, "unit": "Hz",
+                                 "presets": {"low": 60.0,
+                                             "manual_min": 100.0,
+                                             "mid": 240.0}},
+            "carrier_end_hz": {"type": "float",
+                               "range": [400.0, 8371.0],
+                               "default": 2800.0, "unit": "Hz",
+                               "presets": {"soft": 1200.0,
+                                           "standard": 2800.0,
+                                           "manual_max": 8371.0}},
+            "morph": {"type": "float", "range": [0.0, 1.0],
+                      "default": 1.0, "unit": "AM..RM",
+                      "presets": {"am": 0.0, "half": 0.5,
+                                  "rm": 1.0}},
+            "raw": {"type": "str", "range": None,
+                    "default": "sine", "unit": "carrier",
+                    "presets": {"sine": "sine", "raw": "square"}},
+            "zone_bars": {"type": "int", "range": [2, 8],
+                          "default": 4, "unit": "bars",
+                          "presets": {"short": 2, "standard": 4,
+                                      "long": 8}},
+            "fade_bars": {"type": "float", "range": [0.25, 1.0],
+                          "default": 0.5, "unit": "bars",
+                          "presets": {"tight": 0.25,
+                                      "standard": 0.5}},
+        },
+        "evidence": [
+            {"type": "manual",
+             "ref": "Native Instruments Traktor 2 manual — The "
+                    "Effects in Detail, §14.4.25 Ring Modulator "
+                    "(p.245): 'modulates the tracks by multiplying "
+                    "the high frequency signal onto the audio "
+                    "material'; oscillator 100 Hz-8371 Hz; AM-RM "
+                    "morph; RAW sine -> filtered square carrier",
+             "url": "https://www.manua.ls/native-instruments/"
+                    "traktor-2/manual?p=245",
+             "date": "2026-10-21"},
+        ],
+        "composed_of": [],
+    },
+    "formant_morph_exit": {
+        "title": "Formant Morph Exit (Vowel-Series Spectral Morph)",
+        "bank": "WEB-17", "family": "FREQ", "kind": "render",
+        "verdict": "ADOPT", "confidence": "medium",
+        "requires": {"bpm_delta_pct_max": None, "camelot_max": None,
+                     "vocal_ok": ["a_only", "b_only", "both",
+                                  "neither"],
+                     "phrase_a_ok": ["outro", "build", "drop",
+                                     "verse", "chorus", "breakdown"],
+                     "genre_pair_ok": ["same", "neighbor", "leap"],
+                     "needs": []},
+        "prefers": [
+            {"when": "vocal_pair==a_only", "weight": 2,
+             "reason": "on a vocal A the morph re-articulates the "
+                       "singer's own vowels — the talker effect "
+                       "doubles"},
+            {"when": "phrase_a==breakdown", "weight": 1,
+             "reason": "sparse sections let individual vowels "
+                       "read as events"},
+        ],
+        "energy": {"delta": 0, "tension": "flat"},
+        "exit": "snap", "clash_risk": "none",
+        "params": {
+            "path": {"type": "str", "range": None,
+                     "default": "aeiou", "unit": "vowels",
+                     "presets": {"aeiou": "aeiou",
+                                 "ouiea": "ouiea", "ai": "ai",
+                                 "ou": "ou"}},
+            "table": {"type": "str", "range": None,
+                      "default": "english", "unit": "formants",
+                      "presets": {"english": "english",
+                                  "german": "german"}},
+            "sharp": {"type": "float", "range": [0.5, 2.0],
+                      "default": 1.0, "unit": "presence",
+                      "presets": {"soft": 0.6, "standard": 1.0,
+                                  "present": 1.8}},
+            "zone_bars": {"type": "int", "range": [2, 8],
+                          "default": 4, "unit": "bars",
+                          "presets": {"short": 2, "standard": 4,
+                                      "long": 8}},
+            "mix": {"type": "float", "range": [0.5, 1.0],
+                    "default": 0.9, "unit": "wet",
+                    "presets": {"light": 0.7, "standard": 0.9,
+                                "total": 1.0}},
+            "fade_bars": {"type": "float", "range": [0.25, 1.0],
+                          "default": 0.5, "unit": "bars",
+                          "presets": {"tight": 0.25,
+                                      "standard": 0.5}},
+        },
+        "evidence": [
+            {"type": "manual",
+             "ref": "Native Instruments Traktor 2 manual — The "
+                    "Effects in Detail, §14.4.30 Formant Filter "
+                    "(p.249): 'imitates the sound of spoken "
+                    "vowels by morphing three bandpass filters "
+                    "into each other'; TALK morphs the a-e-i-o-u "
+                    "formants; SHARP presence; TYP German/English",
+             "url": "https://www.manua.ls/native-instruments/"
+                    "traktor-2/manual?p=249",
+             "date": "2026-10-21"},
+        ],
+        "composed_of": [],
+    },
 }
 
 
@@ -2336,4 +2694,6 @@ TECHNIQUE_FUNCS = {
     "pumper_exit": pumper_exit,
     "scale_down_exit": scale_down_exit,
     "fader_synth": fader_synth,
+    "ring_mod_dissolve": ring_mod_dissolve,
+    "formant_morph_exit": formant_morph_exit,
 }

@@ -467,3 +467,134 @@ fix during the run: `pumper_exit`'s withheld-recovery hole —
 the technique's signature silence — is declared as allowed
 silence in its demo spec, the brake/power-down pattern, after
 the verifier flagged the final beat.
+
+## Phase 9 — Educationals study program: tranche 4 (2026-10-21)
+
+Fourth tranche of the standing study program, worked from the
+top of the Phase 8 NEXT QUEUE, items 1–4 in order and to depth:
+(1) the Pioneer RMX-1000 manual body — "Types of effects"
+(pp.15–17) and the RELEASE FX / FX SOURCE operation pages
+(p.14), read first-hand on manua.ls; (2) the Traktor 2 manual's
+"The Effects in Detail" chapter (§14.4.1–14.4.35, manua.ls
+pp.226–253) read to completion — Phase 6 had read only
+BeatSlicer and Iceverb; (3) the VirtualDJ native effects list
+(manual Mixer > Audio and Decks > Effects pages first-hand;
+the appendix roster page renders in JavaScript and is not
+text-readable, so staff/changelog confirmations carry the
+deck-FX remainder — the caveat is recorded in the bank);
+(4) Mixed In Key's harmonic/energy research — the book chapter
+"Use Advanced Harmonic Mixing Techniques," the current
+"Harmonic Mixing Explained" wiki page and its "Change DJ Set
+Energy With the Camelot Wheel" workflow, and the founder's
+energy-scale anchors (1001tracklists interview).
+
+**Built (2):** `ring_mod_dissolve` (WEB-16, FREQ, ADOPT) —
+Traktor's Ring Modulator (§14.4.25) rendered as a dissolve
+exit: A's final bars crossfade into full carrier
+multiplication while the carrier sweeps logarithmically
+(100 Hz default start, the manual's range floor; 8371 Hz
+ceiling available as a preset), the AM–RM morph and RAW
+filtered-square carrier carried as parameters. Phase 7 had
+banked ring modulation as a compound ingredient only; the
+first-party manual's standalone mechanism revises that
+disposition. `formant_morph_exit` (WEB-17, FREQ, ADOPT) —
+the Formant Filter (§14.4.30): three bandpass formants morph
+through the vowel series (path / TYP table / SHARP carried as
+parameters; formant targets are classic Peterson &
+Barney-style published averages, the German table a flagged
+approximation). Both are mechanisms no registry base performs
+— multiplication and spectral-shape morphing — not re-voicings
+of existing bases.
+
+**Item 1 (RMX-1000) — resolutions, no builds:** the complete
+Scene FX roster (10 effects, two banks) resolves to registry
+bases, with WEB-01/WEB-10's evidence upgraded to manual-grade.
+**Zip is settled**: it is not an RMX-1000 effect at all — it
+is the RMX-500's breakdown pitch shifter (djworx review),
+i.e. T-032 `pitch_play`'s family; Phase 6's "performance
+gesture" hedge is retired. **Sub Parameter is settled** as a
+per-effect control layer, not a mechanism. TRANS/ROLL's
+independent per-band beat cycles banked as a band-cycle axis
+of T-008/T-019; the RELEASE FX lever's FX-clearing semantics
+give the knowledge layer's chain-terminator entry its
+second-hardware confirmation (amended in
+`knowledge/workflows.md`).
+
+**Item 2 (Traktor) — the chapter's systematic yield:** beyond
+the two builds, four "Pulse" variants (Flanger/Filter/
+Filter:92/Phaser Pulse) expose **peak-triggered modulation**
+as a cross-effect modulation-source axis — movement locked to
+the signal's own peaks, self-developing "best in empty parts
+of the music" — banked in TECHNIQUES against T-003/WEB-02.
+Thirty-one further sections overlap-resolved with axes banked
+(rate-glide DURATION on T-004, inverted-feedback FB−,
+Filter:92's Band Reject mode, Transpose Stretch's
+stretch-to-a-single-grain path into WEB-06's frozen moment,
+Bouncer's pattern-progress transposition, Digital LoFi as
+WEB-04's second vendor). Macro FX do not appear in this
+manual body; Phase 7's DJTT record stands. Entry 26 is fully
+mined — the Traktor catalog is closed.
+
+**Item 3 (VirtualDJ) — complete overlap:** the manual's
+verbatim Color FX set (10) and Mix FX set (6), plus
+staff/changelog-confirmed deck FX (Beat Grid, Slicer, WahWah,
+Backspin, BrakeStart, Loop Out), all resolve to built
+families — zero new bases, zero new primitives. Two framings
+banked: **Mix FX** (effects bound to the crossfader itself —
+the blend gesture is the effect's envelope; the crossfader-
+coupled form of Phase 7's fader-coupling) and **Stem FX
+routing** (per-stem effect application). Four independent FX
+taxonomies now converge on the registry's mechanism set;
+FlippinDoubles is banked-not-built on thin (forum-only)
+evidence.
+
+**Item 4 (Mixed In Key) — selection-layer yield:** two
+knowledge entries in `knowledge/setcraft.md` (Energy Boost
+Mixing — key movement as an energy event: +2 same-letter as
+the standard boost, +7/−5 as the semitone boost, the quick-mix
+rule, the −2 wind-down mirror; Camelot diagonals and the +4 —
+the diagonal asymmetry and Guetta's simple-melody far move),
+plus the founder's anchors calibrating the Energy planning
+entry (6 = the danceability threshold; 9–10 = anthems).
+Power Block Mixing: named by MIK, no mechanism published —
+French Candy disposition.
+
+**Proposals — recorded, NOT implemented** (this tranche's
+brief: selection behavior changes are flagged, never silently
+landed). MIK's doctrine exposes three places where
+`engine/select.py` is coarser than the evidence:
+(P1) `camelot_distance` scores every different-letter /
+different-number pair 4 (clash), but the working diagonals
+(8B→9A, 9A→8B) share notes — refine so the note-sharing
+diagonals score 2 while the dissonant diagonal (8B→7A) stays
+4. (P2) Distance is symmetric, but key movement is
+directional: add a signed `key_move` feature (semitone delta)
+and let short/FX exits *prefer* +1/+2-semitone moves when
+`energy_delta >= 0` (the Energy Boost), while long-blend
+techniques keep excluding them (the quick-mix rule).
+(P3) The +4 same-letter move works "with simple melodies" —
+gate a far-move allowance on melodic simplicity; `vocal_pair`
+is the interim proxy until a melodic-density feature exists.
+Each proposal needs check_select cases before it lands; they
+are item 8 of the refreshed NEXT QUEUE.
+
+**Counts now:** registry 79 → **81** (72 render + 3 decision +
+5 overlay + 1 planning; 80 executable), plan-renderable 63 →
+**65**, variants 295 → **319** (+24 across the 2 new bases,
+53 bases; VARIANTS.md regenerated), knowledge 84 → **86**,
+demos 105 → **107** (suite: 107/107 rendered + verified
+clean). Verdicts: ADOPT 57 → **59** / ADAPT 22. Selection:
+`check_select()` green (T-037 agreement); probes rank the new
+techniques on-design — `formant_morph_exit` #1 (5.0, tied,
+alphabetical first) on a vocal-A breakdown pair with both
+preference reasons firing, `ring_mod_dissolve` at 4.0 with
+both reasons on a true genre-leap + energy-rise pair; both
+unrejected on lateral pairs; all 24 new variants render
+finite output via `render_variant`. One fix during the run:
+both new META entries initially omitted `breakdown` from
+`phrase_a_ok`, contradicting the formant entry's own
+breakdown preference — caught by the selection probes and
+corrected (the demo suite does not exercise META gates). The NEXT QUEUE in
+`technique-bank/EDUCATIONAL-SOURCES.md` is refreshed — the
+structured catalogs are exhausted, so Crossfader's named
+transition techniques top it now.

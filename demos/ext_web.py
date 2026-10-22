@@ -2,7 +2,7 @@
 open-transitions — demo specs for the web-mined domain module
 (FRAMEWORK.md §7).
 
-Registers demos for engine/web_techniques.py (WEB-01..WEB-15, mined
+Registers demos for engine/web_techniques.py (WEB-01..WEB-17, mined
 2026-10-21). Merged automatically by demos/make_demos.py
 (load_ext_specs). All material is the suite's synthesized sketch audio
 (ctx tracks) — no copyrighted audio.
@@ -154,6 +154,26 @@ def demo_specs(ctx):
     # in under the line and is established as the synth cuts.
     specs["fader_synth"] = (
         lambda: web.fader_synth(bars(A, 8), bars(B, 8), SR, BAR_S),
+        lambda m: 8 * BAR_S,
+        None,
+    )
+
+    # WEB-16 ring_mod_dissolve: A's last 4 bars crossfade into full
+    # ring modulation while the carrier sweeps 100 Hz -> 2.8 kHz;
+    # the dissolved shimmer cuts at the seam and B enters dry.
+    specs["ring_mod_dissolve"] = (
+        lambda: web.ring_mod_dissolve(bars(A, 8), bars(B, 8), SR,
+                                      BAR_S),
+        lambda m: 8 * BAR_S,
+        None,
+    )
+
+    # WEB-17 formant_morph_exit: A's last 4 bars morph through the
+    # a-e-i-o-u formant series at 90% wet; the last vowel cuts at
+    # the seam and B enters dry.
+    specs["formant_morph_exit"] = (
+        lambda: web.formant_morph_exit(bars(A, 8), bars(B, 8), SR,
+                                       BAR_S),
         lambda m: 8 * BAR_S,
         None,
     )

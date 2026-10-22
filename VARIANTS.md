@@ -7,7 +7,7 @@ registry lives in `engine/variants.py` and is **generated,
 never hand-listed**: `VARIANTS = build_variants()` enumerates
 `meta.all_meta()` at import time.
 
-**Snapshot: 295 variants across 51 base techniques** (108 variants across 29 core-bank bases; the rest arrive via domain modules, FRAMEWORK.md §7).
+**Snapshot: 319 variants across 53 base techniques** (108 variants across 29 core-bank bases; the rest arrive via domain modules, FRAMEWORK.md §7).
 This file is a snapshot of one generation run — see
 *Regenerating* below.
 
@@ -225,6 +225,23 @@ core base, capped at 40) through the standard demo pipeline.
 | `flanger_sweep__tight_jet` | sweep_bars=4, depth_ms=2.2 |
 | `flanger_sweep__tight_subtle` | sweep_bars=4, depth_ms=1.2 |
 
+### formant_morph_exit — Formant Morph Exit (Vowel-Series Spectral Morph) (12 variants)
+
+| variant | params |
+|---|---|
+| `formant_morph_exit__aeiou` | path='aeiou' |
+| `formant_morph_exit__aeiou_english` | path='aeiou', table='english' |
+| `formant_morph_exit__aeiou_german` | path='aeiou', table='german' |
+| `formant_morph_exit__ai` | path='ai' |
+| `formant_morph_exit__ai_english` | path='ai', table='english' |
+| `formant_morph_exit__ai_german` | path='ai', table='german' |
+| `formant_morph_exit__ou` | path='ou' |
+| `formant_morph_exit__ou_english` | path='ou', table='english' |
+| `formant_morph_exit__ou_german` | path='ou', table='german' |
+| `formant_morph_exit__ouiea` | path='ouiea' |
+| `formant_morph_exit__ouiea_english` | path='ouiea', table='english' |
+| `formant_morph_exit__ouiea_german` | path='ouiea', table='german' |
+
 ### granular_freeze — Granular Freeze (Frozen-Moment Cloud Handoff) (12 variants)
 
 | variant | params |
@@ -430,6 +447,23 @@ core base, capped at 40) through the standard demo pipeline.
 | `rhythmic_fader_chops__2beat` | chop_beats=2 |
 | `rhythmic_fader_chops__4beat` | chop_beats=4 |
 | `rhythmic_fader_chops__8beat` | chop_beats=8 |
+
+### ring_mod_dissolve — Ring Mod Dissolve (Carrier-Multiplication Exit) (12 variants)
+
+| variant | params |
+|---|---|
+| `ring_mod_dissolve__low` | carrier_start_hz=60.0 |
+| `ring_mod_dissolve__low_manual_max` | carrier_start_hz=60.0, carrier_end_hz=8371.0 |
+| `ring_mod_dissolve__low_soft` | carrier_start_hz=60.0, carrier_end_hz=1200.0 |
+| `ring_mod_dissolve__low_standard` | carrier_start_hz=60.0, carrier_end_hz=2800.0 |
+| `ring_mod_dissolve__manual_min` | carrier_start_hz=100.0 |
+| `ring_mod_dissolve__manual_min_manual_max` | carrier_start_hz=100.0, carrier_end_hz=8371.0 |
+| `ring_mod_dissolve__manual_min_soft` | carrier_start_hz=100.0, carrier_end_hz=1200.0 |
+| `ring_mod_dissolve__manual_min_standard` | carrier_start_hz=100.0, carrier_end_hz=2800.0 |
+| `ring_mod_dissolve__mid` | carrier_start_hz=240.0 |
+| `ring_mod_dissolve__mid_manual_max` | carrier_start_hz=240.0, carrier_end_hz=8371.0 |
+| `ring_mod_dissolve__mid_soft` | carrier_start_hz=240.0, carrier_end_hz=1200.0 |
+| `ring_mod_dissolve__mid_standard` | carrier_start_hz=240.0, carrier_end_hz=2800.0 |
 
 ### riser_drop — Riser Drop (2 variants)
 
