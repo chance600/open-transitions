@@ -716,3 +716,109 @@ split). The NEXT QUEUE in
 `technique-bank/EDUCATIONAL-SOURCES.md` is refreshed —
 Digital DJ Tips tops it; the proposals item is discharged
 and off the queue.
+
+## Phase 11 — Educationals study program: tranche 6 (2026-10-21)
+
+Sixth tranche, worked the NEXT QUEUE top-down, items 1–4:
+(1) Digital DJ Tips' transition coverage, (2) r/Beatmatch +
+r/DJs, (3) the Sound on Sound remainder, (4) the Ableton
+Live audio effect reference — the producer-side mirror of
+the DJ catalogs. Yield: **one new base** (the first since
+Phase 9 — and it was hiding exactly where the Phase 10
+queue refresh predicted: producer-side semantics), three
+axes, the community failure-mode set, and one knowledge
+entry. All banked in TECHNIQUES (Phase 11 section).
+
+- **Digital DJ Tips — zero new bases.** Their half/double-
+  time article confirms T-021 Method A in full bar math
+  (with the BYNX 85-over-170 compound as T-010 × T-021);
+  the Tempo Trap contributes the **percussion-loop
+  ferryman** as a staging axis of T-021 (the ramp target
+  becomes a neutral loop, not a track — the render vehicle
+  is the WEB-12 × T-021 compound) plus its floor-risk
+  caveat on Method A; the timing "big cheat" resolves to
+  T-004/T-005 with a tail-window entry axis; the acapella
+  bridge resolves to the T-010 × GAP-11 × GAP-10 compound
+  family; the Acapellas & Stems course's "sick beat"
+  genre-change transition got the **French Candy
+  disposition** (module title only — no mechanism in any
+  free text). Course curricula state titles, not
+  mechanisms; the paid school stays unmined.
+- **r/Beatmatch + r/DJs — PARTIAL, evidence-limited (the
+  Phase 10 Carlo model).** Reddit's hosts refuse the fetch
+  in this environment; no account was created and nothing
+  was posted. The item was worked from the readable
+  practitioner community layer (DJ TechTools + Serato forum
+  threads, DDJT reader threads — all read first-hand):
+  a **stepped-tease gain axis** on `layered_emergence`
+  (25/50/75/100% fader steps, four beats each), the
+  **cue-tap telegraph** confirmed against T-019, the
+  loop-buzz-pitch-slam resolved to the T-008 × T-032
+  compound, and the **failure-mode set** — two vocals, two
+  basslines, two melodies, hat brittleness, and one the
+  catalogs never state: **kick-peak misalignment**
+  ("not all kicks peak on the beat, and correcting it can
+  cause your hi-hats and snare to fall out of time"),
+  recorded against the beat-aligned bases and the QC
+  gate's beat_phase check. DDJT's trainwreck-salvage
+  repertoire went to `knowledge/setcraft.md` (+1 entry):
+  the cut is every blend's abort state, which is why
+  hard-cut-class exits carry no clash risk in selection.
+  Entries 37/38 stand partial, the caveat stated in place.
+- **Sound on Sound remainder — zero new bases.** Reverse
+  reverb is a fourth independent source for DM-A23
+  (already built); gated/level-keyed reverb is a
+  send-gating axis on the reverb family; the ducked FX
+  return is recorded against T-004/T-005 as the discipline
+  that keeps exits intelligible under a vocal A; the
+  **pre-entry dry-up** (dry the source before the entry so
+  the entry lands bigger) is the send-riding axis's
+  downward direction. Entry 58 stands mined.
+- **Ableton Live reference — WEB-18 built.** *Resonators*
+  is a genuinely new primitive: five parallel resonators
+  tuned in semitones, decay pitch-dependent "similar to
+  the behavior of an undamped piano string." Built as
+  **`resonator_tail`** — A's final bars excite a five-comb
+  bank voiced as a chord (major/minor/power/octave) on a
+  root selection passes from B's tonic; the dry crossfades
+  into the ring across the zone, and the ring decays under
+  B's entrance. Every other tail carries A's pitch content
+  forward (echo repeats it, reverb diffuses it, shimmer
+  transposes it by a fixed interval); the bank replaces
+  it — the tail keeps A's rhythm, its pitch becomes B's
+  chord. *Spectral Resonator* banked as the same family's
+  spectral sibling, not a second base. The tranche's
+  sharpest dedupe: **Shifter's Pitch-mode + feedback
+  Delay** — the planned second build — is Pioneer's
+  SPIRAL mechanism and resolved onto **WEB-01
+  `spiral_echo`** (second vendor); Beat Repeat's Pitch
+  Decay is the same ladder in slice topology (T-008 axis)
+  and Spectral Time's per-echo Shift is its third Ableton
+  statement. Shifter's Freq mode (single-sideband) became
+  a **mode axis of WEB-16** (Ring keeps both sidebands);
+  Grain Delay → WEB-06 family; Hybrid Reverb's Shimmer
+  algorithm is a second vendor statement of WEB-10's exact
+  mechanism; the remaining roster (Chorus-Ensemble, Auto
+  Filter, Echo/Delay, Vocoder, degradation and saturation
+  rosters) overlap-resolved in full.
+
+Selection smoke: `check_select()` green throughout
+(incl. the P1–P3 guard Cases 6–8). Probes:
+`resonator_tail` surfaces for a close-key pair (8A→8A, A
+in breakdown — all three prefers fire, score 5.0) and is
+gated out at Camelot distance 4 > its `camelot_max` 2.
+One authoring catch, fixed before commit: the first
+prefer named a non-existent feature (`camelot_distance`)
+and silently never fired — the probe caught it; the
+feature is `camelot`.
+
+Counts (recounted from artifacts): registry 81 → **82**
+(81 executable + 1 planning; 66 plan-renderable),
+variants 319 → **332** across 53 → **54** bases,
+knowledge 87 → **88**, verdicts ADOPT 59 → **60** /
+ADAPT 22. Demo suite: **108/108 rendered + verified clean**
+(`demos/out/verification.json`; resonator_tail record:
+render_ok, silence_ok, headroom_ok all true). NEXT QUEUE refreshed in EDUCATIONAL-SOURCES.md:
+Traktor Pro 4 non-FX chapters now lead; the Reddit
+revisit sits at the tail, honestly conditional on a fetch
+route opening.

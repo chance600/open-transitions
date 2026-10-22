@@ -7,7 +7,7 @@ registry lives in `engine/variants.py` and is **generated,
 never hand-listed**: `VARIANTS = build_variants()` enumerates
 `meta.all_meta()` at import time.
 
-**Snapshot: 319 variants across 53 base techniques** (108 variants across 29 core-bank bases; the rest arrive via domain modules, FRAMEWORK.md §7).
+**Snapshot: 332 variants across 54 base techniques** (108 variants across 29 core-bank bases; the rest arrive via domain modules, FRAMEWORK.md §7).
 This file is a snapshot of one generation run — see
 *Regenerating* below.
 
@@ -415,6 +415,24 @@ core base, capped at 40) through the standard demo pipeline.
 | `pumper_exit__light_on_grid` | duck_db=-6.0, offset_beats=0.0 |
 | `pumper_exit__standard` | duck_db=-10.0 |
 | `pumper_exit__standard_early16` | duck_db=-10.0, offset_beats=-0.0625 |
+
+### resonator_tail — Resonator Tail (Tuned Resonator-Bank Ring-Out) (13 variants)
+
+| variant | params |
+|---|---|
+| `resonator_tail__major` | chord='major' |
+| `resonator_tail__major_long` | chord='major', decay_s=4.5 |
+| `resonator_tail__major_short` | chord='major', decay_s=1.2 |
+| `resonator_tail__major_standard` | chord='major', decay_s=2.5 |
+| `resonator_tail__minor` | chord='minor' |
+| `resonator_tail__minor_long` | chord='minor', decay_s=4.5 |
+| `resonator_tail__minor_short` | chord='minor', decay_s=1.2 |
+| `resonator_tail__minor_standard` | chord='minor', decay_s=2.5 |
+| `resonator_tail__octave` | chord='octave' |
+| `resonator_tail__octave_long` | chord='octave', decay_s=4.5 |
+| `resonator_tail__octave_short` | chord='octave', decay_s=1.2 |
+| `resonator_tail__octave_standard` | chord='octave', decay_s=2.5 |
+| `resonator_tail__power` | chord='power' |
 
 ### reverb_freeze — Reverb Freeze (3 variants)
 

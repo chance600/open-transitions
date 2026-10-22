@@ -2,7 +2,7 @@
 open-transitions — demo specs for the web-mined domain module
 (FRAMEWORK.md §7).
 
-Registers demos for engine/web_techniques.py (WEB-01..WEB-17, mined
+Registers demos for engine/web_techniques.py (WEB-01..WEB-18, mined
 2026-10-21). Merged automatically by demos/make_demos.py
 (load_ext_specs). All material is the suite's synthesized sketch audio
 (ctx tracks) — no copyrighted audio.
@@ -174,6 +174,17 @@ def demo_specs(ctx):
     specs["formant_morph_exit"] = (
         lambda: web.formant_morph_exit(bars(A, 8), bars(B, 8), SR,
                                        BAR_S),
+        lambda m: 8 * BAR_S,
+        None,
+    )
+
+    # WEB-18 resonator_tail: A's last 2 bars crossfade into a
+    # five-resonator ring tuned to a major voicing on A2; the
+    # dry is gone at the seam and the ring decays across B's
+    # 1-bar fade-in.
+    specs["resonator_tail"] = (
+        lambda: web.resonator_tail(bars(A, 8), bars(B, 8), SR,
+                                   BAR_S),
         lambda m: 8 * BAR_S,
         None,
     )

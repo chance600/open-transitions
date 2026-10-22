@@ -2,8 +2,8 @@
 open-transitions engine — web-mined techniques (domain module,
 FRAMEWORK.md §7).
 
-Seventeen techniques mined from DJ literature outside the bank
-(2026-10-21 tranches; banked as WEB-01..WEB-17 in
+Eighteen techniques mined from DJ literature outside the bank
+(2026-10-21 tranches; banked as WEB-01..WEB-18 in
 technique-bank/TECHNIQUES.md with full provenance). Each function
 takes numpy mono float64 audio + sr and returns mono float64.
 Docstrings are the spec source; techniques/<name>.md mirrors them.
@@ -41,8 +41,11 @@ Docstrings are the spec source; techniques/<name>.md mirrors them.
                          rising carrier (Traktor Ring Modulator)
   WEB-17 formant_morph_exit  A's final bars morph through a vowel
                          formant series (Traktor Formant Filter)
+  WEB-18 resonator_tail  A's final bars ring away through a tuned
+                         five-resonator bank voiced as B's chord
+                         (Ableton Resonators)
 
-All seventeen are two-track renderers, exported via TECHNIQUE_FUNCS.
+All eighteen are two-track renderers, exported via TECHNIQUE_FUNCS.
 """
 
 import numpy as np
@@ -1745,6 +1748,121 @@ def formant_morph_exit(a, b, sr, bar_s, path="aeiou",
     return out
 
 
+def resonator_tail(a, b, sr, bar_s, root_midi=45, chord="major",
+                   decay_s=2.5, color=0.5, zone_bars=2,
+                   ring_level=0.85, fade_bars=1.0):
+    """Resonator tail: A's final bars ring away through a tuned
+    resonator bank while B enters under the ring.
+
+    Ableton's Resonators device (Live 12 manual, Live Audio
+    Effect Reference) runs the input through "five parallel
+    resonators that add a tonal character to the input signal
+    and can be tuned in semitones or scale degrees," producing
+    "results ranging from plucked-string timbres to
+    vocoder-like tones." Resonator I sets the root (its Note
+    parameter); II–V are tuned relative to it in musical
+    intervals, each transposable ±24 semitones. The Decay
+    parameter sets "the amount of time it takes for the
+    resonators to be silent after getting an input signal...
+    similar to the behavior of an undamped piano string," and
+    — as with a real string — the decay time depends on the
+    pitch, low notes lasting longer than higher ones; Color
+    sets the brightness. Rendered as a transition: A's final
+    `zone_bars` bars excite a five-comb resonator bank tuned
+    to the `chord` voicing on `root_midi`; across the zone the
+    dry signal crossfades into the ring, so by the seam A is
+    present only as its own resonance, pitched to the chord.
+    The ring decays naturally (pitch-dependent, per the
+    manual) across B's entrance while `b` fades in under it
+    over `fade_bars`. Output is len(a) + len(b).
+
+    Parameters
+    ----------
+    a, b : outgoing / incoming segments (mono float64).
+    sr : sample rate, Hz.
+    bar_s : seconds per bar (sizes the zone and B's fade).
+    root_midi : Resonator I's Note as a MIDI number (default
+        45 = A2, 110 Hz). Selection passes B's tonic: the
+        ring is tuned to the *incoming* chord, so A's energy
+        arrives already speaking B's harmony.
+    chord : the II–V interval voicing above the root —
+        "major" (0, +4, +7, +12, +19), "minor"
+        (0, +3, +7, +12, +19), "power" (0, +7, +12, +19,
+        +24), "octave" (0, +12, +24).
+    decay_s : the manual's Decay — seconds for the root
+        resonator to fall to silence (−60 dB); higher
+        resonators decay faster, scaled by (f_root/f)^0.5,
+        the manual's pitch dependence.
+    color : the manual's Color, 0..1 (default 0.5) —
+        brightness, rendered as the damping lowpass inside
+        each comb's feedback path.
+    zone_bars : excitation zone length in bars (default 2).
+    ring_level : ring level relative to A's peak, 0..1
+        (default 0.85).
+    fade_bars : B's entrance fade in bars (default 1.0).
+
+    Why it works: every other tail in the library carries
+    A's *pitch content* forward — an echo repeats it, a
+    reverb diffuses it, a shimmer transposes it by a fixed
+    interval. A resonator bank replaces it: the tail keeps
+    A's rhythm and energy contour but its pitch content is
+    the bank's tuning, chosen here as B's chord. The seam
+    therefore has no key negotiation at all — what crosses
+    it is A's gesture re-pitched into B's harmony, decaying
+    like strings while B establishes itself underneath.
+    """
+    a = np.asarray(a, dtype=np.float64)
+    b = np.asarray(b, dtype=np.float64)
+    zone_n = min(len(a), int(round(zone_bars * bar_s * sr)))
+    if zone_n <= 0:
+        zone_n = len(a)
+    x = a[-zone_n:]
+    total = zone_n + len(b)
+    intervals = _RESONATOR_CHORDS.get(
+        str(chord).lower(), _RESONATOR_CHORDS["major"])
+    f_root = 440.0 * 2.0 ** ((float(root_midi) - 69.0) / 12.0)
+    damp = 0.05 + 0.65 * (1.0 - float(np.clip(color, 0.0, 1.0)))
+    excite = np.zeros(total)
+    excite[:zone_n] = x
+    ring = np.zeros(total)
+    for iv in intervals:
+        f = f_root * 2.0 ** (iv / 12.0)
+        d = max(2, int(round(sr / f)))
+        t60 = float(decay_s) * (f_root / f) ** 0.5
+        t60 = max(0.15, t60)
+        g = 0.001 ** (d / (t60 * sr))
+        acoef = np.zeros(d + 2)
+        acoef[0] = 1.0
+        acoef[d] = -g * (1.0 - damp)
+        acoef[d + 1] = -g * damp
+        ring += signal.lfilter([1.0], acoef, excite)
+    rpeak = float(np.max(np.abs(ring))) + 1e-12
+    ring = ring / rpeak * (float(np.max(np.abs(x))) + 1e-12)
+    ring *= float(ring_level)
+
+    w = dsp.raised_cosine(zone_n, up=True)
+    zone_out = (1.0 - w) * x + w * ring[:zone_n]
+    zone_out = _edge_fades(zone_out, sr)
+
+    out = np.zeros(len(a) + len(b))
+    out[:len(a)] += a
+    out[len(a) - zone_n:len(a)] = zone_out
+    fade_n = min(len(b), int(round(fade_bars * bar_s * sr)))
+    benv = np.ones(len(b))
+    if fade_n > 0:
+        benv[:fade_n] = dsp.raised_cosine(fade_n, up=True)
+    out[len(a):] += b * benv + ring[zone_n:]
+    return out
+
+
+_RESONATOR_CHORDS = {
+    "major": (0, 4, 7, 12, 19),
+    "minor": (0, 3, 7, 12, 19),
+    "power": (0, 7, 12, 19, 24),
+    "octave": (0, 12, 24),
+}
+
+
 # ----------------------------------------------------------------------------
 # Metadata registry (FRAMEWORK.md §3) — merged by engine/meta.py
 # ----------------------------------------------------------------------------
@@ -2674,6 +2792,101 @@ META = {
         ],
         "composed_of": [],
     },
+    "resonator_tail": {
+        "title": "Resonator Tail (Tuned Resonator-Bank Ring-Out)",
+        "bank": "WEB-18", "family": "SPACE", "kind": "render",
+        "verdict": "ADOPT", "confidence": "medium",
+        "requires": {"bpm_delta_pct_max": None, "camelot_max": 2,
+                     "vocal_ok": ["a_only", "b_only", "both",
+                                  "neither"],
+                     "phrase_a_ok": ["outro", "build", "drop",
+                                     "verse", "chorus", "breakdown"],
+                     "genre_pair_ok": ["same", "neighbor", "leap"],
+                     "needs": []},
+        "prefers": [
+            {"when": "camelot<=1", "weight": 2,
+             "reason": "the ring is tuned to B's chord — the "
+                       "closer the pair, the more literally the "
+                       "tail lands as B's harmony"},
+            {"when": "phrase_a==breakdown", "weight": 1,
+             "reason": "sparse excitation reads as distinct "
+                       "plucked-string gestures in the bank"},
+            {"when": "energy_delta<=0", "weight": 1,
+             "reason": "a decaying string tail is a falling-"
+                       "tension exit; it spends energy, it does "
+                       "not build it"},
+        ],
+        "energy": {"delta": 0, "tension": "falling"},
+        "exit": "tail", "clash_risk": "low",
+        "params": {
+            "chord": {"type": "str", "range": None,
+                      "default": "major", "unit": "voicing",
+                      "presets": {"major": "major",
+                                  "minor": "minor",
+                                  "power": "power",
+                                  "octave": "octave"}},
+            "decay_s": {"type": "float", "range": [0.8, 6.0],
+                        "default": 2.5, "unit": "s",
+                        "presets": {"short": 1.2,
+                                    "standard": 2.5,
+                                    "long": 4.5}},
+            "color": {"type": "float", "range": [0.0, 1.0],
+                      "default": 0.5, "unit": "brightness",
+                      "presets": {"dark": 0.2,
+                                  "standard": 0.5,
+                                  "bright": 0.85}},
+            "root_midi": {"type": "int", "range": [36, 60],
+                          "default": 45, "unit": "MIDI note",
+                          "presets": {"low": 36,
+                                      "standard": 45,
+                                      "high": 57}},
+            "zone_bars": {"type": "int", "range": [1, 4],
+                          "default": 2, "unit": "bars",
+                          "presets": {"short": 1,
+                                      "standard": 2,
+                                      "long": 4}},
+            "ring_level": {"type": "float", "range": [0.3, 1.0],
+                           "default": 0.85, "unit": "wet",
+                           "presets": {"soft": 0.55,
+                                       "standard": 0.85,
+                                       "full": 1.0}},
+            "fade_bars": {"type": "float", "range": [0.25, 2.0],
+                          "default": 1.0, "unit": "bars",
+                          "presets": {"tight": 0.5,
+                                      "standard": 1.0,
+                                      "slow": 2.0}},
+        },
+        "evidence": [
+            {"type": "manual",
+             "ref": "Ableton Live 12 manual — Live Audio Effect "
+                    "Reference, Resonators: 'five parallel "
+                    "resonators that add a tonal character to "
+                    "the input signal and can be tuned in "
+                    "semitones or scale degrees'; Decay = time "
+                    "for the resonators 'to be silent after "
+                    "getting an input signal... similar to the "
+                    "behavior of an undamped piano string', "
+                    "pitch-dependent; Color = brightness; "
+                    "Resonator I Note sets the root, II-V "
+                    "tuned relative in intervals, ±24 semitones",
+             "url": "https://www.ableton.com/en/manual/"
+                    "live-audio-effect-reference/",
+             "date": "2026-10-21"},
+            {"type": "manual",
+             "ref": "Same reference, Spectral Resonator: the "
+                    "spectral sibling — 'applying tuned "
+                    "resonances to its spectrum... highlight "
+                    "chosen frequencies of the resonating "
+                    "partials and alter their decay', harmonics "
+                    "quantizable to the active scale; banked "
+                    "as the same family's second device, not "
+                    "a second base",
+             "url": "https://www.ableton.com/en/manual/"
+                    "live-audio-effect-reference/",
+             "date": "2026-10-21"},
+        ],
+        "composed_of": [],
+    },
 }
 
 
@@ -2696,4 +2909,5 @@ TECHNIQUE_FUNCS = {
     "fader_synth": fader_synth,
     "ring_mod_dissolve": ring_mod_dissolve,
     "formant_morph_exit": formant_morph_exit,
+    "resonator_tail": resonator_tail,
 }
