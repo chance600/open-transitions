@@ -7,7 +7,7 @@ registry lives in `engine/variants.py` and is **generated,
 never hand-listed**: `VARIANTS = build_variants()` enumerates
 `meta.all_meta()` at import time.
 
-**Snapshot: 736 variants across 60 base techniques** (117 variants across 29 core-bank bases; the rest arrive via domain modules, FRAMEWORK.md §7).
+**Snapshot: 870 variants across 68 base techniques** (117 variants across 29 core-bank bases; the rest arrive via domain modules, FRAMEWORK.md §7).
 This file is a snapshot of one generation run — see
 *Regenerating* below.
 
@@ -153,6 +153,52 @@ core base, capped at 40) through the standard demo pipeline.
 | `crush_degrade__lofi_standard` | bits_end=7.0, bars=4 |
 | `crush_degrade__long` | bars=8 |
 | `crush_degrade__short` | bars=2 |
+
+### cyclic_speed_dip — Cyclic Speed Dip (Downer) (18 variants)
+
+| variant | params |
+|---|---|
+| `cyclic_speed_dip__16bar` | dip_bars=16 |
+| `cyclic_speed_dip__4bar` | dip_bars=4 |
+| `cyclic_speed_dip__deep` | depth=0.7 |
+| `cyclic_speed_dip__deep_16bar` | depth=0.7, dip_bars=16 |
+| `cyclic_speed_dip__deep_4bar` | depth=0.7, dip_bars=4 |
+| `cyclic_speed_dip__half_bar` | rate_beats=2.0 |
+| `cyclic_speed_dip__half_bar_16bar` | rate_beats=2.0, dip_bars=16 |
+| `cyclic_speed_dip__half_bar_4bar` | rate_beats=2.0, dip_bars=4 |
+| `cyclic_speed_dip__half_bar_deep` | rate_beats=2.0, depth=0.7 |
+| `cyclic_speed_dip__half_bar_shallow` | rate_beats=2.0, depth=0.25 |
+| `cyclic_speed_dip__shallow` | depth=0.25 |
+| `cyclic_speed_dip__shallow_16bar` | depth=0.25, dip_bars=16 |
+| `cyclic_speed_dip__shallow_4bar` | depth=0.25, dip_bars=4 |
+| `cyclic_speed_dip__two_bar` | rate_beats=8.0 |
+| `cyclic_speed_dip__two_bar_16bar` | rate_beats=8.0, dip_bars=16 |
+| `cyclic_speed_dip__two_bar_4bar` | rate_beats=8.0, dip_bars=4 |
+| `cyclic_speed_dip__two_bar_deep` | rate_beats=8.0, depth=0.7 |
+| `cyclic_speed_dip__two_bar_shallow` | rate_beats=8.0, depth=0.25 |
+
+### djfx_microloop — DJFX Microloop (Free-Time Grain Loop) (18 variants)
+
+| variant | params |
+|---|---|
+| `djfx_microloop__1bar` | loop_bars=1 |
+| `djfx_microloop__4bar` | loop_bars=4 |
+| `djfx_microloop__hold` | mode='hold' |
+| `djfx_microloop__hold_1bar` | mode='hold', loop_bars=1 |
+| `djfx_microloop__hold_4bar` | mode='hold', loop_bars=4 |
+| `djfx_microloop__stop` | mode='stop' |
+| `djfx_microloop__stop_1bar` | mode='stop', loop_bars=1 |
+| `djfx_microloop__stop_4bar` | mode='stop', loop_bars=4 |
+| `djfx_microloop__tight` | length_ms=30.0 |
+| `djfx_microloop__tight_1bar` | length_ms=30.0, loop_bars=1 |
+| `djfx_microloop__tight_4bar` | length_ms=30.0, loop_bars=4 |
+| `djfx_microloop__tight_hold` | length_ms=30.0, mode='hold' |
+| `djfx_microloop__tight_stop` | length_ms=30.0, mode='stop' |
+| `djfx_microloop__wide` | length_ms=230.0 |
+| `djfx_microloop__wide_1bar` | length_ms=230.0, loop_bars=1 |
+| `djfx_microloop__wide_4bar` | length_ms=230.0, loop_bars=4 |
+| `djfx_microloop__wide_hold` | length_ms=230.0, mode='hold' |
+| `djfx_microloop__wide_stop` | length_ms=230.0, mode='stop' |
 
 ### double_drop — Double Drop (Dual-Build Collision) (2 variants)
 
@@ -607,6 +653,55 @@ core base, capped at 40) through the standard demo pipeline.
 | `noise_echo_buildup__4bar` | build_bars=4 |
 | `noise_echo_buildup__8bar` | build_bars=8 |
 
+### notch_carve_sweep — Notch Carve Sweep (Dual State-Variable VCF) (8 variants)
+
+| variant | params |
+|---|---|
+| `notch_carve_sweep__long` | sweep_bars=8 |
+| `notch_carve_sweep__long_needle` | sweep_bars=8, q=24.0 |
+| `notch_carve_sweep__long_wide` | sweep_bars=8, q=2.0 |
+| `notch_carve_sweep__needle` | q=24.0 |
+| `notch_carve_sweep__quick` | sweep_bars=2 |
+| `notch_carve_sweep__quick_needle` | sweep_bars=2, q=24.0 |
+| `notch_carve_sweep__quick_wide` | sweep_bars=2, q=2.0 |
+| `notch_carve_sweep__wide` | q=2.0 |
+
+### pattern_gate_slicer — Pattern Gate Slicer (16-Step Gate Pattern) (31 variants)
+
+| variant | params |
+|---|---|
+| `pattern_gate_slicer__2bar` | gate_bars=2 |
+| `pattern_gate_slicer__8bar` | gate_bars=8 |
+| `pattern_gate_slicer__8th` | step_beats=0.5 |
+| `pattern_gate_slicer__8th_2bar` | step_beats=0.5, gate_bars=2 |
+| `pattern_gate_slicer__8th_8bar` | step_beats=0.5, gate_bars=8 |
+| `pattern_gate_slicer__8th_legato` | step_beats=0.5, mode='legato' |
+| `pattern_gate_slicer__cascade` | pattern='cascade' |
+| `pattern_gate_slicer__cascade_2bar` | pattern='cascade', gate_bars=2 |
+| `pattern_gate_slicer__cascade_8bar` | pattern='cascade', gate_bars=8 |
+| `pattern_gate_slicer__cascade_8th` | pattern='cascade', step_beats=0.5 |
+| `pattern_gate_slicer__cascade_legato` | pattern='cascade', mode='legato' |
+| `pattern_gate_slicer__cascade_quarter` | pattern='cascade', step_beats=1.0 |
+| `pattern_gate_slicer__legato` | mode='legato' |
+| `pattern_gate_slicer__legato_2bar` | mode='legato', gate_bars=2 |
+| `pattern_gate_slicer__legato_8bar` | mode='legato', gate_bars=8 |
+| `pattern_gate_slicer__pulse` | pattern='pulse' |
+| `pattern_gate_slicer__pulse_2bar` | pattern='pulse', gate_bars=2 |
+| `pattern_gate_slicer__pulse_8bar` | pattern='pulse', gate_bars=8 |
+| `pattern_gate_slicer__pulse_8th` | pattern='pulse', step_beats=0.5 |
+| `pattern_gate_slicer__pulse_legato` | pattern='pulse', mode='legato' |
+| `pattern_gate_slicer__pulse_quarter` | pattern='pulse', step_beats=1.0 |
+| `pattern_gate_slicer__quarter` | step_beats=1.0 |
+| `pattern_gate_slicer__quarter_2bar` | step_beats=1.0, gate_bars=2 |
+| `pattern_gate_slicer__quarter_8bar` | step_beats=1.0, gate_bars=8 |
+| `pattern_gate_slicer__quarter_legato` | step_beats=1.0, mode='legato' |
+| `pattern_gate_slicer__stutter` | pattern='stutter' |
+| `pattern_gate_slicer__stutter_2bar` | pattern='stutter', gate_bars=2 |
+| `pattern_gate_slicer__stutter_8bar` | pattern='stutter', gate_bars=8 |
+| `pattern_gate_slicer__stutter_8th` | pattern='stutter', step_beats=0.5 |
+| `pattern_gate_slicer__stutter_legato` | pattern='stutter', mode='legato' |
+| `pattern_gate_slicer__stutter_quarter` | pattern='stutter', step_beats=1.0 |
+
 ### pattern_layer_bridge — Pattern Layer Bridge (Pattern Player Seam Layer) (23 variants)
 
 | variant | params |
@@ -635,6 +730,29 @@ core base, capped at 40) through the standard demo pipeline.
 | `pattern_layer_bridge__roll_short` | pattern='roll', bars=4 |
 | `pattern_layer_bridge__short` | bars=4 |
 
+### phaser_sweep — Phaser Sweep (Allpass Cascade) (18 variants)
+
+| variant | params |
+|---|---|
+| `phaser_sweep__deep` | stages=6 |
+| `phaser_sweep__duo` | stages=2 |
+| `phaser_sweep__fast` | rate_bars=0.5 |
+| `phaser_sweep__fast_deep` | rate_bars=0.5, stages=6 |
+| `phaser_sweep__fast_duo` | rate_bars=0.5, stages=2 |
+| `phaser_sweep__long` | sweep_bars=8 |
+| `phaser_sweep__long_deep` | sweep_bars=8, stages=6 |
+| `phaser_sweep__long_duo` | sweep_bars=8, stages=2 |
+| `phaser_sweep__long_fast` | sweep_bars=8, rate_bars=0.5 |
+| `phaser_sweep__long_slow` | sweep_bars=8, rate_bars=2.0 |
+| `phaser_sweep__quick` | sweep_bars=2 |
+| `phaser_sweep__quick_deep` | sweep_bars=2, stages=6 |
+| `phaser_sweep__quick_duo` | sweep_bars=2, stages=2 |
+| `phaser_sweep__quick_fast` | sweep_bars=2, rate_bars=0.5 |
+| `phaser_sweep__quick_slow` | sweep_bars=2, rate_bars=2.0 |
+| `phaser_sweep__slow` | rate_bars=2.0 |
+| `phaser_sweep__slow_deep` | rate_bars=2.0, stages=6 |
+| `phaser_sweep__slow_duo` | rate_bars=2.0, stages=2 |
+
 ### pitch_play — Pitch Play (Key-Shifted Vocal Overlay) (4 variants)
 
 | variant | params |
@@ -651,6 +769,22 @@ core base, capped at 40) through the standard demo pipeline.
 | `power_down__long` | down_beats=3.0 |
 | `power_down__quick` | down_beats=1.0 |
 | `power_down__standard` | down_beats=1.5 |
+
+### pre_filtered_echo — Pre-Filtered Echo (Dry+Wet Send Conditioning) (11 variants)
+
+| variant | params |
+|---|---|
+| `pre_filtered_echo__dotted` | beat_div=0.75 |
+| `pre_filtered_echo__dotted_open` | beat_div=0.75, cutoff_hz=1200.0 |
+| `pre_filtered_echo__dotted_sub_only` | beat_div=0.75, cutoff_hz=120.0 |
+| `pre_filtered_echo__full` | beat_div=1.0 |
+| `pre_filtered_echo__full_open` | beat_div=1.0, cutoff_hz=1200.0 |
+| `pre_filtered_echo__full_sub_only` | beat_div=1.0, cutoff_hz=120.0 |
+| `pre_filtered_echo__open` | cutoff_hz=1200.0 |
+| `pre_filtered_echo__quarter` | beat_div=0.25 |
+| `pre_filtered_echo__quarter_open` | beat_div=0.25, cutoff_hz=1200.0 |
+| `pre_filtered_echo__quarter_sub_only` | beat_div=0.25, cutoff_hz=120.0 |
+| `pre_filtered_echo__sub_only` | cutoff_hz=120.0 |
 
 ### premade_tempo_bridge_edit — Pre-Made Tempo-Bridge Edit (Transition Track) (3 variants)
 
@@ -990,6 +1124,34 @@ core base, capped at 40) through the standard demo pipeline.
 | `shimmer_wash__short_ghost` | swell_bars=2, level_db=-18.0 |
 | `shimmer_wash__short_present` | swell_bars=2, level_db=-8.0 |
 
+### sideband_comb_filter — Sideband Comb Filter (SBF) (23 variants)
+
+| variant | params |
+|---|---|
+| `sideband_comb_filter__2bar` | zone_bars=2 |
+| `sideband_comb_filter__8bar` | zone_bars=8 |
+| `sideband_comb_filter__high` | base_hz=440.0 |
+| `sideband_comb_filter__high_2bar` | base_hz=440.0, zone_bars=2 |
+| `sideband_comb_filter__high_8bar` | base_hz=440.0, zone_bars=8 |
+| `sideband_comb_filter__high_tight` | base_hz=440.0, interval=0.25 |
+| `sideband_comb_filter__high_wide` | base_hz=440.0, interval=1.0 |
+| `sideband_comb_filter__mid` | base_hz=220.0 |
+| `sideband_comb_filter__mid_2bar` | base_hz=220.0, zone_bars=2 |
+| `sideband_comb_filter__mid_8bar` | base_hz=220.0, zone_bars=8 |
+| `sideband_comb_filter__mid_tight` | base_hz=220.0, interval=0.25 |
+| `sideband_comb_filter__mid_wide` | base_hz=220.0, interval=1.0 |
+| `sideband_comb_filter__sub` | base_hz=55.0 |
+| `sideband_comb_filter__sub_2bar` | base_hz=55.0, zone_bars=2 |
+| `sideband_comb_filter__sub_8bar` | base_hz=55.0, zone_bars=8 |
+| `sideband_comb_filter__sub_tight` | base_hz=55.0, interval=0.25 |
+| `sideband_comb_filter__sub_wide` | base_hz=55.0, interval=1.0 |
+| `sideband_comb_filter__tight` | interval=0.25 |
+| `sideband_comb_filter__tight_2bar` | interval=0.25, zone_bars=2 |
+| `sideband_comb_filter__tight_8bar` | interval=0.25, zone_bars=8 |
+| `sideband_comb_filter__wide` | interval=1.0 |
+| `sideband_comb_filter__wide_2bar` | interval=1.0, zone_bars=2 |
+| `sideband_comb_filter__wide_8bar` | interval=1.0, zone_bars=8 |
+
 ### slip_mode_flourish — Slip-Mode Flourish (3 variants)
 
 | variant | params |
@@ -1019,6 +1181,18 @@ core base, capped at 40) through the standard demo pipeline.
 | `spiral_echo__quarter_down4` | delay_beats=0.25, shift_semitones=-4.0 |
 | `spiral_echo__quarter_up4` | delay_beats=0.25, shift_semitones=4.0 |
 | `spiral_echo__up4` | shift_semitones=4.0 |
+
+### stem_swap_replace — Stem Swap Replace (Captured-Loop Stem Substitution) (7 variants)
+
+| variant | params |
+|---|---|
+| `stem_swap_replace__16bar` | swap_bars=16 |
+| `stem_swap_replace__1bar` | loop_bars=1 |
+| `stem_swap_replace__1bar_16bar` | loop_bars=1, swap_bars=16 |
+| `stem_swap_replace__1bar_4bar` | loop_bars=1, swap_bars=4 |
+| `stem_swap_replace__4bar` | loop_bars=4 |
+| `stem_swap_replace__4bar_16bar` | loop_bars=4, swap_bars=16 |
+| `stem_swap_replace__4bar_4bar` | loop_bars=4, swap_bars=4 |
 
 ### tempo_bridge — Tempo Bridge (BPM Ramp / Half-Double) (3 variants)
 

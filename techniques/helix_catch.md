@@ -48,3 +48,28 @@ Helix catch: A's final fragment loops while its pitch ramps; B
     unstable, so the ear waits for the release. The loop is A's own
     material on A's own grid, so B can enter beat-locked the moment
     the helix lets go.
+
+
+## Axes (Phase 26, software/hardware tranche A)
+
+**Overlay accumulation (DJM-V10 HELIX)** — the current Pioneer
+manual adds two control laws this render does not yet stage:
+while the catch is live, newly arriving input is mixed INTO the
+loop at a set overlay ratio ("Ratio of sound overlay"), so the
+incoming track can bleed into A's loop before the release; and
+the attenuation rate is re-latchable mid-hold — driving
+LEVEL/DEPTH fully counterclockwise then clockwise changes the
+decay, and fully clockwise *fixes* the output (this base's
+fixed-pitch staging is the pitch form of that law; the loop-gain
+form — decay to unity — is the overlay axis proper). Evidence:
+DJM-V10 manual via manua.ls, p62, fetched 2026-10-23.
+
+**Plain roll (DJM-V10 ROLL / VirtualDJ DJ ROLL)** — the catch
+with no ramp and no overlay: capture on press, repeat at a fixed
+beat fraction (V10: 1/16–16 beats; VDJ's DJ-mode rolls are sized
+in MEASURES, 1/4–2, against the sample-mode note grid 1/4–1/64
++ triplets — a staging distinction worth keeping). This is the
+zero-ramp corner of the present base (ramp_semitones=0 with an
+instant release), banked here rather than as a separate base.
+Evidence: DJM-V10 manual via manua.ls, p64; VirtualDJ Manual,
+DJ-mode pages — fetched 2026-10-23.

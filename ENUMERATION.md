@@ -364,3 +364,30 @@ scoped to its test length; performance-
 length spot checks on high-axis bases are
 owed before any variant drives a real set
 decision.
+
+---
+
+## Addendum — post-enumeration growth (Phase 26, 2026-10-23)
+
+Not a new walk — a growth note, so this record's counts stay
+honest. Expansion tranche 5 (software/hardware tranche A:
+Mixxx, djay, VirtualDJ, SP-404MKII, Xone:96, DJM-V10 — see
+BUILD-LOG Phase 26) admitted **8 new bases** (WEB-22..WEB-29)
+by mining, each carrying preset axes. The generated variant
+registry therefore grew without any enumeration pass:
+
+- variants 736 → **870** (+134), bases with variants 60 → **68**
+- the 8 new bases contribute 11 / 8 / 18 / 7 / 18 / 18 / 31 / 23
+  variants respectively (pre_filtered_echo, notch_carve_sweep,
+  phaser_sweep, stem_swap_replace, djfx_microloop,
+  cyclic_speed_dip, pattern_gate_slicer, sideband_comb_filter),
+  counted by `build_variants()` and catalogued in VARIANTS.md
+
+The enumeration's central finding was applied as this tranche's
+admission discipline, not re-derived: nameability is the binding
+constraint. Five documented stagings from the hardware pass were
+refused base status for exactly the Part A/B reasons (trajectory
+modifiers, held states, chain syntax, stereo-only and two-stream
+mechanisms) and banked as knowledge with the scheme-gap stated —
+the 214-cell pressure recorded above grew by five named members,
+not by silent admissions.
