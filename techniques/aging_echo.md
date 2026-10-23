@@ -33,3 +33,16 @@ tradition mechanism the name points at, named for the
 mechanism so the two records do not collide. Feed conditioning
 as doctrine (input EQ, ghost-trigger carve) is banked in
 knowledge/mixing (iZotope, Phase 18).
+
+
+## Axis (Phase 26, software/hardware tranche A)
+
+**Tape Echo head-combo staging (SP-404MKII)** — Roland's RE-201
+model parameterises the in-loop lowpass's partner: three tape
+heads (S/M/L) in seven combinations (S, M, L, S+M, S+L, M+L,
+S+M+L) make the "loop" a multi-tap comb — repeats arrive in
+head-spaced clusters, each cluster aging together. TIME
+(10–800 ms) is staged as tape SPEED, not division, and
+wow/flutter modulates the loop length itself, so the darkening
+per repeat wobbles. Evidence: SP-404MKII Reference v5.5, Tape
+Echo page, fetched 2026-10-23.

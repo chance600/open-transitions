@@ -46,3 +46,15 @@ Spiral echo: A's last fragment recirculates, pitch-shifting per repeat.
     center with every repeat, so it reads as the track evaporating
     rather than ending: B owns the tonal space from its first bar
     while A's rhythm still ghosts across the entrance.
+
+
+## Axis (Phase 26, software/hardware tranche A)
+
+**Cloud Delay staging (SP-404MKII)** — the spiral's diffuse
+cousin: multiple delays plus reverb diffusion (WINDOW/CLOUDY),
+the recirculation pitch-shiftable −12…+12 semitones like this
+base's step, and two properties this render lacks: NEGATIVE
+feedback (to −100 — phase-inverted repeats that hollow as they
+climb) and a LOFI stage on the wet path only, so the dry stays
+clean while the spiral degrades. Evidence: SP-404MKII Reference
+v5.5, Cloud Delay page, fetched 2026-10-23.

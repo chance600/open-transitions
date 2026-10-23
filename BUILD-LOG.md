@@ -3004,3 +3004,247 @@ MODEL 1 + Xone) tops the ranked queue,
 unqualified; item 7's academic pass
 carries Phase 25's early partial
 delivery in its note.
+
+## Phase 26 — 2026-10-23 (expansion tranche 5: software/hardware tranche A — Mixxx, djay, VirtualDJ, SP-404MKII, Xone:96, DJM-V10)
+
+The V2 queue's item 4, worked as six
+parallel source-mining passes, one per
+doc body, each fetched first-hand in
+full: Mixxx 2.5 Manual Ch. 11 (Effects);
+Algoriddim djay Pro help (16 Neural Mix /
+mixer / automix pages — no standalone
+Mac Neural Mix EQ page exists; the EQ
+facts assemble from three pages that
+disagree in presentation); VirtualDJ
+Manual Stems 2.0 cluster (six pages);
+Roland SP-404MKII Reference v5.5 (80
+pages: the complete BUS FX cluster, all
+46 individual MFX pages, the complete
+DJ Mode cluster — the official
+reference carries DJ Mode in full, so
+the map's manualsdir mirror was not
+needed); Allen & Heath Xone:96 User
+Guide (the official support HTML is the
+complete guide, 874 lines, read
+end-to-end); Pioneer DJM-V10 manual via
+the manua.ls mirror (pp26–66 + specs —
+the official Pioneer PDF is login-walled;
+recorded as a named gap, not bypassed;
+every V10 fact is labelled
+mirror-sourced). Mining briefs and raw
+fetches retained at
+~/workspace/scratch/sw-tranche/.
+
+Eight new bases, all in the new domain
+module engine/hw_techniques.py (wired
+into meta/render/variants + demos via
+ext_hw.py, FRAMEWORK.md §7), each with
+spec doc, demo, variants and selection
+metadata: WEB-22 `pre_filtered_echo`
+(Mixxx: the echo send band-shaped
+*outside* the loop, dry pinned at full —
+the send-side complement of CMP-01's
+in-loop topology; the manual's own
+worked example); WEB-23
+`notch_carve_sweep` (Xone:96: HPF+LPF
+summed from the simultaneous
+state-variable outputs = one travelling
+rejection band); WEB-24 `phaser_sweep`
+(SP-404 Phaser + the 96's all-pass sum:
+an allpass cascade, magnitude-flat —
+distinct DSP from WEB-02's delay comb);
+WEB-25 `stem_swap_replace` (VirtualDJ
+StemSwap: a captured stem loop mutes
+and replaces the host's corresponding
+stem, trigger-gated — not GAP-08's
+linear handover); WEB-26
+`djfx_microloop` (DJFX Looper: a
+12–230 ms free-time grain performed at
+varispeed through zero — forward, stop,
+backward); WEB-27 `cyclic_speed_dip`
+(Downer: a tempo-period rate LFO with
+HF tracking and a pitch-corrected
+form); WEB-28 `pattern_gate_slicer`
+(Slicer: a preset 16-step gain table
+with swing and SLASH/LEGATO modes; the
+V10 TRANS duty form banked as its
+staging); WEB-29 `sideband_comb_filter`
+(SBF: a geometric comb of narrow
+passbands, dissolving A into its
+spectral skeleton).
+
+24 named axes written into 16 parent
+specs (the Phase 23 headed-section
+pattern): five on GAP-08 (ModernEQ's
+coupled morph law, the kick/hihat
+sub-split, EZRemix's right-isolate law,
+djay's parallel stem crossfader bank,
+djay's automix handover); damping
+tables + the Mute FX stem-mute tail on
+T-004; dual-VCF counter-sweep, CRUNCH
+and WILD on T-003 (plus V10 global/LFO
+forms and Roland's filter stagings);
+both flagships' four-band laws + the
+V10 master isolator on T-001;
+Tempo Blend's dual-converge on T-021;
+the Mute Bus tails-only break on
+T-034; HELIX overlay + plain roll on
+WEB-07; Scatter + stem-scoped Beat
+Grid on WEB-08; Tape Echo heads on
+CMP-01; Cloud Delay on WEB-01; the
+Resonator chord-bank + Hyper-Reso on
+WEB-18; Lo-fi + Cassette Sat on WEB-04;
+VINYL BRAKE as a staging (duplicate
+ruling) on T-006; Back Spin ground
+truth on T-007; stored markers on
+T-028; Chromatic PS + DJ Bend on
+T-032. 10 knowledge entries (mixing
++7: the Dry+Wet law, stem-scoped FX
+doctrine, stem taxonomy + bleed, the
+tails-only break, FX returns as full
+channels + the V10 SEND bounds + the
+COMP negative ruling, band-selective
+FX, crunch≠crush + the 96 corrections;
+workflows +3: the scheme-gap
+collection, SP-404 routing/DJ-mode
+doctrine, djay configuration
+doctrine).
+
+Adjudications worth the record: the
+V10's HELIX is a DUPLICATE of WEB-07
+(the same Pioneer effect, second
+manual — its overlay/freeze laws are
+the axis); Roland's Resonator is an
+AXIS on WEB-18 (WEB-18 already renders
+feedback combs with in-loop damping);
+djay's Tempo Blend is an AXIS on
+T-021 (the tempo-convergence family is
+T-021's; the dual-sided fader coupling
+is the staging); the Mute Bus break is
+an AXIS on T-034 (the void family,
+decaying where the freeze sustains);
+Pioneer's TRANS and Roland's Slicer
+are ONE base (the preset-table form is
+the richer mechanism; duty is its
+staging); the Xone all-pass and the
+SP-404 Phaser are ONE base (one
+topology, two attestations).
+
+Validation, mirroring Phases 22–24:
+check_pure_functions green at import
+(harmonic mix + the select_technique
+assert table, canonical cases unmoved —
+eq_blend still ranks #1 on the lateral
+pair, hook_drop_handoff #1 with an
+iconic A); meta defaults == function
+defaults for all eight bases; selection
+probes rank every new base in its home
+pair with its own prefers reasons
+firing (pre_filtered_echo #6,
+notch_carve_sweep #5, phaser_sweep #5,
+stem_swap_replace #9, djfx_microloop
+#6, cyclic_speed_dip #1 on the
+wide-tempo pair, pattern_gate_slicer
+#4, sideband_comb_filter #3); all 134
+new variants smoke-render and none
+renders identical to its base; the
+demo battery is 122/122 clean (114 +
+8 new). One staging fix inside the
+tranche: the pattern_gate_slicer demo
+initially gated the sketch's sparse
+first-8-bars tail (raw −45 dB RMS; the
+pattern's 0.15 steps pushed a 50 ms
+window under the −60 dBFS floor) — the
+demo now stages on last_bars like the
+other exit demos; the gate and the
+base were not touched, and no allowed
+span was declared.
+
+Counts: registry 88 → 96 (87 render /
+5 overlay / 3 decision / 1 planning);
+variants 736 → 870 across 68 bases
+(+134: the new bases carry 11/8/18/7/
+18/18/31/23); knowledge 141 → 151
+(mixing 38, performers 14, producing
+50, setcraft 28, workflows 21);
+verdicts ADOPT 60 / ADAPT 28 → 36;
+demos 114 → 122, all clean. VARIANTS.md
+regenerated with its embedded
+generator; ENUMERATION.md carries a
+growth addendum (no new walk); the V2
+map's queue item 4 is marked DONE and
+its Class 5 corrections stand in place.
+
+WHITE SPACE. (1) The map's yield
+estimates for Class 5 were catalogue
+counts, and catalogues lie by naming:
+most of what six flagship products call
+effects were already bases here under
+other vendors' names — the tranche's
+real yield is eight mechanisms plus
+ground truth, and any second
+software/hardware pass (tranche B)
+should be priced as an axes-and-
+knowledge exercise from the start, not
+a base hunt. (2) Two of the eight bases
+rest on a single vendor page each
+(WEB-23 on the 96's guide, WEB-25 on
+VDJ's sampler pages) — no second
+attestation was findable in the free
+corpus this pass; both are ADAPT/medium
+for exactly that reason. (3) The V10
+record is mirror-grade: manua.ls OCR
+garbles the SEND block diagrams, and
+the manual withholds every crossover
+frequency, every SEND range, and the
+COMP law — the official PDF stays
+login-walled and unbypassed, so the
+V10's numbers bank as knob semantics,
+not measurements. (4) Roland publishes
+neither the Slicer's 32 pattern tables
+nor Scatter's 10 TYPE permutations:
+WEB-28 renders the documented mechanism
+with the registry's own tables, and any
+future claim of "the hardware's
+patterns" would be invention. (5) The
+unnameable five (Mixxx metaknob
+trajectories, djay's held mashup state,
+the 96's B2B dual-cue changeover,
+Zan-Zou's stereo-only phase delay,
+SP-404's two-stream sidechain and
+FAVOURITE chain pairs) mark the ID
+scheme's real frontier — trajectory
+modifiers, state objects, chain
+syntax — the same wall Phase 24's
+enumeration hit from the other side
+(214 stagings). A scheme extension is
+a design project of its own; this
+tranche records the pressure, it does
+not relieve it. (6) djay's Neural Mix
+EQ boost/kill figures exist only in a
+staff forum post; the manual states no
+dB range and no kill — the axis banks
+the centre=unity law and leaves the
+numbers forum-grade. (7) MODEL 1
+(PLAYdifferently) was named in queue
+item 4's text but was not in this
+tranche's target list and no MODEL 1
+source was fetched — it stands
+unworked for tranche B, alongside the
+class's unworked remainder (Xone:92 /
+PX5 via mirrors, the Mixxx developer
+sources, VDJScript). (8) Nothing in
+this tranche was heard: the eight
+bases are validated by the battery and
+selection probes, not by ears — the
+sketch demos prove shape, not feel,
+and the first real-track staging of
+each remains the test that counts.
+(9) Queue as left: item 5 (genre
+traditions tranche B — techno
+multi-deck doctrine + trance/harmonic
++ open-format tables) tops the ranked
+queue; item 7's academic pass carries
+Phase 25's early partial delivery;
+the conditional clusters stay parked
+with their gates.

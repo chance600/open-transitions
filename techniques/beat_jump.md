@@ -24,3 +24,14 @@ Returns (jumped_segment_start_sample, applied_beats). The caller cuts
 b from the returned sample; the jump itself is pure playhead
 arithmetic — the engine's phrase grid makes it trivial, which is the
 point: pre-compute the offset instead of hoping intros match.
+
+
+## Axis (Phase 26, software/hardware tranche A)
+
+**Stored-marker jump (SP-404MKII DJ mode)** — the jump targets
+are up to SEVEN stored, NON-UNIFORM markers, fired instantly
+mid-playback: where this base jumps a fixed beat count, the
+marker form jumps a memorised *form* — intro marker to chorus
+marker in one press, distances arbitrary and per-track.
+Evidence: SP-404MKII Reference v5.5, DJ Mode pages, fetched
+2026-10-23.

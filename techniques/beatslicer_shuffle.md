@@ -45,3 +45,25 @@ BeatSlicer shuffle: A's final bar(s) replayed slice-permuted,
     a build made of pure expectation violation, resolved by B.
     Distinct from a beat-repeat roll (one fragment tiled forward) and
     a stutter (onset repeats): the whole bar is re-dealt.
+
+
+## Axes (Phase 26, software/hardware tranche A)
+
+**Scatter staging (SP-404MKII)** — Roland's Scatter performs
+this base's step-redeal with three extensions: per-step
+DIRECTION (a step can play reversed), a per-step gate length,
+and DEPTH in 10% steps meaning the *proportion of steps
+affected* (a density dial, not an intensity dial); SPEED has
+SINGLE/DOUBLE forms. The fixed TYPE 1–10 permutation tables are
+not published anywhere in the reference (recorded gap) — the
+axis is the mechanism, rendered with the registry's own deals.
+Evidence: SP-404MKII Reference v5.5, Scatter page, fetched
+2026-10-23.
+
+**Stem-scoped redeal (VirtualDJ Instrument Beat Grid)** —
+Beat Grid applies the redeal to the INSTRUMENTAL stems only
+while vocal and drums continue linearly: the shuffle as a
+routing scope, not a new mechanism — GAP-08's stem vocabulary
+composing this base. No grid parameters are documented in the
+manual (recorded gap). Evidence: VirtualDJ Manual, Stems pages,
+fetched 2026-10-23.

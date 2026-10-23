@@ -69,3 +69,24 @@
     therefore has no key negotiation at all — what crosses
     it is A's gesture re-pitched into B's harmony, decaying
     like strings while B establishes itself underneath.
+
+
+## Axes (Phase 26, software/hardware tranche A)
+
+**Chord-bank staging (SP-404MKII Resonator)** — Roland's
+Karplus-Strong form of this bank: up to SIX resonators against
+this base's five, tuned by ROOT (C-1–G9) and 15 named CHORD
+voicings, with BRIGHT as the damping control and ENV MOD —
+feedback that *grows with input level*, so loud passages ring
+longer than quiet ones (a level-dependent decay this base's
+fixed decay_s does not stage). Same mechanism family (feedback
+combs, damping lowpass in the loop), banked as the voicing axis
+of this base rather than a new base. Evidence: SP-404MKII
+Reference v5.5, Resonator page, fetched 2026-10-23.
+
+**Hyper-Reso scale staging (SP-404MKII Hyper-Reso)** — the bank
+addressed in scale degrees instead of semitone intervals: NOTE
+−17…+18 in major/minor SCALE steps, SPREAD from UNISON to HUGE
+octave dispersion — the ring tuned by key signature, the
+performance form of this base's `chord` parameter. Evidence:
+SP-404MKII Reference v5.5, Hyper-Reso page, fetched 2026-10-23.

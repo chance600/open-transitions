@@ -41,3 +41,23 @@ Crush degrade: A degrades to lo-fi over its final bars; B is clean.
     resolution — while B assembles in full range underneath. No pitch,
     key, or tempo negotiation is involved, so the move is legal across
     genre leaps where blends are not.
+
+
+## Axes (Phase 26, software/hardware tranche A)
+
+**Lo-fi type stagings (SP-404MKII Lo-fi)** — the crush with a
+front end: PRE FILT 1–6 pre-shapes the signal before the
+degrade (feeding the fold a chosen band, not the whole track),
+LOFI TYPE 1–9 selects the degradation algorithm, and a
+post-filter (200–8000 Hz) decides what of the damage reaches
+the mix — the three-stage form of this base's single ramp.
+Evidence: SP-404MKII Reference v5.5, Lo-fi page, fetched
+2026-10-23.
+
+**Cassette saturation staging (SP-404MKII Cassette Sat)** —
+age as a parameter: AGE adds wow/flutter (the pitch wobble of
+worn tape) and Catch (pitch instability) on top of the
+saturation — degradation of the *timebase*, where this base
+degrades the *word length*. The two compose: a cassette-aged
+crush is this axis fired over this base. Evidence: SP-404MKII
+Reference v5.5, Cassette Sat page, fetched 2026-10-23.

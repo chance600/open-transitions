@@ -469,7 +469,7 @@ def load_ext_specs(specs):
     ctx = _demo_ctx()
     for modname in ("ext_dm", "ext_gap_struct", "ext_gap_rest",
                     "ext_performer", "ext_variants", "ext_web",
-                    "ext_compounds"):
+                    "ext_compounds", "ext_hw"):
         try:
             mod = importlib.import_module(modname)
         except ImportError:
