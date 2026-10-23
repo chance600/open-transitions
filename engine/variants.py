@@ -52,8 +52,9 @@ PAIRWISE_CAP = 9
 # Positional audio-argument names used across the technique functions.
 # Anything not listed here must arrive via kwargs (variant params, caller
 # ctx, a default, or _fallback) — never guessed positionally.
-_AUDIO_A = {"a", "a_bar", "a_build", "x", "vocal", "glue"}
-_AUDIO_B = {"b", "b_bar", "b_build", "b_full", "b_vocal", "backing"}
+_AUDIO_A = {"a", "a_bar", "a_build", "x", "vocal", "glue", "a_stems"}
+_AUDIO_B = {"b", "b_bar", "b_build", "b_full", "b_vocal", "backing",
+            "b_stems"}
 
 
 # ----------------------------------------------------------------------------
