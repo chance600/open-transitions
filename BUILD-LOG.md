@@ -3146,10 +3146,11 @@ stem_swap_replace #9, djfx_microloop
 #6, cyclic_speed_dip #1 on the
 wide-tempo pair, pattern_gate_slicer
 #4, sideband_comb_filter #3); all 134
-new variants smoke-render and none
-renders identical to its base; the
-demo battery is 122/122 clean (114 +
-8 new). One staging fix inside the
+new variants smoke-render (after the
+binder fix recorded below); 133 render
+distinct from their base at sketch
+length; the demo battery is 122/122
+clean (114 + 8 new). One staging fix inside the
 tranche: the pattern_gate_slicer demo
 initially gated the sketch's sparse
 first-8-bars tail (raw −45 dB RMS; the
@@ -3159,6 +3160,48 @@ demo now stages on last_bars like the
 other exit demos; the gate and the
 base were not touched, and no allowed
 span was declared.
+
+Validation correction (same day,
+post-push — the record is corrected,
+not rewritten): the variant smoke's
+first delivery reached the tranche
+report as a truncated summary claiming
+all 134 variants rendered distinct;
+the script's full output, delivered
+afterwards, showed two findings the
+summary dropped. (1) All seven
+`stem_swap_replace` variants failed
+through `render_variant`: the binder's
+audio-alias sets (_AUDIO_A/_AUDIO_B)
+had no a_stems/b_stems entries — the
+registry had never before carried a
+stem-signature base WITH preset axes
+(GAP-08's stem bases carry none), so
+this tranche's base was the first to
+hit the gap. Fixed in engine/variants.py
+(the two aliases added); a binding
+audit across all 68 variant-carrying
+bases confirms stem_swap_replace was
+the only affected base (the two
+no-function overlays are the documented
+non-renderable class). (2)
+`cyclic_speed_dip__16bar` renders
+identical to its base on an 8-bar test
+segment — its 16-bar window exceeds
+the segment either way; at a 24-bar
+outgoing it renders distinct (different
+output length, 2,947,395 vs 2,755,346
+samples) — the length-relative
+distinctness class ENUMERATION.md
+white-space (7) already records.
+Re-validation after the fix: smoke
+134/134 render, 0 errors, 133 distinct
+at sketch length; demo battery re-run
+122/122 clean with byte-identical
+artifacts. The tranche's first commit
+(05a4509) carries the unqualified
+sentence in its message; this entry
+and TECHNIQUES.md are corrected here.
 
 Counts: registry 88 → 96 (87 render /
 5 overlay / 3 decision / 1 planning);
