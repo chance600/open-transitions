@@ -419,6 +419,15 @@ def check_pure_functions():
     assert r["compatible"], r  # wraparound
     r = techniques.harmonic_mix("8A", "3B")
     assert not r["compatible"], r
+    # Phase 27 (Club Ready): same-letter +7 / +9 compatible, the
+    # unforgiving set named but incompatible, canonical cases unmoved.
+    r = techniques.harmonic_mix("8A", "3A")
+    assert r["compatible"] and r["move"] == "+7 energy lift", r
+    r = techniques.harmonic_mix("8A", "5A")
+    assert r["compatible"] and r["move"] == "+9 fresh jump", r
+    for kb, step in (("12A", 4), ("2A", 6), ("4A", 8), ("6A", 10)):
+        r = techniques.harmonic_mix("8A", kb)
+        assert not r["compatible"] and f"+{step}" in r["move"], r
 
     s = techniques.select_technique({
         "bpm_delta_pct": 1.0, "half_double_ok": False,
@@ -469,7 +478,7 @@ def load_ext_specs(specs):
     ctx = _demo_ctx()
     for modname in ("ext_dm", "ext_gap_struct", "ext_gap_rest",
                     "ext_performer", "ext_variants", "ext_web",
-                    "ext_compounds", "ext_hw"):
+                    "ext_compounds", "ext_hw", "ext_genre"):
         try:
             mod = importlib.import_module(modname)
         except ImportError:

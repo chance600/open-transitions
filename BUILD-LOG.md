@@ -3291,3 +3291,263 @@ queue; item 7's academic pass carries
 Phase 25's early partial delivery;
 the conditional clusters stay parked
 with their gates.
+## Phase 27 — 2026-10-24 (expansion tranche 6: genre traditions, tranche B — techno multi-deck doctrine, trance/harmonic traditions, open-format tables)
+
+The V2 queue's item 5, worked as ten
+free/public source passes, each fetched
+first-hand in full: Mixgraph's "DJ
+Transition Techniques" (the breakdown
+swap); Pioneer DJ's "A complete guide to
+multi-deck mixing" (Keeling, 2026-04-08
+— techno heat, toolkit expansion, role
+decks, molecular mixing, high
+performance); DJ Gym's "Ultimate Guide
+to Multi-Deck Mixing" (2026-01 —
+frequency pyramid, phase management,
+mono test); DJ.Studio's techno guide
+(mostly generic; ambient-as-bridge
+corroboration); Crossfader's "3 Ways To
+Mix Techno" via the summarize.tech
+transcript mirror (AI-summary grade —
+corroboration only, never a base's sole
+attestation); Club Ready DJ School's
+harmonic-mixing guide (compatibility vs
+modulation, +7/+9 moves, unforgiving
+set, overlap-duration law); Mixed In
+Key's harmonic wiki (updated
+2026-10-06 — label-vs-ear caveat, +2
+caution, key-lock rehearsal) + "5
+Mixing Techniques" (power block, energy
+boost staging + quota); PulseDJ's
+open-format guide (strategy table:
+hard cut / wordplay / echo out reset /
+transition track; BPM-barrier doctrine;
+feeler tracks; energy tagging;
+room-reading/pivot); Crossfader's "How
+To Mix Hip Hop" (sampler third deck,
+stabbed wordplay, instant doubles,
+sample pairing, transition-track
+selection); DJ Brian B's wordplay
+archive (phrase wordplay, snapping,
+acapella-dodges-key); plus a GMB
+Connect feed skim (first item AI-grade
+filler — half/double corroboration
+only). NOT fetched, by the standing
+paid-canon rule (his 2026-10-22 call):
+the Ferry Corsten trance masterclass
+and Crossfader's trance course — neither
+surfaced as an ask or a blocker.
+Mining briefs and raw fetches retained
+at ~/workspace/scratch/genre-tranche-b/.
+
+Four new bases, all in the new domain
+module engine/genre_techniques.py (wired
+into meta/render/variants + demos via
+ext_genre.py, FRAMEWORK.md §7), each
+with spec doc, demo, variants and
+selection metadata: WEB-30
+`breakdown_swap` (Mixgraph: B's beat
+enters under A's drumless breakdown
+across an ≥8-bar open space, handoff at
+the breakdown's resolution — the drums
+fade is the gesture; `b_drums` is
+caller-supplied like cue times, and a
+renderer without a drums stem cannot
+stage it); WEB-31 `echo_out_reset`
+(PulseDJ: the echo tail stands ALONE
+and resets the room's metronome, then B
+drops at any BPM on a clean downbeat —
+a compound of `echo_out` + `hard_cut`
+whose compound-ness is the point: T-004
+covers B's entrance, T-034 launches B
+inside the tail, here B starts after
+it); WEB-32 `bed_tempo_switch`
+(Djrum via Pioneer, corroborated by
+DJ.Studio: a beatless third-deck
+ambient bed covers a hard tempo
+discontinuity — A crossfades into the
+bed over 2 bars, the bed sustains, B
+drops at the new tempo; `third_deck`
+need; the demo proves bed structure
+only, at one fixed sketch BPM, with the
+function's neutral synthesized pad —
+the discontinuity itself is caller
+context, recorded as a caveat in the
+spec); WEB-33
+`instant_double_stutter` (Crossfader:
+one track doubled at a half-beat
+offset, crossfader-spliced every half
+beat, each even slice sounding twice —
+repetition, not permutation, which is
+what separates it from WEB-08 and
+T-031; the brake exit is staging, the
+default exit is B entering full).
+
+Axes on six parent specs, all recorded
+as headed entries in TECHNIQUES.md's
+Phase 27 section: T-020
+`three_deck_layer` (DJ Gym's frequency
+pyramid as the slotting law; Pioneer's
+held-outgoing-loop staging — the glue
+is A's own loop held across the next
+transition; role decks: percussion-only
+3rd, acapella/SFX 4th); T-011
+`wordplay` (PulseDJ's unlimited-BPM-gap
+law — the vocal carries continuity
+across 30 BPM; Brian B's phrase-level
+wordplay + snapping; Crossfader's
+stabbed-word staging; the
+custom-acapella-edit key dodge);
+T-015 `harmonic_mix` (+7 energy lift
+and +9 fresh jump as compatible moves
+at medium confidence — implemented as
+an additive engine change with new
+`check_pure_functions` asserts, all
+canonical cases unmoved; the
+unforgiving +4/+6/+8/+10 set stays
+incompatible but is now NAMED in the
+move string; energy-boost FX staging +
+one-or-two-per-set quota; the
+overlap-duration law; MIK's +2 caution
+and key-lock rehearsal doctrine);
+T-030 `hard_cut` (PulseDJ's phrase-point
+law: the exact 1-beat of the new
+verse/chorus, ±5 BPM band); GAP-11
+`beat_switch_under_acapella`
+(Crossfader's pitch-locked, SYNC'd
+sampler-deck acapella over chopping
+beds — cue-point hook access,
+quick-fire chops beneath); GAP-01
+`sample_connection` (Crossfader's
+slowed-original staging — the shared
+hit arrives at a reduced rate, heard as
+lineage, not quotation).
+Corroboration only, no axis: T-004 /
+T-023 / T-001 / GAP-07 restated by
+DJ.Studio, Pioneer, and PulseDJ;
+DJ.Studio's silence-before-drop
+corroborates T-034's void staging;
+echo divisions 1/2 and 3/4 were already
+variant-covered.
+
+Fourteen knowledge entries (mixing 6:
+compatibility-vs-modulation, the
+overlap-duration law, energy-boost
+staging + quota, the BPM-barrier
+structural-anchor doctrine, phase
+cancellation + the mono test, balance /
+"not overcooked" + orchestration-not-
+stacking; setcraft 5: feeler tracks,
+energy tagging 1–5, room-reading/pivot,
+power block mixing as a SET plan with
+full params, the transition-track
+selection rule; workflows 3: multi-deck
+curation as raw ingredients,
+molecular mixing as a performance
+mode, the sampler-deck prep workflow
+including the WhoSampled homework).
+Registry 96 → 100, variants 870 → 888
+(+18: breakdown_swap 2, echo_out_reset
+10, bed_tempo_switch 3,
+instant_double_stutter 3), bases with
+variants 68 → 72, knowledge 151 → 165.
+VARIANTS.md regenerated with its
+embedded generator; ENUMERATION.md
+carries a growth addendum (no new
+walk); the V2 map's queue item 5 is
+marked DONE.
+
+Validation, all green on final code:
+`check_pure_functions` (including the
+new +7/+9/unforgiving asserts);
+meta-defaults == function defaults for
+all four new bases; selection probes
+rank all four new bases in their home
+pairs with every own prefers reason
+firing (the first probe round caught a
+real scoping fact: house→trap reads
+`neighbor`, not `leap`, under the
+standing open-format pairing rule, so
+the leap pairs were re-probed as
+house→dnb); variant smoke 18/18
+(including the doubling property:
+even half-beat slices repeat, seam-
+excluded on the final pair). Two
+binder bugs caught by the smoke and
+fixed before the battery: `bed` had no
+function default, so `render_variant`
+raised on bed_tempo_switch variants
+(fixed by reordering the signature to
+`bed=None` as a keyword param after
+the required args — the Phase 26
+stem-signature lesson in a new form:
+caller-supplied audio params need a
+binder path); and the 2-bar bed preset
+tripped the function's own length guard
+(fixed: bed_bars == fade bars is the
+crossfade-only floor, not an error).
+Battery run 1 read 125/126: the single failure was
+`echo_out_reset`'s tail, flagged for silence gaps
+[(16.35, 16.4), (16.45, 18.7)] — measured, not assumed:
+the tail decays 5.19 dB per 0.234 s repeat (feedback
+0.55), so from a ~-32 dBFS throw it crosses -60 dBFS
+~1.3 s into the tail and stays below it until B drops.
+That decay to inaudibility IS the reset mechanism (the
+room's metronome erased), so the fix follows the repo's
+own allowed-span convention (cf. brake_stop's stop gap):
+the demo declares the tail's decayed portion
+[A_end + 1.0 s, B_drop] as allowed silence, while the
+tail's first second stays gated — a tail silent from
+the start still fails. Suite: 126/126 clean.
+
+WHITE SPACE. (1) Trance's own doctrine
+is the tranche's hole: the free corpus
+gives trance only through harmonic
+mixing (Club Ready/MIK) and the
+breakdown swap's progressive-house
+framing — no free trance-specific
+transition text was found, and the two
+named trance courses are paid-parked,
+so a trance-doctrine base (long-blend
+phrase law, breakdown-to-breakdown
+handover at trance scale) is unbuilt
+for lack of a free source, not for lack
+of a mechanism. (2) The open-format
+strategy table's remaining rows (hard
+cut, wordplay, echo reset, transition
+track) are now all banked — but the
+table's room-reading half (feeler
+tracks, energy tagging, pivot doctrine)
+is knowledge, and its performance
+depends on a room no sketch can stage.
+(3) WEB-32's demo caveat is structural:
+no fixed-BPM sketch can prove a tempo
+discontinuity, so the bed's first
+real-track staging at two genuinely
+different tempos is the test that
+counts — the battery passing proves
+only that the bed renders. (4) The
+multi-deck axes (frequency pyramid,
+role decks, phase management) are
+staging laws for a human with four
+decks; the registry renders them as
+two-track sketches plus a bed, so their
+three-plus-deck interactions (phase
+cancellation across three live decks,
+mono compliance) are documented, not
+demonstrated. (5) Nothing in this
+tranche was heard: the four bases are
+validated by the battery and selection
+probes, not by ears — the sketch demos
+prove shape, not feel, and the first
+real-track staging of each remains the
+test that counts. (6) Queue as left:
+item 6 (short-form technique-term
+mining) tops the ranked queue; item 7's
+academic pass carries Phase 25's early
+partial delivery; the Class 5 tranche B
+remainder (MODEL 1, Xone:92/PX5 via
+mirrors, Mixxx developer sources,
+VDJScript) stands unworked; the
+conditional clusters stay parked with
+their gates.

@@ -45,7 +45,8 @@ from . import meta, techniques
 # Domain modules merged exactly the way engine/render.py merges them
 # (FRAMEWORK.md §7): a module that isn't present yet is simply skipped.
 _DOMAIN_MODULES = ("dm_techniques", "gap_struct", "gap_rest", "performer",
-                   "web_techniques", "compounds", "hw_techniques")
+                   "web_techniques", "compounds", "hw_techniques",
+                   "genre_techniques")
 
 PAIRWISE_CAP = 9
 

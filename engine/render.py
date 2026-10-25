@@ -75,7 +75,8 @@ TECHNIQUES = {
 import importlib as _importlib
 
 for _modname in ("dm_techniques", "gap_struct", "gap_rest", "performer",
-                 "web_techniques", "compounds", "hw_techniques"):
+                 "web_techniques", "compounds", "hw_techniques",
+                 "genre_techniques"):
     try:
         _m = _importlib.import_module(f".{_modname}", __package__)
     except ImportError:

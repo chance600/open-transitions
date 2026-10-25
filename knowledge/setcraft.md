@@ -149,3 +149,28 @@ Provenance: Phase 25 S2 alignment tranche, measured first-hand 2026-10-22 (align
 
 The one fully measured blend of the Phase 25 alignment (Transitions 1150, Fuzzy Logic — Obsession → Spooky — Little Bullet) is crossfader-class by the NIME-2021 recovery method's own test: per-band 50 %-share crossover times inside the 9.2 s endpoint overlap land at mid 3.7 s / low 5.5 s / high 5.5 s — a 1.8 s spread, all bands handing over together with the mid marginally first, against the corpus's 28 % crossfader-only / 72 % EQ-blend split (Kim/Yang/Nam, 3,930 transitions). The two-source model leaves almost no unexplained energy in mid (0.011) and high (0.009); the low band's 0.092 residual is recorded as bass-management-scale, not a third source. The same run marks the method's limit, which future alignment tranches inherit: adjacent mixes of the *same song* (positions 02/03, 13/14 in this set) cannot be separated by chroma — a rerub file of Intoxication aligned at both Leftfield positions at near-clean cost — so same-song boundaries bank positionally at best, and a fetched file whose DTW optimum lands inside a different position's window (this run's track 06) is an identity failure to record, never a placement to bank.
 Provenance: Phase 25 S2 alignment tranche, measured first-hand 2026-10-22 (alignment-measured; method + full record in repo ALIGNMENT.md). Method kin: Kim, Yang & Nam, NIME 2021 (sub-band gain recovery, low <180 Hz / mid / high >3 kHz).
+
+### Feeler tracks (PulseDJ)
+
+An open-format set does not commit to its direction up front — it probes. A feeler track is a short, low-commitment deployment whose purpose is information, not payoff: drop a genre, a tempo, or an era for a verse and read whether the room follows. If it follows, the set pivots toward it; if it doesn't, the feeler costs one track, not the night. The doctrine pairs with the BPM-barrier law (the feeler lands on a structural anchor) and with energy tagging (the feeler's tag tells the DJ what it tested). A set without feelers is a set that guesses its room once, at the first track.
+Provenance: PulseDJ blog, open-format guide, fetched first-hand 2026-10-24. (Phase 27.)
+
+### Energy tagging 1–5 (PulseDJ)
+
+Tag every track 1–5 on energy before the set, and the set becomes plannable: the DJ sees the night's altitude curve on paper instead of feeling for it mid-mix. The tags do three jobs at once — they sequence the arc (no 5-after-5 without a dip), they ration the boosts (an energy-boost lift spends a tag step, not just a key step), and they make the pivot legible (a feeler that tests a 4-tag direction is a different bet from one that tests a 2-tag direction). Tagging is setcraft infrastructure, not metadata decoration: the registry's energy_delta feature is the per-transition form of the same number.
+Provenance: PulseDJ blog, open-format guide, fetched first-hand 2026-10-24. (Phase 27.)
+
+### Room-reading and the pivot doctrine (PulseDJ)
+
+The set's plan is a hypothesis and the room is the evidence. PulseDJ's pivot doctrine: read the room continuously (movement, attention, the feelers' returns) and pivot the plan when the evidence turns — change genre, tempo, or era at a structural anchor rather than defending a plan the room has stopped following. The pivot is not failure; it is the job. The failure is the opposite: a DJ who plays the planned set to an emptying floor because the plan was good on paper. The pivot's mechanics are the registry's reset and bed bases (WEB-31, WEB-32) — the doctrine tells the DJ WHEN to reach for them.
+Provenance: PulseDJ blog, open-format guide, fetched first-hand 2026-10-24. (Phase 27.)
+
+### Power block mixing — a set plan, not a base (Mixed In Key)
+
+MIK's power block is a SET plan with full parameters, and it is banked here rather than as a registry base because no single transition renders it: rapid 20–30 s hook-to-hook cycling through compatible keys at matched energy, rhythm never broken, with a dip rule after several bangers (the block earns its rest). The parameters are the entry: segment length 20–30 s, key compatibility required across the whole block (not per-transition), energy matched or rising within the block, dip after the block, never inside it. As a base it would be unnameable (a block is a sequence, not a seam); as setcraft it is a complete, performable plan.
+Provenance: Mixed In Key wiki, "5 mixing techniques every DJ should know" (power block mixing), fetched first-hand 2026-10-24. (Phase 27.)
+
+### Transition-track selection rule (Crossfader + PulseDJ)
+
+A transition track is chosen by its internal structure, not its genre label. The rule, stated identically from both sources: the track must contain a natural internal BPM shift (an intro that builds through tempos, a breakdown that re-enters at a new pace) or an energy/BPM mismatch with its neighbours that makes the switch itself non-jarring. A track without either property is just a track — it bridges nothing, and deploying it as a bridge strands the set mid-tempo. The rule is the selection gate for GAP-07's transition-track edit family: the edit can stage a bridge, but only a track that already shifts can BE one.
+Provenance: Crossfader, "How To Mix Hip Hop" (transition-track selection) + PulseDJ blog, open-format guide (transition track row), fetched first-hand 2026-10-24. (Phase 27.)

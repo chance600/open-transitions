@@ -411,6 +411,8 @@ CORE_META = {
         "params": {},
         "evidence": [
             {"type": "tutorial", "ref": "Camelot wheel (Mixed In Key); pure decision function over key codes", "url": None, "date": None},
+            {"type": "tutorial", "ref": "Club Ready DJ School, harmonic-mixing guide — compatibility vs modulation mixing; +7 energy lift, +9 fresh jump (compatible, medium confidence); unforgiving set +4/+6/+8/+10 (timing-critical, not wrong); overlap-duration law; energy-boost FX staging + quota (Phase 27 axis, fetched 2026-10-24)", "url": "https://www.clubreadydjschool.com/tribe-talk/mix-tips/how-to-mix-in-key-the-complete-guide-to-harmonic-mixing-for-djs", "date": "2026-10-24"},
+            {"type": "tutorial", "ref": "Mixed In Key wiki, harmonic mixing explained + 5 techniques — +2 caution (may clash in long overlap, keep a smoother alternative ready); key-lock rehearsal doctrine; power block mixing; energy-boost FX staging + quota (Phase 27 axis, fetched 2026-10-24)", "url": "https://mixedinkey.com/wiki/harmonic-mixing-explained-everything-you-need-to-know/", "date": "2026-10-24"},
         ],
         "composed_of": [],
     },
@@ -977,7 +979,8 @@ CORE_META = {
 
 # Domain modules merged by all_meta() (FRAMEWORK.md §7). Core wins conflicts.
 _DOMAIN_MODULES = ("dm_techniques", "gap_struct", "gap_rest", "performer",
-                   "web_techniques", "compounds", "hw_techniques")
+                   "web_techniques", "compounds", "hw_techniques",
+                   "genre_techniques")
 
 
 def all_meta():

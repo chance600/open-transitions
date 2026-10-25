@@ -103,6 +103,11 @@ def _scene(base, ctx):
         a, b = bars(T["vox"], 8), bars(A, 8)
     elif base == "screwed_treatment":
         extra.update(chop_every_beats=4, chop_repeats=2)
+    elif base == "breakdown_swap":
+        # breakdown stem base: a is A's drumless breakdown sketch,
+        # b_drums the entering beat (caller-supplied, like cue times)
+        a, b = bars(T["break"], 8), bars(B, 16)
+        extra.update(b_drums=bars(T["stemsB"]["drums"], 8))
     return a, b, extra, overlay
 
 

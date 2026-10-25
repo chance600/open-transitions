@@ -1628,5 +1628,61 @@
     "render_ok": true,
     "normalize_db": 1.6,
     "path": "demos/out/sideband_comb_filter.wav"
+  },
+  {
+    "clip": "breakdown_swap",
+    "duration_s": 30.0,
+    "silence_gaps_s": [],
+    "silence_ok": true,
+    "peak_dbfs": -1.0,
+    "headroom_ok": true,
+    "handoff_s": 15.0,
+    "centroid_max_jump_hz": 5434.0,
+    "technique": "breakdown_swap",
+    "render_ok": true,
+    "normalize_db": -2.48,
+    "path": "demos/out/breakdown_swap.wav"
+  },
+  {
+    "clip": "echo_out_reset",
+    "duration_s": 33.74,
+    "silence_gaps_s": [],
+    "silence_ok": true,
+    "peak_dbfs": -1.0,
+    "headroom_ok": true,
+    "handoff_s": 18.75,
+    "centroid_max_jump_hz": 5404.7,
+    "technique": "echo_out_reset",
+    "render_ok": true,
+    "normalize_db": 1.6,
+    "path": "demos/out/echo_out_reset.wav"
+  },
+  {
+    "clip": "bed_tempo_switch",
+    "duration_s": 33.75,
+    "silence_gaps_s": [],
+    "silence_ok": true,
+    "peak_dbfs": -1.0,
+    "headroom_ok": true,
+    "handoff_s": 18.75,
+    "centroid_max_jump_hz": 5308.9,
+    "technique": "bed_tempo_switch",
+    "render_ok": true,
+    "normalize_db": 1.6,
+    "path": "demos/out/bed_tempo_switch.wav"
+  },
+  {
+    "clip": "instant_double_stutter",
+    "duration_s": 30.0,
+    "silence_gaps_s": [],
+    "silence_ok": true,
+    "peak_dbfs": -1.0,
+    "headroom_ok": true,
+    "handoff_s": 15.0,
+    "centroid_max_jump_hz": 5895.6,
+    "technique": "instant_double_stutter",
+    "render_ok": true,
+    "normalize_db": 1.6,
+    "path": "demos/out/instant_double_stutter.wav"
   }
 ]

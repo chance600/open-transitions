@@ -1517,6 +1517,14 @@ def harmonic_mix(key_a, key_b):
     The four legal moves: same key (perfect), +/-1 step (bread and butter,
     ~80% of pro harmonic sets), relative major/minor (same number, mood
     flips), +2 energy boost (sparingly). Wheel wraps 12 <-> 1.
+    Phase 27 extension (Club Ready DJ School, harmonic-mixing guide,
+    fetched 2026-10-24): same-letter +7 is an energy lift and +9 a
+    fresh jump — both compatible, medium confidence, and both
+    NEW relative to the canonical set (all canonical cases unmoved).
+    The unforgiving set (+4 / +6 / +8 / +10, same letter) stays
+    incompatible but is NAMED in the move string — "less forgiving,
+    timing-critical, not wrong" per Club Ready — so the caller can
+    distinguish a timing-critical move from a plain clash.
     Returns {"compatible": bool, "move": str}.
     """
     def parse(k):
@@ -1535,6 +1543,14 @@ def harmonic_mix(key_a, key_b):
                 "move": "+1 lift" if step == 1 else "-1 deepen"}
     if la == lb and step == 2:
         return {"compatible": True, "move": "+2 energy boost"}
+    if la == lb and step == 7:
+        return {"compatible": True, "move": "+7 energy lift"}
+    if la == lb and step == 9:
+        return {"compatible": True, "move": "+9 fresh jump"}
+    if la == lb and step in (4, 6, 8, 10):
+        return {"compatible": False,
+                "move": f"unforgiving +{step} — timing-critical, "
+                        "not wrong, but not recommended"}
     return {"compatible": False, "move": "clash — pick another technique"}
 
 

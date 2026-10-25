@@ -391,3 +391,33 @@ modifiers, held states, chain syntax, stereo-only and two-stream
 mechanisms) and banked as knowledge with the scheme-gap stated —
 the 214-cell pressure recorded above grew by five named members,
 not by silent admissions.
+
+## Addendum — post-enumeration growth (Phase 27, 2026-10-24)
+
+Not a new walk — a growth note, so this record's counts stay
+honest. Expansion tranche 6 (genre traditions tranche B:
+techno multi-deck doctrine, trance/harmonic traditions,
+open-format tables — see BUILD-LOG Phase 27) admitted **4 new
+bases** (WEB-30..WEB-33) by mining, each carrying preset axes.
+The generated variant registry therefore grew without any
+enumeration pass:
+
+- variants 870 → **888** (+18), bases with variants 68 → **72**
+- the 4 new bases contribute 2 / 10 / 3 / 3 variants
+  respectively (breakdown_swap, echo_out_reset,
+  bed_tempo_switch, instant_double_stutter), counted by
+  `build_variants()` and catalogued in VARIANTS.md
+
+The enumeration's central finding was applied as this tranche's
+admission discipline, not re-derived: nameability is the binding
+constraint. Eight candidate stagings from the genre pass were
+refused base status for Part A/B reasons (improvisation without
+a source law, AI-summary attestation without a band order,
+performance modes rather than mechanisms, set plans rather than
+seams, paid-parked sources) and banked as knowledge or axes with
+the reason stated — the pressure recorded above grew by named
+members, not by silent admissions. One tranche-6 candidate
+(power block mixing) is the cleanest illustration of the
+discipline: a complete, performable plan with full parameters
+that is nevertheless not a base, because a block is a sequence,
+not a seam.

@@ -7,7 +7,7 @@ registry lives in `engine/variants.py` and is **generated,
 never hand-listed**: `VARIANTS = build_variants()` enumerates
 `meta.all_meta()` at import time.
 
-**Snapshot: 870 variants across 68 base techniques** (117 variants across 29 core-bank bases; the rest arrive via domain modules, FRAMEWORK.md §7).
+**Snapshot: 888 variants across 72 base techniques** (117 variants across 29 core-bank bases; the rest arrive via domain modules, FRAMEWORK.md §7).
 This file is a snapshot of one generation run — see
 *Regenerating* below.
 
@@ -101,6 +101,14 @@ core base, capped at 40) through the standard demo pipeline.
 | `beatslicer_shuffle__two` | buffer_bars=2 |
 | `beatslicer_shuffle__two_off` | buffer_bars=2, buzz=0 |
 
+### bed_tempo_switch — Bed Tempo Switch (Ambient Third-Deck Cover) (3 variants)
+
+| variant | params |
+|---|---|
+| `bed_tempo_switch__2bar` | bed_bars=2 |
+| `bed_tempo_switch__4bar` | bed_bars=4 |
+| `bed_tempo_switch__8bar` | bed_bars=8 |
+
 ### brake_stop — Brake / Tape Stop (13 variants)
 
 | variant | params |
@@ -118,6 +126,13 @@ core base, capped at 40) through the standard demo pipeline.
 | `brake_stop__standard_exp` | stop_beats=1.0, curve='exp' |
 | `brake_stop__standard_linear` | stop_beats=1.0, curve='linear' |
 | `brake_stop__standard_s_curve` | stop_beats=1.0, curve='s' |
+
+### breakdown_swap — Breakdown Swap (Beat Entry Under Open Space) (2 variants)
+
+| variant | params |
+|---|---|
+| `breakdown_swap__16bar` | swap_bars=16 |
+| `breakdown_swap__8bar` | swap_bars=8 |
 
 ### build_to_drop — Build-to-Drop (Dual-Build Layering) (3 variants)
 
@@ -306,6 +321,21 @@ core base, capped at 40) through the standard demo pipeline.
 | `echo_out_blend__dotted` | beat_div=0.75 |
 | `echo_out_blend__full` | beat_div=1.0 |
 | `echo_out_blend__half` | beat_div=0.5 |
+
+### echo_out_reset — Echo Out Reset (Metronome Reset, Any-BPM Drop) (10 variants)
+
+| variant | params |
+|---|---|
+| `echo_out_reset__1bar` | tail_bars=1 |
+| `echo_out_reset__1bar_dotted` | tail_bars=1, beat_div=0.75 |
+| `echo_out_reset__1bar_half` | tail_bars=1, beat_div=0.5 |
+| `echo_out_reset__2bar` | tail_bars=2 |
+| `echo_out_reset__2bar_dotted` | tail_bars=2, beat_div=0.75 |
+| `echo_out_reset__2bar_half` | tail_bars=2, beat_div=0.5 |
+| `echo_out_reset__4bar` | tail_bars=4 |
+| `echo_out_reset__4bar_dotted` | tail_bars=4, beat_div=0.75 |
+| `echo_out_reset__4bar_half` | tail_bars=4, beat_div=0.5 |
+| `echo_out_reset__dotted` | beat_div=0.75 |
 
 ### eq_blend — EQ Blend (3-Band Frequency Replacement) (4 variants)
 
@@ -609,6 +639,14 @@ core base, capped at 40) through the standard demo pipeline.
 | `infinity_filter__up_one` | direction=1, cycles=1.0 |
 | `infinity_filter__up_three` | direction=1, cycles=3.0 |
 | `infinity_filter__up_two` | direction=1, cycles=2.0 |
+
+### instant_double_stutter — Instant Double Stutter (Half-Beat Dual-Stream Splice) (3 variants)
+
+| variant | params |
+|---|---|
+| `instant_double_stutter__1bar` | stutter_bars=1 |
+| `instant_double_stutter__2bar` | stutter_bars=2 |
+| `instant_double_stutter__4bar` | stutter_bars=4 |
 
 ### layered_fx_stack — Layered FX Stack (Echo + Filter + Reverb) (2 variants)
 

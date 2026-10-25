@@ -172,3 +172,33 @@ Provenance: DJM-V10 manual via manua.ls (p56), fetched 2026-10-23. (Phase 26.)
 ### Crunch is not crush — and the Xone:96 ground-truth corrections (Xone:96)
 CRUNCH (Xone:96, 0–10 per VCF) is pre-filter *harmonic addition*: analogue-style saturation generated from the signal just before the filter, level-dependent (optimum drive ±6 dB). `crush_degrade` (WEB-04) is the opposite physics — quantisation and sample-rate reduction, information *removed* (the SP-404's Crusher says so explicitly: its RATE is sample-rate reduction). Confusing the two mis-renders both. Corrections the guide forces on prior assumptions: the 96 has NO master isolator, limiter or compressor of any kind (a negative fact — master processing is the DJM-V10's axis, not a shared flagship trait); RES runs MILD→WILD "just short of self-oscillation" with no numeric Q anywhere (the response curves are graphs only, not text-extractable); channel fader curves are a named vocabulary (constant power / dipped / fast-cut); and soft-switching makes even filter-type and assignment changes click-free mid-performance, which is what licenses downbeat type-switch stagings inside the filter bases. Monitoring doctrine (dual independent cue systems, split cue) is unrenderable and lives in the workflows scheme-gap entry.
 Provenance: Xone:96 User Guide (official support HTML, read end-to-end), fetched 2026-10-23. (Phase 26.)
+
+### Compatibility mixing vs modulation mixing (Club Ready)
+
+Two different harmonic operations share the name "harmonic mixing" and must not be conflated. Compatibility mixing chooses keys that agree (the Camelot wheel's legal moves, T-015) so two tracks can overlap without clash. Modulation mixing CHANGES key mid-set as a device — a deliberate lift or shift staged as an energy event, with FX and arrangement doing the work of selling the move. The registry's T-015 is the compatibility function; modulation moves (the +7 lift, the +9 jump, the +2 boost) are staged events on top of it, not alternative readings of the same wheel. A set that modulates without ever establishing compatibility has no home key to lift from; a set that only ever matches never lifts at all.
+Provenance: Club Ready DJ School, harmonic-mixing guide, fetched first-hand 2026-10-24. (Phase 27.)
+
+### The overlap-duration law (Club Ready)
+
+The farther the key move, the shorter the overlap that survives it. Same-key and ±1 moves tolerate long blends; +2 energy boosts want short, staged overlaps; the unforgiving set (+4/+6/+8/+10) survives only as a timing-critical hit, if at all. The law is the reason the registry's far-move bases are exits and snaps, not blends: duration is a harmonic parameter, not just a structural one. MIK's +2 caution is the same law from the other side — a +2 "may clash in long overlap," so the DJ keeps a smoother alternative ready rather than committing the blend.
+Provenance: Club Ready DJ School, harmonic-mixing guide + Mixed In Key wiki, harmonic mixing explained, fetched first-hand 2026-10-24. (Phase 27.)
+
+### Energy-boost staging and quota (Mixed In Key + Club Ready)
+
+A key lift is not just a wheel move — it is staged. FX are laid around the lift (a riser into it, a wash or impact on it), and the lifts are rationed: "one or two per set" (MIK). The quota is the doctrine: an energy boost spent every transition stops being a boost and becomes the set's default altitude, after which nothing can lift further. Key-lock rehearsal belongs here too — MIK's doctrine is to rehearse the lift with key-lock on before performing it, so the staged lift is a practiced gesture, not a discovered accident.
+Provenance: Mixed In Key wiki, harmonic mixing explained + 5 mixing techniques; Club Ready DJ School, harmonic-mixing guide, fetched first-hand 2026-10-24. (Phase 27.)
+
+### The BPM-barrier structural-anchor doctrine (PulseDJ)
+
+Tempo barriers are crossed at structural points, not at arbitrary bars. The open-format table's doctrine: anchor the switch on a verse, a chorus, a drop — a point the room already hears as a boundary — and the tempo change reads as arrangement, not error. The same doctrine governs the strategy table's cut law (exact 1-beat of the new verse/chorus, ±5 BPM band) and its reset law (WEB-31's tail erases the old metronome before any-BPM drops). A tempo switch placed mid-phrase fights two grids at once; the same switch placed on a structural anchor fights none, because the room's attention is already at a boundary.
+Provenance: PulseDJ blog, open-format guide (strategy table + BPM-barrier doctrine), fetched first-hand 2026-10-24. (Phase 27.)
+
+### Phase cancellation multiplies with three-plus decks — and the mono test (DJ Gym)
+
+With two decks, phase problems are occasional; with three or more, they multiply — every added deck adds pairwise interactions, and low-end cancellation is the first casualty. DJ Gym's doctrine is procedural, not hopeful: EQ/ISO discipline (frequency slotting, T-020's pyramid), transient sculpting (transients carry the phase information that cancels), frequency slotting per deck, and a MONO COMPLIANCE TEST — sum the stack to mono and listen, because a stack that sounds wide in stereo and hollow in mono is cancelling, and most rooms are effectively mono at the floor. A three-deck stack that fails the mono test is not mixed yet, however good it sounds in headphones.
+Provenance: DJ Gym, "The Ultimate Guide to Multi-Deck Mixing," fetched first-hand 2026-10-24. (Phase 27.)
+
+### Balance and "not overcooked" — orchestration, not stacking (Pioneer + DJ Gym)
+
+Techno's multi-deck heat has a ceiling, and the veterans name it. Sharpe (via Pioneer DJ's guide): the craft is balance — "not overcooked." DJ Gym states the same doctrine as a positive law: "the art of multi-deck mixing isn't about filling every frequency slot — it's about orchestration." The failure mode is additive: each added layer feels small on its own deck and the stack arrives muddy, loud, and flat. The corrective is subtractive — mute, carve, or drop a layer before adding the next — and the test is the room, not the meters: if the stack's energy stopped rising when the last layer arrived, that layer was overcooking, not orchestration.
+Provenance: Pioneer DJ blog, "A complete guide to multi-deck mixing" (Sharpe) + DJ Gym, "The Ultimate Guide to Multi-Deck Mixing," fetched first-hand 2026-10-24. (Phase 27.)
