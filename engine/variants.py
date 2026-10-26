@@ -46,7 +46,7 @@ from . import meta, techniques
 # (FRAMEWORK.md §7): a module that isn't present yet is simply skipped.
 _DOMAIN_MODULES = ("dm_techniques", "gap_struct", "gap_rest", "performer",
                    "web_techniques", "compounds", "hw_techniques",
-                   "genre_techniques")
+                   "genre_techniques", "keeper_shapes")
 
 PAIRWISE_CAP = 9
 

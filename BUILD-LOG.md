@@ -3731,3 +3731,222 @@ What was learned, per the demo bar: the Kim bands change how selection should tr
 Caveats, stated plainly: (1) Nothing in this tranche was heard — calibration numbers are published statistics and expert annotations, not listening; the first real-track staging of any claim remains the test that counts. (2) Kim numbers are adopted, not re-derived — the underlying audio is not public. (3) The NIME 2021 paper itself was not re-fetched — its curve tables remain unfetched.
 
 WHITE SPACE: queue after this tranche: echo_tempo_lift candidate tops it (next tick's first candidate — work only if its tempo-measurement staging can be proven, otherwise leave queued and say so); then Class 5 tranche B remainder (MODEL 1, Xone:92/PX5, Mixxx developer sources, VDJScript); then the conditional clusters, parked with their gates. Walls standing: TikTok (no transcript-grade source), RA (login/paywall), Instagram Reels / Quora / Discord (live-browser gaps). Academic remainder gated-but-unfetched: Ishizaki 2009 full text, Schwarz & Fourer (no open PDFs), NIME 2021 curve tables. The crawl engine owns TECHNIQUE bases/variants/knowledge only; the separate style-study agent owns artist profiles — interface, not duplication.
+
+## Phase 30 — 2026-10-25 (selector follow-up: the four keeper shapes
+promoted to registry entries, KEEP-01..KEEP-04)
+
+Not a crawl tranche: this phase
+discharges the selector follow-up from
+the 2026-10-25 technique-selector report
+— the four keeper shapes that won
+settled keepers but had no registry
+entry, so engine/fit_select.py could
+only surface them as gap-flagged
+custom-shape recommendations. Each shape
+was re-read from its keeper construction
+in mixing-lane/verdict-dataset.jsonl
+before any design. Each entry encodes
+the GENERIC mechanism (what transfers
+to a new pair) plus applicability
+conditions grounded in the keeper pair's
+measured features — not the keeper
+itself. The keepers are pair-specific,
+stem-based, multi-stage constructions
+(solved gain curves, zone fits, stem
+surgery); no sketch render reproduces
+them, and nothing here claims otherwise.
+Confidence is medium for all four
+(keeper-proven mechanism, generic render
+unproven on real tracks).
+
+Built (4), all in the new domain module
+engine/keeper_shapes.py (functions +
+META + TECHNIQUE_FUNCS, following the
+compounds.py convention), each with spec
+doc, demo (demos/ext_keeper.py), variants
+and selection metadata: KEEP-01
+`ooh_tail_pickup` (STRUCT; A dry at
+unity through a short tail motif, motif
+completes, B enters straight at full
+level with only a 15 ms anti-click ramp,
+and a 180 Hz high-passed tail of A's last
+phrase, RMS-matched at 0.5 x A's RMS,
+decaying to exactly zero under B's
+entrance — keeper Stay High -> Rapture
+v4, row 39); KEEP-02 `underlap`
+(ROUTING; B emerges under A on a
+smootherstep curve, whisper -26 dB ->
+parity -10.8 dB at 2/3 of the zone ->
+full only at the zone end, B's vocal
+withheld until the re-entry bar — keeper
+Rapture -> Kombucha v16a, rows 76/94,
+row 76 the superseded v13a PASS on the
+same line, row 94 the keeper of record;
+the keeper's stem surgery is NOT
+reproduced — the generic move is the
+emergence curve plus the vocal hold);
+KEEP-03 `wub_runway` (ROUTING; B's
+signature figure previews on a runway
+while A eases out attenuation-only, A
+drums cut at the runway start, A vocal
+excluded, figure play-staged -1.0 ->
+-0.5 dB -> 0 dB, then B proper — keepers
+Balkans -> Cola v11-solo / v10b, rows
+103/120; the keeper's PCHIP runway curve
+is generalized to a smootherstep dB
+curve, 0 -> -60 dB, exact zero at the
+runway end); KEEP-04 `wera_weave`
+(STRUCT; A's hook vocal leads over B's
+groove with B's vocal withheld, exits
+over one bar, B's groove carries a
+recognition span (D10), B's chant enters
+last, zero performed-vocal coexistence by
+construction — keeper Tuk Tuk -> Tunapewa
+v3c, row 93; the keeper's true-rate
+repair is caller context, not part of
+the move).
+
+Selector changes (engine/fit_select.py):
+the four shapes move from CUSTOM_SHAPES
+gap hits into FIT_EVIDENCE with bank
+KEEP-01..KEEP-04 and rank through the
+normal render path; the "custom_shapes"
+output key is retained, empty, for
+backward compatibility; derive features
+now carries a_vocal_detail /
+b_vocal_detail so the evidence layer can
+key motif-role disambiguation on them
+(ooh_tail_pickup earns its role bonus on
+a "tail" vocal_detail, wera_weave on a
+"hook" vocal_detail — where the profile
+states neither, both rank on the motif
+prefers with flags and the overlap stays
+visible, not papered over). The backtest's
+four cases move from custom-fired to
+registry cases. No weights were re-tuned.
+
+Counts now: registry 105 -> **109**,
+variants 934 -> **979** (+45: ooh 14,
+underlap 14, wub 3, wera 14), bases with
+variants 77 -> **81**, knowledge **188**
+(unchanged — this phase adds no knowledge
+entries), demos 131 -> **135** (suite:
+135/135 rendered + verified clean).
+VARIANTS.md regenerated with its embedded
+generator to a new file first (zero
+deletions vs the old snapshot) and then
+moved into place — the Phase 29
+truncation incident's lesson applied.
+techniques/INDEX.md carries the four new
+spec docs. The goal workspace's
+technique-bank/TECHNIQUES.md Phase 30
+section is appended alongside.
+
+Validation, all green on final code:
+full demo suite 135/135 clean, verified
+from the regenerated
+demos/out/verification.json (135 entries;
+0 silence_ok / headroom_ok / render_ok
+failures; 0 silence gaps) — not a --only
+leftover; variant smoke 45/45 through
+render_variant (ctx bar_s + bpm);
+meta-defaults == function defaults for
+all four new bases; selection probes rank
+all four new bases #1 (6.0) on their
+keeper profiles with every own prefers
+reason firing plus THIN n=1 flags;
+check_select() (T-037 agreement) green.
+Backtest (14 registry cases): top-1 9,
+top-1-or-tied 11, top-3 12. Honest deltas
+on the old 10 registry cases, caused by
+four new entrants competing (no weights
+re-tuned): top-1 outright 6 -> 5,
+top-1-or-tied 8 -> 7, top-3 8 (unchanged)
+— link22's eq_blend drops from #1 to #2
+behind underlap (5.0 vs 4.5) on a
+groove-entry + wide-gap profile, and
+bass_swap slips from rank 6 to rank 7 on
+BOTH its keeper pairs (score and reasons
+unchanged; displaced by new entrants
+scoring a 3.0 floor on thin same-genre
+profiles). The bass_swap finding stands:
+rank 6 -> 7 is still a miss, still the
+missing kick/sub-bass feature, and still
+NOT a weight to tweak. genre_bridge
+still has ZERO usable evidence (both
+NEGs identity-confounded, rows 153/162).
+One in-run bug, caught by smoke before
+any demo ran: ooh_tail_pickup's decay
+window (2.5 bars) ran past its tail
+source (2 bars) and broadcast-failed —
+fixed by clamping the decay to the tail
+source's length, documented in the
+docstring and spec (the tail always
+reaches exactly zero within its own
+material).
+
+What was learned, per the demo bar: a
+keeper shape becomes reusable only when
+its transferable mechanism is separated
+from its forensic record — the solved
+curves, zone fits, stem surgery, and
+true-rate repair are the keeper's, not
+the technique's. What transfers in each
+case is a staging grammar (pickup,
+emergence + vocal hold, runway preview,
+lead-exit-recognition-chant), and the
+selector can now rank those grammars
+with stated reasons instead of
+gap-flagging them. The motif-role
+disambiguation (tail vs lead line) is
+narrowed by vocal_detail evidence
+bonuses, not closed — a dedicated
+motif-role field in LaneSong is still
+owed.
+
+Caveats, stated plainly: (1) Nothing
+in this phase was heard — the sketch
+demos prove shape, not feel, and the
+first real-track staging of each shape
+remains the test that counts. The demos
+prove less than usual for the two
+stem-vocal shapes: the harness
+synthesizes stemsB WITHOUT a hook, so
+stemsB["vocal"] is digital silence —
+the underlap and wera_weave demos
+demonstrate the vocal-hold choreography
+structurally (hold/re-entry timing), not
+an audible B vocal. (2) Every shape's
+evidence is THIN (n=1 keeper pair;
+wub_runway's two standing variant lines
+are still one pair). A second keeper
+pair on any shape is worth more than any
+further sketch work on it. (3) The
+generic forms deliberately drop
+keeper-specific parts — a real-track
+staging that needs those parts back is
+evidence the generic form is
+under-specified, not a failure of the
+staging.
+
+WHITE SPACE: the crawl queue is
+untouched by this phase — echo_tempo_lift
+candidate still tops it (work only if
+its tempo-measurement staging can be
+proven, otherwise leave queued and say
+so); then Class 5 tranche B remainder
+(MODEL 1, Xone:92/PX5, Mixxx developer
+sources, VDJScript); then the
+conditional clusters, parked with their
+gates. Selector remainder: per-passage
+key + energy measurement is still the
+highest-value selector upgrade
+(groove_density third) — until keys and
+energies are measured per placed passage,
+the new shapes' camelot gates stay
+unverified on lane profiles and their
+energy prefers never fire. The crawl
+engine owns TECHNIQUE bases/variants/
+knowledge only; the separate style-study
+agent owns artist profiles — interface,
+not duplication.

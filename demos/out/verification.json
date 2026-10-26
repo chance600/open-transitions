@@ -1754,5 +1754,61 @@
     "render_ok": true,
     "normalize_db": 1.6,
     "path": "demos/out/instant_double_stutter.wav"
+  },
+  {
+    "clip": "ooh_tail_pickup",
+    "duration_s": 30.0,
+    "silence_gaps_s": [],
+    "silence_ok": true,
+    "peak_dbfs": -1.0,
+    "headroom_ok": true,
+    "handoff_s": 15.0,
+    "centroid_max_jump_hz": 4818.1,
+    "technique": "ooh_tail_pickup",
+    "render_ok": true,
+    "normalize_db": 0.41,
+    "path": "demos/out/ooh_tail_pickup.wav"
+  },
+  {
+    "clip": "underlap",
+    "duration_s": 22.5,
+    "silence_gaps_s": [],
+    "silence_ok": true,
+    "peak_dbfs": -1.0,
+    "headroom_ok": true,
+    "handoff_s": 22.5,
+    "centroid_max_jump_hz": 5113.9,
+    "technique": "underlap",
+    "render_ok": true,
+    "normalize_db": -12.7,
+    "path": "demos/out/underlap.wav"
+  },
+  {
+    "clip": "wub_runway",
+    "duration_s": 26.25,
+    "silence_gaps_s": [],
+    "silence_ok": true,
+    "peak_dbfs": -1.0,
+    "headroom_ok": true,
+    "handoff_s": 18.75,
+    "centroid_max_jump_hz": 4776.1,
+    "technique": "wub_runway",
+    "render_ok": true,
+    "normalize_db": -8.29,
+    "path": "demos/out/wub_runway.wav"
+  },
+  {
+    "clip": "wera_weave",
+    "duration_s": 31.88,
+    "silence_gaps_s": [],
+    "silence_ok": true,
+    "peak_dbfs": -1.0,
+    "headroom_ok": true,
+    "handoff_s": 7.5,
+    "centroid_max_jump_hz": 3234.0,
+    "technique": "wera_weave",
+    "render_ok": true,
+    "normalize_db": -8.87,
+    "path": "demos/out/wera_weave.wav"
   }
 ]

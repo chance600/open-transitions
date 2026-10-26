@@ -7,7 +7,7 @@ registry lives in `engine/variants.py` and is **generated,
 never hand-listed**: `VARIANTS = build_variants()` enumerates
 `meta.all_meta()` at import time.
 
-**Snapshot: 934 variants across 77 base techniques** (117 variants across 29 core-bank bases; the rest arrive via domain modules, FRAMEWORK.md §7).
+**Snapshot: 979 variants across 81 base techniques** (117 variants across 29 core-bank bases; the rest arrive via domain modules, FRAMEWORK.md §7).
 This file is a snapshot of one generation run — see
 *Regenerating* below.
 
@@ -767,6 +767,25 @@ core base, capped at 40) through the standard demo pipeline.
 | `notch_carve_sweep__quick_wide` | sweep_bars=2, q=2.0 |
 | `notch_carve_sweep__wide` | q=2.0 |
 
+### ooh_tail_pickup — Tail-Motif Pickup (14 variants)
+
+| variant | params |
+|---|---|
+| `ooh_tail_pickup__long` | tail_bars=4 |
+| `ooh_tail_pickup__long_present` | tail_bars=4, tail_level=0.65 |
+| `ooh_tail_pickup__long_soft` | tail_bars=4, tail_level=0.35 |
+| `ooh_tail_pickup__long_standard` | tail_bars=4, tail_level=0.5 |
+| `ooh_tail_pickup__present` | tail_level=0.65 |
+| `ooh_tail_pickup__short` | tail_bars=1 |
+| `ooh_tail_pickup__short_present` | tail_bars=1, tail_level=0.65 |
+| `ooh_tail_pickup__short_soft` | tail_bars=1, tail_level=0.35 |
+| `ooh_tail_pickup__short_standard` | tail_bars=1, tail_level=0.5 |
+| `ooh_tail_pickup__soft` | tail_level=0.35 |
+| `ooh_tail_pickup__standard` | tail_bars=2 |
+| `ooh_tail_pickup__standard_present` | tail_bars=2, tail_level=0.65 |
+| `ooh_tail_pickup__standard_soft` | tail_bars=2, tail_level=0.35 |
+| `ooh_tail_pickup__standard_standard` | tail_bars=2, tail_level=0.5 |
+
 ### pattern_gate_slicer — Pattern Gate Slicer (16-Step Gate Pattern) (31 variants)
 
 | variant | params |
@@ -1337,6 +1356,25 @@ core base, capped at 40) through the standard demo pipeline.
 | `transform_gate_loop__open` | duty_cycle=0.65 |
 | `transform_gate_loop__tight` | duty_cycle=0.35 |
 
+### underlap — Underlap (Slow Emergence, Vocal Held) (14 variants)
+
+| variant | params |
+|---|---|
+| `underlap__audible` | entry_db=-14.0 |
+| `underlap__long` | zone_bars=16 |
+| `underlap__long_audible` | zone_bars=16, entry_db=-14.0 |
+| `underlap__long_quiet` | zone_bars=16, entry_db=-20.0 |
+| `underlap__long_whisper` | zone_bars=16, entry_db=-26.0 |
+| `underlap__quiet` | entry_db=-20.0 |
+| `underlap__short` | zone_bars=8 |
+| `underlap__short_audible` | zone_bars=8, entry_db=-14.0 |
+| `underlap__short_quiet` | zone_bars=8, entry_db=-20.0 |
+| `underlap__short_whisper` | zone_bars=8, entry_db=-26.0 |
+| `underlap__standard` | zone_bars=12 |
+| `underlap__standard_audible` | zone_bars=12, entry_db=-14.0 |
+| `underlap__standard_quiet` | zone_bars=12, entry_db=-20.0 |
+| `underlap__standard_whisper` | zone_bars=12, entry_db=-26.0 |
+
 ### vocal_chop_build — Vocal-Chop Build (2 variants)
 
 | variant | params |
@@ -1352,12 +1390,39 @@ core base, capped at 40) through the standard demo pipeline.
 | `vocal_punchline_snap__tight` | void_ms=150.0 |
 | `vocal_punchline_snap__wide` | void_ms=200.0 |
 
+### wera_weave — Hook-Vocal Weave (Vocal Leads, Chant Last) (14 variants)
+
+| variant | params |
+|---|---|
+| `wera_weave__brief` | chant_bars=1 |
+| `wera_weave__extended` | chant_bars=4 |
+| `wera_weave__long` | weave_bars=12 |
+| `wera_weave__long_brief` | weave_bars=12, chant_bars=1 |
+| `wera_weave__long_extended` | weave_bars=12, chant_bars=4 |
+| `wera_weave__long_standard` | weave_bars=12, chant_bars=2 |
+| `wera_weave__short` | weave_bars=4 |
+| `wera_weave__short_brief` | weave_bars=4, chant_bars=1 |
+| `wera_weave__short_extended` | weave_bars=4, chant_bars=4 |
+| `wera_weave__short_standard` | weave_bars=4, chant_bars=2 |
+| `wera_weave__standard` | weave_bars=8 |
+| `wera_weave__standard_brief` | weave_bars=8, chant_bars=1 |
+| `wera_weave__standard_extended` | weave_bars=8, chant_bars=4 |
+| `wera_weave__standard_standard` | weave_bars=8, chant_bars=2 |
+
 ### wordplay — Wordplay (2 variants)
 
 | variant | params |
 |---|---|
 | `wordplay__echo_out` | exit='echo_out' |
 | `wordplay__hard_cut` | exit='hard_cut' |
+
+### wub_runway — Signature-Figure Runway (Drums Excluded) (3 variants)
+
+| variant | params |
+|---|---|
+| `wub_runway__long` | runway_bars=8 |
+| `wub_runway__short` | runway_bars=4 |
+| `wub_runway__standard` | runway_bars=6 |
 
 ## Registered but not directly renderable
 
