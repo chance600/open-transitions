@@ -198,3 +198,14 @@ Active build. **100 registry entries: 99 executable techniques + 1 planning entr
 ## License
 
 MIT — see [LICENSE](LICENSE).
+
+## Learning loops
+
+The repo can learn on its own rails: `learning/` holds a mining loop
+(sources registry, validated queue, claim/release), a spec-draft +
+demo-verification loop, and a verdict schema + promotion gate. The
+rule is fixed: **the loop proposes and measures, a human disposes** —
+promotion requires a human PASS/heart verdict, machine metrics never
+promote, and silence never approves. See `learning/README.md`. The
+CI workflow (`learning-gate.yml`) runs the loop tests + a registry
+smoke check only; it never merges or promotes.

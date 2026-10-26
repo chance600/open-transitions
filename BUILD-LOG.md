@@ -4133,3 +4133,18 @@ DualCue/B2B changeover stays in the unnameable five (state
 objects, not bases). The crawl engine owns TECHNIQUE
 bases/variants/knowledge only; the separate style-study
 agent owns artist profiles — interface, not duplication.
+
+## Learning-loops scaffold — 2026-10-26
+
+New `learning/` module, added (not a crawl phase): ingest
+(sources registry, candidate validation, queue with <24h claim
+protocol, local-file adapter only), propose (spec drafts, never
+registry entries), verdicts (schema + promotion gate: human PASS
+required, machine verdicts and silence never promote), gates
+(META + clean demo verification), loop (one pass, report only),
+tests (stdlib, offline), and a CI workflow that measures only.
+Registry untouched by the scaffold: 113 bases, no META edits, no
+demo changes. The loops need a runner (Actions workflow included;
+a cron works too) and human-registered sources before a first pass.
+WHITE SPACE: first real pass awaits human-registered free/public
+sources + a verdicts file; the scaffold invents neither.
