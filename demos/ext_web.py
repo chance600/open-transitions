@@ -3,7 +3,8 @@ open-transitions — demo specs for the web-mined domain module
 (FRAMEWORK.md §7).
 
 Registers demos for engine/web_techniques.py (WEB-01..WEB-18, mined
-2026-10-21; WEB-19..WEB-21 added Phase 23, 2026-10-22). Merged
+2026-10-21; WEB-19..WEB-21 added Phase 23, 2026-10-22; WEB-34..WEB-38
+added Phase 28, 2026-10-25, short-form technique-term mining). Merged
 automatically by demos/make_demos.py
 (load_ext_specs). All material is the suite's synthesized sketch audio
 (ctx tracks) — no copyrighted audio.
@@ -214,6 +215,66 @@ def demo_specs(ctx):
     # the insert point, bar 8.
     specs["drop_insert"] = (
         lambda: web.drop_insert(bars(A, 16), bars(B, 8), SR, BAR_S),
+        lambda m: 8 * BAR_S,
+        None,
+    )
+
+    # WEB-34 stepped_element_tease: B's HF layer ladders
+    # 25/50/75/100% over 4 beats each (4 bars); at the ladder's
+    # end B takes over full from bar 4 onward. Handoff = bar 4.
+    specs["stepped_element_tease"] = (
+        lambda: web.stepped_element_tease(
+            bars(A, 8), bars(B, 8), SR, BAR_S),
+        lambda m: 4 * BAR_S,
+        None,
+    )
+
+    # WEB-35 loop_click_bridge: B's 150 ms head slice tiles
+    # back-to-back (a loop cycles continuously) across 4 bars
+    # while A fades out; the loop switches off and B continues
+    # past the slice. Handoff = bar 4.
+    specs["loop_click_bridge"] = (
+        lambda: web.loop_click_bridge(
+            bars(A, 8), bars(B, 8), SR, BAR_S),
+        lambda m: 4 * BAR_S,
+        None,
+    )
+
+    # WEB-36 cue_tap_walk: B's first beat tapped 4x at A's tempo
+    # while A fades, then 4 decelerating taps (x1.2 intervals),
+    # then B plays full from the cue. Handoff = B's entrance at
+    # 4 beats + walk length (6.368 beats) = 10.368 beats.
+    # Allowed silence: the walk's inter-tap gaps — the taps are
+    # discrete restarts, so the gaps between them are the
+    # technique, not a render defect. The tap section itself
+    # (cue tiled back-to-back over the fading A) stays gated.
+    _tap_beats = 4.0
+    _walk_beats = 1.0 + 1.2 + 1.44 + 1.728 + 1.0
+    specs["cue_tap_walk"] = (
+        lambda: web.cue_tap_walk(
+            bars(A, 8), bars(B, 8), SR, BAR_S, BPM),
+        lambda m: (_tap_beats + _walk_beats) * BEAT_S,
+        lambda m: [(_tap_beats * BEAT_S,
+                    (_tap_beats + _walk_beats) * BEAT_S)],
+    )
+
+    # WEB-37 brake_tempo_land: A 8 bars, its last 2 beats brake
+    # 1.0 -> 0.8 (output 2/0.9 beats long); B starts full on the
+    # 1 after the braked window. Handoff = 8 bars + the brake
+    # stretch (2/0.9 - 2 beats).
+    specs["brake_tempo_land"] = (
+        lambda: web.brake_tempo_land(
+            bars(A, 8), bars(B, 8), SR, BPM),
+        lambda m: 8 * BAR_S + (2.0 / 0.9 - 2.0) * BEAT_S,
+        None,
+    )
+
+    # WEB-38 delay_drum_roll: A 8 bars, its last 4 beats carry
+    # the 1/2-beat delay send ramping to 0.6, slammed shut as B
+    # drops full on the beat. Handoff = bar 8.
+    specs["delay_drum_roll"] = (
+        lambda: web.delay_drum_roll(
+            bars(A, 8), bars(B, 8), SR, BAR_S, BPM),
         lambda m: 8 * BAR_S,
         None,
     )

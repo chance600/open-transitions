@@ -3551,3 +3551,165 @@ mirrors, Mixxx developer sources,
 VDJScript) stands unworked; the
 conditional clusters stay parked with
 their gates.
+
+## Phase 28 — 2026-10-25 (continuous crawl, tranche 1: short-form technique-term mining — Class 4B's 16 terms across Class 4A channels, forum remainder at excerpt weight)
+
+First tranche of the continuous crawl
+engine (his 2026-10-25 directive: crawl
+continuously, no more phase gating).
+The ranked queue's item 6. All sources
+free/public, fetched first-hand
+2026-10-25: SampleFocus's advanced
+techniques taxonomy; DJTechTools forums
+("Transitions In a Mix", djproben's
+"need advice in mixing technique");
+Serato forums ("EQing for Blends in Hip
+Hop", "How do you transition from song
+to song?", the genre-gap thread); NI
+Blog's Top 25 DJ Tips; Thomann's "5
+Most Important Transitions";
+DJTechReviews' transitions guide; DJ
+Mag's "Tips & Tricks for DJs";
+SetFlow's EQ transition guide;
+AusDJForums' phrasing-for-noobs
+(DJTechTools phrasing text).
+
+Dedup was the tranche's main work:
+SampleFocus's taxonomy resolves to
+existing wordplay T-011, pitch_play
+T-032, polyrhythmic_loops GAP-04,
+slip_mode_flourish GAP-05,
+same_song_switchup GAP-13; power_down
+T-013 covers the power-off;
+transform_gate_loop PERF-ZAB covers
+transform patterns. Five new bases, all
+in engine/web_techniques.py (functions +
+META + TECHNIQUE_FUNCS + module
+docstring), each with spec doc, demo,
+variants and selection metadata: WEB-34
+`stepped_element_tease` (TIME; the
+djproben ladder — A leaves element by
+element at 25/50/75/100% while B's
+matching elements enter); WEB-35
+`loop_click_bridge` (TIME; the Serato
+grotesque's click — a micro-loop of B
+sliced into a click track that runs as
+a metronome across a tempo gap, then
+resolves into B proper); WEB-36
+`cue_tap_walk` (PERF; mister_wilson's
+hand-walk — decelerating cue taps that
+step the tempo across a gap, replacing
+the pitch fader with the finger);
+WEB-37 `brake_tempo_land` (DYN;
+mister_wilson's counted brake — a
+metered platter brake from A's tempo
+to B's, landed on B's first beat);
+WEB-38 `delay_drum_roll` (SPACE; the
+DJ Mag drum roll — a 1/2-beat delay
+wet-slam that turns B's incoming drums
+into a roll, then slams shut into B
+dry). Knowledge 11: mixing 6 (the
+hip-hop 8-bar chorus blend law,
+EQ-as-sculpture vs fader-as-volume,
+the three-knob blend routine staged,
+the clash-window law at 8 bars, the
+beatless-break cross-BPM law, the +2
+energy-boost law with its caution —
+banked as law, NOT an engine change,
+since MIK's +2 carries a clash
+caution); setcraft 1 (respect the
+chorus); workflows 4 (fader/EQ
+turn-taking, fresh-ear mix review,
+manual echo and the scratch-echo exit,
+upfader + crossfader combo with Fader
+Start vocal cuts). Registry 100 → 105,
+variants 888 → 934 (+46: stepped 3,
+loop_click 13, cue_tap 13, brake_tempo
+10, delay_roll 7), bases with variants
+72 → 77, knowledge 165 → 176, demos
+126 → 131. VARIANTS.md regenerated
+with its embedded generator;
+TECHNIQUES.md Phase 28 section
+appended; the V2 map's queue item 6 is
+marked DONE.
+
+Validation, all green on final code:
+full demo suite 131/131 clean
+(silence, headroom, render checks; 0
+failing verification entries; all five
+new demos verified); variant smoke
+46/46 through render_variant (ctx
+bar_s + bpm); meta-defaults ==
+function defaults for all five new
+bases; selection probes rank all five
+new bases in their home pairs with
+every own prefers reason firing
+(outro-ladder, leap-click, leap-taps,
+brake-gap, build-roll). One demo fix
+in-run: loop_click_bridge's first pass
+failed on silence gaps because
+once-per-beat tiles leave troughs once
+A fades below −60 dBFS — fixed by
+re-rendering the click as back-to-back
+tiling (a loop cycles continuously, so
+the train never gaps), with a
+documented sketch caveat (the demo
+proves the loop-as-metronome
+structure, not the beat-match —
+matching is the DJ's slice choice,
+caller context, cf. WEB-32's fixed-BPM
+caveat). A pre-compaction full-suite
+run's result was lost to a session
+reset (verification.json left holding
+only the loop_click --only entry); the
+suite was re-run in full and its
+131/131 result verified from the
+regenerated verification.json — the
+file on disk now is the full-suite
+output, not the --only leftover.
+
+Caveats, stated plainly: (1) Nothing
+in this tranche was heard: the five
+bases are validated by the battery and
+selection probes, not by ears — the
+sketch demos prove shape, not feel,
+and the first real-track staging of
+each remains the test that counts.
+(2) The forum remainder is
+excerpt-weight by design: forum posts
+are testimony, not method, and every
+base above leans on at least one
+corroborating thread or guide, never
+a single poster's say-so. (3) The
+loop_click_bridge demo's beat-match
+is caller context, not demonstrated.
+
+WHITE SPACE: echo_tempo_lift — the
+3/4-beat echo tempo lift from the same
+Serato thread — was named as a
+candidate during this tranche and
+deliberately NOT landed (it needs a
+tempo-measurement staging the sketch
+pipeline cannot yet prove; it is the
+next tick's first candidate, not this
+tranche's sixth base). Beyond it: the
+TikTok wall (short-form video terms
+unmined — no transcript-grade source
+yet), the RA wall (Resident Advisor
+technique writing sits behind
+login/paywall surfaces), Instagram
+Reels / Quora / Discord (live-browser
+gaps, not text-fetchable), and the
+Class 5 tranche B remainder (MODEL 1,
+Xone:92/PX5, Mixxx developer sources,
+VDJScript) still unworked after item
+7. Queue as left: item 7 (academic
+pass, carrying Phase 25's early
+partial delivery) tops the queue;
+then Class 5 tranche B remainder;
+then the conditional clusters parked
+with their gates. The crawl engine
+owns TECHNIQUE bases/variants/
+knowledge only; the separate
+style-study agent owns artist
+profiles — interface, not duplication.

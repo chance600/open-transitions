@@ -202,3 +202,33 @@ Provenance: DJ Gym, "The Ultimate Guide to Multi-Deck Mixing," fetched first-han
 
 Techno's multi-deck heat has a ceiling, and the veterans name it. Sharpe (via Pioneer DJ's guide): the craft is balance — "not overcooked." DJ Gym states the same doctrine as a positive law: "the art of multi-deck mixing isn't about filling every frequency slot — it's about orchestration." The failure mode is additive: each added layer feels small on its own deck and the stack arrives muddy, loud, and flat. The corrective is subtractive — mute, carve, or drop a layer before adding the next — and the test is the room, not the meters: if the stack's energy stopped rising when the last layer arrived, that layer was overcooking, not orchestration.
 Provenance: Pioneer DJ blog, "A complete guide to multi-deck mixing" (Sharpe) + DJ Gym, "The Ultimate Guide to Multi-Deck Mixing," fetched first-hand 2026-10-24. (Phase 27.)
+
+### The hip-hop 8-bar chorus blend law (Serato forum)
+
+Hip-hop's blend window is one 8-bar chorus, not a house-length runway — and the law follows from the window. The incoming track drops its bass only (not its highs, not its mids) and raises it with the crossfader as A leaves; the full-chorus blend exits by straight cut or spinback, never by a long tail, because there is no long tail to spend. A hip-hop blend that borrows house timing — 32 bars of overlap, gradual everything — runs past the chorus into the next verse with two vocals stacked, which is the genre's characteristic failure. The window is the technique: short, bass-gated, exited decisively.
+Provenance: Serato forum, "EQing for Blends in Hip Hop" + "How do you transition from song to song?" (full-chorus blend, spinback exit), fetched first-hand 2026-10-25. (Phase 28.)
+
+### EQ-as-sculpture vs fader-as-volume (DJTechTools forum, djproben)
+
+EQs fit sounds together; faders manage loudness — and confusing the two jobs is the beginner's blend defect. The doctrine, stated exactly: use gains to level-match tracks recorded at different levels, EQs to keep sounds from clashing, and volume faders to bring a track in (e.g. highs first, fader to 100% over 4 bars, then bass and mids over 4–8 bars). The extreme form is legitimate: both tracks at 100% on the faders, the whole transition ridden on gains and EQs alone. A blend that rides loudness on the EQs (turning knobs to get louder) or sculpts on the faders (fading to fix a clash) has the jobs backwards, and no amount of practice fixes a backwards job assignment.
+Provenance: DJTechTools forum, djproben, "need advice in mixing technique," fetched first-hand 2026-10-25. (Phase 28.)
+
+### The three-knob blend routine, staged (SetFlow)
+
+The house/techno blend has a canonical knob order, and the order is the routine: lows — one bass at a time, swapped in one move on a phrase as the outgoing track winds down; highs — incoming highs start down and open gradually, fully open BY the bass swap, so two hi-hat patterns never fizz together and the incoming hats never give the game away early; mids — outgoing mids ease back over the first half of the blend, making room for the new track's chords and vocals. Moves stay gradual (a slow turn over the first half sounds like the music changing; a sudden one sounds like a knob). Cuts are the exception — a cut drops on the beat at full volume with nothing to EQ — and so are clash blends: key clashes and two vocals on top of each other cap the blend at 8 bars.
+Provenance: SetFlow, "How to EQ a DJ Transition," fetched first-hand 2026-10-25. (Phase 28.)
+
+### The clash-window law: 8 bars maximum (SetFlow + Serato)
+
+A blend that clashes — wrong key, two vocals — does not get fixed by length; it gets capped by it. SetFlow's Mix view caps clash blends at 8 bars, and the Serato hip-hop threads converge on the same number from the other side (one 8-bar chorus). The law generalizes: overlap duration is a function of compatibility, not ambition. Compatible pairs earn long blends; clashing pairs earn short ones, and a long clash blend is not a braver blend — it is a longer announcement of the clash.
+Provenance: SetFlow, "How to EQ a DJ Transition" (8-bar clash cap) + Serato forum hip-hop threads, fetched first-hand 2026-10-25. (Phase 28.)
+
+### The beatless-break cross-BPM law (Thomann)
+
+Tracks at irreconcilable tempos still mix — at their beatless sections. Thomann's law: if beatmatching is impossible (different tempos, imprecise sync), pick a section without a beat in at least one track; beatless breaks mix together cleanly even at completely different BPMs, and the new track must continue with a strong groove after the transition so the previous track's absence reads as arrival, not dropout. The law is the low-tech counterpart to WEB-32's bed: where the bed covers a jump with a third element, the beatless break covers it with nothing — the absence of rhythm is itself the bridge.
+Provenance: Thomann blog, "The 5 most important DJ transitions" (Fading), fetched first-hand 2026-10-25. (Phase 28.)
+
+### The +2 energy-boost law, with its caution (DJ Mag + Mixed In Key)
+
+Jump two places on the Camelot wheel for a transpose effect that is "jarring to the dance floor but when done correctly has an uplifting effect" (DJ Mag) — and the caution travels with it (MIK, already in T-015's evidence): a +2 "may clash in long overlap," so the DJ keeps a smoother alternative ready. Banked here as a law, not an engine move (unlike Phase 27's +7/+9, which shipped as a harmonic_mix extension): the +2 is a staged event with a short-overlap requirement, and the overlap-duration law above is what enforces it. A +2 held long is not a bolder boost; it is the caution, ignored.
+Provenance: DJ Mag, "Tips & Tricks for DJs" (+2 jump) + Mixed In Key wiki (already in T-015 evidence), fetched first-hand 2026-10-25. (Phase 28.)

@@ -2,10 +2,11 @@
 open-transitions engine — web-mined techniques (domain module,
 FRAMEWORK.md §7).
 
-Eighteen techniques mined from DJ literature outside the bank
+Twenty-six techniques mined from DJ literature outside the bank
 (2026-10-21 tranches; banked as WEB-01..WEB-18 in
-technique-bank/TECHNIQUES.md with full provenance). Each function
-takes numpy mono float64 audio + sr and returns mono float64.
+technique-bank/TECHNIQUES.md with full provenance, plus WEB-19..21
+Phase 23 and WEB-34..38 Phase 28). Each function takes numpy mono
+float64 audio + sr and returns mono float64.
 Docstrings are the spec source; techniques/<name>.md mirrors them.
 
   WEB-01 spiral_echo     feedback delay whose repeats pitch-shift
@@ -53,10 +54,27 @@ Docstrings are the spec source; techniques/<name>.md mirrors them.
   WEB-21 drop_insert     B's drop substitutes for A's for 1-4 bars
                          at the drop downbeat, then A's drop resumes
                          (the guest bar; dubstep switch, shortest form)
+  WEB-34 stepped_element_tease  one B element teased in at
+                         25/50/75/100% over 4 beats each, then the
+                         bassline swaps and A pulls at B's drop
+  WEB-35 loop_click_bridge  a micro-loop of B's non-drum intro
+                         tiled as a click track on A's grid; A
+                         fades, the loop switches off, B plays on
+  WEB-36 cue_tap_walk    B's cue tapped to A's beat, then the taps
+                         decelerate to B's tempo and B plays
+                         from the cue
+  WEB-37 brake_tempo_land  A brakes to B's tempo over a counted
+                         beat span; B starts on the 1
+  WEB-38 delay_drum_roll  a 1/2-beat delay send opens briefly to
+                         fake a drum roll, then slams shut as B
+                         drops
 
-All twenty-one are two-track renderers, exported via TECHNIQUE_FUNCS.
+All twenty-six are two-track renderers, exported via TECHNIQUE_FUNCS.
 WEB-19..21 were mined in Phase 23 (genre traditions tranche A) from
 fetched DnB/dubstep texts — see technique-bank/TECHNIQUES.md.
+WEB-34..38 were mined in Phase 28 (short-form technique-term
+mining, the continuous crawl engine's first tranche) from fetched
+forum/community texts — see technique-bank/TECHNIQUES.md.
 """
 
 import numpy as np
@@ -2101,6 +2119,325 @@ def drop_insert(a, b, sr, bar_s, insert_bars=1, drop_bar=8):
 
 
 # ----------------------------------------------------------------------------
+# WEB-34 — Stepped Element Tease (DJTechTools forum, djproben)
+# ----------------------------------------------------------------------------
+
+def _onepole_lowpass(x, alpha=0.05):
+    """First-order lowpass; hf = x - lp(x) is the top layer."""
+    y = np.zeros_like(x, dtype=np.float64)
+    acc = float(x[0]) if len(x) else 0.0
+    for i, v in enumerate(x):
+        acc = acc + alpha * (float(v) - acc)
+        y[i] = acc
+    return y
+
+
+def stepped_element_tease(a, b, sr, bar_s, step_beats=4):
+    """One B element teased in at 25/50/75/100% over 4 beats each,
+    then the bassline swaps and A pulls at B's drop.
+
+    DJTechTools forum (djproben, 'need advice in mixing technique'):
+    "bring one sound in at a time — use the volume faders up and
+    down on beat to add just the hi hat, or a vocal sample, from
+    track B, bit by bit — four beats at 25% volume, four beats at
+    50% volume, four beats at 75% volume, then four at 100%, then
+    leave the volume up as you swap the basslines in and pull the
+    volume on track A right at the drop on track B."
+
+    Rendered: B's top layer (one-pole highpass, the hats/vocal
+    top the source teases) enters over A at the stepped gains,
+    one step per `step_beats` beats; at the ladder's end B — which
+    has been running underneath — takes over full from that bar
+    onward (the bassline swap + A pull at the drop). The ladder,
+    not a continuous fade, is the technique: each step is a
+    discrete, audible commitment the crowd can track.
+
+    Why it is not its neighbours: not T-003 `filter_sweep` (a
+    continuous filter motion, no stepped ladder, no bass-swap
+    payoff); not T-002 `bass_swap` (the swap alone, without the
+    stepped tease that earns it); not T-022 `drum_bridge` (a
+    drums-only bridge, not a single-element gain ladder).
+
+    Parameters
+    ----------
+    a : outgoing audio. b : incoming audio (running underneath
+        from its start; continues full from the ladder's end).
+    sr : sample rate (Hz). bar_s : seconds per bar.
+    step_beats : beats per ladder step (default 4, the source's).
+
+    Returns a mono float64 mix of len(b) samples.
+    """
+    beat_n = max(1, int(round(bar_s * sr / 4)))
+    step_n = step_beats * beat_n
+    window = step_n * 4
+    a_win = np.asarray(a, dtype=np.float64)[:window]
+    if len(a_win) < window:
+        a_win = np.pad(a_win, (0, window - len(a_win)))
+    b_seg = np.asarray(b, dtype=np.float64)[:window]
+    if len(b_seg) < window:
+        b_seg = np.pad(b_seg, (0, window - len(b_seg)))
+    hf = b_seg - _onepole_lowpass(b_seg)
+    env = np.repeat(np.array([0.25, 0.5, 0.75, 1.0]), step_n)
+    win = a_win + hf * env * 0.9
+    tail = np.asarray(b, dtype=np.float64)[window:]
+    return _seam_concat(win, tail, sr)
+
+
+# ----------------------------------------------------------------------------
+# WEB-35 — Loop Click Bridge (Serato forum, grotesque)
+# ----------------------------------------------------------------------------
+
+def loop_click_bridge(a, b, sr, bar_s, click_ms=150, click_bars=4):
+    """A micro-loop of B's non-drum intro becomes a click track
+    matched to A's grid; A fades out, the loop switches off, B
+    plays on.
+
+    Serato forum (grotesque, 'transition between genres / huge
+    tempo gaps'): "get a track that doesn't start with drums, put
+    a tiny loop on the sound at the start, then when you play the
+    loop it should be like a click track. match the clicking to
+    the track that's playing, fade out the old track then turn
+    the loop off."
+
+    Rendered: B's head slice (`click_ms`) tiles back-to-back
+    across `click_bars` bars — a loop cycles continuously, so
+    the click train never gaps — while A fades out on a cosine
+    ramp; at the window end the loop switches off and B
+    continues from just past the clicked slice (the loop was
+    cycling B's own head, so releasing it lets the intro play
+    on — the clicked fragment is not replayed). The click is a
+    metronome, not a loop effect: it carries no groove of its
+    own, which is why it bridges tempos the beat grids cannot.
+    Sketch caveat, stated not hidden: the sketch proves the
+    loop-as-metronome structure, not the beat-match — matching
+    the clicking to the playing track is the DJ's slice choice,
+    caller context (cf. WEB-32's fixed-BPM caveat).
+
+    Why it is not its neighbours: not T-008 `loop_roll_build`
+    (a loop that builds tension toward a drop — here the loop
+    is a timing utility, then discarded); not WEB-32
+    `bed_tempo_switch` (a beatless bed covers the jump — here
+    a rhythmic click grids it); not T-020-style glue loops
+    (the click never becomes musical material).
+
+    Parameters
+    ----------
+    a : outgoing audio. b : incoming audio (its head slice is
+        the click source).
+    sr : sample rate (Hz). bar_s : seconds per bar.
+    click_ms : head-slice length in ms (default 150).
+    click_bars : click-track window in bars (default 4).
+
+    Returns a mono float64 mix (window + B from past the slice).
+    """
+    beat_n = max(1, int(round(bar_s * sr / 4)))
+    click_n = max(1, int(round(click_ms / 1000.0 * sr)))
+    window = click_bars * 4 * beat_n
+    a_win = np.asarray(a, dtype=np.float64)[:window]
+    if len(a_win) < window:
+        a_win = np.pad(a_win, (0, window - len(a_win)))
+    click = np.asarray(b, dtype=np.float64)[:click_n]
+    track = np.tile(click, window // click_n + 1)[:window]
+    ramp = 0.5 + 0.5 * np.cos(np.pi * np.linspace(0, 1, window))
+    win = a_win * ramp + track * 0.9
+    tail = np.asarray(b, dtype=np.float64)[click_n:]
+    return _seam_concat(win, tail, sr)
+
+
+# ----------------------------------------------------------------------------
+# WEB-36 — Cue Tap Walk (Serato forum, mister_wilson / kacy)
+# ----------------------------------------------------------------------------
+
+def cue_tap_walk(a, b, sr, bar_s, bpm, taps=4, walk_beats=4):
+    """B's cue tapped to A's beat, then the taps decelerate to
+    B's tempo and B plays from the cue.
+
+    Serato forum (mister_wilson, 'transition between genres /
+    huge tempo gaps', trick 1, slow-to-slower): "set a cue point
+    in the slow track... maybe just a kick drum or a more
+    recognizable part of the track intro. When ready to
+    transition I simply tap the cue button on the second track
+    to the beat of the first track and bring up the volume of
+    the second track. I can then cut the first track and start
+    slowly hitting the cue button at a slower tempo until I
+    roughly match the tempo of the second track."
+
+    Rendered: B's first beat (the cue) sounds `taps` times at
+    A's beat grid while A fades out; then `walk_beats` further
+    cue taps arrive at stretching intervals (×1.2 per tap in
+    the sketch — the real stretch ratio is caller context, the
+    sketch proves the tap-deceleration shape, cf. WEB-32's
+    fixed-BPM caveat); then B plays full from the cue. Each tap
+    restarts the cue — the playhead never advances past it
+    until the walk ends, which is the whole mechanism.
+
+    Why it is not its neighbours: not T-030 `hard_cut` (the cut
+    alone has no tempo negotiation — the taps ARE the
+    negotiation); not WEB-35 `loop_click_bridge` (a loop cycles
+    freely — taps are discrete, hand-triggered restarts);
+    not T-008 `loop_roll_build` (a roll builds — taps walk).
+
+    Parameters
+    ----------
+    a : outgoing audio. b : incoming audio (its first beat is
+        the cue).
+    sr : sample rate (Hz). bar_s : seconds per bar.
+    bpm : A's tempo (beats/min) — the tap grid.
+    taps : cue taps at A's tempo (default 4).
+    walk_beats : decelerating cue taps (default 4).
+
+    Returns a mono float64 mix (taps + walk + B full).
+    """
+    beat_n = max(1, int(round(60.0 / bpm * sr)))
+    cue = np.asarray(b, dtype=np.float64)[:beat_n]
+    a_win = np.asarray(a, dtype=np.float64)
+    tap_sec = np.tile(cue, taps)
+    # Walk: cue plays separated by stretching gaps; onsets at
+    # cumulative intervals beat * 1.2^k.
+    intervals = [beat_n * (1.2 ** k) for k in range(walk_beats)]
+    walk_len = int(sum(intervals)) + beat_n
+    walk = np.zeros(walk_len, dtype=np.float64)
+    pos = 0
+    for iv in intervals:
+        walk[pos:pos + beat_n] += cue
+        pos += int(iv)
+    walk[pos:pos + beat_n] += cue
+    fade_n = min(len(a_win), len(tap_sec))
+    ramp = 0.5 + 0.5 * np.cos(np.pi * np.linspace(0, 1, fade_n))
+    head = np.zeros(len(tap_sec), dtype=np.float64)
+    head[:fade_n] = a_win[:fade_n] * ramp
+    head += tap_sec * 0.9
+    return _seam_concat(np.concatenate([head, walk]),
+                        np.asarray(b, dtype=np.float64), sr)
+
+
+# ----------------------------------------------------------------------------
+# WEB-37 — Brake Tempo Land (Serato forum, mister_wilson / kacy)
+# ----------------------------------------------------------------------------
+
+def brake_tempo_land(a, b, sr, bpm, land_beats=2, target_ratio=0.8):
+    """A brakes from its tempo to B's tempo over N beats; B
+    starts on the 1.
+
+    Serato forum (mister_wilson, trick 2): "set the braking
+    speed such that the fast track will slow from its tempo to
+    roughly the tempo of the next track in two beats (or four
+    beats for more drama). Start braking the track an eighth
+    note after the two beat (or an eighth note after the four
+    beat for the more dramatic method). Start the slower track
+    on the 1."
+
+    Rendered: A's last `land_beats` beats play back with a
+    linearly falling rate (1.0 -> `target_ratio`, turntable
+    physics: pitch and time slow together) via resampling; the
+    eighth-note start offset is absorbed into the window edge
+    (performance detail, inaudible at sketch scale); B starts
+    full on the 1 after the braked window. The brake lands ON
+    a tempo, not on silence — that is the whole difference
+    from a stop.
+
+    Why it is not its neighbours: not T-011-adjacent
+    `brake_stop` (brakes to zero — a stop, not a landing);
+    not T-013 `power_down` (a manual drag to zero, longer and
+    unmetered — here the brake is metered to a target tempo
+    over a counted beat span); not WEB-32 `bed_tempo_switch`
+    (a bed covers the jump — here the outgoing track itself
+    becomes the new tempo).
+
+    Parameters
+    ----------
+    a : outgoing audio (its last `land_beats` beats brake).
+    b : incoming audio (starts full on the 1).
+    sr : sample rate (Hz). bpm : A's tempo (beats/min).
+    land_beats : brake span in beats (default 2; 4 = dramatic).
+    target_ratio : end rate as a fraction of A's rate
+        (default 0.8).
+
+    Returns a mono float64 mix (A + braked window + B full).
+    """
+    beat_n = max(1, int(round(60.0 / bpm * sr)))
+    window = land_beats * beat_n
+    a = np.asarray(a, dtype=np.float64)
+    if window >= len(a):
+        pre, win = np.zeros(0), a
+    else:
+        pre, win = a[:-window], a[-window:]
+    mean_rate = (1.0 + target_ratio) / 2.0
+    n_out = max(1, int(round(len(win) / mean_rate)))
+    rates = np.linspace(1.0, target_ratio, n_out)
+    pos = np.cumsum(rates)
+    pos = pos - pos[0]
+    pos = np.clip(pos, 0, len(win) - 1)
+    braked = np.interp(pos, np.arange(len(win), dtype=np.float64),
+                       win)
+    return _seam_concat(np.concatenate([pre, braked]),
+                        np.asarray(b, dtype=np.float64), sr)
+
+
+# ----------------------------------------------------------------------------
+# WEB-38 — Delay Drum Roll (DJ Mag, Tips & Tricks for DJs)
+# ----------------------------------------------------------------------------
+
+def delay_drum_roll(a, b, sr, bar_s, bpm, roll_beats=4,
+                    delay_beats=0.5):
+    """A 1/2-beat delay send opens briefly to fake a drum roll,
+    then slams shut as B drops.
+
+    DJ Mag (Tips & Tricks, 'Create drama with delay'): "set the
+    delay time to 1/2 and engage the effect with the dry/wet
+    control completely closed. As you approach the end of the
+    phrase... quickly twist the dry/wet to around 11am — leave
+    it open for 2–4 beats and then slam the rotary back to the
+    left as the beat drops back in."
+
+    Rendered: A's last `roll_beats` beats carry a feedback
+    delay (division `delay_beats`, feedback 0.45) whose wet
+    level ramps 0 -> 0.6 over the roll, then cuts to zero at
+    the handoff while B drops full on the beat. The roll is an
+    illusion — no loop, no new rhythm, just the delay line
+    doubling the existing groove into density — and the slam
+    shut is part of the technique: a roll that bleeds into B
+    is a wash, not a roll.
+
+    Why it is not its neighbours: not T-004 `echo_out` (the
+    tail covers B's entrance — here the delay is cut BEFORE
+    B, and B drops dry); not WEB-31 `echo_out_reset` (a tail
+    standing alone to reset the metronome — here the delay
+    builds density into a drop, same tempo); not T-008
+    `loop_roll_build` (a loop roll, not a delay illusion).
+
+    Parameters
+    ----------
+    a : outgoing audio (its last `roll_beats` beats roll).
+    b : incoming audio (drops full on the beat).
+    sr : sample rate (Hz). bar_s : seconds per bar.
+    bpm : tempo (beats/min) — the delay grid.
+    roll_beats : roll span in beats (default 4; 2 = short).
+    delay_beats : delay division in beats (default 0.5).
+
+    Returns a mono float64 mix (A + roll + B full).
+    """
+    beat_n = max(1, int(round(60.0 / bpm * sr)))
+    d = max(1, int(round(delay_beats * beat_n)))
+    a = np.asarray(a, dtype=np.float64)
+    roll_n = roll_beats * beat_n
+    start = max(0, len(a) - roll_n)
+    y = a.copy()
+    wet = np.zeros(len(a), dtype=np.float64)
+    ramp = 0.6 * (0.5 - 0.5 * np.cos(np.pi * np.linspace(
+        0, 1, len(a) - start))) if len(a) > start else np.zeros(0)
+    wet[start:] = ramp
+    for k in range(1, 5):
+        shift = k * d
+        if shift >= len(a):
+            break
+        src = np.zeros(len(a), dtype=np.float64)
+        src[shift:] = a[:-shift]
+        y = y + wet * (0.45 ** k) * src
+    return _seam_concat(y, np.asarray(b, dtype=np.float64), sr)
+
+
+# ----------------------------------------------------------------------------
 # Metadata registry (FRAMEWORK.md §3) — merged by engine/meta.py
 # ----------------------------------------------------------------------------
 
@@ -3237,6 +3574,197 @@ META = {
         ],
         "composed_of": [],
     },
+    "stepped_element_tease": {
+        "title": "Stepped Element Tease (25/50/75/100% Ladder)",
+        "bank": "WEB-34", "family": "TIME", "kind": "render",
+        "verdict": "ADOPT", "confidence": "medium",
+        "requires": {"bpm_delta_pct_max": 10.0, "camelot_max": None,
+                     "vocal_ok": ["b_only", "neither"],
+                     "phrase_a_ok": ["outro", "breakdown", "verse",
+                                     "chorus"],
+                     "genre_pair_ok": ["same", "neighbor"],
+                     "needs": []},
+        "prefers": [
+            {"when": "phrase_a==outro", "weight": 2,
+             "reason": "the ladder earns the drop it precedes — an "
+                       "outro gives it room without fighting a "
+                       "vocal"},
+        ],
+        "energy": {"delta": 1, "tension": "rising"},
+        "exit": "snap", "clash_risk": "none",
+        "params": {
+            "step_beats": {"type": "int", "range": [1, 8],
+                           "default": 4, "unit": "beats",
+                           "presets": {"tight": 2, "standard": 4,
+                                       "long": 8}},
+        },
+        "evidence": [
+            {"type": "forum",
+             "ref": "DJTechTools forum, djproben — 'bring one sound in "
+                    "at a time... four beats at 25% volume, four beats "
+                    "at 50% volume, four beats at 75% volume, then four "
+                    "at 100%, then leave the volume up as you swap the "
+                    "basslines in and pull the volume on track A right "
+                    "at the drop on track B'",
+             "url": "https://forum.djtechtools.com/t/need-advice-in-mixing-technique/54216/8",
+             "date": "2026-10-25"},
+        ],
+        "composed_of": [],
+    },
+    "loop_click_bridge": {
+        "title": "Loop Click Bridge (Micro-Loop Metronome)",
+        "bank": "WEB-35", "family": "TIME", "kind": "render",
+        "verdict": "ADOPT", "confidence": "medium",
+        "requires": {"bpm_delta_pct_max": None, "camelot_max": None,
+                     "vocal_ok": ["a_only", "b_only", "both", "neither"],
+                     "phrase_a_ok": ["outro", "verse", "chorus"],
+                     "genre_pair_ok": ["same", "neighbor", "leap"],
+                     "needs": []},
+        "prefers": [
+            {"when": "genre_pair==leap", "weight": 2,
+             "reason": "the click exists for tempo gaps the grids "
+                       "cannot negotiate — a leap is its home"},
+        ],
+        "energy": {"delta": 0, "tension": "flat"},
+        "exit": "snap", "clash_risk": "none",
+        "params": {
+            "click_ms": {"type": "int", "range": [50, 500],
+                         "default": 150, "unit": "ms",
+                         "presets": {"short": 100, "standard": 150,
+                                     "long": 250}},
+            "click_bars": {"type": "int", "range": [1, 8],
+                           "default": 4, "unit": "bars",
+                           "presets": {"tight": 2, "standard": 4,
+                                       "long": 8}},
+        },
+        "evidence": [
+            {"type": "forum",
+             "ref": "Serato forum, grotesque — 'get a track that "
+                    "doesn't start with drums, put a tiny loop on the "
+                    "sound at the start, then when you play the loop it "
+                    "should be like a click track. match the clicking "
+                    "to the track that's playing, fade out the old "
+                    "track then turn the loop off'",
+             "url": "https://serato.com/forum/discussion/28193",
+             "date": "2026-10-25"},
+        ],
+        "composed_of": [],
+    },
+    "cue_tap_walk": {
+        "title": "Cue Tap Walk (Decelerating Cue Taps)",
+        "bank": "WEB-36", "family": "PERF", "kind": "render",
+        "verdict": "ADOPT", "confidence": "medium",
+        "requires": {"bpm_delta_pct_max": None, "camelot_max": None,
+                     "vocal_ok": ["a_only", "b_only", "both", "neither"],
+                     "phrase_a_ok": ["outro", "chorus"],
+                     "genre_pair_ok": ["same", "neighbor", "leap"],
+                     "needs": []},
+        "prefers": [
+            {"when": "genre_pair==leap", "weight": 2,
+             "reason": "hand-walked tempo negotiation — the taps "
+                       "replace the pitch fader across a gap"},
+        ],
+        "energy": {"delta": 0, "tension": "rising"},
+        "exit": "snap", "clash_risk": "none",
+        "params": {
+            "taps": {"type": "int", "range": [1, 8],
+                     "default": 4, "unit": "taps",
+                     "presets": {"double": 2, "standard": 4,
+                                 "long": 8}},
+            "walk_beats": {"type": "int", "range": [1, 8],
+                           "default": 4, "unit": "taps",
+                           "presets": {"quick": 2, "standard": 4,
+                                       "long": 8}},
+        },
+        "evidence": [
+            {"type": "forum",
+             "ref": "Serato forum, mister_wilson — 'simply tap the cue "
+                    "button on the second track to the beat of the "
+                    "first track... then cut the first track and start "
+                    "slowly hitting the cue button at a slower tempo "
+                    "until I roughly match the tempo of the second "
+                    "track'",
+             "url": "https://serato.com/forum/discussion/28193",
+             "date": "2026-10-25"},
+        ],
+        "composed_of": [],
+    },
+    "brake_tempo_land": {
+        "title": "Brake Tempo Land (Metered Brake to Target Tempo)",
+        "bank": "WEB-37", "family": "DYN", "kind": "render",
+        "verdict": "ADOPT", "confidence": "medium",
+        "requires": {"bpm_delta_pct_max": None, "camelot_max": None,
+                     "vocal_ok": ["a_only", "b_only", "both", "neither"],
+                     "phrase_a_ok": ["outro", "chorus", "verse"],
+                     "genre_pair_ok": ["same", "neighbor", "leap"],
+                     "needs": []},
+        "prefers": [
+            {"when": "bpm_delta_pct>=5", "weight": 2,
+             "reason": "the brake IS the tempo move — a small gap "
+                       "wastes a counted brake"},
+        ],
+        "energy": {"delta": 0, "tension": "falling"},
+        "exit": "snap", "clash_risk": "none",
+        "params": {
+            "land_beats": {"type": "int", "range": [1, 8],
+                           "default": 2, "unit": "beats",
+                           "presets": {"quick": 2, "dramatic": 4}},
+            "target_ratio": {"type": "float", "range": [0.5, 0.95],
+                             "default": 0.8, "unit": "ratio",
+                             "presets": {"gentle": 0.9, "standard": 0.8,
+                                         "deep": 0.7}},
+        },
+        "evidence": [
+            {"type": "forum",
+             "ref": "Serato forum, mister_wilson — 'set the braking "
+                    "speed such that the fast track will slow from its "
+                    "tempo to roughly the tempo of the next track in "
+                    "two beats (or four beats for more drama)... Start "
+                    "the slower track on the 1'",
+             "url": "https://serato.com/forum/discussion/28193",
+             "date": "2026-10-25"},
+        ],
+        "composed_of": [],
+    },
+    "delay_drum_roll": {
+        "title": "Delay Drum Roll (Wet-Slam Roll Illusion)",
+        "bank": "WEB-38", "family": "SPACE", "kind": "render",
+        "verdict": "ADOPT", "confidence": "medium",
+        "requires": {"bpm_delta_pct_max": 10.0, "camelot_max": None,
+                     "vocal_ok": ["a_only", "b_only", "both", "neither"],
+                     "phrase_a_ok": ["build", "chorus", "outro"],
+                     "genre_pair_ok": ["same", "neighbor"],
+                     "needs": []},
+        "prefers": [
+            {"when": "phrase_a==build", "weight": 2,
+             "reason": "the roll is drama before a drop — a build "
+                       "is its home phrase"},
+            {"when": "energy_delta>=1", "weight": 1,
+             "reason": "the slam shut pays off into a bigger B"},
+        ],
+        "energy": {"delta": 1, "tension": "rising"},
+        "exit": "snap", "clash_risk": "none",
+        "params": {
+            "roll_beats": {"type": "int", "range": [1, 8],
+                           "default": 4, "unit": "beats",
+                           "presets": {"short": 2, "standard": 4}},
+            "delay_beats": {"type": "float", "range": [0.25, 1.0],
+                            "default": 0.5, "unit": "beats",
+                            "presets": {"quarter": 0.25, "half": 0.5}},
+        },
+        "evidence": [
+            {"type": "tutorial",
+             "ref": "DJ Mag, Tips & Tricks for DJs — 'set the delay "
+                    "time to 1/2 and engage the effect with the dry/wet "
+                    "control completely closed... quickly twist the "
+                    "dry/wet to around 11am — leave it open for 2–4 "
+                    "beats and then slam the rotary back to the left "
+                    "as the beat drops back in'",
+             "url": "https://djmag.com/content/tips-tricks-djs",
+             "date": "2026-10-25"},
+        ],
+        "composed_of": [],
+    },
 }
 
 
@@ -3263,4 +3791,9 @@ TECHNIQUE_FUNCS = {
     "continuous_drop": continuous_drop,
     "drop_chop": drop_chop,
     "drop_insert": drop_insert,
+    "stepped_element_tease": stepped_element_tease,
+    "loop_click_bridge": loop_click_bridge,
+    "cue_tap_walk": cue_tap_walk,
+    "brake_tempo_land": brake_tempo_land,
+    "delay_drum_roll": delay_drum_roll,
 }

@@ -123,3 +123,23 @@ Provenance: Pioneer DJ blog, "A complete guide to multi-deck mixing" (Hawtin, mo
 
 The sampler third deck is prepared, not improvised. Crossfader's workflow: cue-point hook access (the acapella's hooks marked before the set, so the sampler deck fires on time, not on luck), pitch-lock + SYNC as the deck's default state (the acapella rides over changing beds without drifting), and quick-fire chops as the deck's vocabulary (short stabs beneath a constant vocal, GAP-11's staging). The homework half is WhoSampled: before the set, the DJ traces the sample lineage of the tracks in play (which originals the hits share, which acapellas rhyme with which instrumentals), so the sampler deck's pairings are discoveries made at prep time, not guesses made live. A sampler deck without prep is a third deck playing random audio; with prep it is the set's commentary track.
 Provenance: Crossfader, "How To Mix Hip Hop" (sampler third deck, sample pairing, WhoSampled homework), fetched first-hand 2026-10-24. (Phase 27.)
+
+### Fader/EQ turn-taking: two hands, alternating jobs (Serato forum)
+
+With only two hands, a long blend is performed as alternation, not simultaneity: start on the channel faders; once B is discernible, leave the faders and work the EQs (B's bass up, A's down); return to the faders; then to the highs. The workflow is the Serato hip-hop thread's answer to its own question (how to ride a transition with two hands in an 8-bar window), and it generalizes: every long blend is a sequence of single-job moves, and the DJ who tries to move everything at once moves nothing cleanly. The turn-taking is also why the three-knob routine has an order — the order is the schedule the hands can actually keep.
+Provenance: Serato forum, "EQing for Blends in Hip Hop" (quoted technique text), fetched first-hand 2026-10-25. (Phase 28.)
+
+### Fresh-ear mix review: record, wait a week, listen (DJTechTools forum)
+
+A mix always sounds less seamless to its maker than to its listeners — the maker knows exactly when each track arrives and hears every difference as awkward. The corrective is procedural, not technical: record mixes, then listen again a week later after moving on to other tracks, with a fresh ear. The doctrine reframes self-assessment: the first listen measures knowledge of the mix, not quality of the mix, and only the delayed listen measures what the room will hear.
+Provenance: DJTechTools forum, djproben, "need advice in mixing technique," fetched first-hand 2026-10-25. (Phase 28.)
+
+### Manual echo and the scratch-echo exit (Serato forum)
+
+Echo is a hand gesture before it is an effect. The Serato threads document two manual forms: fader echo (volume fader moved up and down quickly to print echoes by hand — "I do manual echoes with the volume fader") and the scratch-echo exit (grab a sound — last snare, a vocal word — scratch it while lowering the fader, so the scratches themselves decay like an echo into the next track). The echo-word exit is the named instance: cut the song, echo a single word ("clue clue clue"), then drop the next track. All three share one law: the echo is performed at the exit, not applied to it — the hand is the effect unit.
+Provenance: Serato forum, "How do you transition from song to song?" (manual echoes, scratch-echo exits, echo-word exit), fetched first-hand 2026-10-25. (Phase 28.)
+
+### Upfader + crossfader combo, and Fader Start vocal cuts (DJ Mag)
+
+Pros use channel faders for control and the crossfader as a weapon, not an either/or. DJ Mag's combo: crossfader curve at the sharpest cut-in setting, left in the central position, channel faders doing the blend at full volume — then a vocal phrase or fill on one channel gets cut sharply to one side and back, with the channel faders unmoved. On Pioneer gear, Fader Start turns the same move into a trigger: the crossfader cuts in vocal snippets or samples, firing the CDJ and leaving the second hand free for effects. The combo's law: the crossfader is a gate for moments, the upfaders are the blend — using one tool for the other's job is what makes transitions feel either mushy or choppy.
+Provenance: DJ Mag, "Tips & Tricks for DJs" (upfader vs crossfader, Fader Start), fetched first-hand 2026-10-25. (Phase 28.)

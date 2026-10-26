@@ -7,7 +7,7 @@ registry lives in `engine/variants.py` and is **generated,
 never hand-listed**: `VARIANTS = build_variants()` enumerates
 `meta.all_meta()` at import time.
 
-**Snapshot: 888 variants across 72 base techniques** (117 variants across 29 core-bank bases; the rest arrive via domain modules, FRAMEWORK.md §7).
+**Snapshot: 934 variants across 77 base techniques** (117 variants across 29 core-bank bases; the rest arrive via domain modules, FRAMEWORK.md §7).
 This file is a snapshot of one generation run — see
 *Regenerating* below.
 
@@ -127,6 +127,21 @@ core base, capped at 40) through the standard demo pipeline.
 | `brake_stop__standard_linear` | stop_beats=1.0, curve='linear' |
 | `brake_stop__standard_s_curve` | stop_beats=1.0, curve='s' |
 
+### brake_tempo_land — Brake Tempo Land (Metered Brake to Target Tempo) (10 variants)
+
+| variant | params |
+|---|---|
+| `brake_tempo_land__deep` | target_ratio=0.7 |
+| `brake_tempo_land__dramatic` | land_beats=4 |
+| `brake_tempo_land__dramatic_deep` | land_beats=4, target_ratio=0.7 |
+| `brake_tempo_land__dramatic_gentle` | land_beats=4, target_ratio=0.9 |
+| `brake_tempo_land__dramatic_standard` | land_beats=4, target_ratio=0.8 |
+| `brake_tempo_land__gentle` | target_ratio=0.9 |
+| `brake_tempo_land__quick` | land_beats=2 |
+| `brake_tempo_land__quick_deep` | land_beats=2, target_ratio=0.7 |
+| `brake_tempo_land__quick_gentle` | land_beats=2, target_ratio=0.9 |
+| `brake_tempo_land__quick_standard` | land_beats=2, target_ratio=0.8 |
+
 ### breakdown_swap — Breakdown Swap (Beat Entry Under Open Space) (2 variants)
 
 | variant | params |
@@ -169,6 +184,24 @@ core base, capped at 40) through the standard demo pipeline.
 | `crush_degrade__long` | bars=8 |
 | `crush_degrade__short` | bars=2 |
 
+### cue_tap_walk — Cue Tap Walk (Decelerating Cue Taps) (13 variants)
+
+| variant | params |
+|---|---|
+| `cue_tap_walk__double` | taps=2 |
+| `cue_tap_walk__double_long` | taps=2, walk_beats=8 |
+| `cue_tap_walk__double_quick` | taps=2, walk_beats=2 |
+| `cue_tap_walk__double_standard` | taps=2, walk_beats=4 |
+| `cue_tap_walk__long` | taps=8 |
+| `cue_tap_walk__long_long` | taps=8, walk_beats=8 |
+| `cue_tap_walk__long_quick` | taps=8, walk_beats=2 |
+| `cue_tap_walk__long_standard` | taps=8, walk_beats=4 |
+| `cue_tap_walk__quick` | walk_beats=2 |
+| `cue_tap_walk__standard` | taps=4 |
+| `cue_tap_walk__standard_long` | taps=4, walk_beats=8 |
+| `cue_tap_walk__standard_quick` | taps=4, walk_beats=2 |
+| `cue_tap_walk__standard_standard` | taps=4, walk_beats=4 |
+
 ### cyclic_speed_dip — Cyclic Speed Dip (Downer) (18 variants)
 
 | variant | params |
@@ -191,6 +224,18 @@ core base, capped at 40) through the standard demo pipeline.
 | `cyclic_speed_dip__two_bar_4bar` | rate_beats=8.0, dip_bars=4 |
 | `cyclic_speed_dip__two_bar_deep` | rate_beats=8.0, depth=0.7 |
 | `cyclic_speed_dip__two_bar_shallow` | rate_beats=8.0, depth=0.25 |
+
+### delay_drum_roll — Delay Drum Roll (Wet-Slam Roll Illusion) (7 variants)
+
+| variant | params |
+|---|---|
+| `delay_drum_roll__quarter` | delay_beats=0.25 |
+| `delay_drum_roll__short` | roll_beats=2 |
+| `delay_drum_roll__short_half` | roll_beats=2, delay_beats=0.5 |
+| `delay_drum_roll__short_quarter` | roll_beats=2, delay_beats=0.25 |
+| `delay_drum_roll__standard` | roll_beats=4 |
+| `delay_drum_roll__standard_half` | roll_beats=4, delay_beats=0.5 |
+| `delay_drum_roll__standard_quarter` | roll_beats=4, delay_beats=0.25 |
 
 ### djfx_microloop — DJFX Microloop (Free-Time Grain Loop) (18 variants)
 
@@ -654,6 +699,24 @@ core base, capped at 40) through the standard demo pipeline.
 |---|---|
 | `layered_fx_stack__4bar` | echo_bars=4 |
 | `layered_fx_stack__8bar` | echo_bars=8 |
+
+### loop_click_bridge — Loop Click Bridge (Micro-Loop Metronome) (13 variants)
+
+| variant | params |
+|---|---|
+| `loop_click_bridge__long` | click_ms=250 |
+| `loop_click_bridge__long_long` | click_ms=250, click_bars=8 |
+| `loop_click_bridge__long_standard` | click_ms=250, click_bars=4 |
+| `loop_click_bridge__long_tight` | click_ms=250, click_bars=2 |
+| `loop_click_bridge__short` | click_ms=100 |
+| `loop_click_bridge__short_long` | click_ms=100, click_bars=8 |
+| `loop_click_bridge__short_standard` | click_ms=100, click_bars=4 |
+| `loop_click_bridge__short_tight` | click_ms=100, click_bars=2 |
+| `loop_click_bridge__standard` | click_ms=150 |
+| `loop_click_bridge__standard_long` | click_ms=150, click_bars=8 |
+| `loop_click_bridge__standard_standard` | click_ms=150, click_bars=4 |
+| `loop_click_bridge__standard_tight` | click_ms=150, click_bars=2 |
+| `loop_click_bridge__tight` | click_bars=2 |
 
 ### loop_juggle_replace — Loop-Juggle Replace (2 variants)
 
@@ -1231,6 +1294,14 @@ core base, capped at 40) through the standard demo pipeline.
 | `stem_swap_replace__4bar` | loop_bars=4 |
 | `stem_swap_replace__4bar_16bar` | loop_bars=4, swap_bars=16 |
 | `stem_swap_replace__4bar_4bar` | loop_bars=4, swap_bars=4 |
+
+### stepped_element_tease — Stepped Element Tease (25/50/75/100% Ladder) (3 variants)
+
+| variant | params |
+|---|---|
+| `stepped_element_tease__long` | step_beats=8 |
+| `stepped_element_tease__standard` | step_beats=4 |
+| `stepped_element_tease__tight` | step_beats=2 |
 
 ### tempo_bridge — Tempo Bridge (BPM Ramp / Half-Double) (3 variants)
 
