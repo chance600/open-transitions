@@ -7,7 +7,7 @@ registry lives in `engine/variants.py` and is **generated,
 never hand-listed**: `VARIANTS = build_variants()` enumerates
 `meta.all_meta()` at import time.
 
-**Snapshot: 986 variants across 82 base techniques** (117 variants across 29 core-bank bases; the rest arrive via domain modules, FRAMEWORK.md §7).
+**Snapshot: 1011 variants across 85 base techniques** (117 variants across 29 core-bank bases; the rest arrive via domain modules, FRAMEWORK.md §7).
 This file is a snapshot of one generation run — see
 *Regenerating* below.
 
@@ -712,6 +712,34 @@ core base, capped at 40) through the standard demo pipeline.
 | `layered_fx_stack__4bar` | echo_bars=4 |
 | `layered_fx_stack__8bar` | echo_bars=8 |
 
+### lfo_filter_sweep — LFO Filter Sweep (Cyclic Filter Modulation) (16 variants)
+
+| variant | params |
+|---|---|
+| `lfo_filter_sweep__deep` | depth_oct=3.0 |
+| `lfo_filter_sweep__fast` | lfo_cycles=8 |
+| `lfo_filter_sweep__fast_deep` | lfo_cycles=8, depth_oct=3.0 |
+| `lfo_filter_sweep__fast_shallow` | lfo_cycles=8, depth_oct=1.0 |
+| `lfo_filter_sweep__shallow` | depth_oct=1.0 |
+| `lfo_filter_sweep__short` | lfo_bars=2 |
+| `lfo_filter_sweep__short_deep` | lfo_bars=2, depth_oct=3.0 |
+| `lfo_filter_sweep__short_fast` | lfo_bars=2, lfo_cycles=8 |
+| `lfo_filter_sweep__short_shallow` | lfo_bars=2, depth_oct=1.0 |
+| `lfo_filter_sweep__short_slow` | lfo_bars=2, lfo_cycles=2 |
+| `lfo_filter_sweep__slow` | lfo_cycles=2 |
+| `lfo_filter_sweep__slow_deep` | lfo_cycles=2, depth_oct=3.0 |
+| `lfo_filter_sweep__slow_shallow` | lfo_cycles=2, depth_oct=1.0 |
+| `lfo_filter_sweep__standard` | lfo_bars=4 |
+| `lfo_filter_sweep__standard_fast` | lfo_bars=4, lfo_cycles=8 |
+| `lfo_filter_sweep__standard_slow` | lfo_bars=4, lfo_cycles=2 |
+
+### linked_filter_handover — Linked Filter Handover (One-Cutoff Spectral Join) (2 variants)
+
+| variant | params |
+|---|---|
+| `linked_filter_handover__short` | handover_bars=2 |
+| `linked_filter_handover__standard` | handover_bars=4 |
+
 ### loop_click_bridge — Loop Click Bridge (Micro-Loop Metronome) (13 variants)
 
 | variant | params |
@@ -1211,6 +1239,18 @@ core base, capped at 40) through the standard demo pipeline.
 | `screwed_treatment__screw` | rate=0.7 |
 | `screwed_treatment__screw_coupled` | rate=0.7, pitch_coupled=True |
 | `screwed_treatment__screw_held` | rate=0.7, pitch_coupled=False |
+
+### sculpt_bell_sweep — Sculpt Bell Sweep (Travelling Parametric Bell) (7 variants)
+
+| variant | params |
+|---|---|
+| `sculpt_bell_sweep__carve` | bell_db=-20.0 |
+| `sculpt_bell_sweep__short` | sweep_bars=2 |
+| `sculpt_bell_sweep__short_carve` | sweep_bars=2, bell_db=-20.0 |
+| `sculpt_bell_sweep__short_highlight` | sweep_bars=2, bell_db=8.0 |
+| `sculpt_bell_sweep__standard` | sweep_bars=4 |
+| `sculpt_bell_sweep__standard_carve` | sweep_bars=4, bell_db=-20.0 |
+| `sculpt_bell_sweep__standard_highlight` | sweep_bars=4, bell_db=8.0 |
 
 ### shepard_riser — Shepard Riser (Endless-Rise Build Layer) (10 variants)
 

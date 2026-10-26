@@ -90,3 +90,18 @@ addressed in scale degrees instead of semitone intervals: NOTE
 octave dispersion — the ring tuned by key signature, the
 performance form of this base's `chord` parameter. Evidence:
 SP-404MKII Reference v5.5, Hyper-Reso page, fetched 2026-10-23.
+
+## Axes (Phase 32, Class 5 tranche B)
+
+**Stepped-frequency gated resonator (Xone:PX5 RESO GATE)** —
+RESO GATE applies the attack-gate idea to a harmonic resonator:
+INTERVAL sets the time offset, DECAY the resonator interval
+length, and FOCUS steps through resonant frequencies, which
+"can be harmonically matched to the source material or used to
+create tension and release of your own doing" — and the effect
+"benefits from long time offsets (E.g. 2/1)." The staging for
+this base's chord-bank resonator: step the resonant frequency
+through the harmony across the tail instead of holding one
+chord, so the ring itself spells the tension-release arc.
+Evidence: Xone:PX5 FX Notes V1.00 (Nov 2016), RESO GATE entry,
+fetched 2026-10-26.

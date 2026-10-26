@@ -51,3 +51,20 @@ Echo throw whose SEND is band-shaped; the dry never ducks.
     tail_beats : pure-tail length past A's end (default 4 beats).
 
     Returns a mono float64 mix of length len(a) + len(b).
+
+## Axes (Phase 32, Class 5 tranche B)
+
+**Pre- vs post-delay filter placement (Xone:PX5 delays)** —
+the Xcite delays disagree about where the filter sits, and the
+disagreement is the lesson: PCM DELAY filters PRE-delay ("the
+filter section is pre-delay allowing one to shape the frequency
+focus of the decay trails"), while MASIF-Q and FILTER DELAY
+filter POST-delay (MASIF-Q's extended sweep range "especially
+suited for focusing the delay on individual track elements";
+FILTER DELAY adds a frequency-conscious limiter that pushes
+back on dense-input trails). The staging for this base's
+send-side conditioning: pre-delay filtering shapes what ENTERS
+the loop (every repeat inherits it); post-delay filtering
+shapes what LEAVES it (the loop's own evolution survives).
+Evidence: Xone:PX5 FX Notes V1.00 (Nov 2016), MASIF-Q / PCM /
+FILTER DELAY entries, fetched 2026-10-26.

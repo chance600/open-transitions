@@ -47,3 +47,16 @@ Crossover frequencies are stated nowhere in the manual
 (recorded gap); renders use registry-standard crossovers.
 Evidence: DJM-V10 manual via manua.ls, pp27/34 + specs p82,
 fetched 2026-10-23.
+
+## Axes (Phase 32, Class 5 tranche B)
+
+**Xone:92 four-band law** — the 92's EQ is four bands with an
+asymmetric-Q rule the two flagship laws do not state: +6 dB
+boost on every band, infinite kill (total attenuation, sharp
+12 dB/oct roll-off) on HI and LO, a massive -30 dB of cut on the
+two MIDs — and wide Q for cut, narrow Q for boost, so a cut
+scoops broadly while a boost highlights narrowly. The staging
+for this base's four-band form: cuts are the blend tool (broad,
+forgiving), boosts are the highlight tool (narrow, deliberate) —
+never the reverse. Evidence: Xone:92 User Guide p. 7 (manualsdir
+mirror), fetched 2026-10-26.

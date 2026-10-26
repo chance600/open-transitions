@@ -1714,6 +1714,48 @@
     "path": "demos/out/sideband_comb_filter.wav"
   },
   {
+    "clip": "sculpt_bell_sweep",
+    "duration_s": 28.12,
+    "silence_gaps_s": [],
+    "silence_ok": true,
+    "peak_dbfs": -1.0,
+    "headroom_ok": true,
+    "handoff_s": 14.0625,
+    "centroid_max_jump_hz": 5790.9,
+    "technique": "sculpt_bell_sweep",
+    "render_ok": true,
+    "normalize_db": 0.5,
+    "path": "demos/out/sculpt_bell_sweep.wav"
+  },
+  {
+    "clip": "lfo_filter_sweep",
+    "duration_s": 28.12,
+    "silence_gaps_s": [],
+    "silence_ok": true,
+    "peak_dbfs": -1.0,
+    "headroom_ok": true,
+    "handoff_s": 14.0625,
+    "centroid_max_jump_hz": 5084.1,
+    "technique": "lfo_filter_sweep",
+    "render_ok": true,
+    "normalize_db": 1.6,
+    "path": "demos/out/lfo_filter_sweep.wav"
+  },
+  {
+    "clip": "linked_filter_handover",
+    "duration_s": 22.5,
+    "silence_gaps_s": [],
+    "silence_ok": true,
+    "peak_dbfs": -1.0,
+    "headroom_ok": true,
+    "handoff_s": 11.25,
+    "centroid_max_jump_hz": 5911.2,
+    "technique": "linked_filter_handover",
+    "render_ok": true,
+    "normalize_db": 1.6,
+    "path": "demos/out/linked_filter_handover.wav"
+  },
+  {
     "clip": "breakdown_swap",
     "duration_s": 30.0,
     "silence_gaps_s": [],

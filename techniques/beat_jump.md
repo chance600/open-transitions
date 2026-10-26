@@ -35,3 +35,19 @@ marker form jumps a memorised *form* — intro marker to chorus
 marker in one press, distances arbitrary and per-track.
 Evidence: SP-404MKII Reference v5.5, DJ Mode pages, fetched
 2026-10-23.
+
+## Axes (Phase 32, Class 5 tranche B)
+
+**Scripted jump sizing (VDJScript beatjump_select)** — the
+jump size is itself a scripted parameter: `beatjump_select`
+sets it absolutely, steps it relatively (+1 to the next higher
+size), or scales it (50% halves, 200% doubles), and `beatjump`
+then jumps by that size — but only with relative values, so a
+scripted size must pass through `param_cast 'relative'` first
+(an absolute value is silently wrong, not an error). The
+staging for this base's fixed-count jump: size selection and
+jump execution as two verbs, with the cast between them — a
+jump whose size a knob or a script chose, not a constant.
+Evidence: VirtualDJ official VDJScript verb list
+(virtualdj.com/wiki/VDJscript_verbs.html) + Script School
+forum threads, fetched 2026-10-26.

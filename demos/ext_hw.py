@@ -4,7 +4,9 @@ module (FRAMEWORK.md §7).
 
 Registers demos for engine/hw_techniques.py (WEB-22..WEB-29,
 Phase 26 expansion tranche 5: Mixxx / djay / VirtualDJ / SP-404MKII
-/ Xone:96 / DJM-V10 documentation mining, 2026-10-23). Merged
+/ Xone:96 / DJM-V10 documentation mining, 2026-10-23; WEB-40..WEB-42,
+Phase 32 Class 5 tranche B: MODEL 1 / Xone:92 / PX5 / Mixxx-dev /
+VDJScript, 2026-10-26). Merged
 automatically by demos/make_demos.py (load_ext_specs). All material
 is the suite's synthesized sketch audio (ctx tracks) — no
 copyrighted audio.
@@ -109,6 +111,38 @@ def demo_specs(ctx):
         lambda: hw.sideband_comb_filter(bars(A, 8), bars(B, 8),
                                         SR, BPM, BAR_S),
         lambda m: 7.5 * BAR_S,
+        None,
+    )
+
+    # WEB-40 sculpt_bell_sweep: the +8 dB bell log-ramps 60 Hz ->
+    # 15 kHz across A's last 4 bars; B crossfades over the final
+    # bar, so the handoff centre sits at 7.5 bars.
+    specs["sculpt_bell_sweep"] = (
+        lambda: hw.sculpt_bell_sweep(bars(A, 8), bars(B, 8),
+                                    SR, BPM, BAR_S),
+        lambda m: 7.5 * BAR_S,
+        None,
+    )
+
+    # WEB-41 lfo_filter_sweep: the lowpass cutoff oscillates 4
+    # whole cycles around 1 kHz across A's last 4 bars, depth
+    # ramping 0 -> 2 octaves; B crossfades over the final bar.
+    # Handoff centre 7.5 bars.
+    specs["lfo_filter_sweep"] = (
+        lambda: hw.lfo_filter_sweep(bars(A, 8), bars(B, 8),
+                                    SR, BPM, BAR_S),
+        lambda m: 7.5 * BAR_S,
+        None,
+    )
+
+    # WEB-42 linked_filter_handover: A's last 4 bars lowpassed +
+    # B's first 4 bars highpassed at one shared cutoff falling
+    # 8 kHz -> 150 Hz; output is 12 bars (8 + 8 - 4 overlap) and
+    # the join's midpoint sits at 6 bars.
+    specs["linked_filter_handover"] = (
+        lambda: hw.linked_filter_handover(bars(A, 8), bars(B, 8),
+                                          SR, BPM, BAR_S),
+        lambda m: 6 * BAR_S,
         None,
     )
 

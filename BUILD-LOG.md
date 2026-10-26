@@ -3972,3 +3972,164 @@ What was learned, per the demo bar: (1) direction check before device check — 
 Caveats, stated plainly: (1) Nothing in this tranche was heard — the sketch demos prove shape, not feel, and the first real-track staging of echo_tempo_lift remains the test that counts; the lift-vs-dotted-delay percept is a listening verdict, not a measurement. (2) The sketch tracks are fixed-grid suite material (build_track lays drums on the 128-BPM grid regardless of the bpm argument), so the 90 BPM check proves the echo-delay grid at a caller bpm of 90, not a real 90 -> 120 track pair. (3) The source's own caveat stands: the DJ still has to beat-match B onto the grid — the echo states the tempo, it does not do the matching. (4) The tail needs a throwable fragment with a rhythmic edge; a vocal-only tail with no transient to repeat is the known hole, where the bed remains the fallback.
 
 WHITE SPACE: queue after this tranche: Class 5 tranche B remainder tops it (MODEL 1, Xone:92/PX5, Mixxx developer sources, VDJScript); then the conditional clusters, parked with their gates. Walls standing: TikTok (no transcript-grade source), RA (login/paywall), Instagram Reels / Quora / Discord (live-browser gaps). Academic remainder gated-but-unfetched, unchanged: Ishizaki 2009 full text, Schwarz & Fourer (no open PDFs), NIME 2021 curve tables. Measurement script kept at transition-lab/work/echo_grid_measure.py (not in the repo — the repo carries the measured numbers in the spec doc and this entry). The crawl engine owns TECHNIQUE bases/variants/knowledge only; the separate style-study agent owns artist profiles — interface, not duplication.
+
+## Phase 32 — 2026-10-26 (continuous crawl, tranche 4 — Class 5 tranche B remainder: MODEL 1, Xone:92/PX5, Mixxx developer sources, VDJScript)
+
+Claimed per protocol: crawl-state.json showed the live claim
+class5-tranche-b (claimed by the parent tick 2026-10-26T01:03
+EDT); this tranche works that claim and does not touch
+crawl-state.json, does not commit, does not push — the parent
+verifies, commits and pushes. No reclaim involved.
+
+Sources fetched first-hand, all free/public, zero spend:
+PLAYdifferently MODEL 1 User Guide Issue 1 (2016) via the
+manuals.plus mirror, read end-to-end (Contour/Sculpt,
+Master Filter, Drive, returns, linking); Allen & Heath
+Xone:92 User Guide pp. 7 + 24 via the manualsdir mirror (the
+official A&H PDFs are not bypassed — every 92/PX5 fact here
+is mirror-sourced and labelled); Xone:PX5 FX Notes V1.00
+(Nov 2016, official A&H document via mirror — all 16 Xcite
+effects with INTERVAL/DECAY/FOCUS semantics) + PX5 User
+Guide sections via manualsdir/manualslib mirrors; Mixxx
+User Manual Ch. 11 + Controls appendix (manual.mixxx.org)
+and the Mixxx GitHub wiki "Standard Effects Mapping";
+VirtualDJ official VDJScript verb list
+(virtualdj.com/wiki/VDJscript_verbs.html) + Script School /
+loopCount forum threads. Mining brief retained at
+~/workspace/scratch/class5-tranche-b/BRIEF.md.
+
+Yield: 3 new bases WEB-40..WEB-42, all in
+engine/hw_techniques.py (wired into meta/render/variants +
+demos via ext_hw.py, FRAMEWORK.md §7), each with spec doc,
+demo, variants and selection metadata: WEB-40
+`sculpt_bell_sweep` (MODEL 1 Sculpt: a travelling parametric
+bell, +8 boost / -20 cut over ~7 octaves — the boost form, a
+travelling highlight, has no neighbour); WEB-41
+`lfo_filter_sweep` (Xone:92 LFO modulation: cyclic filter
+cutoff oscillation, TAP rate, DEPTH ramp, whole cycles so the
+filter returns to centre exactly at the seam); WEB-42
+`linked_filter_handover` (Xone:92 VCF LINK 2-1: one cutoff
+trajectory joins A's lows to B's highs — the exactness of the
+join is the mechanism). 8 named axes across 7 parent specs
+(T-001: 92 four-band law; T-003: MODEL 1 Contour cut-only pair
++ MODEL 1 input-stage Drive; WEB-04: PX5 DISTORTION tone
+focus; WEB-18: PX5 RESO GATE stepped frequencies; T-005:
+PX5 ATTACK GATE; T-028: VDJScript scripted jump sizing;
+WEB-22: PX5 pre- vs post-delay filter placement; WEB-40's
+spec carries the 92 VCF TO XFADER staging). 10 knowledge
+entries (mixing 6: crossfader-as-controller law, PX5 routing
+topologies, click-free switching doctrine, Mixxx metaknob
+link modes, VDJScript timed-automation doctrine, VDJScript
+count-driven FX; workflows 4: Mixxx two-level FX control,
+Mixxx post-fader tails law, Mixxx superknob neutral-point
+doctrine, MODEL 1 return-channel doctrine). Registry
+110 -> 113, variants 986 -> 1011 (+25: sculpt 7, lfo 16,
+linked 2), knowledge 191 -> 201, demos 136 -> 139.
+VARIANTS.md regenerated with its embedded generator; the
+diff against the pre-run backup is exactly the snapshot line
+plus the three new sections. Side fix: techniques/INDEX.md
+gains the 4 Phase 27 genre bases it was missing
+(WEB-30..WEB-33), so the index now covers all 113 registry
+bases; the V2 map's queue item 4 carries the tranche-B note
+(it is the remainder of item 4, not a new queue item).
+
+Dedup, stated so the next tick does not re-litigate it: the
+92's VCF topology is 96 corroboration, not a base; the 92's
+4-band numbers are an axis, not a base; PX5's RESO GATE /
+ATTACK GATE / DISTORTION are axes, not bases (resonator,
+reverb, distortion mechanisms already exist); MODEL 1's
+DualCue + mixer linking, Mixxx metaknob trajectories, and
+VDJScript repeat/fade automation stay parked as state
+objects and trajectory modifiers — the Phase 26
+unnameable-five wall, restated, not relieved. T-003's
+dual-VCF counter-sweep axis is NOT the linked handover: two
+independent sweeps with no render vs one shared parameter
+with an exact join — the render is what makes WEB-42 a base.
+Mixxx 2.5's per-deck chains, per-effect wet/dry, and
+Spectral Gate / Tape Saturator / Stereo Width / Bitcrusher
+v2 are attested only by a third-party upgrade guide, with no
+first-hand Mixxx source fetched — recorded as a gap below,
+not banked as knowledge, not landed.
+
+Validation, all green on final code: full demo suite
+139/139 clean, verified from the regenerated
+demos/out/verification.json (139 entries; 0 silence_ok /
+headroom_ok / render_ok failures) — not a --only leftover.
+New demos: sculpt_bell_sweep handoff 14.0625 s (7.5 bars),
+lfo_filter_sweep 14.0625 s, linked_filter_handover 11.25 s
+(6 bars, the join midpoint). Variant smoke 25/25 through
+render_variant (ctx bar_s + bpm); 21 distinct from base at
+sketch length — the 4 identical are exactly the
+default-valued legacy singles (sculpt standard,
+standard_highlight; lfo standard; linked standard), which
+render as the base by construction (Phase 24's default-leg
+rule), not a defect. Meta-defaults == function defaults
+for all 3 bases. Selection probes rank every new base in
+its home pair with every own prefers reason firing:
+sculpt_bell_sweep #9 (house -> house same-genre outro),
+lfo_filter_sweep #5 (same), linked_filter_handover #3
+(house -> trap neighbor pair, camelot 0). Validation
+script: transition-lab/work/class5b_validate.py (outside
+the repo, like echo_grid_measure.py).
+
+What was learned, per the demo bar: (1) the crossfader is a
+control law, not just a fader — the 92 and the PX5 both let
+it drive a parameter (filter cutoff, FX depth), and the
+fader's curve then IS the parameter's envelope; that law
+generalises beyond both mixers to any fader-coupled
+parameter the registry renders next. (2) Exactness is a
+mechanism: the linked handover's value is not "two filters
+moving" (the T-003 axis already says that) but one
+parameter guaranteeing no gap and no overlap at any instant
+— a partition claim, not a motion claim — and partition
+claims are checkable on the render (the window sum stays
+loud throughout, no silence gaps in the demo). (3) A
+travelling boost is a different device from a travelling
+cut: the bell's highlight form tours elements (each gets
+its moment) where the notch's cut form only removes them,
+so boost-travel and cut-travel deserve separate names even
+when they share a trajectory. (4) The tranche-B pricing
+rule from Phase 26 white space (1) held exactly: this was
+an axes-and-knowledge tranche with three genuine mechanisms
+on top, not a base hunt — and the discipline that kept it
+honest was refusing the third-party-attested Mixxx 2.5
+effects as bases without a first-hand source.
+
+Caveats, stated plainly: (1) Nothing in this tranche was
+heard — the sketch demos prove shape, not feel, and the
+first real-track staging of each new base remains the test
+that counts; the bell-tour percept (highlight vs resonance)
+and the linked-join percept (exact vs muddy at the
+midpoint) are listening verdicts, not measurements. (2)
+The 92/PX5 record is mirror-grade: manualsdir/manualslib
+OCR and the FX Notes mirror, not official PDFs — numbers
+bank as knob semantics, and the MODEL 1 bell range banks
+as "nearly seven octaves" without Hz numbers because the
+manual states none. (3) The sketch tracks are fixed-grid
+suite material, so the LFO and handover checks prove
+filter trajectories at a caller bpm, not on real track
+pairs. (4) The linked handover's exactness assumes
+complementary filter slopes; mismatched slopes (or stereo
+material with out-of-phase content) would break the join —
+untested on real material.
+
+WHITE SPACE: queue after this tranche: Class 5 tranche B
+is DONE — V2 queue item 4 is now fully closed (tranche A
+in Phase 26, remainder here); then the conditional
+clusters, parked with their gates. The crawl queue has no
+unparked item left after this tranche — the next tick
+needs either a gate clearing on the conditional clusters or
+a fresh queue item from the parent; it must not invent one.
+Walls standing: TikTok (no transcript-grade source), RA
+(login/paywall), Instagram Reels / Quora / Discord
+(live-browser gaps). Academic remainder gated-but-unfetched,
+unchanged: Ishizaki 2009 full text, Schwarz & Fourer (no
+open PDFs), NIME 2021 curve tables. Mixxx-dev remainder,
+now explicit: 2.5 per-deck chains + per-effect wet/dry +
+Spectral Gate / Tape Saturator / Stereo Width / Bitcrusher
+v2 await a first-hand Mixxx source (manual chapter or
+source file), not a third-party summary. MODEL 1 remainder:
+DualCue/B2B changeover stays in the unnameable five (state
+objects, not bases). The crawl engine owns TECHNIQUE
+bases/variants/knowledge only; the separate style-study
+agent owns artist profiles — interface, not duplication.

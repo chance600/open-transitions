@@ -61,3 +61,15 @@ saturation — degradation of the *timebase*, where this base
 degrades the *word length*. The two compose: a cassette-aged
 crush is this axis fired over this base. Evidence: SP-404MKII
 Reference v5.5, Cassette Sat page, fetched 2026-10-23.
+
+## Axes (Phase 32, Class 5 tranche B)
+
+**Distortion with tone focus (Xone:PX5 DISTORTION)** — the
+PX5's DISTORTION is drive amount plus an LPF focus control:
+"amplifying the details hiding in the background and smashing
+those in the foreground," with the filter deciding which of the
+damage reaches the mix. The staging for this base's digital
+degrade: drive-then-filter as a pair, not drive alone — the
+tone control is what keeps a driven exit musical rather than
+merely loud. Evidence: Xone:PX5 FX Notes V1.00 (Nov 2016),
+DISTORTION entry, fetched 2026-10-26.

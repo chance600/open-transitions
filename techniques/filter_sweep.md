@@ -67,3 +67,27 @@ Filter+Drive: the parameter ground truth for the swept form —
 CUTOFF 20–16000 Hz, RES 0–100, DRIVE 0–100, plus a low shelf
 ±24 dB. Evidence: SP-404MKII Reference v5.5, filter MFX pages,
 fetched 2026-10-23.
+
+## Axes (Phase 32, Class 5 tranche B)
+
+**Contour cut-only pair (MODEL 1)** — the MODEL 1's Contour
+stage is a low-Q HPF + LPF pair that only cuts, never boosts,
+"without adding color." The staging for this base's resonant
+sweep: a contour pass first (gentle ends-trim, no resonance,
+no boost) leaves the sweep itself cleaner, because the sweep's
+resonant peak rides on a spectrum already trimmed at the
+extremes rather than fighting full-band energy at both ends.
+Evidence: PLAYdifferently MODEL 1 User Guide Issue 1 (2016),
+Contour/Sculpt section (manuals.plus mirror), fetched 2026-10-26.
+
+**Input-stage Drive (MODEL 1)** — each MODEL 1 channel has a
+Drive control varying the preamp clip threshold (illuminated
+shaft, red at imminent clip), with VCA-linked make-up gain so
+extreme clip levels do not read as level drops. The staging,
+next to the 96's pre-filter CRUNCH axis: saturate at the INPUT
+stage (harmonics added before anything else in the chain) while
+the make-up gain holds the fader law intact — the distinction
+from CRUNCH is the control point (input preamp vs pre-filter)
+and the compensation (make-up gain vs none). Evidence: MODEL 1
+User Guide, Drive section (manuals.plus mirror), fetched
+2026-10-26.

@@ -30,6 +30,17 @@ Admitted bases (bank WEB-22..WEB-29):
   WEB-29 sideband_comb_filter SP-404MKII SBF: scalable comb of
                              narrow bandpass bands
 
+Phase 32 (Class 5 tranche B, 2026-10-26) adds the remainder of
+V2 queue item 4, all from free/public mirrors and docs:
+
+  WEB-40 sculpt_bell_sweep   PLAYdifferently MODEL 1 Sculpt EQ:
+                             travelling parametric bell, +8 boost /
+                             -20 cut over ~7 octaves
+  WEB-41 lfo_filter_sweep    Xone:92 LFO modulation: cyclic filter
+                             cutoff oscillation, TAP rate, DEPTH ramp
+  WEB-42 linked_filter_handover  Xone:92 VCF LINK 2-1: one cutoff joins
+                             A's lows to B's highs, travelling down
+
 Conventions follow engine/techniques.py: numpy mono float64 in/out,
 timing in bars/beats, the docstring IS the spec source
 (techniques/*.md mirror it). Synthesized sketch audio only.
@@ -775,6 +786,242 @@ def sideband_comb_filter(a, b, sr, bpm, bar_s, zone_bars=4,
 
 
 # ----------------------------------------------------------------------------
+# WEB-40 — Sculpt bell sweep (PLAYdifferently MODEL 1 Sculpt EQ)
+# ----------------------------------------------------------------------------
+
+def _peaking_bell(x, sr, centre_env_hz, gain_db, q=1.0, block=1024):
+    """RBJ peaking-EQ biquad whose centre follows centre_env_hz.
+
+    Block-wise coefficient updates with state carryover (the
+    dsp.sweep_filter pattern), so a travelling bell stays click-free.
+    """
+    x = np.asarray(x, dtype=np.float64)
+    n = len(x)
+    y = np.zeros(n)
+    zi = np.zeros(2)
+    nyq = sr / 2.0
+    A = 10.0 ** (gain_db / 40.0)
+    for start in range(0, n, block):
+        stop = min(start + block, n)
+        fc = min(max(float(np.mean(centre_env_hz[start:stop])), 20.0),
+                 nyq * 0.95)
+        w0 = 2.0 * np.pi * fc / sr
+        alpha = np.sin(w0) / (2.0 * q)
+        cw = np.cos(w0)
+        b0 = 1.0 + alpha * A
+        b1 = -2.0 * cw
+        b2 = 1.0 - alpha * A
+        a0 = 1.0 + alpha / A
+        a1 = -2.0 * cw
+        a2 = 1.0 - alpha / A
+        seg, zi = signal.lfilter([b0 / a0, b1 / a0, b2 / a0],
+                                 [1.0, a1 / a0, a2 / a0],
+                                 x[start:stop], zi=zi)
+        y[start:stop] = seg
+    return y
+
+
+def sculpt_bell_sweep(a, b, sr, bpm, bar_s, sweep_bars=4, bell_db=8.0,
+                      fade_bars=1):
+    """A travelling parametric bell tours A's spectrum; B enters clean.
+
+    The PLAYdifferently MODEL 1's Sculpt EQ is a semi-parametric
+    swept bell: FREQ sets the centre, CUT/BOOST sets the gain —
+    boost asymmetric at +8 dB max, cut extending to -20 dB, over
+    nearly seven octaves, with a wide Q. It replaces the fixed-band
+    EQ: instead of cutting or boosting one band, the DJ sweeps the
+    bell itself.
+
+    Rendered as a transition: across A's final `sweep_bars` the
+    bell centre log-ramps 60 Hz -> 15 kHz at `bell_db` gain (the
+    implementation range mirrors WEB-23's; the manual states the
+    span as "nearly seven octaves" without Hz numbers). At +8 dB
+    each element of A is highlighted in turn as the bell passes —
+    kick, then bass, then vocal, then hats — a tour, not a thinning;
+    at -20 dB the same travel is a moving cut. At the top of the
+    band the bell exits the spectrum (transparent) as B fades in
+    over `fade_bars`.
+
+    Why it is not its neighbours: not WEB-23 `notch_carve_sweep`
+    (a rejection band from summed HPF+LPF outputs — this is a
+    parametric bell, and its headline form is a travelling BOOST,
+    which no neighbour renders); not T-003 (a monotonic slope,
+    energy removed on one side forever); not `eq_blend` (fixed band
+    gains at fixed frequencies — no travelling centre).
+
+    Parameters
+    ----------
+    a, b : outgoing / incoming segments (mono float64).
+    sr : sample rate (Hz). bpm : tempo (signature parity).
+    bar_s : seconds per bar.
+    sweep_bars : bell travel window at A's end (default 4).
+    bell_db : bell gain in dB (default 8.0 — the manual's max
+        boost; -20.0 is the max cut).
+    fade_bars : B's entrance crossfade at the seam (default 1).
+
+    Returns a mono float64 mix of length len(a) + len(b) - fade.
+    """
+    a = np.asarray(a, dtype=np.float64)
+    b = np.asarray(b, dtype=np.float64)
+    bar_n = int(round(bar_s * sr))
+    win_n = min(len(a), sweep_bars * bar_n)
+    fade_n = min(bar_n * fade_bars, len(b), win_n)
+
+    out_a = a.copy()
+    if win_n > 0:
+        seg = a[-win_n:]
+        centre = np.exp(np.linspace(np.log(60.0), np.log(15000.0), win_n))
+        out_a[-win_n:] = _peaking_bell(seg, sr, centre, bell_db)
+
+    out = np.zeros(len(a) + len(b) - fade_n)
+    out[:len(a)] += out_a
+    if fade_n > 0:
+        fo, fi = _eq_power_pair(fade_n)
+        out[len(a) - fade_n:len(a)] *= fo
+        out[len(a) - fade_n:len(a)] += b[:fade_n] * fi
+        out[len(a):] += b[fade_n:]
+    else:
+        out[len(a):] += b
+    return out
+
+
+# ----------------------------------------------------------------------------
+# WEB-41 — LFO filter sweep (Allen & Heath Xone:92 LFO modulation)
+# ----------------------------------------------------------------------------
+
+def lfo_filter_sweep(a, b, sr, bpm, bar_s, lfo_bars=4, lfo_cycles=4,
+                     depth_oct=2.0, fade_bars=1):
+    """A's exit wahs under a cyclic filter LFO; B enters clean.
+
+    The Xone:92's VCFs are "further enhanced by two independent
+    LFOs... for additional cyclic filter modulation effects": an ON
+    switch punches the LFO in or out, DEPTH sets the modulation
+    amount, TAP sets the rate from the last two presses, X2 doubles
+    it. The LFO is a cyclic control, not a sweep: the cutoff returns
+    to where it started every cycle.
+
+    Rendered as a transition: across A's final `lfo_bars` a lowpass
+    cutoff oscillates log-sinusoidally around 1 kHz, `lfo_cycles`
+    whole cycles (integer, so the filter returns to centre exactly
+    at the seam), with the oscillation depth ramping 0 -> `depth_oct`
+    octaves across the window — the DEPTH knob turning up through
+    the exit. At the seam B fades in over `fade_bars`, the filter
+    at centre, neither open nor closed.
+
+    Why it is not its neighbours: not T-003 (a monotonic slope —
+    this returns, every cycle); not WEB-27 `cyclic_speed_dip` (a
+    tempo-period LFO on playback RATE — this modulates the filter,
+    not the speed); not WEB-24 `phaser_sweep` (an allpass cascade,
+    magnitude-flat — this is a cutoff oscillation with real
+    spectral loss at the troughs).
+
+    Parameters
+    ----------
+    a, b : outgoing / incoming segments (mono float64).
+    sr : sample rate (Hz). bpm : tempo (signature parity).
+    bar_s : seconds per bar.
+    lfo_bars : LFO window at A's end (default 4).
+    lfo_cycles : whole LFO cycles inside the window (default 4 —
+        one per bar at the default window).
+    depth_oct : peak oscillation depth in octaves at the seam
+        (default 2.0; the depth ramps 0 -> depth_oct).
+    fade_bars : B's entrance crossfade at the seam (default 1).
+
+    Returns a mono float64 mix of length len(a) + len(b) - fade.
+    """
+    a = np.asarray(a, dtype=np.float64)
+    b = np.asarray(b, dtype=np.float64)
+    bar_n = int(round(bar_s * sr))
+    win_n = min(len(a), lfo_bars * bar_n)
+    fade_n = min(bar_n * fade_bars, len(b), win_n)
+
+    out_a = a.copy()
+    if win_n > 0:
+        seg = a[-win_n:]
+        t = np.arange(win_n) / win_n
+        ramp = t  # DEPTH turning up across the window
+        osc = np.sin(2.0 * np.pi * lfo_cycles * t)
+        centre = 1000.0 * (2.0 ** (depth_oct * ramp * osc))
+        out_a[-win_n:] = dsp.sweep_filter(seg, sr, centre,
+                                          ftype="lowpass")
+
+    out = np.zeros(len(a) + len(b) - fade_n)
+    out[:len(a)] += out_a
+    if fade_n > 0:
+        fo, fi = _eq_power_pair(fade_n)
+        out[len(a) - fade_n:len(a)] *= fo
+        out[len(a) - fade_n:len(a)] += b[:fade_n] * fi
+        out[len(a):] += b[fade_n:]
+    else:
+        out[len(a):] += b
+    return out
+
+
+# ----------------------------------------------------------------------------
+# WEB-42 — Linked filter handover (Allen & Heath Xone:92 VCF LINK 2-1)
+# ----------------------------------------------------------------------------
+
+def linked_filter_handover(a, b, sr, bpm, bar_s, handover_bars=4):
+    """One cutoff joins A below to B above; the join travels down.
+
+    The Xone:92's VCF LINK 2-1 switch links FILTER 2's FREQ to
+    FILTER 1's: "FILTER 2 FREQ can now be controlled by the FREQ
+    VCF sweep control of FILTER 1... assign Channel 1 to Filter 1
+    and Channel 2 to Filter 2. Select a low pass filter on filter 1
+    and a high pass on filter 2. With both filters ON and the link
+    switch selected, the low frequencies of channel 1 will be
+    accurately joined to the high frequencies of channel 2. This
+    can be used to produce incredibly smooth mixes or to mix tracks
+    that would otherwise clash when mixed conventionally."
+
+    Rendered as a transition: the handover window is A's final
+    `handover_bars` overlapped with B's first `handover_bars`.
+    Across it ONE cutoff trajectory log-falls 8 kHz -> 150 Hz: A
+    passes through a lowpass at that cutoff, B through a highpass
+    at the same cutoff, and the two filtered signals sum. At every
+    instant the spectrum is partitioned at exactly one frequency —
+    A owns below it, B above it — so the join is exact, with no
+    gap band and no overlap band; as the cutoff falls, B takes over
+    progressively from the top down. Past the window B plays full.
+
+    Why it is not its neighbours: not T-003's dual-VCF
+    counter-sweep axis (two INDEPENDENT sweeps, one per side, with
+    no render — here the two filters share one parameter, and the
+    exactness of the join is the mechanism); not `eq_blend`
+    (fixed band gains — no moving partition); not `bass_swap`
+    (a 1-beat bass exchange — this is a full-spectrum handover over
+    bars, top-down rather than bottom-up).
+
+    Parameters
+    ----------
+    a, b : outgoing / incoming segments (mono float64).
+    sr : sample rate (Hz). bpm : tempo (signature parity).
+    bar_s : seconds per bar.
+    handover_bars : overlap window in bars (default 4).
+
+    Returns a mono float64 mix of length
+    len(a) + len(b) - handover window.
+    """
+    a = np.asarray(a, dtype=np.float64)
+    b = np.asarray(b, dtype=np.float64)
+    bar_n = int(round(bar_s * sr))
+    win_n = min(len(a), len(b), handover_bars * bar_n)
+
+    head = a[:-win_n] if win_n < len(a) else np.zeros(0)
+    a_seg = a[-win_n:] if win_n > 0 else np.zeros(0)
+    b_seg = b[:win_n] if win_n > 0 else np.zeros(0)
+    b_tail = b[win_n:] if win_n < len(b) else np.zeros(0)
+
+    if win_n > 0:
+        fc = np.exp(np.linspace(np.log(8000.0), np.log(150.0), win_n))
+        win = (dsp.sweep_filter(a_seg, sr, fc, ftype="lowpass")
+               + dsp.sweep_filter(b_seg, sr, fc, ftype="highpass"))
+    else:
+        win = np.zeros(0)
+    return np.concatenate([head, win, b_tail])
+
+
+# ----------------------------------------------------------------------------
 # Registry
 # ----------------------------------------------------------------------------
 
@@ -1142,6 +1389,129 @@ META = {
         ],
         "composed_of": [],
     },
+    "sculpt_bell_sweep": {
+        "title": "Sculpt Bell Sweep (Travelling Parametric Bell)",
+        "bank": "WEB-40", "family": "FREQ", "kind": "render",
+        "verdict": "ADAPT", "confidence": "medium",
+        "requires": {"bpm_delta_pct_max": None, "camelot_max": None,
+                     "vocal_ok": ["a_only", "b_only", "both", "neither"],
+                     "phrase_a_ok": ["outro", "chorus"],
+                     "genre_pair_ok": ["same", "neighbor", "leap"],
+                     "needs": []},
+        "prefers": [
+            {"when": "genre_pair==same", "weight": 1,
+             "reason": "the bell tours A's spectrum inside one "
+                       "genre's blend — no gap device needed"},
+            {"when": "phrase_a==outro", "weight": 1,
+             "reason": "the sweep window is A's outro — the bell "
+                       "has a full phrase to travel"},
+        ],
+        "energy": {"delta": 0, "tension": "build"},
+        "exit": "snap", "clash_risk": "none",
+        "params": {
+            "sweep_bars": {"type": "int", "range": [2, 16],
+                           "default": 4, "unit": "bars",
+                           "presets": {"short": 2, "standard": 4}},
+            "bell_db": {"type": "float", "range": [-20.0, 8.0],
+                        "default": 8.0, "unit": "db",
+                        "presets": {"highlight": 8.0, "carve": -20.0}},
+            "fade_bars": {"type": "int", "range": [1, 4],
+                          "default": 1, "unit": "bars"},
+        },
+        "evidence": [
+            {"type": "manual",
+             "ref": "PLAYdifferently MODEL 1 User Guide Issue 1 "
+                    "(2016) — Contour/Sculpt EQ: 'a semi-parametric "
+                    "swept bell filter' with FREQ + CUT/BOOST, "
+                    "boost +8 dB max, cut -20 dB, 'nearly seven "
+                    "octaves'",
+             "url": "https://manuals.plus/m/2e08027386c2634318a547d8f72de490ee6e062fab9a20bdc1bb80e3108f491b",
+             "date": "2026-10-26"},
+        ],
+        "composed_of": [],
+    },
+    "lfo_filter_sweep": {
+        "title": "LFO Filter Sweep (Cyclic Filter Modulation)",
+        "bank": "WEB-41", "family": "FREQ", "kind": "render",
+        "verdict": "ADAPT", "confidence": "medium",
+        "requires": {"bpm_delta_pct_max": None, "camelot_max": None,
+                     "vocal_ok": ["a_only", "b_only", "both", "neither"],
+                     "phrase_a_ok": ["outro", "chorus", "build"],
+                     "genre_pair_ok": ["same", "neighbor", "leap"],
+                     "needs": []},
+        "prefers": [
+            {"when": "genre_pair==same", "weight": 1,
+             "reason": "cyclic filter motion sits inside a "
+                       "like-for-like blend"},
+            {"when": "energy_delta>=0", "weight": 1,
+             "reason": "the LFO's rising depth lifts a flat-or-"
+                       "rising exit"},
+        ],
+        "energy": {"delta": 0, "tension": "build"},
+        "exit": "snap", "clash_risk": "none",
+        "params": {
+            "lfo_bars": {"type": "int", "range": [2, 16],
+                         "default": 4, "unit": "bars",
+                         "presets": {"short": 2, "standard": 4}},
+            "lfo_cycles": {"type": "int", "range": [1, 16],
+                           "default": 4, "unit": "cycles",
+                           "presets": {"slow": 2, "fast": 8}},
+            "depth_oct": {"type": "float", "range": [0.5, 4.0],
+                          "default": 2.0, "unit": "octaves",
+                          "presets": {"shallow": 1.0, "deep": 3.0}},
+            "fade_bars": {"type": "int", "range": [1, 4],
+                          "default": 1, "unit": "bars"},
+        },
+        "evidence": [
+            {"type": "manual",
+             "ref": "Allen & Heath Xone:92 User Guide p. 24 "
+                    "(manualsdir mirror) — LFO modulation: 'two "
+                    "independent LFOs... for additional cyclic "
+                    "filter modulation effects', ON switch, DEPTH, "
+                    "TAP tempo, X2 doubling",
+             "url": "https://www.manualsdir.com/manuals/554322/allenheath-xone-92-xone92.html?page=24",
+             "date": "2026-10-26"},
+        ],
+        "composed_of": [],
+    },
+    "linked_filter_handover": {
+        "title": "Linked Filter Handover (One-Cutoff Spectral Join)",
+        "bank": "WEB-42", "family": "FREQ", "kind": "render",
+        "verdict": "ADAPT", "confidence": "medium",
+        "requires": {"bpm_delta_pct_max": None, "camelot_max": None,
+                     "vocal_ok": ["a_only", "b_only", "both", "neither"],
+                     "phrase_a_ok": ["outro", "chorus"],
+                     "genre_pair_ok": ["same", "neighbor", "leap"],
+                     "needs": []},
+        "prefers": [
+            {"when": "genre_pair==neighbor", "weight": 2,
+             "reason": "the exact spectral join is the clash-proof "
+                       "handover — neighbouring genres that would "
+                       "fight in a plain blend meet at one cutoff"},
+            {"when": "camelot<=2", "weight": 1,
+             "reason": "the join is exact at one cutoff, so a "
+                       "close key pair hands over without a clash "
+                       "window"},
+        ],
+        "energy": {"delta": 0, "tension": "flat"},
+        "exit": "snap", "clash_risk": "none",
+        "params": {
+            "handover_bars": {"type": "int", "range": [2, 16],
+                              "default": 4, "unit": "bars",
+                              "presets": {"short": 2, "standard": 4}},
+        },
+        "evidence": [
+            {"type": "manual",
+             "ref": "Allen & Heath Xone:92 User Guide p. 24 "
+                    "(manualsdir mirror) — VCF LINK 2-1: 'the low "
+                    "frequencies of channel 1 will be accurately "
+                    "joined to the high frequencies of channel 2... "
+                    "incredibly smooth mixes'",
+             "url": "https://www.manualsdir.com/manuals/554322/allenheath-xone-92-xone92.html?page=24",
+             "date": "2026-10-26"},
+        ],
+        "composed_of": [],
+    },
 }
 
 TECHNIQUE_FUNCS = {
@@ -1153,4 +1523,7 @@ TECHNIQUE_FUNCS = {
     "cyclic_speed_dip": cyclic_speed_dip,
     "pattern_gate_slicer": pattern_gate_slicer,
     "sideband_comb_filter": sideband_comb_filter,
+    "sculpt_bell_sweep": sculpt_bell_sweep,
+    "lfo_filter_sweep": lfo_filter_sweep,
+    "linked_filter_handover": linked_filter_handover,
 }
