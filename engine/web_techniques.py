@@ -68,13 +68,25 @@ Docstrings are the spec source; techniques/<name>.md mirrors them.
   WEB-38 delay_drum_roll  a 1/2-beat delay send opens briefly to
                          fake a drum roll, then slams shut as B
                          drops
+  WEB-39 echo_tempo_lift  A's tail echoes on a 3/4-beat grid whose
+                         repeat rate IS the new tempo; B drops on
+                         the grid (slow -> fast bridge)
 
-All twenty-six are two-track renderers, exported via TECHNIQUE_FUNCS.
+All twenty-seven are two-track renderers, exported via TECHNIQUE_FUNCS.
 WEB-19..21 were mined in Phase 23 (genre traditions tranche A) from
 fetched DnB/dubstep texts — see technique-bank/TECHNIQUES.md.
 WEB-34..38 were mined in Phase 28 (short-form technique-term
 mining, the continuous crawl engine's first tranche) from fetched
 forum/community texts — see technique-bank/TECHNIQUES.md.
+WEB-39 was mined in Phase 31 (continuous crawl tranche 3) from
+the same Serato thread as WEB-35..WEB-37: it was named in Phase 28
+and deliberately NOT landed there, because it needs a
+tempo-measurement staging — the echo grid's implied tempo
+measured from the rendered tail, not asserted from the delay
+parameter. That staging is now proven (BUILD-LOG Phase 31):
+correlation of the rendered tail against the thrown fragment
+peaks at multiples of the 3/4-beat delay, and the measured
+inter-peak interval implies bpm / 0.75 within 1%.
 """
 
 import numpy as np
@@ -2438,6 +2450,86 @@ def delay_drum_roll(a, b, sr, bar_s, bpm, roll_beats=4,
 
 
 # ----------------------------------------------------------------------------
+# WEB-39 — Echo Tempo Lift (Serato forum, mister_wilson)
+# ----------------------------------------------------------------------------
+
+def echo_tempo_lift(a, b, sr, bar_s, bpm, tail_repeats=8,
+                    delay_beats=0.75):
+    """Slow -> fast bridge: A's tail echoes on a grid whose repeat
+    rate IS the new tempo, then B drops on the grid.
+
+    Serato forum, mister_wilson (on going from slow to fast): "I
+    make the slower track echo/repeat at 3/4 beat length. The echo
+    has a tempo that is 33% faster than the original. You still
+    need to do some beat matching but it can work in a pinch."
+
+    The arithmetic is the technique: repeats spaced `delay_beats`
+    of a beat apart recur at bpm / delay_beats, so a 3/4-beat echo
+    on a 90 BPM track implies 120 BPM — the echo grid is a tempo
+    the ear can step onto. Rendered: A plays to its end, then its
+    final `delay_beats` fragment repeats alone, feedback-decaying
+    (0.80 per repeat — the grid must stay audible across all
+    repeats: at 0.62 the late repeats fall below the sketch
+    floor before B drops, and a grid that dies before the
+    handoff is not a bridge),
+    for `tail_repeats` repeats — the grid establishes itself in
+    the open, with nothing underneath — and B drops full on the
+    next repeat boundary, the tail cut dead at the handoff. The
+    tail alone is the bridge: no bed, no brake, no click track.
+
+    Why it is not its neighbours: not WEB-01 `spiral_echo` (the
+    spiral's repeats pitch-ride and decay UNDER B's entrance —
+    an exit, with no tempo claim and no B-on-grid drop); not
+    WEB-38 `delay_drum_roll` (a 1/2-beat send that fakes density
+    at the SAME tempo and slams shut before B — a roll, not a
+    grid redefinition); not WEB-32 `bed_tempo_switch` (a beatless
+    bed covers the jump — here the grid itself is the bridge);
+    not WEB-35 `loop_click_bridge` (the click is B's own intro
+    tiled as a metronome — here the grid is A's echo, thrown
+    before B exists in the mix); not WEB-37 `brake_tempo_land`
+    (a counted brake, fast -> slow — this is the slow -> fast
+    direction, which the registry's tempo-gap family covered
+    only via bed and click until now).
+
+    The sketch proves the grid arithmetic, not the lift: the
+    demo renders the tail at a caller bpm and B on its boundary,
+    and the tranche's measurement staging (BUILD-LOG Phase 31)
+    verifies the implied tempo from the rendered tail by
+    correlation — but whether a room hears a tempo lift rather
+    than a dotted delay is a listening verdict, and mister_wilson's
+    own caveat stands: the DJ still has to beat-match B onto the
+    grid; the echo does not do the matching.
+
+    Parameters
+    ----------
+    a : outgoing audio (slow; its final fragment is thrown).
+    b : incoming audio (fast; drops full on a repeat boundary).
+    sr : sample rate (Hz). bar_s : seconds per bar (accepted
+        for the shared demo ctx; the grid math uses bpm only).
+    bpm : A's tempo (beats/min) — the delay grid.
+    tail_repeats : repeats rung alone before B (default 8 —
+        six beats of grid at 3/4, enough to establish it).
+    delay_beats : echo division in beats (default 0.75 — the
+        source's 3/4; 0.5 is the double-tempo variant).
+
+    Returns a mono float64 mix (A + echo tail + B full).
+    """
+    beat_n = max(1, int(round(60.0 / bpm * sr)))
+    d = max(1, int(round(delay_beats * beat_n)))
+    a = np.asarray(a, dtype=np.float64)
+    b = np.asarray(b, dtype=np.float64)
+    if len(a) >= d:
+        seg = a[-d:]
+    else:
+        seg = np.pad(a, (d - len(a), 0))
+    tail = np.zeros(d * int(tail_repeats))
+    for k in range(1, int(tail_repeats) + 1):
+        tail[(k - 1) * d:k * d] += seg * (0.80 ** k)
+    return _seam_concat(np.concatenate([a, tail]),
+                        np.asarray(b, dtype=np.float64), sr)
+
+
+# ----------------------------------------------------------------------------
 # Metadata registry (FRAMEWORK.md §3) — merged by engine/meta.py
 # ----------------------------------------------------------------------------
 
@@ -3765,6 +3857,46 @@ META = {
         ],
         "composed_of": [],
     },
+    "echo_tempo_lift": {
+        "title": "Echo Tempo Lift (3/4-Beat Echo Grid Lift)",
+        "bank": "WEB-39", "family": "TIME", "kind": "render",
+        "verdict": "ADOPT", "confidence": "medium",
+        "requires": {"bpm_delta_pct_max": None, "camelot_max": None,
+                     "vocal_ok": ["a_only", "b_only", "both", "neither"],
+                     "phrase_a_ok": ["outro", "chorus"],
+                     "genre_pair_ok": ["same", "neighbor", "leap"],
+                     "needs": []},
+        "prefers": [
+            {"when": "genre_pair==leap", "weight": 2,
+             "reason": "the echo grid is the tempo bridge — a leap "
+                       "pair is its home"},
+            {"when": "bpm_delta_pct>=20", "weight": 1,
+             "reason": "a grid redefinition pays on a real gap, "
+                       "not a nudge"},
+        ],
+        "energy": {"delta": 1, "tension": "rising"},
+        "exit": "snap", "clash_risk": "none",
+        "params": {
+            "tail_repeats": {"type": "int", "range": [1, 16],
+                             "default": 8, "unit": "repeats",
+                             "presets": {"short": 4, "standard": 8}},
+            "delay_beats": {"type": "float", "range": [0.25, 1.0],
+                            "default": 0.75, "unit": "beats",
+                            "presets": {"half": 0.5,
+                                        "three_quarter": 0.75}},
+        },
+        "evidence": [
+            {"type": "forum",
+             "ref": "Serato forum, mister_wilson — 'I make the slower "
+                    "track echo/repeat at 3/4 beat length. The echo has "
+                    "a tempo that is 33% faster than the original. You "
+                    "still need to do some beat matching but it can "
+                    "work in a pinch'",
+             "url": "https://serato.com/forum/discussion/28193",
+             "date": "2026-10-26"},
+        ],
+        "composed_of": [],
+    },
 }
 
 
@@ -3796,4 +3928,5 @@ TECHNIQUE_FUNCS = {
     "cue_tap_walk": cue_tap_walk,
     "brake_tempo_land": brake_tempo_land,
     "delay_drum_roll": delay_drum_roll,
+    "echo_tempo_lift": echo_tempo_lift,
 }

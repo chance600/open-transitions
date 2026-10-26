@@ -28,6 +28,7 @@
 - [dual_loop_composite](dual_loop_composite.md) — PERF-EZ
 - [echo_out](echo_out.md) — T-004
 - [echo_out_blend](echo_out_blend.md) — T-004b
+- [echo_tempo_lift](echo_tempo_lift.md) — WEB-39
 - [eq_blend](eq_blend.md) — T-001
 - [fader_synth](fader_synth.md) — WEB-15
 - [fake_drop](fake_drop.md) — T-029

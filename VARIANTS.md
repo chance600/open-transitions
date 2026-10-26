@@ -7,7 +7,7 @@ registry lives in `engine/variants.py` and is **generated,
 never hand-listed**: `VARIANTS = build_variants()` enumerates
 `meta.all_meta()` at import time.
 
-**Snapshot: 979 variants across 81 base techniques** (117 variants across 29 core-bank bases; the rest arrive via domain modules, FRAMEWORK.md §7).
+**Snapshot: 986 variants across 82 base techniques** (117 variants across 29 core-bank bases; the rest arrive via domain modules, FRAMEWORK.md §7).
 This file is a snapshot of one generation run — see
 *Regenerating* below.
 
@@ -381,6 +381,18 @@ core base, capped at 40) through the standard demo pipeline.
 | `echo_out_reset__4bar_dotted` | tail_bars=4, beat_div=0.75 |
 | `echo_out_reset__4bar_half` | tail_bars=4, beat_div=0.5 |
 | `echo_out_reset__dotted` | beat_div=0.75 |
+
+### echo_tempo_lift — Echo Tempo Lift (3/4-Beat Echo Grid Lift) (7 variants)
+
+| variant | params |
+|---|---|
+| `echo_tempo_lift__half` | delay_beats=0.5 |
+| `echo_tempo_lift__short` | tail_repeats=4 |
+| `echo_tempo_lift__short_half` | tail_repeats=4, delay_beats=0.5 |
+| `echo_tempo_lift__short_three_quarter` | tail_repeats=4, delay_beats=0.75 |
+| `echo_tempo_lift__standard` | tail_repeats=8 |
+| `echo_tempo_lift__standard_half` | tail_repeats=8, delay_beats=0.5 |
+| `echo_tempo_lift__standard_three_quarter` | tail_repeats=8, delay_beats=0.75 |
 
 ### eq_blend — EQ Blend (3-Band Frequency Replacement) (4 variants)
 

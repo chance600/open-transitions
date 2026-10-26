@@ -4,7 +4,8 @@ open-transitions — demo specs for the web-mined domain module
 
 Registers demos for engine/web_techniques.py (WEB-01..WEB-18, mined
 2026-10-21; WEB-19..WEB-21 added Phase 23, 2026-10-22; WEB-34..WEB-38
-added Phase 28, 2026-10-25, short-form technique-term mining). Merged
+added Phase 28, 2026-10-25, short-form technique-term mining; WEB-39
+added Phase 31, 2026-10-26, continuous crawl tranche 3). Merged
 automatically by demos/make_demos.py
 (load_ext_specs). All material is the suite's synthesized sketch audio
 (ctx tracks) — no copyrighted audio.
@@ -276,6 +277,17 @@ def demo_specs(ctx):
         lambda: web.delay_drum_roll(
             bars(A, 8), bars(B, 8), SR, BAR_S, BPM),
         lambda m: 8 * BAR_S,
+        None,
+    )
+
+    # WEB-39 echo_tempo_lift: A 8 bars, then its final 3/4-beat
+    # fragment rings alone for 8 repeats (6 beats of grid), and
+    # B drops full on the next repeat boundary, tail cut.
+    # Handoff = 8 bars + 6 beats.
+    specs["echo_tempo_lift"] = (
+        lambda: web.echo_tempo_lift(
+            bars(A, 8), bars(B, 8), SR, BAR_S, BPM),
+        lambda m: 8 * BAR_S + 6 * BEAT_S,
         None,
     )
 

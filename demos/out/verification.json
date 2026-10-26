@@ -1574,6 +1574,20 @@
     "path": "demos/out/delay_drum_roll.wav"
   },
   {
+    "clip": "echo_tempo_lift",
+    "duration_s": 32.81,
+    "silence_gaps_s": [],
+    "silence_ok": true,
+    "peak_dbfs": -1.0,
+    "headroom_ok": true,
+    "handoff_s": 17.8125,
+    "centroid_max_jump_hz": 5308.9,
+    "technique": "echo_tempo_lift",
+    "render_ok": true,
+    "normalize_db": 1.6,
+    "path": "demos/out/echo_tempo_lift.wav"
+  },
+  {
     "clip": "aging_echo",
     "duration_s": 30.0,
     "silence_gaps_s": [],
