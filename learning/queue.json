@@ -38,7 +38,7 @@
       "license_note": "MIT",
       "claimed_by": null,
       "claimed_at": null,
-      "status": "queued"
+      "status": "proposed"
     },
     {
       "name": "selector_output_schema",
@@ -96,6 +96,56 @@
       "source_url": "https://github.com/T-Perm/RustLarpDJ",
       "summary": "Per-style scores sampled by roulette, not argmaxed, with score floors, a 0.4x repeat-style penalty and a 1.5x style-hint boost; transfers as a selector that preserves variety across a set instead of always picking the top score.",
       "license_note": "license unconfirmed - learn-from only, no code reuse",
+      "claimed_by": null,
+      "claimed_at": null,
+      "status": "queued"
+    },
+    {
+      "name": "fit_downgrade_ladder",
+      "source_name": "rustlarpdj",
+      "source_url": "https://github.com/T-Perm/RustLarpDJ",
+      "summary": "Each style fit to available seconds before selection: phrase quantize downgrades to bar, then to a 4-beat minimum, then a 0.05x score multiplier; transfers as a feasibility step so long blends degrade gracefully instead of collapsing into cuts.",
+      "license_note": "license unconfirmed - learn-from only, no code reuse",
+      "claimed_by": null,
+      "claimed_at": null,
+      "status": "queued"
+    },
+    {
+      "name": "hold_blend_curve",
+      "source_name": "rustlarpdj",
+      "source_url": "https://github.com/T-Perm/RustLarpDJ",
+      "summary": "Crossfade curve ramping to a -3 dB centre, holding both decks audible through the middle, then completing; transfers as a curve family with a centre-hold parameter, distinct from linear/smoothstep fades.",
+      "license_note": "license unconfirmed - learn-from only, no code reuse",
+      "claimed_by": null,
+      "claimed_at": null,
+      "status": "queued"
+    },
+    {
+      "name": "bass_swap_move_script",
+      "source_name": "rustlarpdj",
+      "source_url": "https://github.com/T-Perm/RustLarpDJ",
+      "summary": "A chosen style compiles to a timed automation script of EQ/filter/gain moves in beats (incoming bass killed, tucked -14 dB pre-swap, swap window, highs opened/ducked); transfers as techniques that output executable move lists, not just names.",
+      "license_note": "license unconfirmed - learn-from only, no code reuse",
+      "claimed_by": null,
+      "claimed_at": null,
+      "status": "queued"
+    },
+    {
+      "name": "vocal_clash_ducking",
+      "source_name": "rustlarpdj",
+      "source_url": "https://github.com/T-Perm/RustLarpDJ",
+      "summary": "Lyric vocal windows for both tracks mapped onto wall-clock overlap via tempo anchors, with overlapping windows triggering a -9 dB mid-EQ duck on the outgoing deck starting 1 beat early; transfers as a vocal guard that ducks rather than blocks a blend.",
+      "license_note": "license unconfirmed - learn-from only, no code reuse",
+      "claimed_by": null,
+      "claimed_at": null,
+      "status": "queued"
+    },
+    {
+      "name": "spectral_band_swap",
+      "source_name": "auto-dj-ai",
+      "source_url": "https://github.com/caffettino87/auto-dj-ai",
+      "summary": "3-band EQ swap where the low band is always deep-cut on the incoming track (-26 dB) and restored over the fade, and mid/high cuts scale by per-band spectral clash; transfers as a parameterized registry technique with band corners, cut depths and swap timing.",
+      "license_note": "MIT",
       "claimed_by": null,
       "claimed_at": null,
       "status": "queued"
