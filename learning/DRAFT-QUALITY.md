@@ -84,3 +84,18 @@ Every draft, new or existing, must carry all four before it counts:
 - The production track meets this bar only once its first real
   find is transcript-verified; until then its checks are
   untested, and this file says so.
+
+## Unverified + negative-data ledger (workspace-only)
+
+Unconfirmed candidates and drafts, and confirmed failures, are NOT
+published in this repo. They live in a workspace-only ledger:
+`transition-lab/UNVERIFIED-AND-NEGATIVE-DATA.md` (his delegation
+2026-10-27, lane's call on placement: workspace-only beats a
+public listing (pollution), a second repo (overhead), and a Drive
+file (sync drift)). The ledger has two sections — UNVERIFIED
+(items that may graduate when new evidence arrives: similar
+confirmed techniques, better source reads, corrected summaries)
+and NEGATIVE DATA (confirmed failures kept as warnings, even if a
+similar technique later verifies). Graduation re-enters the normal
+loop; entries are never deleted, only marked graduated. Loop-side
+failures only — mixes verdict data is never copied here.
