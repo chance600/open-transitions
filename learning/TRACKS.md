@@ -57,16 +57,16 @@ creators retain rights; nothing is copied into the repo.
   another lane's verdicts — ❤️ / PASS / REJECT only ever come from
   his words in the mixes chat.
 
-## Personal-source boundary (hard)
+## Personal-source boundary (hard, updated 2026-10-27 by his call)
 
 His Instagram DMs to self (alec_brewer) are a production-track
-input, and they are PERSONAL, not public. The index lives only in
-the workspace
-(`transition-lab/SELF-DM-PRODUCER-TRICKS-2026-10-27.jsonl`),
-summarized, never verbatim, never sent anywhere. It must NEVER be
-registered as a loop source (`Source.validate` rejects
-`free_public=false` by design) and tricks from it must NEVER enter
-a repo queue or draft as if publicly sourced. Personal knowledge
-informs study in the chats; the public repo holds public-source
-learning only. Changing this boundary is his explicit call, not a
-worker's judgment.
+input. The summarized index now lives IN this repo as
+`learning/producer-tricks-index.jsonl` (42 tricks, published here
+by his explicit 2026-10-27 decision, knowing the repo is public).
+It is a REFERENCE, not a mining source: it is NOT registered in
+any sources file (`Source.validate` rejects `free_public=false`
+by design) and tricks from it are NOT queued as candidates and
+NOT copied into drafts. Personal knowledge informs study in the
+chats; the repo's queues hold public-source learning only.
+Registering or queueing the personal index would be a further
+explicit call, not a worker's judgment.
