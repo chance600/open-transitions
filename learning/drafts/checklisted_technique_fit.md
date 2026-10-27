@@ -7,14 +7,39 @@ implementation, demo, or merge.
 - License note: MIT
 - Summary: Each technique expressed as boolean checks returning fit plus per-check reasons measured from a real studied set; transfers as explainable per-technique fit reports (why this move fits / does not).
 
-## Parameters (to be specified by the implementer)
+## Evidence (mechanism confirmed)
 
-- (fill in: named parameters with defaults and ranges)
+null-set-ai-dj `app/music_brain/matching/techniques.py`, verified
+first-hand 2026-10-27: `Technique.assess` returns fits plus
+per-check reasons; `rank()` returns every technique with fits
+and reasons, fitting ones first. Checks read measured
+PairFeatures (tempo gap, key score, vocal style, stem maps,
+breakdowns); learned techniques carry observations from studied
+sets ("seen Nx"). Evidence path:
+`null-set-ai-dj/app/music_brain/matching/techniques.py` (survey:
+STAR-DEEP-CANDIDATES `checklisted_technique_fit`).
 
-## When to use / when to avoid (to be specified)
+## Applicability (selector fields)
 
-- Use when: (fill in, grounded in evidence, not invented)
-- Avoid when: (fill in)
+- Tempo / key / energy / sections / vocals: the checks read
+  whatever PairFeatures are measured (tempo_gap, key, vocal
+  style, stem maps, breakdowns). Use for any pair with measured
+  features — the more features measured, the more checks can
+  pass or fail informatively. Avoid as a verdict: a failing
+  check explains why a move does not fit; it does not itself
+  render or repair the pair.
+- Genre families: source gives no genre applicability for the
+  checklists themselves.
+- Avoid when features are unmeasured: checks can only assess
+  measured features.
+
+## Registry fit (META schema)
+
+- Kind: selector (per-technique fit reporting, not a render).
+- Requires: needs measured pair features. Outputs fits plus
+  reasons per technique.
+- Energy / exit / clash risk: N/A — it reports fit, no audio.
+- Evidence reference: null-set-ai-dj `techniques.py` (MIT).
 
 ## Demo + verification checklist (all must pass before merge)
 

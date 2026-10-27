@@ -7,14 +7,39 @@ implementation, demo, or merge.
 - License note: MIT
 - Summary: Fade length hard-capped to min(outgoing vocal-free outro, incoming vocal-free intro) from a full-track vocal timeline, so a fade never covers vocals on either side; transfers as a duration clamp driven by per-track vocal windows.
 
-## Parameters (to be specified by the implementer)
+## Evidence (mechanism confirmed)
 
-- (fill in: named parameters with defaults and ranges)
+auto-dj-ai `src/player.js`, verified first-hand 2026-10-27:
+"Crossfade length, clamped so it fits inside both the outgoing
+vocal-free outro" — fade = min(fade, outro), then min(fade,
+intro); plus the comment "Crossfade length is capped to the
+vocal-free outro so we never fade over vocals." Evidence path:
+`auto-dj-ai/src/player.js` (survey: STAR-DEEP-CANDIDATES
+`vocal_free_window_clamped_fade`).
 
-## When to use / when to avoid (to be specified)
+## Applicability (selector fields)
 
-- Use when: (fill in, grounded in evidence, not invented)
-- Avoid when: (fill in)
+- Tempo: fade length is computed in beats, then capped by the
+  vocal windows. Source gives no BPM-gap cap for the clamp
+  itself.
+- Key / energy / sections / genre: source gives no
+  applicability.
+- Vocals: this IS the vocal-window clamp. Use when
+  vocal-free outro / intro windows are measured for both
+  sides. Avoid fading over vocals — that is exactly what the
+  clamp prevents. Note the guard behavior: the clamp applies
+  only when a window is finite and > 0, so an unmeasured
+  window does NOT clamp (it is skipped, not treated as zero).
+- Use when both sides offer vocal-free edges. Avoid relying
+  on the clamp when windows are unmeasured.
+
+## Registry fit (META schema)
+
+- Kind: render (duration clamp applied to a fade).
+- Requires: needs measured vocal-free outro + intro windows.
+- Energy: delta 0, tension flat. Exit: seamless. Clash risk:
+  vocal (prevented by the clamp).
+- Evidence reference: auto-dj-ai `player.js` (MIT).
 
 ## Demo + verification checklist (all must pass before merge)
 

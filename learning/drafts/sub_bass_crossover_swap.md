@@ -7,14 +7,38 @@ implementation, demo, or merge.
 - License note: MIT
 - Summary: 4th-order Linkwitz-Riley split at 120 Hz where exactly one track's low band is present at any sample while mids/highs blend; transfers as the render primitive for the whole bass-swap family.
 
-## Parameters (to be specified by the implementer)
+## Evidence (mechanism confirmed)
 
-- (fill in: named parameters with defaults and ranges)
+null-set-ai-dj `app/music_brain/audio/dsp_rack.py`, verified
+first-hand 2026-10-27: "a strict 4th-order Linkwitz-Riley
+120Hz sub-bass crossover (for zero-overlap Bass Swaps)";
+`linkwitz_riley_split` cascades two 2nd-order Butterworth
+stages to 4th-order; the mix docstring states sub-bass
+ownership "snaps instantly at swap_sample: exactly one track's
+low band is present" while mids/highs blend. Evidence path:
+`null-set-ai-dj/app/music_brain/audio/dsp_rack.py` (survey:
+STAR-DEEP-CANDIDATES `sub_bass_crossover_swap`).
 
-## When to use / when to avoid (to be specified)
+## Applicability (selector fields)
 
-- Use when: (fill in, grounded in evidence, not invented)
-- Avoid when: (fill in)
+- Tempo / key / energy / sections / vocals / genre: source
+  gives no applicability beyond the crossover itself. The
+  primitive is signal-level: it enforces single low-band
+  ownership at the swap sample regardless of pair features.
+- Use when a bass swap needs zero-overlap sub-bass (the
+  primitive guarantees it by construction). Avoid as a complete
+  transition: it is a render primitive for the bass-swap
+  family, not a standalone technique — mids/highs blend
+  separately.
+
+## Registry fit (META schema)
+
+- Kind: render (primitive).
+- Requires: needs audio-rate implementation (4th-order LR at
+  120 Hz). No pair-feature gating stated.
+- Energy: delta 0, tension flat. Exit: snap. Clash risk: bass
+  (eliminated by construction below the crossover).
+- Evidence reference: null-set-ai-dj `dsp_rack.py` (MIT).
 
 ## Demo + verification checklist (all must pass before merge)
 

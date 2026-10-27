@@ -7,14 +7,41 @@ implementation, demo, or merge.
 - License note: license unconfirmed - learn-from only, no code reuse
 - Summary: Per-style scores sampled by roulette, not argmaxed, with score floors, a 0.4x repeat-style penalty and a 1.5x style-hint boost; transfers as a selector that preserves variety across a set instead of always picking the top score.
 
-## Parameters (to be specified by the implementer)
+## Evidence (mechanism confirmed)
 
-- (fill in: named parameters with defaults and ranges)
+RustLarpDJ `crates/ai/src/transition_style.rs`
+`choose_transition`, verified first-hand 2026-10-27: score
+floors 0.03 (DoubleDrop) / 0.05 (all other styles);
+REPEAT_STYLE_PENALTY 0.4; STYLE_HINT_BOOST 1.5; true roulette
+sampling (r = random * total, position walk through scores —
+not argmax); a reason string (stretch %, key match %,
+energy delta %, confidence %). Evidence path:
+`RustLarpDJ/crates/ai/src/transition_style.rs` (survey:
+STAR-DEEP-CANDIDATES `weighted_roulette_selector`).
 
-## When to use / when to avoid (to be specified)
+## Applicability (selector fields)
 
-- Use when: (fill in, grounded in evidence, not invented)
-- Avoid when: (fill in)
+- Tempo / key / energy: scores read stretch, key match,
+  energy delta, and confidence (per the reason string). Use
+  when variety across a set matters more than always picking
+  the top score — roulette preserves variety. Avoid when
+  determinism is required: roulette is random by construction,
+  so identical inputs can yield different picks.
+- Sections / vocals: source gives no applicability for the
+  sampling policy itself.
+- Genre families: source gives no genre applicability (the
+  genre field is present but unset — `genre: None` — in the
+  scoring path).
+
+## Registry fit (META schema)
+
+- Kind: selector (sampling policy, not a render).
+- Requires: needs scored candidates plus floors. Outputs a
+  sampled pick plus a reason string.
+- Energy / exit / clash risk: per picked style, not per
+  policy.
+- Evidence reference: RustLarpDJ `transition_style.rs`
+  (learn-only, license unconfirmed).
 
 ## Demo + verification checklist (all must pass before merge)
 

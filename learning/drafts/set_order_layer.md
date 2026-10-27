@@ -7,14 +7,41 @@ implementation, demo, or merge.
 - License note: MIT
 - Summary: Longest-path set ordering under Camelot-key and energy-flow constraints, run before transition selection (from the STAR survey top-5, 2026-10-26).
 
-## Parameters (to be specified by the implementer)
+## Evidence (mechanism confirmed)
 
-- (fill in: named parameters with defaults and ranges)
+djkr8 `src/djkr8/optimizer.py` + `cli.py`, verified first-hand
+2026-10-27: CP-SAT ordering model; energy flow non-decreasing
+with max +1 per transition (enforceable, with an
+allow-energy-drops flag); max_energy_boosts 3 per set;
+max_violation_pct 0.10 default; Camelot quality table scores
+edges. Evidence path: `djkr8/src/djkr8/optimizer.py` (survey:
+STAR-REPOS-SURVEY §5 top-5 `set_order_layer`).
 
-## When to use / when to avoid (to be specified)
+## Applicability (selector fields)
 
-- Use when: (fill in, grounded in evidence, not invented)
-- Avoid when: (fill in)
+- Tempo: BPM tolerance with halftime/doubletime equivalence
+  (survey §5; the optimizer reads track BPM). Use when ordering
+  a set whose tracks carry BPM plus Camelot plus energy 1–5.
+  Avoid as a transition picker: it solves ordering, not
+  transitions (survey verdict — it complements rather than
+  competes with transition selection).
+- Key/harmonic: Camelot quality scores edges (0.0 = violation,
+  capped by the violation percentage).
+- Energy: flow non-decreasing, max +1 per step, max 3 boosts
+  per set. Use when a rising or flat energy arc is wanted.
+  Avoid when the set needs an energy drop — flow enforcement
+  forbids it unless allow-energy-drops is set.
+- Sections / vocals / genre: source gives no applicability.
+
+## Registry fit (META schema)
+
+- Kind: selector (set-order layer, runs BEFORE transition
+  selection; order and technique are chosen jointly, not in
+  isolation).
+- Requires: needs BPM + Camelot + energy per track. Outputs an
+  ordering.
+- Energy / exit / clash risk: N/A — ordering-level, no audio.
+- Evidence reference: djkr8 `optimizer.py` (MIT).
 
 ## Demo + verification checklist (all must pass before merge)
 

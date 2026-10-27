@@ -1,3 +1,23 @@
+> **UNCONFIRMED — mechanism not found in source.**
+>
+> The draft claims the next song is eligible only if its
+> FIRST CHORD exactly equals the previous song's LAST CHORD.
+> The cited source does not chain on chords: Endeless
+> `Endeless/workers/endeless_worker.py`
+> `random_search_next_song` chains on NOTES —
+> `df["First_Note"] == df["Last_Note"][index]` — with random
+> choice among matches and re-rolls while the choice is
+> already in the playlist ("Do not select the same song").
+> `chord_recognition.py` exists in the repo but only fills
+> dataset fields; it is not the chaining key. The
+> repeat-exclusion and random-choice-among-matches parts of
+> the draft ARE confirmed; the chord-equality key is NOT.
+> Do not implement, demo, or promote this draft until the
+> summary is corrected to note-equality (or the draft is
+> parked). No applicability or registry-fit sections were
+> added, because they would describe a mechanism the source
+> does not contain.
+
 # DRAFT: chord_domino_pair_match
 
 Status: DRAFT — not a registry entry. Requires human review before

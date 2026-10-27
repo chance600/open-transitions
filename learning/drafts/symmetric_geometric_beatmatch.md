@@ -7,14 +7,34 @@ implementation, demo, or merge.
 - License note: MIT
 - Summary: Both decks meet at the geometric-mean tempo, each bending half the octave-folded BPM difference, with no stretch outside a +/-6% tolerance; transfers as a beatmatch mode with a tolerance parameter and a no-stretch fallback.
 
-## Parameters (to be specified by the implementer)
+## Evidence (mechanism confirmed)
 
-- (fill in: named parameters with defaults and ranges)
+auto-dj-ai `src/player.js` `matchRatesSymmetric`, verified
+first-hand 2026-10-27. The code comment states it verbatim:
+"the two tracks meet at the geometric-mean tempo, each bending
+half the (octave-folded) difference. Outside tolerance, neither
+is stretched." TEMPO_TOLERANCE 0.06; octave folding at ratio
+thresholds 1.41 / 0.71; meeting rate via sqrt(ratio), outgoing
+bends one way, incoming the other. Evidence path:
+`auto-dj-ai/src/player.js` (survey: STAR-DEEP-CANDIDATES
+`symmetric_geometric_beatmatch`).
 
-## When to use / when to avoid (to be specified)
+## Applicability (selector fields)
 
-- Use when: (fill in, grounded in evidence, not invented)
-- Avoid when: (fill in)
+- Tempo: this IS the tempo matcher. Use when the octave-folded
+  BPM ratio is within ±6% — outside tolerance neither deck is
+  stretched and beatmatch is disabled (no-change returned).
+  Avoid when either BPM is unmeasured (returns no-change).
+- Key / energy / sections / vocals / genre: source gives no
+  applicability.
+
+## Registry fit (META schema)
+
+- Kind: selector (beatmatch mode, not a render).
+- Requires: needs measured BPM on both sides. Outputs
+  fromRate / toRate.
+- Energy / exit / clash risk: N/A — it sets rates, no audio.
+- Evidence reference: auto-dj-ai `player.js` (MIT).
 
 ## Demo + verification checklist (all must pass before merge)
 

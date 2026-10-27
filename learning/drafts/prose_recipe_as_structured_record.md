@@ -7,14 +7,44 @@ implementation, demo, or merge.
 - License note: MIT
 - Summary: Cookbook prose files parsed into TransitionRecipe structs with machine gating fields (requires_stems, max_bpm_delta, camelot_compatible_only); transfers as registry entries that carry executable gates, not just prose.
 
-## Parameters (to be specified by the implementer)
+## Evidence (mechanism confirmed)
 
-- (fill in: named parameters with defaults and ranges)
+null-set-ai-dj `app/music_brain/matching/knowledge_parser.py`,
+verified first-hand 2026-10-27: cookbook prose files parsed
+into `TransitionRecipe` structs with machine gating fields
+(requires_stems, max_bpm_delta, camelot_compatible_only);
+`_derive_prerequisites` sets max_bpm_delta 0.06 for some
+recipes and camelot_compatible_only True except for a bypass
+list; recipes also carry genre tags (`find_by_genre`) and
+difficulty. Evidence path:
+`null-set-ai-dj/app/music_brain/matching/knowledge_parser.py`
+(survey: STAR-DEEP-CANDIDATES `prose_recipe_as_structured_record`).
 
-## When to use / when to avoid (to be specified)
+## Applicability (selector fields)
 
-- Use when: (fill in, grounded in evidence, not invented)
-- Avoid when: (fill in)
+- Tempo: recipes carry max_bpm_delta (0.06 where derived). Use
+  when the pair's BPM gap is within the recipe's max. Avoid
+  when the gap exceeds it.
+- Key/harmonic: camelot_compatible_only defaults True. Use
+  when keys are Camelot-compatible. Avoid for Camelot-bypassing
+  recipes only where the bypass list names them.
+- Energy / sections / vocals: source gives no applicability
+  beyond the three gating fields (recipes carry section and
+  genre information in prose, but the machine gates are the
+  three fields).
+- Genre families: recipes carry genre tags (the parser offers
+  find_by_genre). Use when the pair matches the recipe's genre
+  tags; note the genre field is prose-derived, not measured.
+
+## Registry fit (META schema)
+
+- Kind: schema (record format, not a render).
+- Requires: maps directly onto META requires —
+  bpm_delta_pct_max from max_bpm_delta, camelot_max from
+  camelot_compatible_only, needs from requires_stems.
+- Energy / exit / clash risk: per-recipe, not per-schema.
+- Evidence reference: null-set-ai-dj `knowledge_parser.py`
+  (MIT).
 
 ## Demo + verification checklist (all must pass before merge)
 
