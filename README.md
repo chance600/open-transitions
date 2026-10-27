@@ -197,7 +197,10 @@ Active build. **100 registry entries: 99 executable techniques + 1 planning entr
 
 ## License
 
-MIT — see [LICENSE](LICENSE).
+GPL-3.0 plus Commons Clause — see [LICENSE](LICENSE). Commercial use
+requires a separate commercial license; see [CONTRIBUTING.md](CONTRIBUTING.md)
+for how to ask about one. Versions published before this change were
+licensed under MIT, and that grant stands for those versions.
 
 ## Learning loops
 
