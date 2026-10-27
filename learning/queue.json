@@ -148,7 +148,7 @@
       "license_note": "MIT",
       "claimed_by": null,
       "claimed_at": null,
-      "status": "queued"
+      "status": "proposed"
     },
     {
       "name": "symmetric_geometric_beatmatch",
