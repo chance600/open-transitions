@@ -18,7 +18,7 @@
       "license_note": "MIT",
       "claimed_by": null,
       "claimed_at": null,
-      "status": "queued"
+      "status": "proposed"
     },
     {
       "name": "differentiable_parameter_fitting",
@@ -28,7 +28,7 @@
       "license_note": "MIT",
       "claimed_by": null,
       "claimed_at": null,
-      "status": "queued"
+      "status": "proposed"
     },
     {
       "name": "set_order_layer",
@@ -46,6 +46,56 @@
       "source_url": "https://github.com/T-Perm/RustLarpDJ",
       "summary": "Richer selector output: duration_beats, quantize level, curve, fallback duration, reason string, transition-type class, vocal-clash risk, conflict-only EQ plan (from the STAR survey top-5, 2026-10-26). Learn-from only.",
       "license_note": "license unconfirmed \u2014 learn-from only, no code reuse",
+      "claimed_by": null,
+      "claimed_at": null,
+      "status": "queued"
+    },
+    {
+      "name": "prose_recipe_as_structured_record",
+      "source_name": "null-set-ai-dj",
+      "source_url": "https://github.com/sanchitd5/null-set-ai-dj",
+      "summary": "Cookbook prose files parsed into TransitionRecipe structs with machine gating fields (requires_stems, max_bpm_delta, camelot_compatible_only); transfers as registry entries that carry executable gates, not just prose.",
+      "license_note": "MIT",
+      "claimed_by": null,
+      "claimed_at": null,
+      "status": "queued"
+    },
+    {
+      "name": "sub_bass_crossover_swap",
+      "source_name": "null-set-ai-dj",
+      "source_url": "https://github.com/sanchitd5/null-set-ai-dj",
+      "summary": "4th-order Linkwitz-Riley split at 120 Hz where exactly one track's low band is present at any sample while mids/highs blend; transfers as the render primitive for the whole bass-swap family.",
+      "license_note": "MIT",
+      "claimed_by": null,
+      "claimed_at": null,
+      "status": "queued"
+    },
+    {
+      "name": "checklisted_technique_fit",
+      "source_name": "null-set-ai-dj",
+      "source_url": "https://github.com/sanchitd5/null-set-ai-dj",
+      "summary": "Each technique expressed as boolean checks returning fit plus per-check reasons measured from a real studied set; transfers as explainable per-technique fit reports (why this move fits / does not).",
+      "license_note": "MIT",
+      "claimed_by": null,
+      "claimed_at": null,
+      "status": "queued"
+    },
+    {
+      "name": "bpm_classification_half_time",
+      "source_name": "null-set-ai-dj",
+      "source_url": "https://github.com/sanchitd5/null-set-ai-dj",
+      "summary": "BPM gaps classified seamless (<=3%), ramp (<=6%), half_time (half/double fold within 6%), else cut_required; transfers as a tempo-gap classifier feeding technique eligibility.",
+      "license_note": "MIT",
+      "claimed_by": null,
+      "claimed_at": null,
+      "status": "queued"
+    },
+    {
+      "name": "weighted_roulette_selector",
+      "source_name": "rustlarpdj",
+      "source_url": "https://github.com/T-Perm/RustLarpDJ",
+      "summary": "Per-style scores sampled by roulette, not argmaxed, with score floors, a 0.4x repeat-style penalty and a 1.5x style-hint boost; transfers as a selector that preserves variety across a set instead of always picking the top score.",
+      "license_note": "license unconfirmed - learn-from only, no code reuse",
       "claimed_by": null,
       "claimed_at": null,
       "status": "queued"
