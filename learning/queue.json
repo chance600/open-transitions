@@ -48,7 +48,7 @@
       "license_note": "license unconfirmed \u2014 learn-from only, no code reuse",
       "claimed_by": null,
       "claimed_at": null,
-      "status": "queued"
+      "status": "proposed"
     },
     {
       "name": "prose_recipe_as_structured_record",
@@ -145,6 +145,56 @@
       "source_name": "auto-dj-ai",
       "source_url": "https://github.com/caffettino87/auto-dj-ai",
       "summary": "3-band EQ swap where the low band is always deep-cut on the incoming track (-26 dB) and restored over the fade, and mid/high cuts scale by per-band spectral clash; transfers as a parameterized registry technique with band corners, cut depths and swap timing.",
+      "license_note": "MIT",
+      "claimed_by": null,
+      "claimed_at": null,
+      "status": "queued"
+    },
+    {
+      "name": "symmetric_geometric_beatmatch",
+      "source_name": "auto-dj-ai",
+      "source_url": "https://github.com/caffettino87/auto-dj-ai",
+      "summary": "Both decks meet at the geometric-mean tempo, each bending half the octave-folded BPM difference, with no stretch outside a +/-6% tolerance; transfers as a beatmatch mode with a tolerance parameter and a no-stretch fallback.",
+      "license_note": "MIT",
+      "claimed_by": null,
+      "claimed_at": null,
+      "status": "queued"
+    },
+    {
+      "name": "vocal_free_window_clamped_fade",
+      "source_name": "auto-dj-ai",
+      "source_url": "https://github.com/caffettino87/auto-dj-ai",
+      "summary": "Fade length hard-capped to min(outgoing vocal-free outro, incoming vocal-free intro) from a full-track vocal timeline, so a fade never covers vocals on either side; transfers as a duration clamp driven by per-track vocal windows.",
+      "license_note": "MIT",
+      "claimed_by": null,
+      "claimed_at": null,
+      "status": "queued"
+    },
+    {
+      "name": "camelot_transition_quality_table",
+      "source_name": "djkr8",
+      "source_url": "https://github.com/schoi80/djkr8",
+      "summary": "Every key pair maps to a 0.0-1.0 quality and type (same key 1.0, +/-1 same letter 0.95, same-hour letter swap 0.9, energy boosts 0.6/0.5, else 0.0 violation); transfers as the selector's harmonic scoring table.",
+      "license_note": "MIT",
+      "claimed_by": null,
+      "claimed_at": null,
+      "status": "queued"
+    },
+    {
+      "name": "chord_domino_pair_match",
+      "source_name": "endeless",
+      "source_url": "https://github.com/Aurbcd/Endeless",
+      "summary": "Next song eligible only if its first chord exactly equals the previous song's last chord, chosen among matches without repeating a song; transfers as a hard pair-eligibility rule on boundary chords.",
+      "license_note": "MIT",
+      "claimed_by": null,
+      "claimed_at": null,
+      "status": "queued"
+    },
+    {
+      "name": "note_anchored_crossfade",
+      "source_name": "endeless",
+      "source_url": "https://github.com/Aurbcd/Endeless",
+      "summary": "Fade-out starts exactly at the outgoing song's last-note time and fade-in ends exactly at the incoming song's first-note time, overlap capped at 5 s; transfers as anchoring fades to detected musical events rather than fixed offsets.",
       "license_note": "MIT",
       "claimed_by": null,
       "claimed_at": null,
