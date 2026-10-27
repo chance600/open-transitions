@@ -70,3 +70,36 @@ NOT copied into drafts. Personal knowledge informs study in the
 chats; the repo's queues hold public-source learning only.
 Registering or queueing the personal index would be a further
 explicit call, not a worker's judgment.
+
+## Transfer note — Oct-20 DM study, merged into this track 2026-10-27
+
+The other DJ chat's Oct-20 work was NOT lost and is now this
+track's seed, not a duplicate:
+- Study document (workspace, provenance-rich, NOT in this repo):
+  `technique-bank/DM-CLIP-STUDY.md` (634 lines, 2026-10-20) —
+  91 self-DM messages, 81 IG clips studied, 44 bank candidates
+  from clips + 56 creator-backtrack teachings (19 concrete).
+  Every technique carries source clip URL, creator handle, save
+  date, and DM thread ref (standing provenance rule). Raw data:
+  `technique-bank/hidden_files/dm-harvest/` (clip-study.json,
+  creator-digests.json, selfthread-index.json).
+- Repo implementation of those candidates: `engine/dm_techniques.py`
+  and `techniques/*.md` specs carrying DM-Axx provenance.
+- The 9 backtracked creators are now registered production
+  sources (18 total with the original 9): @morsbeats_,
+  @nest.acoustics, @marshalljamesmusic, @dnksaus,
+  @djsfrenchcandy, @imtrvcy, @mattstonedj, @illumizotti,
+  @enamourmusic. Highest signal for ongoing mining:
+  @marshalljamesmusic (densest written advice), @dnksaus
+  (most concrete/technical), @morsbeats_ (named Ableton moves,
+  needs video mining). Low yield, still monitored, criteria-judged:
+  @djsfrenchcandy, @mattstonedj, @enamourmusic (mostly
+  promo/lifestyle). @maxanddana backtrack failed (0 posts).
+- The published `producer-tricks-index.jsonl` (42 summaries,
+  Oct-27 thread re-read) is the public summary; the study doc
+  above is the provenance record. Overlap between the 42 and the
+  DM-Axx specs is NOT yet measured — a future pass may attach
+  creators per trick from the study doc, but must not invent
+  them. The study's own line stands: "New content from these
+  creators flows through the same distill → provenance →
+  bank-flag pipeline" — that pipeline is now this watch + loop.
