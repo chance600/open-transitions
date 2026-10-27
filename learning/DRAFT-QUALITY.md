@@ -85,14 +85,18 @@ Every draft, new or existing, must carry all four before it counts:
   find is transcript-verified; until then its checks are
   untested, and this file says so.
 
-## Unverified + negative-data ledger (workspace-only)
+## Unverified + negative-data ledger (workspace-canonical, backed up)
 
 Unconfirmed candidates and drafts, and confirmed failures, are NOT
-published in this repo. They live in a workspace-only ledger:
+published in this repo. They live in a workspace-canonical ledger:
 `transition-lab/UNVERIFIED-AND-NEGATIVE-DATA.md` (his delegation
-2026-10-27, lane's call on placement: workspace-only beats a
+2026-10-27, lane's call on placement: workspace-canonical beats a
 public listing (pollution), a second repo (overhead), and a Drive
-file (sync drift)). The ledger has two sections — UNVERIFIED
+file as canonical (sync drift)) — with backups, because a single
+copy was judged not wise for data whose value is surviving: the
+user's Mac plus Drive, both byte-verified at setup and refreshed
+weekly by cron `dj-ledger-backup` (state in the goal's
+hidden_files). The ledger has two sections — UNVERIFIED
 (items that may graduate when new evidence arrives: similar
 confirmed techniques, better source reads, corrected summaries)
 and NEGATIVE DATA (confirmed failures kept as warnings, even if a
