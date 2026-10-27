@@ -228,7 +228,7 @@
       "license_note": "MIT",
       "claimed_by": null,
       "claimed_at": null,
-      "status": "queued"
+      "status": "proposed"
     },
     {
       "name": "chorus_anchored_transition",
@@ -238,7 +238,7 @@
       "license_note": "MIT",
       "claimed_by": null,
       "claimed_at": null,
-      "status": "queued"
+      "status": "parked"
     },
     {
       "name": "silence_skip_transition",
