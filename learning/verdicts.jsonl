@@ -1,0 +1,3 @@
+{"pair": "Kombucha x Lifetime (Kendrick/Tobiahs)", "technique": "echo_out", "outcome": "pass", "verifier_type": "human", "date": "2026-10-26", "heart": true, "source": "verdict-dataset row 166 (link 5b v14)"}
+{"pair": "Lifetime (Kendrick/Tobiahs) x Balkans de Mallorca", "technique": "echo_out", "outcome": "pass", "verifier_type": "human", "date": "2026-10-26", "heart": false, "source": "verdict-dataset row 168 (link 6 v31)"}
+{"pair": "Lifetime (Kendrick/Tobiahs) x Balkans de Mallorca", "technique": "lifetime_out_sequential_handoff", "outcome": "partial", "verifier_type": "human", "date": "2026-10-26", "heart": false, "source": "verdict-dataset row 169 (link 6 v33)"}

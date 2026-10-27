@@ -1,0 +1,54 @@
+{
+  "candidates": [
+    {
+      "name": "pair_atlas_schema",
+      "source_name": "null-set-ai-dj",
+      "source_url": "https://github.com/sanchitd5/null-set-ai-dj",
+      "summary": "Per-pair, per-move compatibility scores as an evidence layer above the selector (from the STAR survey top-5, 2026-10-26).",
+      "license_note": "MIT",
+      "claimed_by": null,
+      "claimed_at": null,
+      "status": "proposed"
+    },
+    {
+      "name": "merge_hold_handover",
+      "source_name": "null-set-ai-dj",
+      "source_url": "https://github.com/sanchitd5/null-set-ai-dj",
+      "summary": "Named compound base: merge, hold, hand over, with hold length from measured stem energy and vocal gaps (from the STAR survey top-5, 2026-10-26).",
+      "license_note": "MIT",
+      "claimed_by": null,
+      "claimed_at": null,
+      "status": "queued"
+    },
+    {
+      "name": "differentiable_parameter_fitting",
+      "source_name": "djtransgan",
+      "source_url": "https://github.com/ChenPaulYu/DJtransGAN",
+      "summary": "Fit technique parameter defaults from example mixes and freeze them as deterministic defaults \u2014 the DJTransGAN method, not its torch stack (from the STAR survey top-5, 2026-10-26).",
+      "license_note": "MIT",
+      "claimed_by": null,
+      "claimed_at": null,
+      "status": "queued"
+    },
+    {
+      "name": "set_order_layer",
+      "source_name": "djkr8",
+      "source_url": "https://github.com/schoi80/djkr8",
+      "summary": "Longest-path set ordering under Camelot-key and energy-flow constraints, run before transition selection (from the STAR survey top-5, 2026-10-26).",
+      "license_note": "MIT",
+      "claimed_by": null,
+      "claimed_at": null,
+      "status": "queued"
+    },
+    {
+      "name": "selector_output_schema",
+      "source_name": "rustlarpdj",
+      "source_url": "https://github.com/T-Perm/RustLarpDJ",
+      "summary": "Richer selector output: duration_beats, quantize level, curve, fallback duration, reason string, transition-type class, vocal-clash risk, conflict-only EQ plan (from the STAR survey top-5, 2026-10-26). Learn-from only.",
+      "license_note": "license unconfirmed \u2014 learn-from only, no code reuse",
+      "claimed_by": null,
+      "claimed_at": null,
+      "status": "queued"
+    }
+  ]
+}

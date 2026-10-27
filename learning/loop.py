@@ -18,9 +18,19 @@ import json
 from pathlib import Path
 
 from learning.gates import demo_verify_gate
-from learning.ingest import Queue, SourceRegistry
+from learning.ingest import Queue, Source, SourceRegistry
 from learning.propose import propose_draft
 from learning.verdicts import load_verdicts, promotion_gate
+
+
+def load_registry(path: str | Path) -> SourceRegistry:
+    """Load a human-registered sources file (JSON list of Source dicts).
+
+    Registration is a human act: every entry asserts free/public
+    reachability, confirmed by a human, never inferred by the loop.
+    """
+    rows = json.loads(Path(path).read_text())
+    return SourceRegistry([Source(**row) for row in rows])
 
 
 def run_pass(
@@ -58,11 +68,15 @@ def main() -> None:
     parser.add_argument("--queue", required=True)
     parser.add_argument("--verdicts", default=None)
     parser.add_argument("--drafts", required=True)
+    parser.add_argument("--sources", default="learning/sources.json")
     parser.add_argument("--worker", default="learning-loop")
     args = parser.parse_args()
-    # The registry is intentionally empty by default: sources are
-    # registered by a human (free/public confirmed) before any pass.
-    report = run_pass(args.queue, args.verdicts, args.drafts, SourceRegistry(), args.worker)
+    registry = (
+        load_registry(args.sources)
+        if args.sources and Path(args.sources).exists()
+        else SourceRegistry()
+    )
+    report = run_pass(args.queue, args.verdicts, args.drafts, registry, args.worker)
     print(json.dumps(report, indent=2))
 
 

@@ -38,8 +38,11 @@ verdict row (see `verdicts.py`).
 `loop.py` runs one pass: claim the next unclaimed queue item, write
 its draft, evaluate promotion gates over a verdicts file, print a
 JSON report. It never merges, commits, or promotes. The repo ships
-no queue or verdicts file, so a fresh checkout starts empty and
-invents nothing.
+seeded inputs — `learning/sources.json` (9 human-registered
+free/public sources), `learning/queue.json` (5 queued candidates from
+the 2026-10-26 STAR survey), and `learning/verdicts.jsonl` (3
+verified human verdict rows from the dataset) — and the first pass
+already ran: `learning/drafts/pair_atlas_schema.md`.
 
 ## Running it
 
