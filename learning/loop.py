@@ -7,8 +7,11 @@ gates (which a human then acts on). Run it from the repo root:
     python -m learning.loop --queue learning/queue.json \
         --verdicts learning/verdicts.jsonl --drafts learning/drafts
 
-The queue and verdict files are caller-supplied: the repo ships none,
-so a fresh checkout starts empty and invents nothing.
+The queue, verdicts, sources, and drafts files are caller-supplied
+per track (see TRACKS.md): the DJing track uses queue.json /
+drafts / sources.json, the production track uses
+queue_production.json / drafts_production /
+sources_production.json. A pass invents nothing.
 """
 
 from __future__ import annotations
