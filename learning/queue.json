@@ -58,7 +58,7 @@
       "license_note": "MIT",
       "claimed_by": null,
       "claimed_at": null,
-      "status": "queued"
+      "status": "proposed"
     },
     {
       "name": "sub_bass_crossover_swap",
@@ -196,6 +196,56 @@
       "source_url": "https://github.com/Aurbcd/Endeless",
       "summary": "Fade-out starts exactly at the outgoing song's last-note time and fade-in ends exactly at the incoming song's first-note time, overlap capped at 5 s; transfers as anchoring fades to detected musical events rather than fixed offsets.",
       "license_note": "MIT",
+      "claimed_by": null,
+      "claimed_at": null,
+      "status": "queued"
+    },
+    {
+      "name": "brute_force_alignment_search",
+      "source_name": "automix",
+      "source_url": "https://github.com/MZehren/Automix",
+      "summary": "Every combination of outgoing boundary x incoming boundary x bar-overlap is rendered and graded and the best-scoring alignment wins; transfers as a selector that searches cue-point pairs rather than scoring one fixed exit/entry point.",
+      "license_note": "MIT",
+      "claimed_by": null,
+      "claimed_at": null,
+      "status": "queued"
+    },
+    {
+      "name": "fade_shape_vocabulary",
+      "source_name": "djtransgan",
+      "source_url": "https://github.com/ChenPaulYu/DJtransGAN",
+      "summary": "Five named fade shapes (linear, exponential, logarithmic, quarter-sine, half-sine) x fade-in/fade-out; transfers directly as the curve-shape parameter of every technique in the registry.",
+      "license_note": "MIT",
+      "claimed_by": null,
+      "claimed_at": null,
+      "status": "queued"
+    },
+    {
+      "name": "downbeat_anchored_cue_window",
+      "source_name": "djtransgan",
+      "source_url": "https://github.com/ChenPaulYu/DJtransGAN",
+      "summary": "Transition window starts 8 bars before the cue, snapped to the nearest detected downbeat; transfers as a placement rule: never start a transition mid-bar, always on a downbeat N bars early.",
+      "license_note": "MIT",
+      "claimed_by": null,
+      "claimed_at": null,
+      "status": "queued"
+    },
+    {
+      "name": "chorus_anchored_transition",
+      "source_name": "mixin",
+      "source_url": "https://github.com/dennisvdang/mixin",
+      "summary": "Per-measure chorus/non-chorus labels aligned to the beat grid; transfers as a placement gate: start/end transitions at chorus boundaries and never cut across a chorus.",
+      "license_note": "MIT",
+      "claimed_by": null,
+      "claimed_at": null,
+      "status": "queued"
+    },
+    {
+      "name": "silence_skip_transition",
+      "source_name": "mixxx",
+      "source_url": "https://github.com/mixxxdj/mixxx",
+      "summary": "AutoDJ modes that skip silent intros/outros, backed by a dedicated silence analyzer; transfers as a selector rule: when either side has leading/trailing silence, skip it instead of fading through dead air.",
+      "license_note": "GPL-2.0-or-later - learn-from only, never copy code",
       "claimed_by": null,
       "claimed_at": null,
       "status": "queued"
