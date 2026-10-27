@@ -103,3 +103,18 @@ track's seed, not a duplicate:
   them. The study's own line stands: "New content from these
   creators flows through the same distill → provenance →
   bank-flag pipeline" — that pipeline is now this watch + loop.
+- Merge 2026-10-27: full self-DM source-account extraction
+  (`transition-lab/SELF-DM-SOURCE-ACCOUNTS-2026-10-27.json`,
+  workspace only) — 65 distinct accounts (61 IG + 4 Threads),
+  92 thread messages fully accounted for (82 IG posts, 4
+  Threads links, 4 unresolvable, 2 grips3d profile refs, not
+  posts). All 9 backtracked creators confirmed present in
+  current thread data. All 52 further IG accounts registered
+  (70 production sources total, all validate); the 4 Threads
+  accounts are NOT IG sources and stay out. Watch design,
+  rate-limit-grounded (429 hit after ~14 lookups during
+  extraction): per-account checks cover jameshypestories +
+  12 accounts (9 backtrack + ammo.amor, evolving.ai,
+  goldo.musicproducer, the further multi-share sources);
+  the 49 single-share accounts are covered by search queries
+  + source registration, not per-account checks.
