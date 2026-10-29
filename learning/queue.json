@@ -249,6 +249,226 @@
       "claimed_by": null,
       "claimed_at": null,
       "status": "proposed"
+    }    ,
+    {
+      "name": "ffmpeg_curve_equal_power_crossfade",
+      "source_name": "ffmpeg",
+      "source_url": "https://github.com/FFmpeg/FFmpeg",
+      "summary": "Curve-selected equal-power crossfade via afade/acrossfade (libavfilter/af_afade.c): per-stream fade curve selection (tri, qsin, esin, hsin, log, ...) for the acrossfade. Chained-multi-input and band-split variants NOT queued (unverified in official docs).",
+      "license_note": "LGPL-2.1-or-later (GPL-2.0-or-later for optional parts) \u2014 learn-from only",
+      "claimed_by": null,
+      "claimed_at": null,
+      "status": "queued"
+    },
+    {
+      "name": "tidal_xfade_transition",
+      "source_name": "tidalcycles",
+      "source_url": "https://codeberg.org/uzu/tidal",
+      "summary": "xfade/xfadeIn transition functions (Boot.hs): crossfade one pattern into another over a set number of cycles (xfade defaults to 4).",
+      "license_note": "GPL-3.0",
+      "claimed_by": null,
+      "claimed_at": null,
+      "status": "queued"
+    },
+    {
+      "name": "tidal_clutch_transition",
+      "source_name": "tidalcycles",
+      "source_url": "https://codeberg.org/uzu/tidal",
+      "summary": "clutch/clutchIn transition functions (Boot.hs): hold the current pattern while the incoming pattern prepares, then switch.",
+      "license_note": "GPL-3.0",
+      "claimed_by": null,
+      "claimed_at": null,
+      "status": "queued"
+    },
+    {
+      "name": "demucs_two_stem_vocal_isolation",
+      "source_name": "demucs",
+      "source_url": "https://github.com/adefossez/demucs",
+      "summary": "Two-stem vocal isolation via --two-stems=vocals (README): vocals vs rest of accompaniment, for vocal-isolation swaps.",
+      "license_note": "MIT",
+      "claimed_by": null,
+      "claimed_at": null,
+      "status": "queued"
+    },
+    {
+      "name": "demucs_four_stem_element_trading",
+      "source_name": "demucs",
+      "source_url": "https://github.com/adefossez/demucs",
+      "summary": "Four-stem separation (drums/bass/other/vocals, Hybrid Transformer Demucs v4) for element trading between separated stems.",
+      "license_note": "MIT",
+      "claimed_by": null,
+      "claimed_at": null,
+      "status": "queued"
+    },
+    {
+      "name": "spleeter_two_stem_vocal_split",
+      "source_name": "spleeter",
+      "source_url": "https://github.com/deezer/spleeter",
+      "summary": "2stems model (spleeter/resources/2stems.json): vocals vs accompaniment split for vocal/accompaniment swaps.",
+      "license_note": "MIT",
+      "claimed_by": null,
+      "claimed_at": null,
+      "status": "queued"
+    },
+    {
+      "name": "spleeter_multistem_element_trading",
+      "source_name": "spleeter",
+      "source_url": "https://github.com/deezer/spleeter",
+      "summary": "4stems/5stems models (spleeter/resources/4stems.json, 5stems.json): per-element stems for element trading.",
+      "license_note": "MIT",
+      "claimed_by": null,
+      "claimed_at": null,
+      "status": "queued"
+    },
+    {
+      "name": "aubio_onset_beat_detection",
+      "source_name": "aubio",
+      "source_url": "https://github.com/aubio/aubio",
+      "summary": "Onset/beat detection for cue placement and beat-grid measurement (aubio: library for audio and music analysis). [Repo-grounded; scout named no mechanism for aubio.]",
+      "license_note": "GPL-3.0-or-later",
+      "claimed_by": null,
+      "claimed_at": null,
+      "status": "queued"
+    },
+    {
+      "name": "essentia_beat_tracking_transition_points",
+      "source_name": "essentia",
+      "source_url": "https://github.com/MTG/essentia",
+      "summary": "Beat tracking (src/algorithms/rhythm: BeatTrackerMultifeature, BeatTrackerDegara, BPMHistogram) for beat-grid and transition-point measurement. [Repo-grounded; scout named no mechanism for essentia.]",
+      "license_note": "AGPL-3.0 \u2014 learn-from only",
+      "claimed_by": null,
+      "claimed_at": null,
+      "status": "queued"
+    },
+    {
+      "name": "tonejs_crossfade_node",
+      "source_name": "tonejs",
+      "source_url": "https://github.com/Tonejs/Tone.js",
+      "summary": "CrossFade node (Tone/component/channel/CrossFade.ts): equal-power crossfade between two audio inputs in the browser. Feedback-delay candidate DROPPED (paths unverified).",
+      "license_note": "MIT",
+      "claimed_by": null,
+      "claimed_at": null,
+      "status": "queued"
+    },
+    {
+      "name": "subwave_ending_shaped_crossfade",
+      "source_name": "subwave",
+      "source_url": "https://github.com/perminder-klair/subwave",
+      "summary": "Ending-shaped crossfade length (radio-automation transfer, conceptual): crossfade sizes itself to how the track ends \u2014 a real fade rides out long, a cold ending cuts tight.",
+      "license_note": "MIT \u2014 radio-automation transfer (conceptual, not a DJ-set technique)",
+      "claimed_by": null,
+      "claimed_at": null,
+      "status": "queued"
+    },
+    {
+      "name": "subwave_stem_blend_tail_into_head",
+      "source_name": "subwave",
+      "source_url": "https://github.com/perminder-klair/subwave",
+      "summary": "Stem-blend tail-into-head (radio-automation transfer, conceptual): opt-in stem blends mix the outgoing tail into the incoming head for a produced seam.",
+      "license_note": "MIT \u2014 radio-automation transfer (conceptual, not a DJ-set technique)",
+      "claimed_by": null,
+      "claimed_at": null,
+      "status": "queued"
+    },
+    {
+      "name": "greed_phrase_boundary_bass_swap",
+      "source_name": "greed-automix",
+      "source_url": "https://adoomi.dev/blog/how-greed-automix-works",
+      "summary": "Phrase-boundary blend with mid-blend bass swap (Greed automix write-up): next track enters under the current one, in time, at matched level, on a phrase boundary, bass swapping partway through.",
+      "license_note": "Public article \u2014 learn-from and link only; no license claimed",
+      "claimed_by": null,
+      "claimed_at": null,
+      "status": "queued"
+    },
+    {
+      "name": "greed_cue_pointed_blend",
+      "source_name": "greed-automix",
+      "source_url": "https://adoomi.dev/blog/how-greed-automix-works",
+      "summary": "Cue-pointed blend length with filter envelopes (Greed automix write-up): the brain decides cue points, blend length, and filter timing; the DSP engine applies gain/filter envelopes.",
+      "license_note": "Public article \u2014 learn-from and link only; no license claimed",
+      "claimed_by": null,
+      "claimed_at": null,
+      "status": "queued"
+    },
+    {
+      "name": "setflow_five_move_blend",
+      "source_name": "setflow-guide",
+      "source_url": "https://www.setflow.app/blog/learn-dj-transitions-move-by-move",
+      "summary": "Five-move house/techno blend routine (SetFlow guide): set up incoming deck (LOW down), start on the downbeat, make room (HI up, outgoing MID dipped), swap bass on a bar line, fade out.",
+      "license_note": "Public article \u2014 learn-from and link only; no license claimed",
+      "claimed_by": null,
+      "claimed_at": null,
+      "status": "queued"
+    },
+    {
+      "name": "setflow_bass_swap_bar_line",
+      "source_name": "setflow-guide",
+      "source_url": "https://www.setflow.app/blog/learn-dj-transitions-move-by-move",
+      "summary": "Bass swap on the bar line (SetFlow guide): incoming LOW fully down until the swap, then outgoing LOW out and incoming LOW in, in one move \u2014 never two basslines at full weight.",
+      "license_note": "Public article \u2014 learn-from and link only; no license claimed",
+      "claimed_by": null,
+      "claimed_at": null,
+      "status": "queued"
+    },
+    {
+      "name": "izotope_filter_sweep_transition",
+      "source_name": "izotope-guide",
+      "source_url": "https://www.izotope.com/community/blog/how-to-create-better-transitions-in-your-mix",
+      "summary": "Automated filter sweep through a transition (iZotope guide): highpass EQ band automated 44 Hz -> 1320 Hz -> back to 44 Hz across the seam.",
+      "license_note": "Public article \u2014 learn-from and link only; no license claimed",
+      "claimed_by": null,
+      "claimed_at": null,
+      "status": "queued"
+    },
+    {
+      "name": "izotope_reverb_automation_transition",
+      "source_name": "izotope-guide",
+      "source_url": "https://www.izotope.com/community/blog/how-to-create-better-transitions-in-your-mix",
+      "summary": "Reverb wet/dry automation across a seam (iZotope guide): Neoverb wet/dry ridden over time to create movement through the transition.",
+      "license_note": "Public article \u2014 learn-from and link only; no license claimed",
+      "claimed_by": null,
+      "claimed_at": null,
+      "status": "queued"
+    },
+    {
+      "name": "librosa_beat_tracked_alignment",
+      "source_name": "librosa",
+      "source_url": "https://github.com/librosa/librosa",
+      "summary": "Beat-tracked alignment (librosa.beat.beat_track): beat grid measurement for cue placement and segment alignment. [Repo-grounded; scout named no mechanism for librosa.]",
+      "license_note": "ISC",
+      "claimed_by": null,
+      "claimed_at": null,
+      "status": "queued"
+    },
+    {
+      "name": "librosa_harmonic_percussive_separation",
+      "source_name": "librosa",
+      "source_url": "https://github.com/librosa/librosa",
+      "summary": "Harmonic-percussive separation (librosa.effects.hpss/harmonic/percussive): split harmonic vs percussive content for element-level trading. [Repo-grounded; scout named no mechanism for librosa.]",
+      "license_note": "ISC",
+      "claimed_by": null,
+      "claimed_at": null,
+      "status": "queued"
+    },
+    {
+      "name": "mixgraph_breakdown_swap",
+      "source_name": "mixgraph-guide",
+      "source_url": "https://www.mixgraph.io/learn/dj-transition-techniques",
+      "summary": "Breakdown swap (MixGraph guide): start the incoming track's intro under an 8-16 bar open breakdown; the incoming beat drops as the breakdown resolves (needs >=8 bars of open space).",
+      "license_note": "Public article \u2014 learn-from and link only; no license claimed",
+      "claimed_by": null,
+      "claimed_at": null,
+      "status": "queued"
+    },
+    {
+      "name": "mixgraph_long_blend",
+      "source_name": "mixgraph-guide",
+      "source_url": "https://www.mixgraph.io/learn/dj-transition-techniques",
+      "summary": "Long blend, 16-32 bars (MixGraph guide): incoming in low during a rhythmic section, bass cut until the switch point, then a single clean bass swap; requires compatible keys and similar energy.",
+      "license_note": "Public article \u2014 learn-from and link only; no license claimed",
+      "claimed_by": null,
+      "claimed_at": null,
+      "status": "queued"
     }
   ]
 }
