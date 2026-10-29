@@ -469,6 +469,26 @@
       "claimed_by": null,
       "claimed_at": null,
       "status": "proposed"
+    },
+    {
+      "name": "chopped_screwed_slowdown_chop",
+      "source_name": "screwlab-guide",
+      "source_url": "https://screwlab.com/help/what-is-chopped-and-screwed/",
+      "summary": "Chopped and screwed remix method (Screwlab guide): screw tempo+pitch down together (~60-75% of original, classic 60-70 BPM) + chop phrases into repeated/skipped/rearranged segments; two-turntable alternating + two-copy crossfader repeat mechanics.",
+      "license_note": "Public article \u2014 learn-from and link only; no license claimed",
+      "claimed_by": null,
+      "claimed_at": null,
+      "status": "proposed"
+    },
+    {
+      "name": "audio_8d_rotating_pan",
+      "source_name": "speechgen-8d",
+      "source_url": "https://speechgen.io/en/effect/audio_8d/",
+      "summary": "8D audio rotating-pan effect (SpeechGen DSP recipe, STUDY-ONLY): slow auto-pan cycling left-right-back + 180 ms echo + stereo widening before panning; headphones-only orbit illusion; ordinary stereo file, not a spatial format.",
+      "license_note": "Public article \u2014 learn-from and link only; no license claimed",
+      "claimed_by": null,
+      "claimed_at": null,
+      "status": "proposed"
     }
   ]
 }
