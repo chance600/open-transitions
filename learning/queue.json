@@ -249,7 +249,7 @@
       "claimed_by": null,
       "claimed_at": null,
       "status": "proposed"
-    }    ,
+    },
     {
       "name": "ffmpeg_curve_equal_power_crossfade",
       "source_name": "ffmpeg",
@@ -258,7 +258,7 @@
       "license_note": "LGPL-2.1-or-later (GPL-2.0-or-later for optional parts) \u2014 learn-from only",
       "claimed_by": null,
       "claimed_at": null,
-      "status": "queued"
+      "status": "proposed"
     },
     {
       "name": "tidal_xfade_transition",
