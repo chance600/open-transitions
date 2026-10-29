@@ -338,7 +338,7 @@
       "license_note": "AGPL-3.0 \u2014 learn-from only",
       "claimed_by": null,
       "claimed_at": null,
-      "status": "queued"
+      "status": "proposed"
     },
     {
       "name": "tonejs_crossfade_node",
