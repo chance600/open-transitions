@@ -488,5 +488,12 @@
     "license_note": "Public Instagram post \u2014 learn-from and link only; creator retains rights",
     "name": "ig:theghostproduction (instagram.com/theghostproduction)",
     "url": "https://www.instagram.com/"
+  },
+  {
+    "free_public": true,
+    "kind": "account",
+    "license_note": "Public Instagram post \u2014 learn-from and link only; creator retains rights",
+    "name": "ig:weraveyoutech (instagram.com/weraveyoutech)",
+    "url": "https://www.instagram.com/"
   }
 ]
