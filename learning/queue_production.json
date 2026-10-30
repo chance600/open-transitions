@@ -4,8 +4,8 @@
       "name": "rockstar-guitar-melody-minimal-drums-heavy-bass",
       "source_name": "ig:howthatsongwasmade (instagram.com/howthatsongwasmade)",
       "source_url": "https://www.instagram.com/reel/DYJNJC4tZWG/",
-      "summary": "Hit-beat construction built around a simple dark guitar-driven melody, with minimal drums and heavy bass carrying the track \u2014 a restraint-first arrangement pattern for a vocal-led hit.",
-      "license_note": "Public Instagram post \u2014 learn-from and link only; creator retains rights",
+      "summary": "Hit-beat construction built around a simple dark guitar-driven melody, with minimal drums and heavy bass carrying the track — a restraint-first arrangement pattern for a vocal-led hit.",
+      "license_note": "Public Instagram post — learn-from and link only; creator retains rights",
       "claimed_by": null,
       "claimed_at": null,
       "status": "parked"
@@ -15,10 +15,20 @@
       "source_name": "ig:weraveyoutech (instagram.com/weraveyoutech)",
       "source_url": "https://www.instagram.com/reel/DdrTCGfPWyg/",
       "summary": "One lead carries the track, dry and centered; all other layers (doubled synths, reverb tails, vocal stacks) exist only to support it. Toggle test: without support layers the track loses its soul, with them the lead pierces at its peak. Sessions run to 110 channels; a piano recording becomes a 75-layer club track; quantizing to the grid costs human feel but makes layering at scale possible.",
-      "license_note": "Public Instagram post \u2014 learn-from and link only; creator retains rights",
+      "license_note": "Public Instagram post — learn-from and link only; creator retains rights",
       "claimed_by": null,
       "claimed_at": null,
       "status": "parked"
+    },
+    {
+      "name": "irisloops-swing-bounce-hats",
+      "source_name": "ig:irisloops_ (instagram.com/irisloops_)",
+      "source_url": "https://www.instagram.com/reel/DfGGO1htP4U/",
+      "summary": "Tech-house bounce from hat swing at 125 BPM: kick straight on every beat, hats on every sixteenth, every second sixteenth delayed (start mid-50s percent, raise to around 60 percent; video demos 55 percent then 62 percent, straight 50 percent vs swung 62 percent A/B); only hats and percussion swing; off-beat hats slightly lower in level. Evidence: creator own written breakdown on own account plus matching video demo, with independent MPC/DAW percent-convention corroboration (50 percent = straight). OPEN: whether the bass also swings is unanswered (commenter asked, reel names hats/percussion only) — do not assert it. Counterpoint carried: straight timing works sometimes too; swing is a choice for bounce, not a law.",
+      "license_note": "Public Instagram post — learn-from and link only; creator retains rights",
+      "claimed_by": null,
+      "claimed_at": null,
+      "status": "queued"
     }
   ]
 }
