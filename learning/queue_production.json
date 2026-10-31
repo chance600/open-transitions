@@ -29,6 +29,16 @@
       "claimed_by": null,
       "claimed_at": null,
       "status": "proposed"
+    },
+    {
+      "name": "philharris-eminem-remix-pipeline",
+      "source_name": "ig:philharrismusic (instagram.com/philharrismusic)",
+      "source_url": "https://www.instagram.com/reel/DfHrnPaMfm7/",
+      "summary": "Acapella-first tech-house remix pipeline: source the vocal, analyze tempo/key (112 BPM, 6A in the demo), align the vocal to the beat grid in Ableton Live, then rebuild by layers from a sample library (tech-house bassline, hi-hats, snare roll for tension, white-noise sweeps into the drop) and arrange the full timeline. Evidence is a machine-generated narrative of the reel plus a two-line caption, NOT a transcript or creator-written breakdown, so the candidate is PARKED per the production verification bar (Armin precedent).",
+      "license_note": "Public Instagram post \u2014 learn-from and link only; creator retains rights",
+      "claimed_by": null,
+      "claimed_at": null,
+      "status": "parked"
     }
   ]
 }
