@@ -1,6 +1,6 @@
 # open-transitions
 
-An open library of named, parameterizable DJ transition techniques — plus an engine that renders them. MIT licensed.
+An open library of named, parameterizable DJ transition techniques — plus an engine that renders them. GPL-3.0 + Commons Clause licensed.
 
 ## The problem
 
@@ -8,7 +8,7 @@ Every DJ tutorial teaches the same transitions: the long harmonic EQ blend, the 
 
 ## What this is
 
-1. **`techniques/`** — 82 technique specs, each a parameter-level recipe: the exact moves (EQ positions, filter automation curves, FX type + values, timing in bars/beats), parameters with units and defaults, why it works, when to use/avoid it, and provenance (bank T-001–T-039, gap-report GAP-01–GAP-18, DM-clip DM-Axx, performer PERF-ZAB, web-mined WEB-01–WEB-18). Prose is documentation; the parameters are the product.
+1. **`techniques/`** — 113 technique specs, each a parameter-level recipe: the exact moves (EQ positions, filter automation curves, FX type + values, timing in bars/beats), parameters with units and defaults, why it works, when to use/avoid it, and provenance (bank T-001–T-039, gap-report GAP-01–GAP-18, DM-clip DM-Axx, performer PERF-ZAB, web-mined WEB-01–WEB-18). Prose is documentation; the parameters are the product.
 2. **`engine/`** — deterministic DSP (numpy + scipy only) that renders the techniques on real audio: `dsp.py` (building blocks), `techniques.py` (the 32 named techniques), `render.py` (plan-file batch renderer), `verify.py` (silence/headroom/timbre gates).
 3. **`demos/`** — `make_demos.py` synthesizes two deterministic test tracks (no copyrighted audio) and renders + verifies a demo clip per technique into `demos/out/`.
 4. **The framework** ([FRAMEWORK.md](FRAMEWORK.md)) — what makes this a system instead of a pile of recipes: every technique is registered in a **metadata registry** (`engine/meta.py`) with hard preconditions, soft preference rules, parameter families, an energy/exit profile, and ≥1 real-world evidence reference (no orphan techniques). A **selection engine** (`engine/select.py`) takes structured info about two songs — tempo, key, energy, sections, vocals, genre — evaluates every technique's preconditions, and returns ranked candidates with reasons *plus* a "why not" list for the rejects. An **extension grammar** (variants × parameter grids, overlays, chains, compounds) grows the library mechanically toward hundreds of renderable entries.
