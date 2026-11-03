@@ -49,6 +49,16 @@
       "claimed_by": null,
       "claimed_at": null,
       "status": "parked"
+    },
+    {
+      "name": "hymusmusic-chatgpt-serum2-reverse-engineer",
+      "source_name": "ig:hymusmusic (instagram.com/hymusmusic)",
+      "source_url": "https://www.instagram.com/reel/DdYU3VRqAnA/",
+      "summary": "AI reverse-engineering of an iconic synth sound into a Serum 2 preset: pick one instantly recognizable reference sound, ask ChatGPT to reverse-engineer it for Serum 2, feed it a waveform IMAGE (not a .wav \u2014 direct audio upload fails per forum method), receive build instructions and, for Serum, an exportable preset file; load into Serum 2, play solo, then layer in DAW context with bass/kick/vocal and A/B against the original including waveform comparison. Demonstrated on R\u00dcF\u00dcS DU SOL On My Knees (Pt.3 of a ChatGPT x Serum 2 series; Pt.2 Zonderling x Don Diablo No good drew 3436 likes / 3628 comments). Evidence is a machine-generated narrative of the reel plus caption, NOT a transcript or creator-written breakdown, and the exact prompt text and preset parameters were NOT recovered (preset is DM-gated), so the candidate is PARKED per the production verification bar (morsbeats precedent). Series + DM-funnel distribution documented in the study note; never ship the 1:1 copy \u2014 the employable form is parametric VARIANTS around the reference.",
+      "license_note": "Public Instagram post \u2014 learn-from and link only; creator retains rights",
+      "claimed_by": null,
+      "claimed_at": null,
+      "status": "parked"
     }
   ]
 }
