@@ -79,6 +79,16 @@
       "claimed_by": null,
       "claimed_at": null,
       "status": "parked"
+    },
+    {
+      "name": "howthatsongwasmade-middle-child-minimal-beat-piano-sample",
+      "source_name": "ig:howthatsongwasmade (instagram.com/howthatsongwasmade)",
+      "source_url": "https://www.instagram.com/reel/DWR0viREWkZ/",
+      "summary": "DAW-session breakdown of a hit hip-hop track's beat construction: a stripped-back foundation of crisp minimal drums plus a simple piano line, with a chopped older soul sample serving as the melodic hook and space left for the vocal. Transferable point is arrangement restraint \u2014 few elements, each carrying weight \u2014 rather than any preset or sample itself. Evidence is a search summary plus a verified post record (existence and account confirmed via instagram-cli post --url); no full transcript was reviewed, so the candidate is PARKED per the lane's verification bar.",
+      "license_note": "Public Instagram post \u2014 learn-from and link only; creator retains rights",
+      "claimed_by": null,
+      "claimed_at": null,
+      "status": "parked"
     }
   ]
 }
