@@ -99,6 +99,36 @@
       "claimed_by": null,
       "claimed_at": null,
       "status": "parked"
+    },
+    {
+      "name": "thetokenwise-bass-kick-turn-taking",
+      "source_name": "ig:thetokenwise (instagram.com/thetokenwise)",
+      "source_url": "https://www.instagram.com/reel/DfUc2HWROjL/",
+      "summary": "Tech-house low-end placement rule from the creator's 2026-11-04 explainer: keep bass notes off the kick hits and place them on the 16th-note gaps between kicks; the alternation creates bounce and clears low-end mud, with sidechain compression as the final glue. Stated at 130 BPM in A minor, and corroborated by the page's drum posts repeatedly placing bass in the gaps rather than on the kick. Sidechain depth, release, and routing are unstated. First-party caption evidence.",
+      "license_note": "Public Instagram post \u2014 learn-from and link only; creator retains rights",
+      "claimed_by": null,
+      "claimed_at": null,
+      "status": "proposed"
+    },
+    {
+      "name": "thetokenwise-tech-house-breakdown-chain",
+      "source_name": "ig:thetokenwise (instagram.com/thetokenwise)",
+      "source_url": "https://www.instagram.com/reel/DfTZ1nHx_lf/",
+      "summary": "Six-device tech-house breakdown chain from the creator's 2026-11-03 tutorial: pull kick and bass, marking the break with an impact and a downlifter; move the chord bed from the Cm9 drop chord through Cm9, Abmaj9, Fm9, Gm7; open a filter slowly so the pad brightens bar by bar; accelerate a clap roll from quarters to 8ths to 16ths; layer a riser across the mix; end with a reverse cymbal into half a beat of silence, then impact plus crash on the drop. Bar counts per stage and the riser construction are unstated. First-party caption evidence.",
+      "license_note": "Public Instagram post \u2014 learn-from and link only; creator retains rights",
+      "claimed_by": null,
+      "claimed_at": null,
+      "status": "proposed"
+    },
+    {
+      "name": "thetokenwise-ukg-skip-swing",
+      "source_name": "ig:thetokenwise (instagram.com/thetokenwise)",
+      "source_url": "https://www.instagram.com/reel/DfTla8LRzaG/",
+      "summary": "UK garage skip feel from the creator's 2026-11-03 explainer: push every other 16th note late at 67% swing and drop the kick on beat 3 (2-step pattern); the combination produces the skipping feel, while the same hats played straight on the grid sound stiff. Stated at 132 BPM with a 2-step kick, corroborated by the page's garage-shuffle post at the same 67% swing with a four-on-the-floor kick variant. Which hats and percussion layers carry the swing beyond every other 16th is not itemized. First-party caption evidence.",
+      "license_note": "Public Instagram post \u2014 learn-from and link only; creator retains rights",
+      "claimed_by": null,
+      "claimed_at": null,
+      "status": "proposed"
     }
   ]
 }

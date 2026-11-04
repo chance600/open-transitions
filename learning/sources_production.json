@@ -516,5 +516,12 @@
     "license_note": "Public Instagram post — learn-from and link only; creator retains rights",
     "name": "ig:hymusmusic (instagram.com/hymusmusic)",
     "url": "https://www.instagram.com/"
+  },
+  {
+    "free_public": true,
+    "kind": "account",
+    "license_note": "Public Instagram post — learn-from and link only; creator retains rights",
+    "name": "ig:thetokenwise (instagram.com/thetokenwise)",
+    "url": "https://www.instagram.com/"
   }
 ]
