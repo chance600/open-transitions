@@ -89,6 +89,16 @@
       "claimed_by": null,
       "claimed_at": null,
       "status": "parked"
+    },
+    {
+      "name": "imtrvcy-fuze-remix-second-drop-fm-bass-build",
+      "source_name": "ig:imtrvcy (instagram.com/imtrvcy)",
+      "source_url": "https://www.instagram.com/reel/DfUut_ou4Tt/",
+      "summary": "DAW-session breakdown of the second drop of the creator's Fuze remix in Ableton Live: a basic FM bass as the core element, beefed up with overdrive, EQ and saturation, then shaped with a shifter, automated reverb throws and pitch shifting, plus a sub-bass layer and transient shaping, finished through a master chain. Transferable point is the simple-core-plus-processing drop build, not any preset or sample itself. Evidence is a verified post record (existence and account confirmed via instagram-cli post --url) plus a media-understanding summary; no full transcript was reviewed, so the candidate is PARKED per the lane's verification bar.",
+      "license_note": "Public Instagram post \u2014 learn-from and link only; creator retains rights",
+      "claimed_by": null,
+      "claimed_at": null,
+      "status": "parked"
     }
   ]
 }
